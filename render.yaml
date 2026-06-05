@@ -59,6 +59,20 @@ services:
 envVarGroups:
   - name: undercut-secrets
     envVars:
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false
+      - key: STRIPE_PRICE_STARTER
+        sync: false
+      - key: STRIPE_PRICE_PRO
+        sync: false
+      - key: STRIPE_PRICE_SCALE
+        sync: false
+      - key: PUBLIC_APP_URL
+        sync: false
       - key: ANTHROPIC_API_KEY
         sync: false
       - key: EBAY_APP_ID
