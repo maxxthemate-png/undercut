@@ -37,8 +37,8 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://yourdomain.com"],
-    allow_credentials=True,
+    allow_origins=["*"],  # public API; auth is a Bearer JWT (no cookies), so wildcard origin is safe
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
