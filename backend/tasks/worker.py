@@ -38,42 +38,43 @@ celery_app.conf.update(
 
 # ─── Scheduled Tasks ──────────────────────────────────────────────────────────
 
+# UNDERCUT repricer — the only scheduled job that runs in production by default.
 celery_app.conf.beat_schedule = {
-    # Scrape marketplace every 45 minutes
-    "scrape-marketplace": {
-        "task": "tasks.worker.run_marketplace_scan",
-        "schedule": crontab(minute="*/45"),
-    },
-    # Check for seller replies every 20 minutes
-    "check-replies": {
-        "task": "tasks.worker.check_seller_replies",
-        "schedule": crontab(minute="*/20"),
-    },
-    # Send queued DMs (runs every 30 min — respects daily cap)
-    "send-queued-dms": {
-        "task": "tasks.worker.send_queued_dms",
-        "schedule": crontab(minute="*/30"),
-    },
-    # Cross-post agreed listings to premium platforms (the revenue step)
-    "process-platform-postings": {
-        "task": "tasks.worker.process_platform_postings",
-        "schedule": crontab(minute="*/15"),
-    },
     "reprice-all": {
         "task": "tasks.worker.reprice_all_task",
         "schedule": crontab(minute="*/15"),
     },
-    # Daily stats report at 8am
-    "daily-report": {
-        "task": "tasks.worker.send_daily_report",
-        "schedule": crontab(hour=8, minute=0),
-    },
-    # Clean up expired listings weekly
-    "cleanup-expired": {
-        "task": "tasks.worker.cleanup_expired_listings",
-        "schedule": crontab(minute=0, day_of_week=0, hour=2),  # Sunday 2:00am (once, not every minute)
-    },
 }
+
+# Legacy FB->eBay arbitrage jobs — OFF by default. A deployed repricer must NOT log
+# into Facebook or run the old pipeline. Enable only with ENABLE_LEGACY_ARBITRAGE=true.
+if settings.ENABLE_LEGACY_ARBITRAGE:
+    celery_app.conf.beat_schedule.update({
+        "scrape-marketplace": {
+            "task": "tasks.worker.run_marketplace_scan",
+            "schedule": crontab(minute="*/45"),
+        },
+        "check-replies": {
+            "task": "tasks.worker.check_seller_replies",
+            "schedule": crontab(minute="*/20"),
+        },
+        "send-queued-dms": {
+            "task": "tasks.worker.send_queued_dms",
+            "schedule": crontab(minute="*/30"),
+        },
+        "process-platform-postings": {
+            "task": "tasks.worker.process_platform_postings",
+            "schedule": crontab(minute="*/15"),
+        },
+        "daily-report": {
+            "task": "tasks.worker.send_daily_report",
+            "schedule": crontab(hour=8, minute=0),
+        },
+        "cleanup-expired": {
+            "task": "tasks.worker.cleanup_expired_listings",
+            "schedule": crontab(minute=0, day_of_week=0, hour=2),
+        },
+    })
 
 
 # ─── System Pause Check ────────────────────────────────────────────────────────

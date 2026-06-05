@@ -37,11 +37,15 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: Optional[str] = None
 
     # Facebook
-    FB_EMAIL: str
-    FB_PASSWORD: str
+    FB_EMAIL: Optional[str] = None      # legacy (FB arbitrage) — not used by the repricer
+    FB_PASSWORD: Optional[str] = None   # legacy — Optional so UNDERCUT boots without FB creds
     FB_DAILY_DM_LIMIT: int = 15
     FB_ACCOUNT_2_EMAIL: Optional[str] = None
     FB_ACCOUNT_2_PASSWORD: Optional[str] = None
+
+    # Legacy FB->eBay arbitrage pipeline — OFF by default. A deployed repricer must
+    # never run the old Facebook scraping/DM jobs. Flip true only to run legacy.
+    ENABLE_LEGACY_ARBITRAGE: bool = False
 
     # Proxy
     PROXY_URL: Optional[str] = None
