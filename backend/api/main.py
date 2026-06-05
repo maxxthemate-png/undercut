@@ -49,8 +49,9 @@ os.makedirs(os.path.join(_STATIC_DIR, "contracts"), exist_ok=True)
 app.mount("/static", StaticFiles(directory=_STATIC_DIR), name="static")
 
 # Repricer (eBay repricing SaaS) routes
-from .repricer_routes import router as repricer_router
+from .repricer_routes import router as repricer_router, public_router as repricer_public_router
 app.include_router(repricer_router)
+app.include_router(repricer_public_router)
 
 
 # ─── Request models ───────────────────────────────────────────────────────────

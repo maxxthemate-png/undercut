@@ -47,6 +47,9 @@ class Settings(BaseSettings):
     # never run the old Facebook scraping/DM jobs. Flip true only to run legacy.
     ENABLE_LEGACY_ARBITRAGE: bool = False
 
+    # Gates the /api/repricer admin+data routes. Set in prod; unset locally = open.
+    UNDERCUT_API_KEY: Optional[str] = None
+
     # Proxy
     PROXY_URL: Optional[str] = None
     PROXY_ENABLED: bool = False

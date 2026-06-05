@@ -75,3 +75,5 @@ envVarGroups:
         value: "false"
       - key: SECRET_KEY
         generateValue: true
+      - key: UNDERCUT_API_KEY        # copy this generated value into the dashboard's env too
+        generateValue: true

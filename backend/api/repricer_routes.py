@@ -1,6 +1,6 @@
 """Repricer API — connect a store, import listings, set rules, run repricing."""
 import uuid
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Header
 from pydantic import BaseModel
 from sqlalchemy import select, desc
 from sqlalchemy.orm import Session
@@ -12,7 +12,19 @@ from ..services import ebay_oauth
 from ..utils.settings import settings
 from datetime import datetime, timedelta
 
-router = APIRouter(prefix="/api/repricer", tags=["repricer"])
+
+def require_api_key(x_api_key: str | None = Header(default=None, alias="X-API-Key")):
+    """Gate admin/data routes behind UNDERCUT_API_KEY (enforced only when it is set,
+    so prod is protected via render.yaml while local dev stays open)."""
+    expected = settings.UNDERCUT_API_KEY
+    if expected and x_api_key != expected:
+        raise HTTPException(status_code=401, detail="invalid or missing X-API-Key")
+
+
+# Protected: store / listing / rule / run / price-changes / oauth-login.
+router = APIRouter(prefix="/api/repricer", tags=["repricer"], dependencies=[Depends(require_api_key)])
+# Public: only the eBay OAuth callback (eBay redirects here and can't send our header).
+public_router = APIRouter(prefix="/api/repricer", tags=["repricer-public"])
 
 
 def _uuid(v):
@@ -148,7 +160,7 @@ def oauth_login():
     return {"configured": True, "url": ebay_oauth.build_consent_url()}
 
 
-@router.get("/oauth/callback")
+@public_router.get("/oauth/callback")
 async def oauth_callback(code: str, db: Session = Depends(get_db)):
     tok = await ebay_oauth.exchange_code(code)
     if "access_token" not in tok:
