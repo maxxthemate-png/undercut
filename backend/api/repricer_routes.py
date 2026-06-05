@@ -1,29 +1,23 @@
-"""Repricer API — connect a store, import listings, set rules, run repricing."""
+"""Repricer API — per-user (multi-tenant). Every store/listing is scoped to the
+logged-in user (JWT). The eBay OAuth callback ties the connected store to the
+user who started the flow (via the `state` param). Plan listing-limit enforced.
+"""
 import uuid
-from fastapi import APIRouter, Depends, HTTPException, Header
+from datetime import datetime, timedelta
+
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
-from sqlalchemy import select, desc
+from sqlalchemy import select, desc, func
 from sqlalchemy.orm import Session
 
 from ..models.database import get_db
-from ..models.repricer_models import Store, RepricerListing, PriceChange
+from ..models.repricer_models import Store, RepricerListing, PriceChange, User
 from ..services.ebay_store import EbayStoreClient
 from ..services import ebay_oauth
-from ..utils.settings import settings
-from datetime import datetime, timedelta
+from ..services.auth import current_user
 
-
-def require_api_key(x_api_key: str | None = Header(default=None, alias="X-API-Key")):
-    """Gate admin/data routes behind UNDERCUT_API_KEY (enforced only when it is set,
-    so prod is protected via render.yaml while local dev stays open)."""
-    expected = settings.UNDERCUT_API_KEY
-    if expected and x_api_key != expected:
-        raise HTTPException(status_code=401, detail="invalid or missing X-API-Key")
-
-
-# Protected: store / listing / rule / run / price-changes / oauth-login.
-router = APIRouter(prefix="/api/repricer", tags=["repricer"], dependencies=[Depends(require_api_key)])
-# Public: only the eBay OAuth callback (eBay redirects here and can't send our header).
+router = APIRouter(prefix="/api/repricer", tags=["repricer"])
+# Public: only the eBay OAuth callback (eBay redirects here; can't send our auth header).
 public_router = APIRouter(prefix="/api/repricer", tags=["repricer-public"])
 
 
@@ -45,10 +39,45 @@ def _listing_dict(l: RepricerListing) -> dict:
     }
 
 
+def _own_store(db: Session, user: User, store_id: str) -> Store:
+    s = db.get(Store, _uuid(store_id))
+    if not s or s.user_id != user.id:
+        raise HTTPException(status_code=404, detail="store not found")
+    return s
+
+
+def _listing_count(db: Session, user: User) -> int:
+    return db.scalar(
+        select(func.count()).select_from(RepricerListing)
+        .join(Store, RepricerListing.store_id == Store.id)
+        .where(Store.user_id == user.id)) or 0
+
+
+async def _sync_store_listings(db: Session, store: Store, remaining: int) -> dict:
+    """Import a store's eBay listings, creating up to `remaining` new ones (plan cap)."""
+    client = EbayStoreClient(user_token=store.oauth_access_token or None)
+    items = await client.get_active_listings()
+    created = updated = skipped = 0
+    for it in items:
+        existing = db.scalar(select(RepricerListing).where(
+            RepricerListing.store_id == store.id, RepricerListing.ebay_item_id == it["ebay_item_id"]))
+        if existing:
+            existing.current_price = it["price"]; existing.title = it["title"]
+            existing.quantity = it["quantity"]; updated += 1
+        elif remaining > 0:
+            db.add(RepricerListing(store_id=store.id, ebay_item_id=it["ebay_item_id"], title=it["title"],
+                                   sku=it["sku"], category_id=it["category_id"],
+                                   current_price=it["price"], quantity=it["quantity"])); created += 1; remaining -= 1
+        else:
+            skipped += 1
+    db.commit()
+    return {"imported": created, "updated": updated, "skipped_over_plan_limit": skipped, "total": len(items)}
+
+
 class StoreIn(BaseModel):
     name: str
     ebay_user_id: str | None = None
-    user_token: str | None = None     # manual token for now; OAuth flow later
+    user_token: str | None = None     # manual token (OAuth is the primary path)
 
 
 class RuleIn(BaseModel):
@@ -61,8 +90,8 @@ class RuleIn(BaseModel):
 
 
 @router.get("/stores")
-def list_stores(db: Session = Depends(get_db)):
-    rows = db.scalars(select(Store)).all()
+def list_stores(user: User = Depends(current_user), db: Session = Depends(get_db)):
+    rows = db.scalars(select(Store).where(Store.user_id == user.id)).all()
     return {"stores": [{"id": str(s.id), "name": s.name, "ebay_user_id": s.ebay_user_id,
                         "ai_enabled": s.ai_enabled,
                         "connected_at": s.connected_at.isoformat() if s.connected_at else None}
@@ -70,47 +99,36 @@ def list_stores(db: Session = Depends(get_db)):
 
 
 @router.post("/stores")
-def create_store(body: StoreIn, db: Session = Depends(get_db)):
-    s = Store(name=body.name, ebay_user_id=body.ebay_user_id, oauth_access_token=body.user_token)
+def create_store(body: StoreIn, user: User = Depends(current_user), db: Session = Depends(get_db)):
+    s = Store(name=body.name, ebay_user_id=body.ebay_user_id,
+              oauth_access_token=body.user_token, user_id=user.id)
     db.add(s); db.commit(); db.refresh(s)
     return {"id": str(s.id), "name": s.name}
 
 
 @router.post("/stores/{store_id}/import")
-async def import_listings(store_id: str, db: Session = Depends(get_db)):
-    s = db.get(Store, _uuid(store_id))
-    if not s:
-        raise HTTPException(status_code=404, detail="store not found")
-    client = EbayStoreClient(user_token=s.oauth_access_token or None)
-    items = await client.get_active_listings()
-    created = updated = 0
-    for it in items:
-        existing = db.scalar(select(RepricerListing).where(
-            RepricerListing.store_id == s.id, RepricerListing.ebay_item_id == it["ebay_item_id"]))
-        if existing:
-            existing.current_price = it["price"]; existing.title = it["title"]
-            existing.quantity = it["quantity"]; updated += 1
-        else:
-            db.add(RepricerListing(store_id=s.id, ebay_item_id=it["ebay_item_id"], title=it["title"],
-                                   sku=it["sku"], category_id=it["category_id"],
-                                   current_price=it["price"], quantity=it["quantity"])); created += 1
-    db.commit()
-    return {"imported": created, "updated": updated, "total": len(items)}
+async def import_listings(store_id: str, user: User = Depends(current_user), db: Session = Depends(get_db)):
+    s = _own_store(db, user, store_id)
+    remaining = max(0, (user.listing_limit or 0) - _listing_count(db, user))
+    return await _sync_store_listings(db, s, remaining)
 
 
 @router.get("/listings")
-def list_listings(store_id: str | None = None, db: Session = Depends(get_db)):
-    q = select(RepricerListing)
+def list_listings(store_id: str | None = None, user: User = Depends(current_user), db: Session = Depends(get_db)):
+    q = (select(RepricerListing).join(Store, RepricerListing.store_id == Store.id)
+         .where(Store.user_id == user.id))
     if store_id:
         q = q.where(RepricerListing.store_id == _uuid(store_id))
     rows = db.scalars(q).all()
-    return {"listings": [_listing_dict(l) for l in rows], "total": len(rows)}
+    return {"listings": [_listing_dict(l) for l in rows], "total": len(rows),
+            "listing_limit": user.listing_limit, "plan": user.plan}
 
 
 @router.put("/listings/{listing_id}/rule")
-def set_rule(listing_id: str, body: RuleIn, db: Session = Depends(get_db)):
+def set_rule(listing_id: str, body: RuleIn, user: User = Depends(current_user), db: Session = Depends(get_db)):
     l = db.get(RepricerListing, _uuid(listing_id))
-    if not l:
+    store = db.get(Store, l.store_id) if l else None
+    if not l or not store or store.user_id != user.id:
         raise HTTPException(status_code=404, detail="listing not found")
     for field in ("floor_price", "ceiling_price", "undercut_value", "undercut_type",
                   "ai_enabled", "repricing_enabled"):
@@ -122,52 +140,45 @@ def set_rule(listing_id: str, body: RuleIn, db: Session = Depends(get_db)):
 
 
 @router.post("/run")
-async def run_reprice():
+async def run_reprice(user: User = Depends(current_user), db: Session = Depends(get_db)):
+    store_ids = [s.id for s in db.scalars(select(Store).where(Store.user_id == user.id)).all()]
+    if not store_ids:
+        return {"checked": 0, "repriced": 0, "results": []}
     from ..services.reprice_service import reprice_all
-    return await reprice_all()
+    return await reprice_all(store_ids=store_ids)
 
 
 @router.get("/price-changes")
-def price_changes(limit: int = 50, db: Session = Depends(get_db)):
-    rows = db.scalars(select(PriceChange).order_by(desc(PriceChange.created_at)).limit(limit)).all()
+def price_changes(limit: int = 50, user: User = Depends(current_user), db: Session = Depends(get_db)):
+    rows = db.scalars(
+        select(PriceChange).join(RepricerListing, PriceChange.listing_id == RepricerListing.id)
+        .join(Store, RepricerListing.store_id == Store.id)
+        .where(Store.user_id == user.id)
+        .order_by(desc(PriceChange.created_at)).limit(limit)).all()
     return {"changes": [{"listing_id": str(c.listing_id), "old_price": c.old_price,
                          "new_price": c.new_price, "competitor_low": c.competitor_low,
                          "source": c.source, "reason": c.reason,
                          "at": c.created_at.isoformat() if c.created_at else None} for c in rows]}
 
 
-
-async def _sync_store_listings(db: Session, store: Store) -> dict:
-    client = EbayStoreClient(user_token=store.oauth_access_token or None)
-    items = await client.get_active_listings()
-    created = 0
-    for it in items:
-        existing = db.scalar(select(RepricerListing).where(
-            RepricerListing.store_id == store.id, RepricerListing.ebay_item_id == it["ebay_item_id"]))
-        if existing:
-            existing.current_price = it["price"]; existing.title = it["title"]; existing.quantity = it["quantity"]
-        else:
-            db.add(RepricerListing(store_id=store.id, ebay_item_id=it["ebay_item_id"], title=it["title"],
-                                   sku=it["sku"], category_id=it["category_id"],
-                                   current_price=it["price"], quantity=it["quantity"])); created += 1
-    db.commit()
-    return {"imported": created, "total": len(items)}
-
 @router.get("/oauth/login")
-def oauth_login():
+def oauth_login(user: User = Depends(current_user)):
     if not ebay_oauth.is_configured():
-        return {"configured": False, "message": "Set EBAY_RU_NAME in .env + add the redirect in your eBay developer app."}
-    return {"configured": True, "url": ebay_oauth.build_consent_url()}
+        return {"configured": False, "message": "EBAY_RU_NAME not set — add it in env + your eBay app."}
+    # state ties the connected store back to this user in the callback
+    return {"configured": True, "url": ebay_oauth.build_consent_url(state=str(user.id))}
 
 
 @public_router.get("/oauth/callback")
-async def oauth_callback(code: str, db: Session = Depends(get_db)):
+async def oauth_callback(code: str, state: str | None = None, db: Session = Depends(get_db)):
     tok = await ebay_oauth.exchange_code(code)
     if "access_token" not in tok:
         raise HTTPException(status_code=400, detail=f"token exchange failed: {tok}")
-    s = Store(name="eBay Store", oauth_access_token=tok["access_token"],
-              oauth_refresh_token=tok.get("refresh_token"),
+    user = db.get(User, _uuid(state)) if state else None
+    s = Store(name="eBay Store", user_id=(user.id if user else None),
+              oauth_access_token=tok["access_token"], oauth_refresh_token=tok.get("refresh_token"),
               token_expires_at=datetime.utcnow() + timedelta(seconds=int(tok.get("expires_in", 7200))))
     db.add(s); db.commit(); db.refresh(s)
-    imp = await _sync_store_listings(db, s)
+    remaining = max(0, (user.listing_limit - _listing_count(db, user))) if user else 25
+    imp = await _sync_store_listings(db, s, remaining)
     return {"connected": True, "store_id": str(s.id), **imp}

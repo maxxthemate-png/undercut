@@ -82,13 +82,14 @@ async def _ensure_fresh_token(db, store) -> None:
             logger.info("refreshed eBay token", store=str(store.id))
 
 
-async def reprice_all() -> dict:
-    """Reprice every enabled listing across all stores."""
+async def reprice_all(store_ids: list | None = None) -> dict:
+    """Reprice every enabled listing (optionally limited to specific stores)."""
     db = SessionLocal()
     try:
-        listings = db.scalars(
-            select(RepricerListing).where(RepricerListing.repricing_enabled.is_(True))
-        ).all()
+        q = select(RepricerListing).where(RepricerListing.repricing_enabled.is_(True))
+        if store_ids:
+            q = q.where(RepricerListing.store_id.in_(store_ids))
+        listings = db.scalars(q).all()
         by_store: dict = defaultdict(list)
         for l in listings:
             by_store[l.store_id].append(l)

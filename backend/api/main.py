@@ -52,6 +52,8 @@ app.mount("/static", StaticFiles(directory=_STATIC_DIR), name="static")
 from .repricer_routes import router as repricer_router, public_router as repricer_public_router
 app.include_router(repricer_router)
 app.include_router(repricer_public_router)
+from .auth_routes import router as auth_router
+app.include_router(auth_router)
 
 
 # ─── Request models ───────────────────────────────────────────────────────────

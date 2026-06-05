@@ -16,11 +16,31 @@ from sqlalchemy.orm import relationship
 from .models import Base
 
 
+class User(Base):
+    """A SaaS customer — the multi-tenant owner of Stores."""
+    __tablename__ = "users"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    email = Column(String(255), unique=True, nullable=False, index=True)
+    password_hash = Column(String(255), nullable=False)
+
+    plan = Column(String(20), default="free")          # free | starter | pro | scale
+    listing_limit = Column(Integer, default=25)
+    stripe_customer_id = Column(String(100))
+    stripe_subscription_id = Column(String(100))
+
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    stores = relationship("Store", back_populates="user")
+
+
 class Store(Base):
     """A connected eBay seller account (one tenant)."""
     __tablename__ = "stores"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), index=True)
     name = Column(String(200))
     ebay_user_id = Column(String(100), index=True)
 
@@ -38,6 +58,7 @@ class Store(Base):
     connected_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+    user = relationship("User", back_populates="stores")
     listings = relationship("RepricerListing", back_populates="store")
 
 
