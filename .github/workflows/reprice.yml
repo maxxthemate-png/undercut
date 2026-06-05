@@ -1,0 +1,21 @@
+name: reprice
+# Free-tier scheduler: hits the backend's service-key cron endpoint every 15 min,
+# which reprices every connected store. Replaces a paid Celery worker/beat.
+# Requires repo secrets: API_URL (deployed backend base URL) and CRON_KEY (= UNDERCUT_API_KEY).
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch: {}
+
+jobs:
+  reprice:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger reprice-all
+        run: |
+          curl -fsS -X POST "$API_URL/api/repricer/cron/reprice-all" \
+            -H "X-Cron-Key: $CRON_KEY" \
+            --max-time 290 -w '\nHTTP %{http_code}\n'
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          CRON_KEY: ${{ secrets.CRON_KEY }}

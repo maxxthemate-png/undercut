@@ -5,7 +5,7 @@ user who started the flow (via the `state` param). Plan listing-limit enforced.
 import uuid
 from datetime import datetime, timedelta
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Header
 from pydantic import BaseModel
 from sqlalchemy import select, desc, func
 from sqlalchemy.orm import Session
@@ -182,3 +182,14 @@ async def oauth_callback(code: str, state: str | None = None, db: Session = Depe
     remaining = max(0, (user.listing_limit - _listing_count(db, user))) if user else 25
     imp = await _sync_store_listings(db, s, remaining)
     return {"connected": True, "store_id": str(s.id), **imp}
+
+
+@public_router.post("/cron/reprice-all")
+async def cron_reprice_all(x_cron_key: str | None = Header(default=None)):
+    """Service-key-protected global repricer. Called every 15 min by the scheduled
+    GitHub Action (free-tier alternative to a Celery beat worker) — reprices every store."""
+    from ..utils.settings import settings
+    if not settings.UNDERCUT_API_KEY or x_cron_key != settings.UNDERCUT_API_KEY:
+        raise HTTPException(status_code=403, detail="invalid cron key")
+    from ..services.reprice_service import reprice_all
+    return await reprice_all()

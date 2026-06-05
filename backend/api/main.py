@@ -199,7 +199,7 @@ async def readiness():
     return {
         "infrastructure": {"database": db_ok, "redis": redis_ok},
         "integrations": integrations,
-        "revenue_ready": db_ok and redis_ok and not blocking,
+        "revenue_ready": db_ok and not blocking,  # redis optional: free-tier deploy reprices via scheduled GitHub Action, not Celery
         "blocking_revenue": blocking,
         "next_step": ("All set — POST /api/system/run-scan to start the pipeline."
                       if not blocking else
