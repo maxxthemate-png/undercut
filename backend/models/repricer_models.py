@@ -1,0 +1,99 @@
+"""Repricer domain models (multi-tenant eBay repricing SaaS).
+
+Each Store is one connected eBay seller. RepricerListing is one of their
+listings under price automation. PriceChange + CompetitorSnapshot are audit
+trails. Uses the same declarative Base as the rest of the app.
+"""
+import uuid
+from datetime import datetime
+
+from sqlalchemy import (
+    Column, String, Integer, Float, Boolean, DateTime, Text, ForeignKey
+)
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
+
+from .models import Base
+
+
+class Store(Base):
+    """A connected eBay seller account (one tenant)."""
+    __tablename__ = "stores"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name = Column(String(200))
+    ebay_user_id = Column(String(100), index=True)
+
+    # OAuth tokens for this seller's eBay account
+    oauth_access_token = Column(Text)
+    oauth_refresh_token = Column(Text)
+    token_expires_at = Column(DateTime)
+
+    is_active = Column(Boolean, default=True)
+    # account-level defaults (per-listing rules can override)
+    ai_enabled = Column(Boolean, default=True)
+    default_undercut_value = Column(Float, default=0.01)
+    default_undercut_type = Column(String(10), default="amount")  # amount | percent
+
+    connected_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    listings = relationship("RepricerListing", back_populates="store")
+
+
+class RepricerListing(Base):
+    """One eBay listing under price automation."""
+    __tablename__ = "repricer_listings"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    store_id = Column(UUID(as_uuid=True), ForeignKey("stores.id"), nullable=False, index=True)
+    store = relationship("Store", back_populates="listings")
+
+    ebay_item_id = Column(String(50), index=True)
+    sku = Column(String(120))
+    title = Column(String(500))
+    category_id = Column(String(20))
+
+    current_price = Column(Float)
+    quantity = Column(Integer, default=1)
+
+    # pricing rule (per listing)
+    floor_price = Column(Float)            # hard minimum — never price below
+    ceiling_price = Column(Float)          # optional maximum
+    undercut_value = Column(Float, default=0.01)
+    undercut_type = Column(String(10), default="amount")  # amount | percent
+    ai_enabled = Column(Boolean, default=True)
+    repricing_enabled = Column(Boolean, default=False, index=True)
+
+    last_competitor_low = Column(Float)
+    last_repriced_at = Column(DateTime)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    changes = relationship("PriceChange", back_populates="listing")
+
+
+class PriceChange(Base):
+    """Audit log of every reprice."""
+    __tablename__ = "price_changes"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    listing_id = Column(UUID(as_uuid=True), ForeignKey("repricer_listings.id"), nullable=False, index=True)
+    listing = relationship("RepricerListing", back_populates="changes")
+
+    old_price = Column(Float)
+    new_price = Column(Float)
+    competitor_low = Column(Float)
+    source = Column(String(20))            # rule | ai
+    reason = Column(Text)
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)
+
+
+class CompetitorSnapshot(Base):
+    """Point-in-time competitor pricing for a listing."""
+    __tablename__ = "competitor_snapshots"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    listing_id = Column(UUID(as_uuid=True), ForeignKey("repricer_listings.id"), nullable=False, index=True)
+    lowest_price = Column(Float)
+    listing_count = Column(Integer)
+    fetched_at = Column(DateTime, default=datetime.utcnow, index=True)

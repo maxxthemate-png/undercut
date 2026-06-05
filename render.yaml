@@ -1,0 +1,77 @@
+# Render Blueprint — Undercut eBay repricer backend (API + worker + beat + Postgres + Redis).
+# Dashboard (Next.js) deploys separately on Vercel (set API_URL to the API service URL).
+# Secrets (sync:false) are entered once in the Render dashboard.
+
+databases:
+  - name: undercut-db
+    databaseName: undercut
+    user: undercut
+    plan: basic-256mb
+
+services:
+  - type: keyvalue
+    name: undercut-redis
+    plan: free
+    ipAllowList: []
+
+  - type: web
+    name: undercut-api
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r backend/requirements.txt
+    preDeployCommand: "cd backend && python -m alembic upgrade head"
+    startCommand: uvicorn backend.api.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      - key: DATABASE_URL
+        fromDatabase: { name: undercut-db, property: connectionString }
+      - key: REDIS_URL
+        fromService: { type: keyvalue, name: undercut-redis, property: connectionString }
+      - fromGroup: undercut-secrets
+
+  - type: worker
+    name: undercut-worker
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: celery -A backend.tasks.worker:celery_app worker --loglevel=info --concurrency=2
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase: { name: undercut-db, property: connectionString }
+      - key: REDIS_URL
+        fromService: { type: keyvalue, name: undercut-redis, property: connectionString }
+      - fromGroup: undercut-secrets
+
+  - type: worker
+    name: undercut-beat
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: celery -A backend.tasks.worker:celery_app beat --loglevel=info
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase: { name: undercut-db, property: connectionString }
+      - key: REDIS_URL
+        fromService: { type: keyvalue, name: undercut-redis, property: connectionString }
+      - fromGroup: undercut-secrets
+
+envVarGroups:
+  - name: undercut-secrets
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: EBAY_APP_ID
+        sync: false
+      - key: EBAY_CERT_ID
+        sync: false
+      - key: EBAY_DEV_ID
+        sync: false
+      - key: EBAY_USER_TOKEN
+        sync: false
+      - key: EBAY_RU_NAME
+        sync: false
+      - key: EBAY_SANDBOX
+        value: "false"
+      - key: SECRET_KEY
+        generateValue: true
