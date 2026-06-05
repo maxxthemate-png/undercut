@@ -49,6 +49,14 @@ class Settings(BaseSettings):
 
     # Gates the /api/repricer admin+data routes. Set in prod; unset locally = open.
     UNDERCUT_API_KEY: Optional[str] = None
+    # Stripe billing
+    STRIPE_SECRET_KEY: Optional[str] = None
+    STRIPE_WEBHOOK_SECRET: Optional[str] = None
+    STRIPE_PUBLISHABLE_KEY: Optional[str] = None
+    STRIPE_PRICE_STARTER: Optional[str] = None
+    STRIPE_PRICE_PRO: Optional[str] = None
+    STRIPE_PRICE_SCALE: Optional[str] = None
+    PUBLIC_APP_URL: Optional[str] = None
 
     # Proxy
     PROXY_URL: Optional[str] = None

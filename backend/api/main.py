@@ -54,6 +54,9 @@ app.include_router(repricer_router)
 app.include_router(repricer_public_router)
 from .auth_routes import router as auth_router
 app.include_router(auth_router)
+from .billing_routes import router as billing_router, public_router as billing_public_router
+app.include_router(billing_router)
+app.include_router(billing_public_router)
 
 
 # ─── Request models ───────────────────────────────────────────────────────────
