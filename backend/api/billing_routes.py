@@ -92,6 +92,8 @@ async def webhook(request: Request, db: Session = Depends(get_db)):
             user.stripe_subscription_id = None; db.commit()
         return {"received": True}
 
+    logger.info("webhook debug", etype=etype, customer=customer,
+                user_found=bool(user), plan=plan, cfg_starter=settings.STRIPE_PRICE_STARTER)
     if user and plan:
         user.plan = plan
         user.listing_limit = billing.limit_for_plan(plan)
