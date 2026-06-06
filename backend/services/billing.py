@@ -3,6 +3,8 @@
 Plans map to a Stripe price (set via env) and a listing limit. The webhook
 keeps each User's plan + listing_limit in sync with their Stripe subscription.
 """
+import json
+
 import stripe
 
 from ..utils.settings import settings
@@ -66,4 +68,8 @@ def create_portal_session(customer_id: str, return_url: str) -> str:
 
 
 def construct_event(payload: bytes, sig_header: str):
-    return stripe.Webhook.construct_event(payload, sig_header, settings.STRIPE_WEBHOOK_SECRET)
+    # Verify the Stripe signature for authenticity, but return a plain dict:
+    # some stripe-python versions return objects without dict-style .get(), which
+    # the webhook handler relies on. json.loads on the already-verified payload is safe.
+    stripe.Webhook.construct_event(payload, sig_header, settings.STRIPE_WEBHOOK_SECRET)
+    return json.loads(payload)
