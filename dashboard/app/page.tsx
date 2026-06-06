@@ -15,6 +15,7 @@ export default function Landing() {
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <span className="font-bold text-lg">Undercut</span>
           <div className="flex items-center gap-4 text-sm">
+            <Link href="/compare" className="text-gray-600 hover:text-gray-900">Compare</Link>
             <Link href="/login" className="text-gray-600 hover:text-gray-900">Log in</Link>
             <Link href="/signup" className="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free</Link>
           </div>
@@ -67,6 +68,10 @@ export default function Landing() {
       </section>
 
       <footer className="border-t border-gray-100 py-8 text-center text-sm text-gray-400">
+        <div className="flex items-center justify-center gap-4 mb-2">
+          <Link href="/compare" className="hover:text-gray-600">Compare repricers</Link>
+          <Link href="/login" className="hover:text-gray-600">Log in</Link>
+        </div>
         © Undercut — automated eBay repricing.
       </footer>
     </div>
