@@ -71,11 +71,5 @@ def construct_event(payload: bytes, sig_header: str):
     # Verify the Stripe signature for authenticity, but return a plain dict:
     # some stripe-python versions return objects without dict-style .get(), which
     # the webhook handler relies on. json.loads on the already-verified payload is safe.
-    try:
-        stripe.Webhook.construct_event(payload, sig_header, settings.STRIPE_WEBHOOK_SECRET)
-    except Exception as e:
-        logger.error("sig verify FAILED", err=str(e)[:160],
-                     secret=(settings.STRIPE_WEBHOOK_SECRET or "")[:14],
-                     siglen=len(sig_header or ""), plen=len(payload or b""))
-        raise
+    stripe.Webhook.construct_event(payload, sig_header, settings.STRIPE_WEBHOOK_SECRET)
     return json.loads(payload)
