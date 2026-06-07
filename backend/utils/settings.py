@@ -23,6 +23,7 @@ class Settings(BaseSettings):
     AUTONOMY_LEVEL: int = 1
     ENVIRONMENT: str = "development"
     SECRET_KEY: str = "change-me"
+    TOKEN_ENC_KEY: Optional[str] = None   # Fernet key — encrypts seller OAuth tokens at rest
 
     # Database
     DATABASE_URL: str

@@ -24,10 +24,11 @@ class User(Base):
     email = Column(String(255), unique=True, nullable=False, index=True)
     password_hash = Column(String(255), nullable=False)
 
-    plan = Column(String(20), default="free")          # free | starter | pro | scale
+    plan = Column(String(20), default="free")          # trial | free | starter | pro | scale
     listing_limit = Column(Integer, default=25)
     stripe_customer_id = Column(String(100))
     stripe_subscription_id = Column(String(100))
+    trial_ends_at = Column(DateTime)                   # founding-trial expiry (no-card); NULL = not on trial
 
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)

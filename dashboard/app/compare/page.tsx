@@ -13,7 +13,7 @@ export const metadata = {
 type Row = { label: string; undercut: string; street: string; rex: string; informed: string }
 
 const ROWS: Row[] = [
-  { label: 'Price to start', undercut: 'Free (25 listings), then $29/mo', street: 'Paid plans', rex: 'Higher-tier, multi-channel', informed: 'Enterprise / custom' },
+  { label: 'Price to start', undercut: '14-day trial free (no card) — then Free (25) or $29/mo', street: 'Paid plans', rex: 'Higher-tier, multi-channel', informed: 'Enterprise / custom' },
   { label: 'Per-item hard floor', undercut: 'Core feature — set in seconds', street: 'Supported', rex: 'Supported', informed: 'Supported' },
   { label: 'Setup', undercut: '1-click eBay connect, live in minutes', street: 'Moderate', rex: 'Multi-channel config', informed: 'Onboarding / sales call' },
   { label: 'AI aggressiveness tuning', undercut: 'Yes (Pro) — won’t race to the bottom', street: 'Rule-based', rex: 'Rule-based', informed: 'Advanced' },
@@ -23,7 +23,7 @@ const ROWS: Row[] = [
 
 const FAQ: [string, string][] = [
   ['Will it race my prices to the bottom?', 'No — that’s the whole point of the floor. You set a minimum price per item (cost + fees + the smallest margin you’ll accept). Undercut only competes in the band above it and will never list or reprice below your floor.'],
-  ['Do I need a credit card to start?', 'No. The free tier covers 25 listings with no card. Paid plans add volume, AI tuning, and faster repricing.'],
+  ['Do I need a credit card to start?', 'No. Every account starts with a 14-day Founding trial — full Starter features (100 listings), no card. After it ends you stay free (25 listings) or upgrade. Paid plans add volume, AI tuning, and faster repricing.'],
   ['How fast does it reprice?', 'Hourly on Free/Starter, every 15 minutes on Pro, every 5 minutes on Scale.'],
   ['How does it pick the price?', 'It tracks the lowest competitor on the same item and undercuts to win the sale — then clamps to your floor. On Pro, AI tunes how aggressive to be so you keep margin instead of giving it away.'],
   ['What does it cost as I grow?', 'Free (25), Starter $29 (100), Pro $79 (1,000), Scale $199 (10,000 listings). Cancel anytime.'],
@@ -59,7 +59,7 @@ export default function Compare() {
           automatically without ever racing to the bottom.
         </p>
         <div className="mt-8 flex items-center justify-center gap-3">
-          <Link href="/signup" className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free — 25 listings, no card</Link>
+          <Link href="/signup" className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free — 14-day trial, no card</Link>
         </div>
       </section>
 
@@ -117,10 +117,10 @@ export default function Compare() {
       {/* Founding offer */}
       <section className="max-w-4xl mx-auto px-6 py-8">
         <div className="rounded-2xl bg-blue-600 text-white px-8 py-10 text-center">
-          <p className="text-xs font-semibold uppercase tracking-wide text-blue-100">Founding 10</p>
-          <h2 className="mt-2 text-2xl md:text-3xl font-extrabold">First 10 sellers get Pro free for 60 days.</h2>
-          <p className="mt-3 text-blue-100">No credit card. All we ask is honest feedback — and a testimonial if you love it.</p>
-          <Link href="/signup" className="inline-block mt-6 px-6 py-3 rounded-lg bg-white text-blue-700 font-semibold hover:bg-blue-50">Claim a founding spot</Link>
+          <p className="text-xs font-semibold uppercase tracking-wide text-blue-100">Founding trial</p>
+          <h2 className="mt-2 text-2xl md:text-3xl font-extrabold">Every new seller gets 14 days of Starter, free.</h2>
+          <p className="mt-3 text-blue-100">Full repricing on up to 100 listings — no credit card. All we ask is honest feedback, and a testimonial if you love it.</p>
+          <Link href="/signup" className="inline-block mt-6 px-6 py-3 rounded-lg bg-white text-blue-700 font-semibold hover:bg-blue-50">Start your free trial</Link>
         </div>
       </section>
 
@@ -136,7 +136,7 @@ export default function Compare() {
           ))}
         </div>
         <div className="text-center mt-10">
-          <Link href="/signup" className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free — 25 listings</Link>
+          <Link href="/signup" className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free — 14-day trial, no card</Link>
         </div>
       </section>
 

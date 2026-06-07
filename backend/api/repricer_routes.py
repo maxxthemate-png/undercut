@@ -15,6 +15,8 @@ from ..models.repricer_models import Store, RepricerListing, PriceChange, User
 from ..services.ebay_store import EbayStoreClient
 from ..services import ebay_oauth
 from ..services.auth import current_user, make_oauth_state, verify_oauth_state
+from ..services import billing
+from ..utils.crypto import encrypt_token, decrypt_token
 
 router = APIRouter(prefix="/api/repricer", tags=["repricer"])
 # Public: only the eBay OAuth callback (eBay redirects here; can't send our auth header).
@@ -55,7 +57,7 @@ def _listing_count(db: Session, user: User) -> int:
 
 async def _sync_store_listings(db: Session, store: Store, remaining: int) -> dict:
     """Import a store's eBay listings, creating up to `remaining` new ones (plan cap)."""
-    client = EbayStoreClient(user_token=store.oauth_access_token or None)
+    client = EbayStoreClient(user_token=decrypt_token(store.oauth_access_token) or None)
     items = await client.get_active_listings()
     created = updated = skipped = 0
     for it in items:
@@ -101,7 +103,7 @@ def list_stores(user: User = Depends(current_user), db: Session = Depends(get_db
 @router.post("/stores")
 def create_store(body: StoreIn, user: User = Depends(current_user), db: Session = Depends(get_db)):
     s = Store(name=body.name, ebay_user_id=body.ebay_user_id,
-              oauth_access_token=body.user_token, user_id=user.id)
+              oauth_access_token=encrypt_token(body.user_token), user_id=user.id)
     db.add(s); db.commit(); db.refresh(s)
     return {"id": str(s.id), "name": s.name}
 
@@ -120,8 +122,10 @@ def list_listings(store_id: str | None = None, user: User = Depends(current_user
     if store_id:
         q = q.where(RepricerListing.store_id == _uuid(store_id))
     rows = db.scalars(q).all()
+    if billing.normalize_access(user):   # expire a finished trial -> free
+        db.commit()
     return {"listings": [_listing_dict(l) for l in rows], "total": len(rows),
-            "listing_limit": user.listing_limit, "plan": user.plan}
+            **billing.access_summary(user)}
 
 
 @router.put("/listings/{listing_id}/rule")
@@ -183,7 +187,7 @@ async def oauth_callback(code: str, state: str | None = None, db: Session = Depe
     if "access_token" not in tok:
         raise HTTPException(status_code=400, detail=f"token exchange failed: {tok}")
     s = Store(name="eBay Store", user_id=user.id,
-              oauth_access_token=tok["access_token"], oauth_refresh_token=tok.get("refresh_token"),
+              oauth_access_token=encrypt_token(tok["access_token"]), oauth_refresh_token=encrypt_token(tok.get("refresh_token")),
               token_expires_at=datetime.utcnow() + timedelta(seconds=int(tok.get("expires_in", 7200))))
     db.add(s); db.commit(); db.refresh(s)
     remaining = max(0, user.listing_limit - _listing_count(db, user))

@@ -72,6 +72,17 @@ export default function Dashboard() {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8 space-y-6">
+        {me && me.is_trialing && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-center justify-between">
+            <p className="text-sm text-amber-900">🎉 <b>Founding trial</b> — {me.trial_days_left} day{me.trial_days_left === 1 ? '' : 's'} left · full Starter features ({me.listing_limit} listings), no card. Lock in your plan anytime.</p>
+            <div className="flex gap-2">
+              <button onClick={() => upgrade('starter')} className="px-3 py-1.5 text-sm rounded-lg bg-white border">Starter $29</button>
+              <button onClick={() => upgrade('pro')} className="px-3 py-1.5 text-sm rounded-lg bg-blue-600 text-white">Pro $79</button>
+              <button onClick={() => upgrade('scale')} className="px-3 py-1.5 text-sm rounded-lg bg-white border">Scale $199</button>
+            </div>
+          </div>
+        )}
+
         {me && me.plan === 'free' && (
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center justify-between">
             <p className="text-sm text-blue-900">You're on <b>Free</b> (25 listings). Upgrade for more + 15-min AI repricing.</p>

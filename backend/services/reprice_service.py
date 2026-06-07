@@ -16,6 +16,7 @@ from ..models.repricer_models import Store, RepricerListing, PriceChange, Compet
 from ..services.repricer import PricingInputs, compute_price
 from ..services.ebay_store import EbayStoreClient
 from ..services import ebay_oauth
+from ..utils.crypto import encrypt_token, decrypt_token
 from ..agents.pricing_advisor import recommend_price
 from ..utils.logging import get_logger
 
@@ -74,9 +75,9 @@ async def _ensure_fresh_token(db, store) -> None:
     """Refresh a store's eBay OAuth access token if it has expired."""
     exp = store.token_expires_at
     if store.oauth_refresh_token and exp and exp <= datetime.utcnow():
-        tok = await ebay_oauth.refresh(store.oauth_refresh_token)
+        tok = await ebay_oauth.refresh(decrypt_token(store.oauth_refresh_token))
         if tok.get("access_token"):
-            store.oauth_access_token = tok["access_token"]
+            store.oauth_access_token = encrypt_token(tok["access_token"])
             store.token_expires_at = datetime.utcnow() + timedelta(seconds=int(tok.get("expires_in", 7200)))
             db.commit()
             logger.info("refreshed eBay token", store=str(store.id))
@@ -99,7 +100,7 @@ async def reprice_all(store_ids: list | None = None) -> dict:
             store = db.get(Store, store_id)
             if store:
                 await _ensure_fresh_token(db, store)
-            token = store.oauth_access_token if (store and store.oauth_access_token) else None
+            token = decrypt_token(store.oauth_access_token) if (store and store.oauth_access_token) else None
             client = EbayStoreClient(user_token=token)
             ai_enabled = store.ai_enabled if store else True
             for l in group:

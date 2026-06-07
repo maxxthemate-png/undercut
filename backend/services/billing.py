@@ -4,6 +4,8 @@ Plans map to a Stripe price (set via env) and a listing limit. The webhook
 keeps each User's plan + listing_limit in sync with their Stripe subscription.
 """
 import json
+import math
+from datetime import datetime, timedelta
 
 import stripe
 
@@ -32,6 +34,54 @@ def public_plans() -> list[dict]:
 
 def limit_for_plan(plan: str) -> int:
     return PLANS.get(plan, {}).get("listing_limit", FREE_LIMIT)
+
+
+# ---- Founding trial: new signups get Starter-level access free for TRIAL_DAYS, no card ----
+TRIAL_PLAN = "trial"
+TRIAL_DAYS = 14
+TRIAL_LIMIT = PLANS["starter"]["listing_limit"]   # 100 — trial grants Starter-level access
+
+
+def start_trial(user) -> None:
+    """Put a brand-new user on a no-card Founding trial (Starter-level access)."""
+    user.plan = TRIAL_PLAN
+    user.listing_limit = TRIAL_LIMIT
+    user.trial_ends_at = datetime.utcnow() + timedelta(days=TRIAL_DAYS)
+
+
+def is_trialing(user) -> bool:
+    return (getattr(user, "plan", None) == TRIAL_PLAN
+            and getattr(user, "trial_ends_at", None) is not None
+            and user.trial_ends_at > datetime.utcnow())
+
+
+def trial_days_left(user) -> int:
+    if not getattr(user, "trial_ends_at", None):
+        return 0
+    secs = (user.trial_ends_at - datetime.utcnow()).total_seconds()
+    return max(0, math.ceil(secs / 86400)) if secs > 0 else 0
+
+
+def normalize_access(user) -> bool:
+    """Lazily expire a finished trial down to the free tier. Returns True if the user
+    changed (so the caller should commit). Paid plans are never altered here."""
+    if getattr(user, "plan", None) == TRIAL_PLAN and not is_trialing(user):
+        user.plan = "free"
+        user.listing_limit = FREE_LIMIT
+        return True
+    return False
+
+
+def access_summary(user) -> dict:
+    """Account access snapshot for the frontend (plan + trial countdown)."""
+    trialing = is_trialing(user)
+    return {
+        "plan": user.plan,
+        "listing_limit": user.listing_limit,
+        "is_trialing": trialing,
+        "trial_ends_at": user.trial_ends_at.isoformat() if getattr(user, "trial_ends_at", None) else None,
+        "trial_days_left": trial_days_left(user) if trialing else 0,
+    }
 
 
 def _price_id(plan: str) -> str | None:

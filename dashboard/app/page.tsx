@@ -30,7 +30,7 @@ export default function Landing() {
           AI decides how aggressive to be, 24/7.
         </p>
         <div className="mt-8 flex items-center justify-center gap-3">
-          <Link href="/signup" className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free — 25 listings</Link>
+          <Link href="/signup" className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free — 14-day trial, no card</Link>
           <Link href="/login" className="px-6 py-3 rounded-lg border border-gray-200 font-medium hover:bg-gray-50">Log in</Link>
         </div>
       </section>
@@ -64,7 +64,7 @@ export default function Landing() {
             </div>
           ))}
         </div>
-        <p className="text-center text-xs text-gray-400 mt-6">14-day free trial on paid plans. Cancel anytime.</p>
+        <p className="text-center text-xs text-gray-400 mt-6">Every account starts with a 14-day Founding trial — full Starter features, no card. Then stay on Free (25 listings) or upgrade. Cancel anytime.</p>
       </section>
 
       <footer className="border-t border-gray-100 py-8 text-center text-sm text-gray-400">
