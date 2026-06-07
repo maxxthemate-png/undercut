@@ -14,7 +14,7 @@ from ..models.database import get_db
 from ..models.repricer_models import Store, RepricerListing, PriceChange, User
 from ..services.ebay_store import EbayStoreClient
 from ..services import ebay_oauth
-from ..services.auth import current_user
+from ..services.auth import current_user, make_oauth_state, verify_oauth_state
 
 router = APIRouter(prefix="/api/repricer", tags=["repricer"])
 # Public: only the eBay OAuth callback (eBay redirects here; can't send our auth header).
@@ -166,20 +166,27 @@ def oauth_login(user: User = Depends(current_user)):
     if not ebay_oauth.is_configured():
         return {"configured": False, "message": "EBAY_RU_NAME not set — add it in env + your eBay app."}
     # state ties the connected store back to this user in the callback
-    return {"configured": True, "url": ebay_oauth.build_consent_url(state=str(user.id))}
+    return {"configured": True, "url": ebay_oauth.build_consent_url(state=make_oauth_state(user.id))}
 
 
 @public_router.get("/oauth/callback")
 async def oauth_callback(code: str, state: str | None = None, db: Session = Depends(get_db)):
+    # Verify the signed state BEFORE anything else — a forged/missing/expired state
+    # must never attach an eBay store (+ seller token) to an account or orphan one.
+    uid = verify_oauth_state(state)
+    if not uid:
+        raise HTTPException(status_code=400, detail="invalid or expired OAuth state")
+    user = db.get(User, _uuid(uid))
+    if not user:
+        raise HTTPException(status_code=400, detail="unknown user for OAuth state")
     tok = await ebay_oauth.exchange_code(code)
     if "access_token" not in tok:
         raise HTTPException(status_code=400, detail=f"token exchange failed: {tok}")
-    user = db.get(User, _uuid(state)) if state else None
-    s = Store(name="eBay Store", user_id=(user.id if user else None),
+    s = Store(name="eBay Store", user_id=user.id,
               oauth_access_token=tok["access_token"], oauth_refresh_token=tok.get("refresh_token"),
               token_expires_at=datetime.utcnow() + timedelta(seconds=int(tok.get("expires_in", 7200))))
     db.add(s); db.commit(); db.refresh(s)
-    remaining = max(0, (user.listing_limit - _listing_count(db, user))) if user else 25
+    remaining = max(0, user.listing_limit - _listing_count(db, user))
     imp = await _sync_store_listings(db, s, remaining)
     return {"connected": True, "store_id": str(s.id), **imp}
 
