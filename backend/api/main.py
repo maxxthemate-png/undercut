@@ -59,6 +59,8 @@ app.include_router(billing_router)
 app.include_router(billing_public_router)
 from .leads_routes import public_router as leads_public_router
 app.include_router(leads_public_router)
+from .admin_routes import router as admin_router
+app.include_router(admin_router)
 
 
 # ─── Request models ───────────────────────────────────────────────────────────
