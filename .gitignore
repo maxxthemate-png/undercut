@@ -21,3 +21,7 @@ dashboard/.next/
 backend/static/contracts/
 *.log
 .DS_Store
+
+# Local-only operational docs (public repo — keep strategy/ops private)
+CLAUDE.md
+GTM_OUTREACH.md

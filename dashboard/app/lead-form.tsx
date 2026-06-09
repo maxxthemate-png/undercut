@@ -1,6 +1,25 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { api } from './lib/api'
+
+// First-touch acquisition source: capture utm_source / ref / source from the
+// landing URL once, persist it, and tag the lead — so /admin's leads-by-source
+// chart reflects real channels instead of a hardcoded "landing".
+function sanitize(s: string): string {
+  return s.slice(0, 64).replace(/[^\w.-]/g, '_')
+}
+function resolveSource(fallback: string): string {
+  if (typeof window === 'undefined') return fallback
+  try {
+    const p = new URLSearchParams(window.location.search)
+    const fromUrl = p.get('utm_source') || p.get('ref') || p.get('source')
+    const stored = localStorage.getItem('undercut_src')
+    const val = fromUrl || stored || fallback
+    return val ? sanitize(val) : fallback
+  } catch {
+    return fallback
+  }
+}
 
 export default function LeadForm({ source = 'landing' }: { source?: string }) {
   const [email, setEmail] = useState('')
@@ -8,11 +27,25 @@ export default function LeadForm({ source = 'landing' }: { source?: string }) {
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState('')
 
+  // Persist first-touch source so it survives navigation to the form.
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    try {
+      const p = new URLSearchParams(window.location.search)
+      const s = p.get('utm_source') || p.get('ref') || p.get('source')
+      if (s && !localStorage.getItem('undercut_src')) {
+        localStorage.setItem('undercut_src', sanitize(s))
+      }
+    } catch {
+      /* ignore */
+    }
+  }, [])
+
   async function submit(e: React.FormEvent) {
     e.preventDefault()
     setErr(''); setBusy(true)
     try {
-      const r = await api('/api/leads', { method: 'POST', body: JSON.stringify({ email, source }) })
+      const r = await api('/api/leads', { method: 'POST', body: JSON.stringify({ email, source: resolveSource(source) }) })
       if (r.ok) setDone(true)
       else setErr('Something went wrong — try again.')
     } catch {

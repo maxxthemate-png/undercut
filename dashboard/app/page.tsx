@@ -66,7 +66,7 @@ export default function Landing() {
             </div>
           ))}
         </div>
-        <p className="text-center text-xs text-gray-400 mt-6">Every account starts with a 14-day Founding trial — full Starter features, no card. Then stay on Free (25 listings) or upgrade. Cancel anytime.</p>
+        <p className="text-center text-xs text-gray-400 mt-6">Every account starts with a 14-day Founding trial — full Starter features, no card. Then stay on Free (25 listings) or upgrade. <span className="font-medium text-gray-500">Pay annually and get 2 months free.</span> Cancel anytime.</p>
       </section>
 
       <section className="bg-gray-50 border-t border-gray-100">
