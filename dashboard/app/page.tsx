@@ -34,6 +34,7 @@ export default function Landing() {
           <Link href="/signup" className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free — 14-day trial, no card</Link>
           <Link href="/login" className="px-6 py-3 rounded-lg border border-gray-200 font-medium hover:bg-gray-50">Log in</Link>
         </div>
+        <p className="mt-4 text-sm text-gray-500"><Link href="/ebay-profit-calculator" className="text-blue-600 hover:underline">Try the free eBay profit calculator →</Link></p>
       </section>
 
       <section className="max-w-5xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-6">
