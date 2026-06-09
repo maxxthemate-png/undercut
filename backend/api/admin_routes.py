@@ -22,7 +22,10 @@ PLAN_PRICE = {pid: p["price"] for pid, p in billing.PLANS.items()}
 
 
 def _require_admin(x_admin_key: str | None):
-    if not settings.UNDERCUT_API_KEY or x_admin_key != settings.UNDERCUT_API_KEY:
+    # Accept a dedicated ADMIN_KEY (preferred, single-sourced in the env group) or
+    # fall back to UNDERCUT_API_KEY for backward compatibility.
+    valid = {k for k in (getattr(settings, "ADMIN_KEY", None), settings.UNDERCUT_API_KEY) if k}
+    if not valid or (x_admin_key or "").strip() not in valid:
         raise HTTPException(status_code=403, detail="invalid admin key")
 
 

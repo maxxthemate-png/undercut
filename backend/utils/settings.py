@@ -24,6 +24,7 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
     SECRET_KEY: str = "change-me"
     TOKEN_ENC_KEY: Optional[str] = None   # Fernet key — encrypts seller OAuth tokens at rest
+    ADMIN_KEY: Optional[str] = None        # founder metrics dashboard login (separate from cron key)
 
     # Database
     DATABASE_URL: str
