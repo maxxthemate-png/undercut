@@ -15,6 +15,7 @@ from ..services import billing
 from ..utils.settings import settings
 
 router = APIRouter(prefix="/api/admin", tags=["admin"])
+public_router = APIRouter(prefix="/api/admin", tags=["admin-public"])
 
 # starter/pro/scale -> monthly price (for MRR); trial/free contribute 0
 PLAN_PRICE = {pid: p["price"] for pid, p in billing.PLANS.items()}
@@ -91,3 +92,13 @@ def metrics(x_admin_key: str | None = Header(default=None), db: Session = Depend
         "recent_signups": [{"email": _mask(u.email), "plan": u.plan,
                             "at": u.created_at.isoformat() if u.created_at else None} for u in recent_signups],
     }
+
+
+@public_router.get("/public-stats")
+def public_stats(db: Session = Depends(get_db)):
+    """Public, non-sensitive vanity stats for social proof (no PII, no revenue, no auth).
+    Safe to surface on the marketing site, e.g. 'N prices optimized and counting'."""
+    reprices = db.scalar(select(func.count()).select_from(PriceChange)) or 0
+    sellers = db.scalar(select(func.count()).select_from(Store)) or 0
+    listings = db.scalar(select(func.count()).select_from(RepricerListing)) or 0
+    return {"reprices": int(reprices), "sellers": int(sellers), "listings_managed": int(listings)}
