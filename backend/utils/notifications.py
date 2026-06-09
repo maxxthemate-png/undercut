@@ -58,6 +58,35 @@ def send_email_alert(subject: str, body: str, html_body: str = None) -> bool:
         return False
 
 
+def send_customer_email(to: str, subject: str, html: str, reply_to: str = None) -> bool:
+    """Send a lifecycle / nurture email to a customer or lead via SendGrid.
+    Dormant-safe: returns False (no send) if SendGrid isn't configured.
+    NOTE: deliverability requires a VERIFIED sender for settings.FROM_EMAIL."""
+    if not settings.SENDGRID_API_KEY or not to:
+        logger.warning("SendGrid not configured — customer email skipped", to=to)
+        return False
+    try:
+        import re as _re
+        import sendgrid
+        from sendgrid.helpers.mail import Mail, ReplyTo
+
+        text = _re.sub(r"<[^>]+>", "", html).strip()
+        message = Mail(
+            from_email=settings.FROM_EMAIL,
+            to_emails=to,
+            subject=subject,
+            plain_text_content=text,
+            html_content=html,
+        )
+        message.reply_to = ReplyTo(reply_to or settings.OPERATOR_EMAIL or settings.FROM_EMAIL)
+        sendgrid.SendGridAPIClient(settings.SENDGRID_API_KEY).send(message)
+        logger.info("Customer email sent", to=to, subject=subject)
+        return True
+    except Exception as e:
+        logger.error("Customer email failed", error=str(e), to=to)
+        return False
+
+
 def notify_seller_interested(listing_title: str, listing_id: str, price: float, upside: float):
     """High-priority alert — seller is interested."""
     send_sms_alert(

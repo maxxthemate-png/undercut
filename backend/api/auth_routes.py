@@ -26,6 +26,13 @@ def signup(body: Creds, db: Session = Depends(get_db)):
     u = User(email=email, password_hash=auth.hash_pw(body.password))
     billing.start_trial(u)          # new sellers get a no-card 14-day Founding trial (Starter-level)
     db.add(u); db.commit(); db.refresh(u)
+    try:                            # best-effort welcome email — never block signup
+        from ..utils.email_templates import welcome_email
+        from ..utils.notifications import send_customer_email
+        subject, html = welcome_email()
+        send_customer_email(u.email, subject, html)
+    except Exception:
+        pass
     return {"token": auth.make_token(u.id), "email": u.email, **billing.access_summary(u)}
 
 

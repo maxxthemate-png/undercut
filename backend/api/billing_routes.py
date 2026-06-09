@@ -31,6 +31,7 @@ def _uuid(v):
 
 class CheckoutIn(BaseModel):
     plan: str
+    interval: str = "month"   # "month" (default) | "year"
 
 
 @public_router.get("/plans")
@@ -46,7 +47,8 @@ def checkout(body: CheckoutIn, user: User = Depends(current_user), db: Session =
     base = _app_url()
     try:
         url, customer = billing.create_checkout_session(
-            user, body.plan, f"{base}/?upgraded=1", f"{base}/billing")
+            user, body.plan, f"{base}/?upgraded=1", f"{base}/billing",
+            interval=("year" if body.interval == "year" else "month"))
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
     if customer and not user.stripe_customer_id:

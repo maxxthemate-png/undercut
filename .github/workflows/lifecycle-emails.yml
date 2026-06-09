@@ -1,0 +1,21 @@
+name: lifecycle-emails
+# Daily scheduler: hits the backend's key-protected lifecycle endpoint, which sends
+# lead-nurture drips + trial reminders. Reuses the same repo secrets as reprice.
+# Requires repo secrets: API_URL (deployed backend base URL) and CRON_KEY (= UNDERCUT_API_KEY).
+on:
+  schedule:
+    - cron: '17 14 * * *'   # ~14:17 UTC daily (off-peak)
+  workflow_dispatch: {}
+
+jobs:
+  lifecycle-emails:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger lifecycle-emails
+        run: |
+          curl -fsS -X POST "$API_URL/api/cron/lifecycle-emails" \
+            -H "X-Cron-Key: $CRON_KEY" \
+            --max-time 290 -w '\nHTTP %{http_code}\n'
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          CRON_KEY: ${{ secrets.CRON_KEY }}

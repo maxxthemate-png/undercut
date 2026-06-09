@@ -1,0 +1,2135 @@
+import type { PageContent } from '../types'
+
+export const guides: PageContent[] = [
+  {
+    "title": "How to Reprice Electronics on eBay — Undercut",
+    "metaDescription": "Learn how to reprice electronics on eBay without killing your margin. Set hard floors on aging stock and start a 14-day free trial — no card required.",
+    "h1": "How to Reprice Electronics on eBay While Protecting Your Margin on Aging Stock",
+    "eyebrow": "Guide",
+    "intro": "Electronics depreciate faster than almost any other eBay category. A graphics card that listed at $320 in January can be worth $240 by March. That price decay is relentless — and if you are manually checking comps once a week, you are already behind. The fix is not just repricing fast; it is repricing with a hard floor so that as the market drops, you follow it down to a win without selling below your actual cost. This guide walks through exactly how to do that, with real numbers.",
+    "sections": [
+      {
+        "h2": "Why Electronics Repricing Is Different From Every Other Category",
+        "body": "Most eBay categories have stable or slowly shifting prices. Electronics do not. GPU prices swing on new-release announcements. Refurbished iPhone pricing moves within days of a carrier promotion. Opened-box laptops depreciate the moment a newer SKU ships. This means two things for sellers: first, you can capture a sale quickly by being even $1 below the lowest live competitor. Second, if you do not update prices constantly, you are either overpriced and invisible, or underpriced and bleeding margin. The solution is automated repricing with a floor — not just a floor in your head, but a hard number locked to each listing that the repricer will never cross.",
+        "bullets": [
+          "GPU and console prices can shift 10-20% within a single news cycle",
+          "Refurbished smartphone comps change daily as carriers run promotions",
+          "Opened-box and used condition listings face extra downward pressure vs. new",
+          "Slow-moving stock loses value every week it sits — a floor keeps you honest about when to cut losses"
+        ]
+      },
+      {
+        "h2": "How to Calculate a Hard Floor for an Electronics Listing",
+        "body": "Your floor is the lowest price at which selling the item is still worth it. For electronics, that calculation needs to account for cost of goods, shipping (often heavier than other categories), eBay fees, and your minimum acceptable margin. Here is a worked example for a refurbished tablet:\n\nCost of goods: $62.00\nShipping (box + padding + label): $9.50\neBay final value fee: 13.25% of sale price\nMinimum margin target: 15%\n\nFloor = (Cost + Shipping) / (1 - FVF% - Margin%) = (62 + 9.50) / (1 - 0.1325 - 0.15) = 71.50 / 0.7175 = $99.65\n\nRound up to $99.99 and that is your floor. Undercut will reprice that listing down to $99.99 to beat any competitor, but it will never go to $98, $95, or $89 chasing a race to the bottom. You win the sale or you do not — but you never sell at a loss.",
+        "bullets": [
+          "Always include actual outbound shipping cost, not a rough guess — electronics packaging adds up",
+          "Use eBay's current final value fee for your category, not a blended average",
+          "Add a buffer for returns: electronics have higher return rates than most categories",
+          "Reassess floors every 30 days as component costs and used-market benchmarks shift"
+        ]
+      },
+      {
+        "h2": "Setting Up Repricing Frequency for Fast-Moving Electronics",
+        "body": "Repricing once a day is fine for books or clothing. For electronics, it is often not enough. A competitor can drop their price, take your sales for 18 hours, and restock before you ever notice. The faster your repricing cycle, the more time your listing spends at or near the top of search results. Undercut's Pro plan reprices every 15 minutes and Scale reprices every 5 minutes. For high-volume electronics sellers — especially those moving phones, tablets, or gaming hardware — the 5-minute cycle is the difference between consistently winning and consistently being one position too high. If you are just starting out, the free plan (25 listings, repriced multiple times daily) is enough to learn the system before committing.",
+        "bullets": [
+          "Free plan: up to 25 listings — good for testing a single electronics SKU category",
+          "Starter $29/mo: 100 listings, suitable for a focused niche like one brand of refurbished phones",
+          "Pro $79/mo: 1,000 listings + 15-min repricing + AI aggressiveness tuning",
+          "Scale $199/mo: 10,000 listings + 5-min repricing — for warehouse-scale electronics operations"
+        ]
+      },
+      {
+        "h2": "Using AI Aggressiveness Tuning for Electronics",
+        "body": "Not every electronics listing should chase the floor aggressively. A brand-new, sealed-in-box item with high demand should stay near market price — dropping fast only trains buyers to wait for a lower price. A refurbished unit with 90 days of shelf age and three competitors actively undercutting each other is a different situation: you want to be at the floor as soon as possible to move the unit before it depreciates further. Undercut's AI aggressiveness tuning (available on Pro and Scale) lets you configure how quickly and how far listings move toward their floor. You can set a category rule — for example, all listings tagged as refurbished electronics move aggressively; all listings tagged as sealed new move conservatively. This is especially useful for mixed electronics inventories where the same repricing behavior should not apply across every condition level.",
+        "bullets": []
+      },
+      {
+        "h2": "Common Mistakes Electronics Sellers Make When Repricing",
+        "body": "The most common error is setting no floor at all and letting the repricer match any competitor price. In electronics, this is dangerous because some listings are priced incorrectly by sellers who made a calculation mistake — and your repricer will match them straight into a loss. The second most common mistake is setting a floor based on the original purchase price without accounting for eBay fees, shipping, and return risk. The floor feels safe but is actually below breakeven once you run the math. The third mistake is repricing too infrequently in a category where prices move hourly. If your repricing cycle is 24 hours, you are likely winning sales only during the window right after the cycle runs, then drifting out of position for most of the day.",
+        "bullets": [
+          "Never reprice without a floor in electronics — one bad comp will crater your margin",
+          "Recalculate floors after any change in shipping carrier rates or eBay fee adjustments",
+          "Check your repricing logs monthly: if a listing is hitting its floor constantly, it may be time to sell through or bundle rather than keep dropping"
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "What happens when every competitor drops below my floor?",
+        "a": "Undercut holds your listing at the floor price rather than crossing it. You may lose the sale, but you will not sell at a loss. At that point the real question is whether your floor is correctly calculated or whether the market has structurally moved and you need to reassess cost, bundling, or liquidation options."
+      },
+      {
+        "q": "How often should I update floors for electronics listings?",
+        "a": "At minimum once a month. For fast-depreciating categories like smartphones or GPUs, review floors every two to three weeks. If you change shipping carriers, update immediately — a $2 shipping cost increase directly raises your breakeven floor."
+      },
+      {
+        "q": "Can I set different repricing aggressiveness for new versus refurbished condition?",
+        "a": "Yes. On the Pro and Scale plans, Undercut's AI aggressiveness tuning lets you create rules by condition, tag, or category. A common setup is conservative repricing for sealed-new electronics and aggressive repricing for refurbished or open-box units that are aging on the shelf."
+      },
+      {
+        "q": "Does Undercut reprice multi-variation electronics listings (e.g. different storage sizes)?",
+        "a": "Yes. Each variation can carry its own floor, so a 128GB and a 256GB model of the same phone are repriced independently against their respective competitors — not blended together."
+      },
+      {
+        "q": "Is the 14-day trial enough time to see real results for electronics repricing?",
+        "a": "For most sellers, yes. Electronics categories have enough price movement that within 14 days you will see the repricer actively adjusting listings, and you can compare your sales velocity and average selling price before and after. No card is required to start."
+      }
+    ],
+    "cta": {
+      "heading": "Set Your Floor. Win the Sale. Never Sell Below Cost.",
+      "sub": "Start repricing electronics in minutes — 14-day free trial, no credit card required. Your hard floors are locked in from day one."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/guides/ai-repricing-ebay",
+        "label": "AI Repricing on eBay Explained"
+      },
+      {
+        "href": "/guides/fastest-ebay-repricer",
+        "label": "Fastest eBay Repricer for High-Velocity Listings"
+      }
+    ],
+    "slug": "electronics-repricing",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": true,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "Repricing Clothing & Fashion on eBay — Undercut",
+    "metaDescription": "Seasonal shifts and size sprawl wreck manual pricing. Learn how to reprice clothing on eBay automatically — with hard floors — and start a free 14-day trial, no card needed.",
+    "h1": "How to Reprice Clothing and Fashion on eBay Without Tanking Your Margins",
+    "eyebrow": "Guide",
+    "intro": "Fashion resellers face a double burden that other eBay categories do not: inventory splits across dozens of size and color variations, and prices that need to move with the season. A winter puffer listed in November competes at one price point; in March it competes at a completely different one — or sits unsold. Manual repricing across hundreds of SKUs with these dynamics is not slow, it is mathematically unwinnable. The answer is automated repricing anchored by a per-item hard floor, so markdowns chase the sale without ever crossing into a loss.",
+    "sections": [
+      {
+        "h2": "Why Clothing Is the Hardest Category to Reprice Manually",
+        "body": "A typical reseller carrying 200 garments might have 600 or more active listings once sizes and colors are split into separate SKUs. Each variation has its own cost basis, its own sell-through velocity, and its own competitive landscape. A size-small cardigan may have three competitors; the size-large has twelve. Checking and adjusting each one daily is a part-time job on its own — and the market does not wait for you to finish.",
+        "bullets": [
+          "Size fragmentation: one item becomes 4-10 listings, each with a distinct price floor and competitor set",
+          "Seasonal compression: demand peaks are short; late-season listings need aggressive cuts timed to sell before the window closes",
+          "Condition variation: new-with-tags, new-without-tags, and pre-owned all price differently even within the same SKU",
+          "Fee creep: eBay's 13.25% final value fee (on most clothing) erodes margin fast when floors are not set correctly"
+        ]
+      },
+      {
+        "h2": "Setting a Hard Floor for Every Clothing Listing",
+        "body": "The most important habit any clothing reseller can build before automating is calculating and recording a floor for every item. Without a floor, an automated repricer will follow competitors all the way to a loss. The floor formula is straightforward: cost of goods + shipping cost + eBay fees + your minimum acceptable margin.\n\nWorked example — a vintage denim jacket:\n- Cost (sourced): $18.00\n- Shipping (poly mailer + label): $6.00\n- eBay final value fee at 13.25%: applied to sale price\n- Minimum margin target: 20%\n\nTo find the floor price, solve for P where P × (1 − 0.1325) − $6.00 − $18.00 ≥ 0.20 × cost:\nP × 0.8675 ≥ $18.00 + $6.00 + ($18.00 × 0.20)\nP × 0.8675 ≥ $27.60\nP ≥ $31.81\n\nSet the floor at $31.81. Undercut will reprice aggressively below every competitor but will stop at that number — automatically, for every SKU you configure.",
+        "bullets": [
+          "Use your actual landed cost, not the purchase price alone — account for sourcing mileage, storage, and supplies",
+          "Update floors after each resupply run if costs change",
+          "Seasonal clearance floors can be lower than in-season floors — set separate floor profiles for November vs. March"
+        ]
+      },
+      {
+        "h2": "How Seasonality Changes the Repricing Strategy — and How to Automate It",
+        "body": "Clothing has two repricing modes: in-season and clearance. In-season, the goal is to hold near the market price and win sales from buyers ready to buy now. Clearance, the goal is velocity — move inventory before it becomes unseasonal dead stock, but still above the floor.\n\nManually switching between these modes for hundreds of listings is the exact work automation eliminates. On Undercut's Pro and Scale plans, the AI aggressiveness tuning lets you dial repricing behavior from conservative (match the lowest price) to aggressive (undercut by a percentage or fixed amount). Sellers typically run conservative settings in peak season and shift to aggressive in the final four to six weeks of a season's sell window.\n\nThe floor stays constant throughout both phases — it is what keeps the clearance discount from becoming a loss.",
+        "bullets": [
+          "Peak season: conservative mode, protect margin, let the floor work as a ceiling against undercutting wars",
+          "Late season: aggressive mode, beat the lowest price by a defined percentage, flush inventory above floor",
+          "End of season: anything sitting at the floor can be moved to a private sale, a bundle, or pulled and stored for next year"
+        ]
+      },
+      {
+        "h2": "Size and Variation Sprawl: Repricing at Scale Without Chaos",
+        "body": "The practical problem with fashion repricing is volume. If you source 50 garments a week and each generates four size-variation listings, you are managing 200 new listings weekly — on top of your existing catalog. Repricing each one by hand before the next batch arrives is impossible without a team.\n\nUndercut ingests your full eBay catalog and applies repricing rules and floors at the listing level, not the account level. That means your XS listings compete against XS competitors and your XL listings compete against XL competitors — each with the floor you set for that specific cost basis. The Scale plan (10,000 listings, 5-minute repricing intervals) is built specifically for sellers at this volume.",
+        "bullets": [
+          "Import your catalog and map floors using your existing spreadsheet cost data",
+          "Rules apply per listing — a floor mismatch in one size does not affect another",
+          "5-minute repricing on Scale ensures you respond to competitor price drops before buyers see a stale listing"
+        ]
+      },
+      {
+        "h2": "Choosing the Right Undercut Plan for a Clothing Seller",
+        "body": "The right plan depends on your active listing count and whether you need AI aggressiveness tuning for seasonal mode-switching.\n\nFree (25 listings): test the floor mechanic with a small capsule of your best sellers before committing.\nStarter at $29/month (100 listings): works for a focused boutique reseller with a tight, curated catalog.\nPro at $79/month (1,000 listings, 15-minute repricing): the practical entry point for anyone running seasonal clearance strategies — the AI aggressiveness tuning is what makes the in-season vs. clearance mode switch automatic.\nScale at $199/month (10,000 listings, 5-minute repricing): sourcing at volume, multiple categories, or running a small resale operation with staff.\n\nAll plans start with a 14-day free trial and no credit card required, so you can validate your floors and watch repricing work before paying anything."
+      }
+    ],
+    "faq": [
+      {
+        "q": "How do I set different floors for in-season versus end-of-season clearance on the same item?",
+        "a": "You can update a listing's floor at any point — Undercut will respect the new value immediately. Many clothing sellers keep a simple spreadsheet with two floor columns (peak and clearance) and update in bulk as the season shifts. The repricer holds at whichever floor is active, so there is no risk of the clearance price overshooting into a loss."
+      },
+      {
+        "q": "Does Undercut handle size variations as separate listings or as one listing with variants?",
+        "a": "eBay surfaces most size variations as separate active listings in your seller account, and Undercut reprices at the individual listing level. Each size gets its own floor and its own competitor comparison, which matters because a size small and a size large often have different supply and different competitor prices."
+      },
+      {
+        "q": "My clothing costs vary a lot because I source from thrift stores. How do I floor items I paid different prices for?",
+        "a": "Set the floor per listing based on that item's actual cost. If two identical jackets cost you $8 and $22 respectively, they get different floors. The formula is the same — cost + shipping + fees + margin target — but the input changes per unit. A bulk import via CSV lets you set this at scale without editing listings one by one."
+      },
+      {
+        "q": "Competitors on my clothing listings sometimes price below their shipping cost. Will Undercut match those prices?",
+        "a": "No — that is exactly what the floor prevents. If a competitor lists below your floor (even below their own cost, which happens in race-to-bottom situations), Undercut stops at your floor and holds. You may not win every sale, but you will not take a loss on the ones you do win."
+      },
+      {
+        "q": "How quickly does repricing react when a competitor drops their price on a trending item during a sale event like Prime Day or a holiday weekend?",
+        "a": "On the Pro plan, repricing checks run every 15 minutes. On Scale, every 5 minutes. During high-traffic sale events when prices shift fast, Scale's 5-minute cadence is a meaningful advantage for fashion sellers with items that can spike or drop in minutes based on competitor activity."
+      }
+    ],
+    "cta": {
+      "heading": "Set Your Floors and Let Undercut Handle the Rest",
+      "sub": "Start your free 14-day trial — no credit card, no commitment. Import your clothing catalog, set a floor for each item, and watch the repricer work without touching your margins."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/guides/seasonal-repricing",
+        "label": "Seasonal Repricing Strategy Guide"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "Setting an eBay Price Floor"
+      }
+    ],
+    "slug": "clothing-repricing",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": false,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "Repricing Books on eBay Without Selling at a Loss — Undercut",
+    "metaDescription": "Repricing books on eBay risks razor-thin losses if you ignore shipping costs. Learn the floor formula and start a 14-day free trial — no card required.",
+    "h1": "The Book Seller's Floor Formula: Reprice on eBay Without Losing Money on Every Sale",
+    "eyebrow": "Guide",
+    "intro": "Books are the category where automated repricing can silently destroy your margin. Media Mail shipping, eBay's variable final value fees, and the sheer volume of $3–$15 titles mean a repricer chasing the lowest price can drop a listing below your actual cost before you notice. Unlike electronics, a $1 undercut on a used paperback can flip a 20% margin into a 15% loss. That's why every serious book seller needs one thing before turning on any repricer: a hard floor calculated specifically for books, factoring in the costs that most sellers forget.",
+    "sections": [
+      {
+        "h2": "Why Books Are the Hardest Category to Reprice Safely",
+        "body": "Most repricing guides are written with electronics or collectibles in mind — categories where a $5 swing is trivial. Books are different. The average used book on eBay sells for $6–$14, which means every dollar of unaccounted cost is a significant percentage of revenue. Three costs destroy book margins that sellers routinely underestimate:",
+        "bullets": [
+          "Media Mail is cheap but not free — USPS Media Mail starts at $3.65 for a single book under 1 lb, and a heavier hardcover can reach $5.50 or more.",
+          "eBay's final value fee on books runs 13.25% of the total amount (item + shipping), not just the item price — so your shipping charge is also being fee'd.",
+          "Packaging supplies — a poly mailer or bubble mailer adds $0.15–$0.50 per order, which sounds trivial until you're shipping 200 books a month."
+        ]
+      },
+      {
+        "h2": "The Book Floor Formula: A Worked Example",
+        "body": "Before you set up any repricer, calculate the minimum price you can accept for each book. Here is the formula and a concrete example using a common used paperback:\n\nFloor = (Cost + Shipping + Supplies) / (1 - eBay fee rate - desired margin rate)\n\nExample: You sourced a paperback for $2.00. Media Mail shipping is $3.65. Poly mailer costs $0.20. You want a 15% net margin. eBay final value fee is 13.25%.\n\nTotal hard costs = $2.00 + $3.65 + $0.20 = $5.85\nFloor = $5.85 / (1 - 0.1325 - 0.15) = $5.85 / 0.7175 = $8.15\n\nSo your floor is $8.15. If a competitor lists the same ISBN at $6.99, your repricer must not follow — it should hold at $8.15 and let that sale go. Chasing $6.99 means you net approximately -$0.58 after fees and shipping. A floor stops this automatically.",
+        "bullets": []
+      },
+      {
+        "h2": "How to Set Floors in Undercut for Your Book Inventory",
+        "body": "Undercut lets you set a hard floor per listing, which the repricer will never breach regardless of what competitors do. For book sellers, the recommended approach is to calculate your floor for each ISBN or SKU using the formula above, then enter that floor when you import or create the listing in Undercut. The repricer will then beat the lowest visible competitor price by your configured amount — but the moment doing so would require going below your floor, it holds the listing at the floor instead of matching. This means you stay competitive on every title where margin exists, and you automatically step aside on titles where it does not. On the Pro plan, AI aggressiveness tuning lets you configure whether to hold at floor, fractionally undercut, or match — useful for slow-moving titles where you'd rather sell at cost than warehouse indefinitely.",
+        "bullets": [
+          "Set floors per listing or in bulk via CSV upload.",
+          "Floors are respected even during rapid market drops — no manual intervention needed.",
+          "Pro plan reprices every 15 minutes; Scale plan every 5 minutes — useful during peak selling hours on popular ISBNs."
+        ]
+      },
+      {
+        "h2": "Common Book Repricing Mistakes (and How a Floor Prevents Them)",
+        "body": "Even experienced sellers make these errors when they first automate book repricing:",
+        "bullets": [
+          "Forgetting to include shipping in the floor calculation — the most common mistake, and the most expensive on Media Mail volume.",
+          "Setting one floor for all books — a $0.99 mass-market paperback has a completely different cost structure than a $45 textbook. Floors must be per-item or per-category.",
+          "Using the item price only for fee calculation — eBay charges fees on the total transaction including shipping collected, so your fee base is larger than you think.",
+          "Repricing below floor 'just once' manually — undermines the discipline the floor exists to enforce. If the floor is right, trust it.",
+          "Not updating floors when USPS changes Media Mail rates — check at the start of each year and after any announced rate changes."
+        ]
+      },
+      {
+        "h2": "When to Let a Book Sit Rather Than Reprice It",
+        "body": "Not every book should be repriced aggressively. For titles with only one or two competitors and slow turnover — textbooks outside semester windows, out-of-print niche titles, local-interest books — holding at a higher price and waiting is often more profitable than racing to the bottom. Undercut's floor mechanic supports this naturally: if the lowest competitor is below your floor, your listing simply holds at floor price. You do not need to create a separate rule or manually pause repricing. The floor is the rule. For true dead inventory — books that have not sold in 90+ days despite competitive pricing — the right move is usually relist at a lower floor (after recalculating with updated shipping costs) or remove from inventory entirely, not chase an unprofitable price point with automation.",
+        "bullets": []
+      }
+    ],
+    "faq": [
+      {
+        "q": "Does Media Mail shipping count toward eBay's final value fee on book sales?",
+        "a": "Yes. eBay calculates its final value fee on the total amount the buyer pays, which includes the shipping charge you collect. At 13.25%, this means a $3.65 Media Mail charge adds roughly $0.48 in fees on top of the item fee. Your floor must account for this or you will underestimate your true cost per sale."
+      },
+      {
+        "q": "What if a competitor lists the same ISBN at a price below my floor — will Undercut match them?",
+        "a": "No. Undercut's floor is a hard limit the repricer will not cross. If the lowest competitor is at $5.99 and your floor is $8.15, your listing stays at $8.15. You may lose that individual sale, but you avoid the more damaging outcome of fulfilling an order at a net loss."
+      },
+      {
+        "q": "Should I set the same floor for paperbacks and hardcovers?",
+        "a": "No. Hardcovers weigh significantly more, which increases Media Mail shipping cost and therefore your floor. A 1.5 lb hardcover may cost $4.60 to ship via Media Mail versus $3.65 for a light paperback — that $0.95 difference compounds through the floor formula and produces a meaningfully higher minimum price. Calculate floors individually or by weight bracket."
+      },
+      {
+        "q": "How often does Undercut reprice my book listings, and does speed matter for books?",
+        "a": "The Free and Starter plans reprice on a slower cadence suited to most book sellers. The Pro plan reprices every 15 minutes and the Scale plan every 5 minutes. For most book categories, the slower cadence is fine — book prices don't move as fast as electronics. Textbooks during semester rush are an exception where faster repricing can meaningfully affect sell-through."
+      },
+      {
+        "q": "Can I import my existing book inventory with floors already set, or do I have to enter them one at a time?",
+        "a": "You can upload a CSV with your inventory and include a floor price column, which Undercut maps to each listing on import. For sellers with hundreds or thousands of ISBNs, this is the practical path. You can also set floors in bulk by applying a formula (for example, cost × 1.45) to a filtered segment of your catalog after import."
+      }
+    ],
+    "cta": {
+      "heading": "Set Your Floor. Let Undercut Handle the Rest.",
+      "sub": "Start free with 25 listings — no credit card required. Calculate your book floor once, then let automated repricing compete without ever selling below cost."
+    },
+    "internalLinks": [
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "Setting an eBay Price Floor"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/guides/ebay-seller-fees-explained",
+        "label": "eBay Seller Fees Explained"
+      }
+    ],
+    "slug": "book-repricing",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": false,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "Repricing Collectibles on eBay the Right Way — Undercut",
+    "metaDescription": "Repricing collectibles on eBay without a floor AND ceiling destroys margins. Start Undercut's 14-day free trial — no card required — and reprice safely.",
+    "h1": "Why Collectibles Need a Floor AND a Ceiling — Not Just a Lowest-Price Chase",
+    "eyebrow": "Guide",
+    "intro": "A vintage 1983 G.I. Joe in C-8 condition is not the same item as a C-5 copy listed three cents cheaper. Blind undercutting in collectibles does not make you competitive — it makes you the seller who trains buyers to expect mint prices for played-with goods, and it erodes category-wide values over time. Repricing collectibles on eBay works only when your repricer understands two constraints: a hard floor below which you never go, and an intelligent ceiling that keeps you from leaving money on the table when demand spikes.",
+    "sections": [
+      {
+        "h2": "Why Standard Repricing Logic Breaks Down for Collectibles",
+        "body": "Most repricing tools treat eBay listings as fungible: one seller's widget equals every other seller's widget, so the goal is simply to be the cheapest. That assumption holds for commodity goods — phone cases, printer ink, basic kitchen tools. It fails completely for collectibles, where two nominally identical listings can differ by 300% in fair value based on condition grade, completeness, provenance, and whether original packaging is present.",
+        "bullets": [
+          "A Funko Pop graded 9.6 by Wax Pack Heroes commands a premium over a raw, open-box copy — they are different products.",
+          "A complete-in-box Sega Genesis game is worth multiples of a cartridge-only copy; matching them in price punishes the better seller.",
+          "Seasonal demand spikes (holiday, anniversary releases, media tie-ins) can move fair market value 40–80% in weeks — a ceiling prevents underpricing into a hot market.",
+          "Condition-inflation by some sellers means the 'lowest price' is often a legitimately inferior item, not a true comp."
+        ]
+      },
+      {
+        "h2": "Setting a Hard Floor: A Worked Example for Sports Cards",
+        "body": "Before you configure any repricer, calculate the minimum price below which a sale is a loss. For collectibles, factor in item cost, shipping (often higher due to rigid mailers, toploaders, or boxes), eBay fees, and your minimum acceptable margin. Here is a concrete floor calculation for a raw rookie card:\n\n- Item cost (what you paid): $8.00\n- Shipping supplies + postage: $4.00\n- eBay final value fee (13.25% of sale price, approximate for this category): applied to sale price\n- Minimum margin target: 15%\n\nSolving for the floor price where (price × 0.8675) − $12 ≥ 15% × price:\n\nFloor ≈ $12 ÷ (0.8675 − 0.15) = $12 ÷ 0.7175 ≈ $16.72, rounded up to $17.00 for safety.\n\nThat $17.00 is your hard floor. Undercut will never reprice below it, regardless of what a competitor lists. You set it once per listing; the repricer handles the rest.",
+        "bullets": [
+          "Always include shipping materials in your cost basis — poly mailers are cheap, rigid card savers are not.",
+          "If you offer free shipping, the full postage cost must be embedded in your floor calculation.",
+          "Graded slabs have higher floor costs: PSA/BGS grading fees typically run $20–$150+ per card and must be recovered."
+        ]
+      },
+      {
+        "h2": "Adding a Ceiling: Capturing Upside Without Manual Intervention",
+        "body": "A floor protects you from selling at a loss. A ceiling is the upper bound you set so that your repricer does not drift your price down to match a temporarily distressed seller dumping inventory. In collectibles, ceilings matter for a second reason: when comparable sold listings show rising prices — a set is discontinued, a player gets called up, a show gets a reboot — you want your price to rise with the market, not sit anchored to a stale competitor low.\n\nSet your ceiling at the highest price you believe the market will currently bear for your specific condition. A practical approach: check the last 30 days of eBay sold listings filtered to your exact condition and completeness, take the 75th-percentile sale price, and use that as your ceiling. Revisit monthly for active categories like vintage video games or modern Pokemon cards where values shift quickly.\n\nWith Undercut's Pro and Scale plans, AI aggressiveness tuning adjusts how quickly the repricer moves toward your ceiling versus your floor based on listing velocity and competitor churn — without ever breaking either boundary.",
+        "bullets": [
+          "A ceiling without a floor is still dangerous — always set both.",
+          "For graded collectibles, set separate ceiling values per grade tier if you have multiple copies.",
+          "Seasonal ceilings: raise them 3–4 weeks before peak demand (Christmas, convention season) and lower them 2 weeks after."
+        ]
+      },
+      {
+        "h2": "Choosing the Right Repricing Cadence for Collectibles",
+        "body": "Collectibles markets move more slowly than commodity electronics, but they are not static. A repricing interval of once per day is usually too slow during active periods; once per hour is adequate for most categories. Here is how Undercut's plans map to common collectibles seller profiles:\n\n- Free plan (25 listings): ideal for a seller testing the waters with a small curated inventory of vintage items.\n- Starter at $29/month (100 listings): covers a focused single-category seller — sports cards, vintage toys, or comic books — with a manageable SKU count.\n- Pro at $79/month (1,000 listings, 15-minute repricing + AI tuning): suited to multi-category resellers or box-breakers managing a rotating inventory.\n- Scale at $199/month (10,000 listings, 5-minute repricing): for high-volume liquidators or large trading card shops where speed and breadth both matter.\n\nFor most collectibles sellers, the Pro plan's 15-minute cadence is more than fast enough — the market rarely moves in seconds the way liquidation electronics can.",
+        "bullets": [
+          "15-minute repricing on Pro is fast enough for 95% of collectibles categories.",
+          "5-minute repricing on Scale matters most when you sell high-demand modern releases where competitor stock sells through rapidly.",
+          "AI aggressiveness tuning on Pro+ lets you reprice more defensively for rare, slow-moving items and more aggressively for common, liquid ones — without managing two separate tools."
+        ]
+      },
+      {
+        "h2": "Practical Setup: Getting Your Collectibles Inventory Floor-Ready",
+        "body": "The most common mistake sellers make when connecting Undercut to a collectibles inventory is importing all listings with a single default floor. That works for commodity goods; for collectibles it is wrong. A $0.99 common sports card and a $400 vintage action figure in sealed packaging do not share a floor.\n\nThe right approach is to set floors at the listing level or, at minimum, by condition tier. Undercut lets you set per-listing floors directly, so you can start with your highest-value items where the floor matters most, verify the math, and then batch-import floors for your lower-value long tail. Start your 14-day free trial to connect your eBay seller account, import your listings, and test floor logic on up to 25 items before upgrading.",
+        "bullets": [
+          "Export your active listings to a spreadsheet first; calculate floors offline, then import — saves time versus setting them one by one.",
+          "Tag listings by condition in eBay's item specifics before importing; it makes batch floor-setting by condition tier easier.",
+          "Review floors after any significant purchase — if your cost basis changes (bulk lot buy, grading expense), update the floor before the listing goes live."
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "Can I set different floors for the same item in different condition grades?",
+        "a": "Yes. In Undercut, floors are set at the individual listing level, so a Near Mint copy of a card and a Good copy can each carry the floor that reflects their actual cost basis and condition. There is no requirement to apply a single floor across all copies of the same title."
+      },
+      {
+        "q": "What happens if every competitor lists below my floor?",
+        "a": "Undercut holds your price at your floor and does not reprice below it — ever. Your listing may not be the cheapest, but it will not be a loss. This is intentional: in collectibles, the cheapest listing is often a lower-condition or incomplete item, and buyers who want your specific condition will still find you."
+      },
+      {
+        "q": "Should I set a floor for items I list at auction rather than fixed price?",
+        "a": "Undercut reprices fixed-price (Buy It Now) listings. For auction-format listings, your floor is effectively your starting bid — set that manually in eBay based on the same cost-plus-fees-plus-margin formula described in this guide. Consider converting slow-moving fixed-price collectibles to auction only after you have tested the price band with automated repricing first."
+      },
+      {
+        "q": "How does AI aggressiveness tuning help with collectibles specifically?",
+        "a": "Available on Pro and Scale plans, AI aggressiveness tuning adjusts how quickly Undercut moves your price toward the floor or ceiling based on signals like how fast competitor stock is selling through and how long your own listing has been active. For a rare item with one competitor, it can hold you closer to your ceiling. For a liquid common, it can move you more quickly toward competitive pricing. Floors and ceilings always remain hard boundaries regardless of the aggressiveness setting."
+      },
+      {
+        "q": "I sell across multiple collectibles categories — sports cards, vintage video games, and vinyl records. Can one Undercut account handle all of them?",
+        "a": "Yes. Undercut connects to your eBay seller account and reprices all fixed-price listings regardless of category. You set floors and ceilings per listing, so your vinyl records, graded cards, and CIB games each carry their own rules. The Pro plan's 1,000-listing capacity covers most multi-category resellers comfortably."
+      }
+    ],
+    "cta": {
+      "heading": "Set Your Floor. Protect Every Sale. Start Free Today.",
+      "sub": "Connect your eBay account, set per-listing floors for your collectibles, and let Undercut handle the rest — 14-day trial, no credit card required."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/vintage-antiques-repricing",
+        "label": "Repricing Vintage and Antiques on eBay"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/guides/ebay-pricing-strategy",
+        "label": "eBay Pricing Strategy: A Complete Guide"
+      }
+    ],
+    "slug": "collectibles-repricing",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": false,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "Repricing Vintage & Antique Items on eBay — Undercut",
+    "metaDescription": "Learn how to reprice vintage and antique eBay listings safely using per-item cost floors. Start Undercut free — 14-day trial, no card required.",
+    "h1": "How to Reprice Vintage and Antique Items on eBay Without Guessing",
+    "eyebrow": "Guide",
+    "intro": "Most repricing advice assumes you can benchmark your item against a dozen near-identical competitors. Vintage and antique sellers know that rarely applies. A 1930s pressed-glass pitcher and a 1960s version of the \"same\" pattern are not the same item — and pricing them identically can mean selling below what you paid. The only reliable floor for a one-of-a-kind piece is one you build yourself from your actual cost, shipping estimate, eBay fees, and the minimum margin you need to stay in business.",
+    "sections": [
+      {
+        "h2": "Why Competitor Matching Breaks Down for One-of-a-Kind Items",
+        "body": "On eBay, automated repricing works best when identical SKUs compete head-to-head. For mass-produced goods, a repricer can safely anchor to the lowest live price and undercut it by a cent. Vintage and antique items rarely have that luxury. A Victorian mourning brooch, an Art Deco cocktail shaker, or a signed mid-century pottery piece each has its own condition grade, provenance, and rarity story. If a competitor lists a superficially similar item in poor condition at $18, matching that price on your excellent-condition piece destroys your margin — and your reputation.\n\nThe fix is not to ignore competitor data entirely. It is to use competitor prices as a ceiling reference, not a floor. Your floor must come from your cost basis, not from what someone else decided to charge for something only loosely related to what you are selling.",
+        "bullets": [
+          "Condition differences of even one grade can represent 40-60% price variance in ceramics and glass",
+          "Signed or marked pieces routinely command 3-5x the price of unsigned equivalents in the same style",
+          "Era confusion (e.g., 1950s reproduction vs. genuine 1920s original) makes raw eBay comps unreliable"
+        ]
+      },
+      {
+        "h2": "Building a Per-Item Cost Floor: A Worked Example",
+        "body": "A cost floor is the minimum price at which you break even after all costs, plus your required margin. Here is how to calculate one for a piece of Depression-era green glassware you sourced at an estate sale.\n\nAssume:\n- Item cost: $8.00\n- Shipping materials + postage: $4.00\n- eBay final value fee (approximate blended rate): 13.25% of sale price\n- Minimum acceptable margin: 15% of sale price\n\nLet S equal the floor sale price. Your proceeds after fees and shipping must cover cost plus margin:\n\nS − (0.1325 × S) − $4.00 − $8.00 = 0.15 × S\n\nS × (1 − 0.1325 − 0.15) = $12.00\n\nS × 0.7175 = $12.00\n\nS ≈ $16.72\n\nRound up for safety: set your hard floor at $17.00. Undercut will never drop your listing below that price, regardless of where a competitor prices their version of a vaguely similar piece. Enter this number directly on the per-listing floor field in Undercut — it takes 15 seconds and protects every future reprice on that item automatically."
+      },
+      {
+        "h2": "Categorizing Your Inventory to Set Floors at Scale",
+        "body": "If you carry hundreds of vintage items, calculating a unique floor for every single listing sounds exhausting. In practice, most vintage and antique sellers cluster their inventory into cost tiers that make batch floor-setting realistic.\n\nA common approach is to define three to five cost bands — say, items sourced under $10, $10-$25, $25-$75, and $75 and above — and apply a standard fee-plus-margin formula to each band to produce a minimum multiplier. An item that cost you $20 in the $10-$25 band might automatically get a $28 floor using a 1.4x multiplier that bakes in fees and a 20% margin target.\n\nThis is not as precise as item-by-item calculation, but it is far safer than letting a repricer match whatever a competitor lists. You can refine individual floors for high-value pieces while relying on band multipliers to protect the long tail of lower-cost items.",
+        "bullets": [
+          "Use your sourcing receipts or a simple spreadsheet to assign every new listing to a cost band on arrival",
+          "Review floors quarterly — shipping costs and eBay fee rates change",
+          "High-ticket items (over $100 cost) always warrant individual floor calculations"
+        ]
+      },
+      {
+        "h2": "Using Undercut's Aggressiveness Controls for Vintage Categories",
+        "body": "Vintage and antique selling is not just about protecting the floor — it is also about competitive positioning when you do want to move inventory. Undercut's Pro plan includes AI aggressiveness tuning, which lets you tell the repricer how quickly and how far to move toward the competitor floor (without crossing your hard floor).\n\nFor vintage sellers, a moderate aggressiveness setting often outperforms maximum aggression. Because your items are differentiated, being the absolute lowest price does not always generate the most sales — buyers searching for vintage goods frequently filter by condition, era, and seller feedback, not purely by price. A setting that keeps you 3-5% below the nearest comparable listing, rather than pennies below the cheapest listing regardless of quality, tends to produce better margins over a full selling quarter.\n\nPro repricing also runs every 15 minutes, which matters when a competitor sells out and prices spike — you want to float back up toward your optimal price promptly, not hours later."
+      },
+      {
+        "h2": "Common Floor-Setting Mistakes Vintage Sellers Make",
+        "body": "The most frequent error is setting floors once and never revisiting them. Postage rates increase, eBay adjusts its fee structure, and your sourcing costs shift over time. A floor set two years ago may now be below your break-even point.\n\nA second mistake is treating floor as a set-it-and-forget-it ceiling on ambition. The floor is the absolute minimum — your listing price should start higher, often at or near your researched market value, and only descend if competition genuinely warrants it. Undercut starts from your current listing price and moves down only as needed, stopping at your floor. If no competitor is undercutting you, your price stays where it is.\n\nFinally, do not copy a floor from a similar item without adjusting for condition. A floor appropriate for a near-mint piece of art pottery is not appropriate for a piece with a hairline crack, even if the listing titles look identical.",
+        "bullets": [
+          "Audit floors after every eBay fee change announcement",
+          "Keep a note in your listing title or private notes field with the floor calculation date",
+          "Never use another seller's floor as your template — their cost basis is not yours"
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "Can I reprice vintage items automatically if no identical item exists on eBay right now?",
+        "a": "Yes. When Undercut finds no matching competitor listings, it leaves your price where it is — it does not race to zero or behave erratically. Your hard floor acts as the safety net, and the repricer simply holds your current price until a comparable listing appears."
+      },
+      {
+        "q": "What eBay fee rate should I use when calculating a floor for a vintage item?",
+        "a": "Use approximately 13.25% as a blended final value fee rate for most categories, but check eBay's current fee schedule for your specific category. Certain categories like coins or fine jewelry carry different rates. Always add your payment processing fee (now included in eBay's final value fee for most sellers) and any promoted listings spend you allocate to that item."
+      },
+      {
+        "q": "Should I set the same floor for a piece in excellent condition versus one with minor damage?",
+        "a": "No. Condition directly affects both your selling price ceiling and your floor. A piece with a chip or hairline crack will sell for less, so its floor should reflect a lower target price — but it should still be calculated from your actual cost for that specific piece, not copied from the floor of a mint-condition version."
+      },
+      {
+        "q": "How do I handle vintage lots (multiple items sold together) in Undercut?",
+        "a": "Set the floor for a lot based on the combined cost of all items in it, plus shipping and fees for the lot as a unit. Do not average floors from individual items — a lot's cost basis is additive, and you should treat it as a single SKU with its own floor calculation."
+      },
+      {
+        "q": "Does using a repricer hurt my standing with vintage buyers who expect negotiated prices?",
+        "a": "Automated repricing and Best Offer are not mutually exclusive on eBay. You can enable Best Offer on your listings while still using Undercut to manage the Buy It Now price. Undercut only adjusts the listed price — it does not affect offer thresholds you set separately in eBay Seller Hub."
+      }
+    ],
+    "cta": {
+      "heading": "Protect every vintage piece with a floor only you set",
+      "sub": "Start free — 25 listings, 14 days, no card required. Add per-item floors in seconds and let Undercut handle the rest."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to Set an eBay Price Floor That Protects Your Margin"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/collectibles-repricing",
+        "label": "Repricing Collectibles on eBay"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "How to Reprice eBay Listings Without Losing Margin"
+      },
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      }
+    ],
+    "slug": "vintage-antiques-repricing",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": false,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "eBay Repricing for High-Volume Sellers — Undercut",
+    "metaDescription": "Scale eBay repricing across 500+ listings with default floors and per-item overrides. Beat every competitor automatically — 14-day free trial, no card required.",
+    "h1": "How High-Volume eBay Sellers Reprice at Scale Without Losing Margin Control",
+    "eyebrow": "Guide",
+    "intro": "At 500 or more active listings, the math changes. You can't manually review every price, and a single misconfigured rule can silently erode margin across hundreds of SKUs overnight. The answer isn't faster hands — it's a system where default floor rules protect your entire catalog by default, and per-item overrides handle the exceptions. This guide shows exactly how to structure that system, including the floor formula that keeps every sale profitable, and where automation stops so your margins don't.",
+    "sections": [
+      {
+        "h2": "Why Standard Repricing Breaks Down Above 500 Listings",
+        "body": "Below 100 listings, a single flat rule — beat the lowest price by 2% — works well enough. Above 500, it doesn't, for two reasons. First, your catalog is heterogeneous: a lot of electronics might carry 8% margin while a vintage camera lot runs 35%. A single aggressiveness setting punishes your high-margin inventory. Second, listing churn accelerates: new competitors appear, old ones sell out, and buy-box positions shift faster than any weekly review cycle can track. High-volume repricing requires a two-layer architecture: catalog-wide defaults that are safe for every item, and targeted per-item overrides for your outliers.",
+        "bullets": [
+          "A flat %-below rule ignores cost variance across categories",
+          "Weekly manual reviews miss intraday buy-box shifts",
+          "Without floors, a race-to-the-bottom wipes margin on fast-moving SKUs",
+          "Per-item overrides let you protect your best-margin listings selectively"
+        ]
+      },
+      {
+        "h2": "The Floor Formula Every High-Volume Seller Should Run First",
+        "body": "Before you configure a single repricing rule, calculate the hard floor for each item. The formula is: Floor = (Item Cost + Shipping Cost) / (1 − eBay Fee Rate − Minimum Margin Rate). For a practical example: cost $8.00, shipping $4.00, eBay fees 13.25% (a typical combined rate for most categories including FVF and PayPal/managed payments), minimum acceptable margin 15%. Floor = ($8 + $4) / (1 − 0.1325 − 0.15) = $12 / 0.7175 = $16.73. Round up to $16.74 to avoid rounding-down losses at scale. In Undercut, you set this as the hard floor on that listing. The repricer will never go below it — not even if a competitor lists at $10.00. At 1,000 listings, running this formula once per SKU (easily done in a spreadsheet export) takes less time than recovering from a week of below-cost sales.",
+        "bullets": [
+          "Always include actual outbound shipping cost, not an estimate",
+          "Use your blended eBay fee rate — it varies by category",
+          "Set minimum margin to reflect your true business overhead, not just COGS",
+          "Re-run the formula when supplier costs change"
+        ]
+      },
+      {
+        "h2": "Default Floors vs. Per-Item Overrides: How to Use Both",
+        "body": "Undercut lets you set a catalog-level default floor as a percentage markup over cost — useful when you have consistent margins across a category. But the real unlock for high-volume sellers is per-item floor overrides. You import a floor price column in your bulk upload CSV, and Undercut respects each item's specific floor rather than the default. This matters when your catalog spans categories with very different fee structures or cost bases. A book category might carry 13% eBay fees; a collectibles category might carry 10%. Setting a single default floor that's safe for the highest-fee category leaves money on the table in lower-fee categories. Use the default as a safety net; use per-item overrides as the real control layer.",
+        "bullets": [
+          "Default floor: set once, covers every listing with no override",
+          "Per-item override: imported via CSV, takes precedence over the default",
+          "Override wins: ideal for high-cost or high-margin outliers",
+          "Audit quarterly — supplier cost changes should trigger a floor refresh"
+        ]
+      },
+      {
+        "h2": "Repricing Speed at Scale: When 5-Minute Cycles Matter",
+        "body": "Repricing speed is only a meaningful lever in fast-moving categories. On a 1,000-listing electronics catalog where competitors sell out and relist within hours, a 15-minute repricing cycle (Undercut Pro) is often sufficient — most buy-box shifts stabilize within one cycle. For categories like trading cards, sneakers, or trending media where inventory moves in minutes, 5-minute cycles (Undercut Scale) prevent extended periods of being undercut. The counterintuitive rule: faster repricing on thin-margin, high-competition listings is where speed pays. On high-margin, low-competition listings, slower cycles cost you nothing and reduce unnecessary price changes that confuse buyers browsing your store.",
+        "bullets": [
+          "15-minute cycles (Pro): suits most categories with normal competition velocity",
+          "5-minute cycles (Scale): essential for fast-moving collectibles, electronics, trending items",
+          "Unnecessary repricing churn can suppress listing visibility — don't reprice what doesn't need it",
+          "Segment your catalog by velocity; apply faster cycles only where justified"
+        ]
+      },
+      {
+        "h2": "AI Aggressiveness Tuning for Large Catalogs",
+        "body": "Undercut Pro and Scale include AI aggressiveness tuning, which adjusts how aggressively the algorithm undercuts based on factors like your sell-through rate, current stock level, and days listed. For high-volume sellers, this replaces the manual task of adjusting rules for aging inventory. A listing that has sat for 60 days at floor price might benefit from a more aggressive position — closer to the lowest active competitor. A fast-moving SKU with low stock might hold price near the top of the competitive range to protect margin on limited units. Aggressiveness tuning applies these adjustments automatically across your catalog, while your hard floor ensures the algorithm never executes a sale you'd regret.",
+        "bullets": [
+          "High stock + low velocity: AI pushes price lower within floor bounds",
+          "Low stock + high velocity: AI holds price higher to protect margin",
+          "Aging listings (60+ days): more aggressive positioning to clear stock",
+          "Floor is always honored — AI tuning operates above it, never below"
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "Can I import floor prices in bulk for my entire catalog?",
+        "a": "Yes. Undercut accepts a floor price column in CSV bulk imports, so you can calculate floors in a spreadsheet and upload them all at once. Each item's imported floor overrides the catalog default, and you can re-import to update floors whenever your costs change."
+      },
+      {
+        "q": "What happens if every competitor lists below my floor?",
+        "a": "Your listing stays at your floor price and will not undercut further. You won't win the buy box in that moment, but you also won't execute a loss-making sale. Undercut is designed on the assumption that a sale below floor is worse than no sale at all."
+      },
+      {
+        "q": "How do I set a safe default floor when my catalog spans multiple categories with different fee rates?",
+        "a": "Use the most conservative (highest-fee) category's rate for your default floor so every listing is protected. Then apply per-item overrides for categories with lower fees to recover the margin you'd otherwise leave on the table with a blanket conservative default."
+      },
+      {
+        "q": "Does the Scale plan's 5-minute repricing cycle apply to all listings or can I select which listings get faster cycles?",
+        "a": "On the Scale plan, the 5-minute cycle applies across all 10,000 included listings. If you want to limit faster repricing to a subset of your catalog for efficiency, you can structure your account to keep high-velocity listings under Scale and lower-velocity listings under a separate Pro account."
+      },
+      {
+        "q": "Will AI aggressiveness tuning ever override or ignore my floor?",
+        "a": "No. The hard floor is inviolable — AI aggressiveness tuning controls how aggressively Undercut positions your price relative to competitors, but all adjustments are calculated above the floor. The AI cannot instruct the repricer to cross the floor under any circumstances."
+      }
+    ],
+    "cta": {
+      "heading": "Set Your Floors. Let Undercut Handle the Rest.",
+      "sub": "Start free with 25 listings — no credit card needed. Add per-item floors, go live in minutes, and scale to 10,000 listings when you're ready."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/guides/multi-listing-repricing-strategy",
+        "label": "Multi-Listing Repricing Strategy"
+      },
+      {
+        "href": "/guides/ai-repricing-ebay",
+        "label": "AI Repricing on eBay"
+      }
+    ],
+    "slug": "high-volume-repricing",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": true,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "Seasonal Product Repricing on eBay — Undercut",
+    "metaDescription": "Learn seasonal product repricing on eBay — raise floors when demand peaks, hold margins off-season. Start a 14-day free trial, no card required.",
+    "h1": "How to Reprice eBay Listings for Seasonal Demand Without Dumping Inventory",
+    "eyebrow": "Guide",
+    "intro": "Most eBay sellers treat their price floor as a fixed number. That's a mistake. Seasonal demand reshapes what buyers will pay — and what the lowest competitor will dare to list. The smart move isn't chasing the floor down in January when holiday stock oversupply hits; it's holding firm off-season and raising your floor proactively before peak season begins. This guide walks through exactly how to set, adjust, and automate seasonal floors so Undercut does the repricing without ever selling you into a loss.",
+    "sections": [
+      {
+        "h2": "Why Seasons Move the Floor, Not Just the Price",
+        "body": "Demand elasticity on eBay shifts dramatically by time of year. When 40 sellers flood the platform with Christmas ornaments in February, the race to the bottom is tempting — but it destroys margin on inventory that would sell at full price by October. Conversely, a seller who holds a firm floor in February keeps margin intact and moves units profitably once demand returns. The same logic runs in reverse for summer outdoor goods, back-to-school supplies, or Valentine's gifts: as the peak window approaches, buyers tolerate higher prices and competitors haven't yet undercut each other into the floor. Seasonal repricing is therefore a two-lever system: raise the floor before peak demand arrives, and hold — not lower — the floor as the off-season sets in.",
+        "bullets": [
+          "Peak season: raise your floor to capture elevated buyer willingness to pay",
+          "Off-season: hold the floor steady rather than discounting perishable margin",
+          "Transition windows (4–6 weeks before peak): the highest-leverage moment to adjust floors upward",
+          "Oversupply periods: let competitors race to the bottom while you protect cost basis"
+        ]
+      },
+      {
+        "h2": "Building a Seasonal Floor: A Worked Example",
+        "body": "Take a Halloween costume accessory: landed cost $8, average shipping $4, eBay fees approximately 13.25% of sale price, target minimum margin 15%. Working backward: floor = (cost + shipping) / (1 - fees% - margin%) = ($8 + $4) / (1 - 0.1325 - 0.15) = $12 / 0.7175 ≈ $16.72, rounded to $17.00 as your year-round hard floor. Now apply seasonal logic. In September and October, buyer demand is at its highest and competing listings thin out as stock sells through. You can responsibly raise that floor to $21–$23 — not as a guess, but because completed eBay sales data from the prior year shows average selling prices 25–35% above February lows for the same item. In November, oversupply hits post-Halloween clearance. Rather than dropping to $10 to 'move units,' hold $17. The unit either sells at margin or sits until next September. Dumping inventory at $10 books a confirmed loss; holding books an unrealized wait.",
+        "bullets": []
+      },
+      {
+        "h2": "Category-Specific Seasonal Patterns to Know",
+        "body": "Not every category follows the same calendar. Understanding your category's demand curve is the prerequisite to setting seasonal floors intelligently.",
+        "bullets": [
+          "Holiday decor and gifting (Oct–Dec peak): floors should rise in September; hold firm January through August",
+          "Outdoor and garden (March–May peak): begin raising floors in February; expect a sharp demand cliff in July",
+          "Back-to-school supplies (July–August peak): competitors over-order and slash in September — hold the floor",
+          "Collectibles and trading cards (year-round with event spikes): set floors around major release dates and conventions, not calendar months",
+          "Clothing and apparel: seasonal sizing transitions create 6–8 week peak windows per season — track sell-through rate, not just price"
+        ]
+      },
+      {
+        "h2": "Automating Seasonal Floors with Undercut",
+        "body": "Manually updating floors across hundreds of listings before every seasonal shift is error-prone and time-consuming. Undercut lets you set a hard floor per listing — a number the repricer will never breach regardless of what competitors do. When your peak season arrives, you update that floor upward in bulk; Undercut then auto-undercuts the new lowest competitor price, but only down to your revised, higher floor. On Pro and Scale plans, the 15-minute and 5-minute repricing intervals mean that when a competitor sells through their last unit and prices spike, Undercut catches and responds to that opportunity within minutes — not hours. The AI aggressiveness tuning on Pro lets you configure how quickly Undercut chases a price up versus waiting for the market to settle, which is particularly valuable in fast-moving seasonal windows where prices can swing $5–$10 in a single afternoon.",
+        "bullets": [
+          "Set per-listing hard floors that survive any repricing event",
+          "Bulk-update floors before peak season without touching individual listings one by one",
+          "Pro/Scale: catch competitor sell-throughs in 5–15 minutes and price up automatically",
+          "AI aggressiveness tuning controls how assertively Undercut raises price when demand spikes"
+        ]
+      },
+      {
+        "h2": "Common Seasonal Repricing Mistakes and How to Avoid Them",
+        "body": "The most damaging mistake is treating the repricer as a race-to-the-bottom engine with no floor. Without a hard floor, automated repricing during an off-season oversupply event can drain margin to zero — or below — across hundreds of SKUs before the seller notices. The second mistake is setting floors once and forgetting them. A floor calculated on last year's COGS is wrong the moment your supplier raises prices. Build a quarterly floor review into your workflow, especially before each major seasonal transition. Third, sellers often lower floors proactively ahead of a slow season 'to stay competitive.' The data rarely supports this: conversion rates on eBay for seasonal items drop because buyer intent drops, not because prices are too high. Protecting your floor in slow periods preserves both margin and the perceived value of your listings.",
+        "bullets": []
+      }
+    ],
+    "faq": [
+      {
+        "q": "How far in advance should I raise my seasonal floor before peak demand hits?",
+        "a": "Four to six weeks is the typical lead time. Competitor prices start rising 3–4 weeks before peak as sellers anticipate demand, and raising your floor at week 6 means Undercut is already positioned to undercut those rising competitors at a profitable price — rather than catching up after the window has partially closed."
+      },
+      {
+        "q": "What happens if I hold my floor and don't sell through my off-season inventory?",
+        "a": "Unsold inventory at margin is a storage cost problem, not a pricing problem. If your off-season floor is correctly calculated to cover cost plus fees plus a minimum margin, holding it means you either sell profitably or carry the item until the next peak. Selling below the floor books a confirmed loss; carrying the item does not."
+      },
+      {
+        "q": "Can I set different floors for different seasons on the same SKU in Undercut?",
+        "a": "Undercut stores one active floor per listing at any time, which you update manually or in bulk when you want to change it. The practical workflow is to export your floor list, apply your seasonal multipliers in a spreadsheet, and re-import before each major season transition. Pro and Scale plans support bulk floor updates."
+      },
+      {
+        "q": "My category has unpredictable spikes — a viral moment or a news event. How does seasonal floor logic apply?",
+        "a": "Event-driven spikes behave like compressed seasonal peaks. The floor logic is identical: raise your floor to reflect elevated demand willingness, let Undercut undercut the new competitor landscape at that higher floor, and hold the floor as the spike subsides rather than chasing the market back down. The 5-minute repricing interval on Scale is particularly useful here."
+      },
+      {
+        "q": "Does Undercut automatically detect seasonal patterns and adjust my floors?",
+        "a": "No — and this is intentional. Floors are a seller decision because they encode your actual cost basis, which only you know. Undercut enforces whatever floor you set with precision and reprices competitively above it, but it does not move your floor autonomously. You control the floor; Undercut controls the competitive response above it."
+      }
+    ],
+    "cta": {
+      "heading": "Set Your Seasonal Floor — Undercut Handles the Rest",
+      "sub": "Start a 14-day free trial and protect every listing with a hard floor that survives off-season price wars. No credit card required."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to Set an eBay Price Floor"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing on eBay Without Losing Margin"
+      },
+      {
+        "href": "/guides/ai-repricing-ebay",
+        "label": "AI Repricing on eBay"
+      }
+    ],
+    "slug": "seasonal-repricing",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": false,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "Win the eBay Buy Box Without Wrecking Margins — Undercut",
+    "metaDescription": "Learn how to win the buy box on eBay by repricing to beat competitors — safely clamped to a hard floor. Start a 14-day free trial, no card required.",
+    "h1": "How to Win the eBay Buy Box: Price Smart, Floor Firm",
+    "eyebrow": "Guide",
+    "intro": "Price is the single biggest lever in eBay's Best Match algorithm for Buy It Now listings. Undercutting the lowest competitor reliably wins more impressions and the coveted buy box position — but unclamped repricing is a trap. Sellers who race to the bottom without a hard floor can wind up selling below cost within hours of a competitor's next move. The only sustainable path is automated repricing that beats the market price and refuses to go below a floor you control, per item, before a single sale happens.",
+    "sections": [
+      {
+        "h2": "How eBay's Best Match Algorithm Uses Price",
+        "body": "eBay's Best Match ranking for Buy It Now listings weighs several factors: seller feedback score, shipping speed, return policy, and — critically — price competitiveness. eBay does not publish exact weights, but its own seller guidance confirms that listings priced closer to the lowest available are more likely to surface at the top of search results and win the buy box when multiple sellers offer the same or similar item. In practice, even a $0.50 gap below a competitor can shift visibility. The implication is direct: if you are not actively tracking and responding to competitor price changes, you are ceding buy box time to whoever repriced last.",
+        "bullets": [
+          "Best Match is not purely price — but price is the lever you can adjust fastest.",
+          "Buy box eligibility requires a seller to meet minimum feedback and policy thresholds first.",
+          "Once eligible, the lowest-priced seller with fast shipping wins the buy box the majority of the time.",
+          "eBay reprices the buy box assignment in near real-time — static pricing loses ground continuously."
+        ]
+      },
+      {
+        "h2": "Why Unclamped Repricing Is Dangerous",
+        "body": "Most repricing tools simply find the lowest competitor price and match or beat it by a fixed amount. That works until a competitor misprices an item, drops to $0.01, or a bot sets off a price war. Without a floor, your repricer follows all the way down. A seller in the electronics category who sets a $0.01 undercut rule with no floor on a $45 USB hub can wake up to 200 units sold at $3.12 — the price two bots ratcheted down to overnight. The floor is not an optional feature. It is the mechanism that makes automated repricing safe to leave running.",
+        "bullets": [
+          "Price wars between automated tools can bottom out in minutes, not hours.",
+          "eBay does not reverse transactions because your repricer malfunctioned.",
+          "A floor set per listing ensures every sale clears your minimum acceptable margin."
+        ]
+      },
+      {
+        "h2": "How to Calculate a Hard Floor for Any Listing",
+        "body": "Your floor is the lowest price at which selling the item still makes financial sense. The standard formula accounts for four inputs: landed cost, shipping cost, eBay fee percentage, and your minimum acceptable margin. Here is a worked example for a mid-range kitchen gadget sold in the Home & Garden category:\n\nCost of goods: $8.00\nOutbound shipping: $4.00\neBay final value fee (13.25% of sale price including shipping): variable\nMinimum margin: 15%\n\nTo solve for floor price F where profit margin is at least 15%:\nF = (cost + shipping) / (1 − fee% − margin%)\nF = ($8.00 + $4.00) / (1 − 0.1325 − 0.15)\nF = $12.00 / 0.7175\nF ≈ $16.73\n\nRound up to $17.00 or $17.14 to add a small buffer. That number goes into Undercut as the hard floor for that listing. The repricer will beat any competitor above $17.14 — and refuse to move below it under any circumstance.",
+        "bullets": [
+          "Always include eBay's final value fee in the floor calculation — it applies to the full amount including shipping.",
+          "Factor in PayPal or managed payments processing if applicable.",
+          "Recalculate floors when your supplier costs change, not just when competitors move."
+        ]
+      },
+      {
+        "h2": "Repricing Cadence: How Often Matters",
+        "body": "The buy box is reassigned continuously. A repricer that checks prices once per day is functionally useless for competitive categories. On Undercut's Pro plan, listings reprice every 15 minutes. On Scale, every 5 minutes. For high-velocity categories like consumer electronics, media, or health products where dozens of sellers compete on the same GTIN, 5-minute repricing means you are almost always at the buy box price. For lower-competition niches — vintage items, handmade, or single-SKU listings — even hourly repricing is often sufficient, making the Free or Starter plan adequate. Match your repricing cadence to the actual competition density in your category.",
+        "bullets": [
+          "Electronics and media: 5-minute repricing makes a measurable difference in buy box share.",
+          "Clothing, collectibles, vintage: hourly or daily repricing is usually sufficient.",
+          "Check your eBay seller dashboard for buy box percentage — that is the metric repricing speed affects most directly."
+        ]
+      },
+      {
+        "h2": "Setting Up Floor-Protected Repricing in Undercut",
+        "body": "Undercut connects to your eBay account via the standard eBay API. During onboarding, you import your active listings. For each listing — or in bulk using category rules — you set a floor price. Once floors are set, you choose an undercut rule: beat the lowest competitor by a fixed amount (e.g. $0.10) or by a percentage (e.g. 1%). From that point forward, Undercut monitors competitor prices and adjusts your listing price downward to stay at the buy box position, stopping the moment the next move would breach your floor. On Pro and Scale plans, AI aggressiveness tuning lets you decide how close to the floor you are willing to operate — useful for margin-sensitive SKUs where you would rather lose the buy box than compress profit further.",
+        "bullets": [
+          "Free plan covers up to 25 listings — enough to validate the approach on your best sellers before scaling.",
+          "Bulk floor-setting by category rule saves time for sellers with large, homogeneous catalogs.",
+          "AI aggressiveness tuning (Pro+) raises your floor threshold dynamically when sell-through data shows you can hold a higher price."
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "Does winning the buy box always require having the lowest price on eBay?",
+        "a": "Not always the absolute lowest on eBay as a whole, but you generally need to be the lowest among eligible sellers for that specific listing format. A seller with excellent feedback and fast handling can sometimes hold the buy box at a slightly higher price than a low-feedback competitor, but the gap is small — typically under 3-5%. Price remains the primary variable you can move quickly."
+      },
+      {
+        "q": "What happens if I set a floor and a competitor prices below it?",
+        "a": "Undercut holds your listing at your floor price and does not follow the competitor below it. You will lose the buy box for that period. That is the correct outcome — selling below your floor means selling at a loss or at an unacceptable margin. When the competitor raises their price or sells out, Undercut automatically recaptures the buy box."
+      },
+      {
+        "q": "How do I know if my floor is set correctly?",
+        "a": "Run the floor formula: (cost + shipping) / (1 − eBay fee% − minimum margin%). For most categories, eBay's final value fee is 13.25% on the total including shipping. Add your minimum acceptable margin — 15% is a common baseline. If you are consistently losing the buy box to a competitor who is pricing below your floor, that competitor is likely selling at a loss or has lower costs than you; following them down is not a viable strategy."
+      },
+      {
+        "q": "Is automated repricing against eBay's rules?",
+        "a": "No. eBay explicitly supports third-party repricing tools through its official API. Undercut uses the eBay API to update listing prices programmatically, which is a standard, permitted seller activity. eBay's policies restrict certain listing manipulation tactics, but price updates via the API are not among them."
+      },
+      {
+        "q": "How many listings do I need before automated repricing pays for itself?",
+        "a": "It depends on your margins and competition density, but most sellers find that even 10-15 competitive listings benefit from automated repricing. If even one listing wins the buy box an additional 20% of the time due to faster repricing, and that listing moves $500/month in GMV, the incremental revenue typically exceeds the Starter plan cost. Use the 14-day free trial to measure buy box percentage before and after enabling repricing on your top listings."
+      }
+    ],
+    "cta": {
+      "heading": "Set Your Floor. Win the Box. Keep the Margin.",
+      "sub": "Start repricing up to 25 listings free — 14-day trial, no credit card. Your floor is locked in before your first sale."
+    },
+    "internalLinks": [
+      {
+        "href": "/glossary/what-is-the-ebay-buy-box",
+        "label": "What Is the eBay Buy Box?"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/guides/ebay-pricing-strategy",
+        "label": "eBay Pricing Strategy Guide"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "Setting an eBay Price Floor"
+      }
+    ],
+    "slug": "win-the-buy-box",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": false,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "Never Sell Below Cost on eBay — Undercut",
+    "metaDescription": "Learn how to avoid selling below cost on eBay with the exact floor formula (cost + fees + margin). Start a 14-day free trial — no card required.",
+    "h1": "The Exact Formula to Set an eBay Price Floor That Protects Every Sale",
+    "eyebrow": "Guide",
+    "intro": "Most eBay sellers who lose money on a sale set a floor too late — after a repricer already chased a competitor into the red. The fix is not slowing down your repricer; it is doing the floor math before you automate anything. This guide gives you the exact formula: cost + fulfillment + eBay fees + minimum margin = hard floor. Once that number lives in your repricer, no algorithm, no competitor spiral, and no flash sale can force a loss. We'll walk through a real worked example so you can replicate it for every SKU in your catalog.",
+    "sections": [
+      {
+        "h2": "Why Sellers Keep Losing Money Even With a Repricer Running",
+        "body": "Automated repricing is designed to win sales by undercutting competitors. The problem is that \"winning\" is only profitable if there is a floor below which the tool refuses to go. Most sellers skip this step or set a floor based on gut feel — a round number that does not account for eBay's variable fee structure or the cost of the label. The repricer then does exactly what it is supposed to do: it beats the lowest price. When that lowest price is already below your break-even point, you are paying to ship something for free or worse.",
+        "bullets": [
+          "Forgetting that eBay's final value fee applies to the total amount including shipping",
+          "Setting a floor equal to landed cost with no margin buffer",
+          "Using a single flat floor across all categories despite different fee rates",
+          "Not updating floors after supplier price changes or postage increases"
+        ]
+      },
+      {
+        "h2": "The Floor Formula: Cost + Fees + Minimum Margin",
+        "body": "The correct floor is not your cost. It is the minimum price at which the transaction leaves you with acceptable profit after every deduction. Use this formula: Floor = (Landed Cost + Fulfillment Cost) / (1 - eBay Fee Rate - Target Margin Rate). Breaking that down: Landed Cost is what you paid per unit including inbound shipping and any prep. Fulfillment Cost is the outbound postage or FBA-equivalent fee. eBay Fee Rate is your final value fee percentage for that category — typically 13.25% for most categories, lower for some like heavy equipment. Target Margin Rate is the minimum net margin you will accept, expressed as a decimal.\n\nWorked example — a phone case: You source it for $8.00. Outbound shipping via USPS First Class costs $4.00. eBay final value fee for cell phone accessories is 13.25%. You want at least a 15% net margin.\n\nFloor = ($8.00 + $4.00) / (1 - 0.1325 - 0.15) = $12.00 / 0.7175 = $16.72\n\nYou would set your hard floor at $16.72. At that price, after eBay takes $2.22 and shipping costs $4.00, you net $2.50 — exactly 15% of $16.72. Any automated repricer that hits this floor stops. It does not go lower, no matter what a competitor lists at.",
+        "bullets": [
+          "Landed cost: $8.00",
+          "Outbound fulfillment: $4.00",
+          "eBay final value fee (13.25%): $2.22",
+          "Net at floor price of $16.72: $2.50 (15% margin)",
+          "Hard floor entered in repricer: $16.72"
+        ]
+      },
+      {
+        "h2": "Category-Specific Fee Rates That Change Your Floor",
+        "body": "eBay's fee structure is not flat. Using the wrong rate when calculating your floor means the number you enter is wrong before any sale happens. Check your specific category in eBay's fee schedule and use that rate, not a generic 13.25%. A few reference points as of mid-2025: Books, DVDs, and Music run 14.95% up to $7,500. Clothing, Shoes, and Accessories run 15% on most items under $2,000. Collectibles sit at 13.25%. Heavy machinery and industrial equipment can be as low as 2-3%. If you sell across multiple categories, you need a separate floor calculation for each one — a single blended rate will leave some SKUs underprotected.",
+        "bullets": [
+          "Books, DVDs, Music: 14.95% (use ~15% in your formula)",
+          "Clothing and Accessories: 15%",
+          "Most general merchandise: 13.25%",
+          "Heavy equipment and industrial: 2-9% depending on subcategory",
+          "Always verify against eBay's current fee page before setting floors"
+        ]
+      },
+      {
+        "h2": "How Undercut Enforces Your Floor on Every Reprice Cycle",
+        "body": "Once you calculate a floor using the formula above, you enter it as the Hard Floor for that listing in Undercut. From that point, every reprice cycle — whether running every 5 minutes on Scale or every 15 minutes on Pro — checks the competitor's current lowest price, calculates a target undercut, and then applies one rule before writing a new price: if the result is below your floor, the listing price is held at the floor instead. It does not reprice down. It does not match a competitor who is selling at a loss. It holds and waits for the market to recover.\n\nThis means you can run an aggressive repricing strategy — AI aggressiveness tuning on Pro, near-real-time cycles on Scale — without the anxiety that speed itself will cause a loss. The floor is not a suggestion; it is a hard constraint the algorithm cannot override.",
+        "bullets": [
+          "Free plan: set floors on up to 25 listings, hourly repricing",
+          "Starter ($29/mo): 100 listings with floor protection on every cycle",
+          "Pro ($79/mo): 1,000 listings, AI aggressiveness tuning, 15-minute cycles",
+          "Scale ($199/mo): 10,000 listings, 5-minute cycles, full floor enforcement"
+        ]
+      },
+      {
+        "h2": "Keeping Floors Current: When to Recalculate",
+        "body": "A floor set in January may be wrong by March. Supplier invoices change, USPS postage rates update, and eBay occasionally adjusts its fee schedule. If any input to the formula changes, the floor is stale. The practical habit is to recalculate floors whenever you receive a new supplier invoice, after any eBay fee announcement, and once per quarter as a standard review. For high-volume sellers with hundreds of SKUs, the most efficient approach is to maintain a spreadsheet with the formula per category and regenerate floors in bulk rather than editing them one by one. Undercut allows floor updates via CSV import on Pro and Scale, which makes a quarterly floor refresh a single upload rather than hours of manual edits."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Does my floor need to include eBay's listing fee or just the final value fee?",
+        "a": "For most sellers, listings are free (eBay includes a monthly allotment of zero-insertion-fee listings). Your floor calculation should focus on the final value fee, which applies to every completed sale and is the meaningful per-transaction cost. If you are in a category or volume tier where insertion fees apply, add that cost to your landed cost input in the formula."
+      },
+      {
+        "q": "What if a competitor lists below my floor and my listing stops selling entirely?",
+        "a": "That is the correct behavior. If a competitor is selling below your calculated break-even, matching them means paying to fulfill orders. Your floor holds your price at the minimum profitable point. In some cases, a competitor is liquidating inventory or has a lower cost basis — neither situation justifies you selling at a loss. If the market stays depressed for an extended period, the right move is to review your supplier cost, not lower your floor."
+      },
+      {
+        "q": "How do I handle free shipping offers — does that change the floor math?",
+        "a": "Yes. If you offer free shipping, the outbound fulfillment cost must still appear in your floor formula — it just moves from a line-item on the buyer's receipt to a cost you absorb. Use the same formula but treat your fulfillment cost as part of your landed cost input. The result will be a higher floor price than a listing where shipping is charged separately, which is accurate: free shipping listings need to price in that cost or they lose money."
+      },
+      {
+        "q": "Can I set one floor for an entire category instead of per SKU?",
+        "a": "You can, but it introduces risk. A category-level floor is only safe if every item in that category has the same or lower landed cost and fulfillment cost as your most expensive SKU. In practice, items in the same category often have a wide cost spread. A per-SKU floor is more work to set up initially but is the only approach that reliably protects each listing. Undercut's CSV import makes per-SKU floor management practical even at high volume."
+      },
+      {
+        "q": "What margin percentage should I use as my minimum in the floor formula?",
+        "a": "That depends on your business model. Most resellers targeting sustainable eBay income use 15-25% net margin as a floor minimum. If your business relies on high volume and thin margins, you might accept 10%. If you are selling unique or collectible items with low competition, 30%+ is reasonable. The key is that the number reflects an actual business decision, not an arbitrary guess — factor in the time you spend sourcing, listing, and handling returns when deciding what net margin is worth your effort."
+      }
+    ],
+    "cta": {
+      "heading": "Set Your Floor Once. Let Undercut Hold It on Every Reprice.",
+      "sub": "Start a 14-day free trial — no credit card required. Add your floor per listing, connect your eBay account, and let Undercut beat competitors without ever dropping below your break-even."
+    },
+    "internalLinks": [
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/ebay-seller-fees-explained",
+        "label": "eBay Seller Fees Explained"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/guides/manual-vs-automated-repricing",
+        "label": "Manual vs. Automated Repricing"
+      },
+      {
+        "href": "/ebay-profit-calculator",
+        "label": "eBay Profit Calculator"
+      }
+    ],
+    "slug": "avoid-selling-below-cost",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": true,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "Manual vs Automated eBay Repricing — Undercut",
+    "metaDescription": "Manual vs automated repricing on eBay: see the real ROI in hours and sales, and how a hard floor eliminates the risk. Start a 14-day free trial — no card needed.",
+    "h1": "Manual vs Automated Repricing on eBay: The Real ROI (and Why the Floor Changes Everything)",
+    "eyebrow": "Guide",
+    "intro": "The case for automating eBay repricing is usually framed around speed. But speed is only half the story. The deeper ROI is in two places most sellers never quantify: the hours you stop spending watching prices, and the sales you win in the windows when you were asleep or away. The reason sellers have historically resisted automation is fear — fear of a runaway price drop. A hard floor per listing removes that fear entirely, which means the only real argument left for manual repricing is that you have fewer than 25 listings and truly enjoy spreadsheets.",
+    "sections": [
+      {
+        "h2": "What Manual Repricing Actually Costs You",
+        "body": "Manual repricing is not free. If you manage 100 active listings and check competitor prices twice a day, a conservative estimate is 3-4 minutes per listing session — that is 5 to 7 hours a week spent on price surveillance alone. At a modest $25/hr opportunity cost, you are spending $125 to $175 per week on a task that produces no creative value and that a machine can do in seconds.",
+        "bullets": [
+          "You only see prices at the moment you check — competitors move in between",
+          "You are most vulnerable overnight and on weekends, when buy-box churn peaks",
+          "Manual errors (wrong decimal, copy-paste) can price items below cost with no safeguard",
+          "Scaling from 100 to 500 listings multiplies the problem linearly"
+        ]
+      },
+      {
+        "h2": "What Automated Repricing Actually Wins You",
+        "body": "An automated repricer does not just save time — it captures sales that would otherwise go to a competitor who undercut you by $0.50 while you were offline. eBay's buy box and Best Match algorithm favor competitive pricing, and the window to win a sale can be as short as 15 minutes after a competitor's price changes. Pro and Scale plan subscribers on Undercut reprice every 15 and 5 minutes respectively, meaning a competitor price drop is matched or beaten within one cycle rather than the next time you log in. In electronics — a category where median listing lifespans are under 48 hours and price volatility is high — missing even two repricing windows in a day can mean losing the sale entirely to a same-condition competitor who was $1.20 cheaper at the moment a buyer searched.",
+        "bullets": [
+          "15-minute repricing (Pro): beat a competitor drop before most buyers even refresh their search",
+          "5-minute repricing (Scale): critical for fast-moving categories like consumer electronics and media",
+          "AI aggressiveness tuning (Pro+): set how hard Undercut chases the lowest price based on your margin tolerance"
+        ]
+      },
+      {
+        "h2": "The Floor Calculation: Why Automation Is Now Risk-Free",
+        "body": "The only credible objection to automated repricing is the race-to-zero risk — the fear that the software will keep cutting price until you sell at a loss. A hard floor per listing makes this structurally impossible. Here is a worked example for a used textbook sold via standard shipping:\n\nItem cost: $8.00\nShipping cost: $4.00\neBay final value fee (13.25% of $20 sale): $2.65\nPayPal/managed payments processing (~2.9% + $0.30): $0.88\nMinimum target margin: 15% of sale price\n\nFloor = (cost + shipping + fees) / (1 - margin %) = ($8 + $4 + ~$3.53) / (1 - 0.15) ≈ $18.27\n\nSet your floor at $18.27. Undercut will chase every competitor down to that number and stop. It will never sell below it. If all competitors drop below your floor, Undercut holds at your floor rather than matching — you simply do not win that sale, which is exactly the right outcome. You keep margin integrity without lifting a finger.",
+        "bullets": [
+          "Set the floor once per listing — Undercut enforces it on every reprice cycle",
+          "Update floors in bulk if your supplier costs change",
+          "The floor also protects against competitors using loss-leader tactics to force rivals below cost"
+        ]
+      },
+      {
+        "h2": "When Manual Repricing Still Makes Sense",
+        "body": "Manual repricing is defensible in a narrow set of circumstances: fewer than 25 listings with low price volatility (vintage, antiques, one-of-a-kind items where you are the only comparable seller), or categories where you deliberately price above market because your listing quality — photos, description, seller feedback — justifies a premium. If either of those describes you, Undercut's free plan covers 25 listings at no cost and no card required. You can automate the occasional commodity item and keep manual control on the differentiated pieces. The point is that automation and manual are not mutually exclusive — floors give you the control to use both in the same account."
+      },
+      {
+        "h2": "How to Transition From Manual to Automated Without Losing Control",
+        "body": "The transition is lower-risk than most sellers expect. The recommended approach: start with your 25 highest-volume commodity listings — items with multiple identical competitors where you are purely competing on price. Set conservative floors (use the formula above, or Undercut's built-in floor calculator). Run automated repricing on those listings for one week while keeping your remaining listings manual. Review the repricing log: you will see exactly which competitor moves triggered a reprice, what price was set, and whether the floor was hit. After a week, most sellers find their floor was never reached on commodity items and expand automation to additional listings. Undercut's free 14-day trial gives you enough time to run this experiment with zero financial commitment.",
+        "bullets": [
+          "Start with your most price-competitive, lowest-margin listings",
+          "Set floors before enabling automation — never the other way around",
+          "Review the repricing log daily for the first week",
+          "Expand automation by category once you trust the floor logic"
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "If I automate repricing, will Undercut keep lowering my price even if every competitor is selling below my cost?",
+        "a": "No. Undercut will lower your price to match the lowest competitor only down to the floor you set. If competitors drop below your floor, Undercut holds at your floor and stops. You will not win those sales, but you will not lose money on them either. The floor is a hard constraint, not a suggestion."
+      },
+      {
+        "q": "How much time does automated repricing realistically save for a 200-listing eBay store?",
+        "a": "Most sellers with 200 listings report spending 8 to 12 hours per week on manual price monitoring before switching. With automated repricing that drops to roughly 30 minutes per week reviewing logs and updating floors when costs change — a time saving of 90% or more. That time can go toward sourcing, photography, or listing new inventory."
+      },
+      {
+        "q": "Does repricing frequency actually matter, or is once a day enough?",
+        "a": "It depends on your category. For slow-moving niches like antiques or handmade items, daily repricing is often sufficient. For electronics, media, or any category with multiple competitors and high search volume, a price change by a competitor at 2am can cost you the next 50 sales before you wake up. Undercut's Pro plan reprices every 15 minutes and Scale every 5 minutes — the faster cycles matter most in high-velocity categories."
+      },
+      {
+        "q": "Can I use automated repricing for only some of my listings and keep others manual?",
+        "a": "Yes. Automation is per-listing in Undercut — you enable it on the listings where you want it and leave others untouched. A common pattern is to automate commodity items with clear competitors and keep unique or collectible items on manual pricing where your listing quality justifies a premium over comps."
+      },
+      {
+        "q": "What happens to my floor if my supplier raises costs mid-month?",
+        "a": "You update the floor manually (or in bulk via CSV). Undercut does not automatically recalculate floors when your costs change — you own that number because you own the cost data. The workflow is: update your cost sheet, recalculate the new floor, push the update to Undercut. Until you update it, the old floor remains in effect, which is a safe default — it will not let the price drop below the old floor while you catch up."
+      }
+    ],
+    "cta": {
+      "heading": "Set your floor. Let Undercut do the rest.",
+      "sub": "Start your 14-day free trial — 25 listings included, no credit card required. See exactly how many reprice events fire in your first week and what each one wins you."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/guides/ebay-pricing-strategy",
+        "label": "eBay Pricing Strategy Guide"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/ai-repricing-ebay",
+        "label": "AI Repricing on eBay: How It Works"
+      }
+    ],
+    "slug": "manual-vs-automated-repricing",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": false,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "eBay Pricing Strategy for Competitive Markets — Undercut",
+    "metaDescription": "Learn when to undercut vs. hold price on eBay — and how setting a hard floor lets you compete aggressively without eroding margin. 14-day trial, no card needed.",
+    "h1": "When to Undercut, When to Hold: A Floor-First eBay Pricing Strategy",
+    "eyebrow": "Guide",
+    "intro": "Most eBay sellers treat pricing as a binary: go low to win, or hold firm and wait. Neither works alone in a competitive market. The real strategy is knowing which items reward aggressive undercutting and which reward patience — and then protecting every decision with a hard floor so that competing on price never crosses into selling at a loss. This guide gives you a practical framework for both choices, with the math to back each one.",
+    "sections": [
+      {
+        "h2": "The Core Decision: Undercut or Hold Premium?",
+        "body": "Not every listing benefits from being the cheapest. The right move depends on demand velocity, your cost basis, and how many identical or near-identical competitors you face. Two questions cut through most of the noise:",
+        "bullets": [
+          "How fungible is the item? Commodities (common media, mass-produced electronics accessories, standard apparel sizes) are price-sensitive; buyers sort by price and rarely read the description. Undercut.",
+          "How differentiated is your listing? Strong photos, detailed condition notes, fast-handling reputation, or rare variant details give buyers a reason to pay a small premium. Hold.",
+          "How many active competitors are there? Three or fewer identical listings means price discipline works. Ten or more means you either undercut to stay visible or exit the category."
+        ]
+      },
+      {
+        "h2": "Setting a Hard Floor: The Math That Protects Your Margin",
+        "body": "A floor is the minimum price at which selling the item is still worth your time. Building it from first principles prevents the instinct to 'just drop it a bit more' from compounding into a loss. Here is a worked example for a used textbook:\n\nCost of goods: $8.00\nShipping supplies + postage: $4.00\neBay final value fee (13.25% of total): applied to $17.14 sale = $2.27\nPayPal/payments processing (already included in eBay fee structure post-2023)\nMinimum acceptable margin: 15% of sale price\n\nSolving: Floor = (COGS + shipping) / (1 − fee rate − margin rate) = $12.00 / (1 − 0.1325 − 0.15) = $12.00 / 0.7175 ≈ $16.73\n\nRound up to $17.00 and that is your floor. Undercut enters automatically above that number; it stops the moment reaching the next lower price would breach it. No guesswork, no midnight panic.",
+        "bullets": []
+      },
+      {
+        "h2": "When Aggressive Undercutting Is the Right Call",
+        "body": "Undercutting earns its keep in specific conditions. Understanding them stops you from applying it indiscriminately and racing to zero.",
+        "bullets": [
+          "High-velocity commodity categories: common video game accessories, phone cases, standard USB cables. Buyers sort by price; being second cheapest costs you the sale.",
+          "End-of-season or slow-moving inventory: carrying cost and storage risk outweigh the margin difference. A 5% haircut that moves the item this week beats holding for six months.",
+          "New seller building feedback: a slightly lower price accelerates early transactions. Once you have 50–100 positive feedbacks, re-evaluate and tighten the floor.",
+          "Multi-listing stacks where you hold quantity: a small per-unit margin reduction multiplied across 200 units still beats one sale a month at full price."
+        ]
+      },
+      {
+        "h2": "When to Hold — and How Long",
+        "body": "Holding premium is not stubbornness; it is demand testing. eBay's search surfaces listings to buyers who are actively ready to purchase, which means an unsold listing at full price is still generating impressions. Use these signals to decide when to drop vs. when to wait:\n\nIf your listing has had more than 30 views and zero watchers in 14 days, the price is above market. Drop to floor plus 10% and test again.\n\nIf you have 5+ watchers but no sales, you are in buyer consideration — often a small drop (3–5%) triggers the purchase. Do not slash; nudge.\n\nIf a competitor sells out at their price, raise yours before relisting. Scarcity shifts the market temporarily and sellers who hold capture the spike.\n\nCollectibles, vintage items, and anything with subjective value (art, memorabilia, rare variants) almost always reward patience over undercutting. A floor here prevents panic-selling a $120 item for $40 during a slow week.",
+        "bullets": []
+      },
+      {
+        "h2": "Automating the Strategy Without Losing Control",
+        "body": "A manual pricing strategy works for 10 listings. It does not work for 200. Automation should enforce your framework, not replace your judgment. That means two non-negotiable controls:\n\nFirst, the floor is inviolable. Every automated repricer decision runs through the floor check before executing. If beating the competitor requires breaching the floor, the repricer holds — and you get visibility into which listings are stuck so you can decide to relist, bundle, or liquidate through a different channel.\n\nSecond, repricing speed should match category volatility. Electronics and phone accessories can move significantly in hours; book prices are stable for days. Undercut's Pro plan reprices every 15 minutes and lets you tune aggressiveness per listing group, so fast-moving categories stay competitive without over-firing on stable ones. Scale plan drops to 5-minute cycles for highest-volume sellers.",
+        "bullets": [
+          "Set category-level floors in bulk rather than per listing — saves setup time and ensures consistency across similar items.",
+          "Review floor accuracy quarterly as eBay fee structures, shipping costs, and COGS change.",
+          "Use AI aggressiveness tuning (Pro and above) to be more conservative on high-margin items and more aggressive on commodity inventory simultaneously."
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "How do I know if my floor is set correctly?",
+        "a": "Run the floor formula: (COGS + fulfillment cost) divided by (1 minus your fee rate minus your minimum margin percentage). If your repricer is holding on nearly every listing because competitors are below your floor, the problem is usually COGS — you are buying too high to compete in that category, not a floor calculation error."
+      },
+      {
+        "q": "Is undercutting by $0.01 actually effective on eBay?",
+        "a": "It depends on how buyers sort. In Best Match, a $0.01 undercut has almost no effect because eBay weights seller reputation, shipping speed, and listing quality alongside price. In price-sorted search, it wins the top slot. For commodity categories where buyers explicitly sort by price plus shipping, even a $0.01 gap matters. For differentiated or collectible items, it is largely irrelevant."
+      },
+      {
+        "q": "What happens when a competitor drops below my floor?",
+        "a": "Your repricer stops adjusting and holds at the floor. You do not lose money; you lose the sale. That is the correct tradeoff. The next step is to evaluate whether the listing is viable at all: can you reduce COGS, cut packaging cost, or shift to a faster shipping method that lets you lower the floor and remain competitive? If not, that SKU may need to exit the catalog."
+      },
+      {
+        "q": "Should I use the same pricing strategy across all my eBay categories?",
+        "a": "No. Electronics accessories, books, collectibles, and clothing each have different demand curves, fee rates, and buyer behavior. A floor-and-undercut approach suits high-volume commodities; a hold-and-watch approach suits collectibles and vintage. Ideally, you segment your catalog and configure aggressiveness settings per group rather than applying a blanket rule."
+      },
+      {
+        "q": "Can I use a pricing strategy to win the eBay Buy Box on fixed-price listings?",
+        "a": "eBay's Best Match for fixed-price listings is influenced by price competitiveness, but it is not a pure Buy Box auction the way Amazon operates. Being the lowest qualified seller (meeting eBay's service metrics) in a multi-seller listing improves your placement, but price alone does not guarantee the top slot. Your seller rating, handling time, and return policy also factor in, which is why undercutting to the floor is often more effective than undercutting to zero."
+      }
+    ],
+    "cta": {
+      "heading": "Set Your Floor. Let Undercut Do the Rest.",
+      "sub": "Start a 14-day free trial — no credit card required. Add up to 25 listings, set your hard floors, and watch Undercut compete without touching your margin."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/guides/manual-vs-automated-repricing",
+        "label": "Manual vs. Automated Repricing"
+      },
+      {
+        "href": "/guides/ai-repricing-ebay",
+        "label": "AI Repricing on eBay"
+      }
+    ],
+    "slug": "ebay-pricing-strategy",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": false,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "Repricing Without Losing Margin — Undercut",
+    "metaDescription": "Learn how repricing without losing margin works using hard price floors. Start Undercut's 14-day free trial — no credit card required — and stop the race to the bottom.",
+    "h1": "How to Reprice Without Losing Margin (And Why Most Sellers Are Wrong About the Race to the Bottom)",
+    "eyebrow": "Guide",
+    "intro": "Conventional wisdom says that automated repricing triggers a death spiral — everyone keeps undercutting until profit disappears. The data says otherwise. When repricing is governed by a hard floor, roughly half of all repricing events move prices upward, not down. The race to the bottom is not a law of markets; it is an artifact of floorless tools. This guide explains exactly how price floors work, how to calculate one that protects real margin, and how Undercut enforces it automatically on every listing.",
+    "sections": [
+      {
+        "h2": "Why the Race to the Bottom Is a Myth — Not a Market Law",
+        "body": "The term \"race to the bottom\" describes a feedback loop: seller A drops to $19.99, seller B drops to $19.89, seller C drops to $19.79, and so on until everyone is selling at cost. This loop is real — but only when no participant has a floor. The moment even one seller holds a floor, the loop stops at that price. When most sellers in a category have floors (even informally), the price distribution stabilises well above cost. Internal repricing data from floor-governed accounts consistently shows that close to half of all repricing events are upward adjustments. When a competitor sells out, raises their price, or leaves the listing entirely, Undercut moves your price back up toward your ceiling automatically. Without a floor, you only see downward moves. With a floor, you capture upward moves too.",
+        "bullets": [
+          "A repricing event is any automated price change — up or down",
+          "Upward reprices recover margin you'd otherwise leave on the table",
+          "Sellers without floors drag a category down; sellers with floors anchor it",
+          "The floor doesn't prevent you from winning — it prevents you from winning unprofitably"
+        ]
+      },
+      {
+        "h2": "How to Calculate a Hard Price Floor That Reflects Real Costs",
+        "body": "A floor is only protective if it accounts for every cost layer. Most sellers undercount because they forget that eBay fees apply to the total buyer payment including shipping. Here is a worked example for a common resale item:\n\nCost of goods: $8.00\nShipping cost: $4.00\neBay final value fee (13.25% of item + shipping): $1.59\nPayPal/managed payments processing: included in eBay fee for most sellers\nTarget minimum net margin: 15% of sale price\n\nFloor calculation: (Cost + Shipping + Fixed fees) / (1 - Fee% - Margin%) = ($8 + $4) / (1 - 0.1325 - 0.15) = $12 / 0.7175 = approximately $16.73. Round up to $17.00 for a clean floor.\n\nAt $17.00, after fees and shipping, you net just above your 15% minimum. Every cent above $17.00 is incremental margin. Every repricing event Undercut makes will stay at or above this number — it is enforced at the rule level, not just as a soft guideline.",
+        "bullets": [
+          "Include category-specific fee rates — some categories carry 15% final value fees",
+          "Factor storage or FBA-equivalent costs if you use a 3PL",
+          "Refresh floors when supplier costs or shipping rates change",
+          "Use Undercut's per-listing floor field so each SKU carries its own protection"
+        ]
+      },
+      {
+        "h2": "How Undercut Enforces Floors Without Slowing Down Repricing",
+        "body": "Undercut checks the lowest qualified competitor price on a schedule (15 minutes on Pro, 5 minutes on Scale) and sets your price to beat it — subject to two hard limits: your ceiling and your floor. The floor is not a preference or a warning; the repricing engine will not write a price below it regardless of what competitors do. If the lowest competitor drops below your floor, your price stays at your floor. You do not follow them down. You also do not have to monitor the situation manually.\n\nThis matters most in volatile categories like consumer electronics and seasonal goods, where a single liquidating competitor can temporarily crater the visible price on a listing. Without a floor, your tool follows them into unprofitable territory. With Undercut, you hold position and wait for that seller to sell through their stock — then Undercut moves your price back up when the competitive floor rises again.",
+        "bullets": [
+          "Free plan: up to 25 listings, floor enforced on every one",
+          "Starter ($29/mo): 100 listings, hourly repricing",
+          "Pro ($79/mo): 1,000 listings, 15-minute repricing, AI aggressiveness tuning",
+          "Scale ($199/mo): 10,000 listings, 5-minute repricing"
+        ]
+      },
+      {
+        "h2": "Category-Specific Floor Strategies",
+        "body": "The right floor strategy varies by what you sell. Electronics resellers face thin margins and fast price swings — floors should be recalculated every time a supplier invoice changes, and aggressiveness should be tuned conservatively (Pro plan's AI tuning helps here). Clothing and shoes sellers deal with size-level inventory, meaning a floor set at the category level can be wrong for a specific SKU that has higher return rates; set floors at the variant level when possible. Book sellers often have predictable cost structures ($0 for remainders, fixed for used grades) and benefit from tight floors set close to cost plus a small buffer. Collectibles and vintage sellers should set floors based on their acquisition price plus a meaningful margin premium — these categories have inelastic demand and frequent upward price moves when comparable items sell. In all cases, the floor is a per-listing input in Undercut, not a global override, so each category can carry its own logic.",
+        "bullets": [
+          "Electronics: recalculate floors on every restock; use conservative aggressiveness",
+          "Clothing: set floors at the variant (size/color) level, not just the parent listing",
+          "Books: grade-adjusted floors — a Fine copy has a higher floor than a Good copy",
+          "Collectibles: floor should reflect scarcity premium, not just replacement cost"
+        ]
+      },
+      {
+        "h2": "Common Mistakes That Turn Repricing Into a Margin Problem",
+        "body": "Most repricing margin problems come from one of four errors. First, setting no floor at all — the tool has nothing to anchor to and follows competitors indefinitely. Second, setting a floor based on sale price alone without subtracting fees and shipping, which makes the floor an illusion. Third, setting a single global floor for an entire account when individual SKUs have different cost structures. Fourth, forgetting to update floors when costs change — a floor set six months ago may now be below actual cost if supplier prices or postage rates have risen. Undercut lets you update floors individually or in bulk via CSV, so a cost increase from a supplier can be reflected across affected SKUs in minutes rather than one listing at a time.",
+        "bullets": [
+          "No floor: the single most common cause of margin loss from repricing",
+          "Fee-blind floor: a $10 floor with 13.25% fees means you net under $8.68 before shipping",
+          "Stale floor: supplier price increases require floor updates — calendar a quarterly review",
+          "Global floor: one number across all SKUs will be wrong for most of them"
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "What happens if a competitor drops below my floor — does Undercut follow them down?",
+        "a": "No. If a competitor's price falls below your floor, Undercut holds your listing at your floor price. The engine will not write a price below the floor under any circumstances. When that competitor's price rises again — or they sell out — Undercut will move your price down toward the new competitive level, as long as it remains above your floor."
+      },
+      {
+        "q": "Can I set a different floor for every listing, or is it one setting for my whole account?",
+        "a": "Floors are set per listing. Each SKU can carry its own floor reflecting its specific cost, shipping, and margin target. You can set floors one at a time through the dashboard or upload a CSV to update hundreds of listings at once. There is no single account-wide floor that would override individual settings."
+      },
+      {
+        "q": "How do I calculate a floor that actually protects margin after eBay fees?",
+        "a": "The safest formula is: Floor = (Cost of goods + Shipping cost) divided by (1 minus eBay fee percentage minus your target margin percentage). For a $12 all-in cost with a 13.25% eBay fee and a 15% margin target, that works out to approximately $16.73. Round up and set that as your floor. Recalculate whenever your costs change."
+      },
+      {
+        "q": "Does having a floor mean I'll win fewer sales because I'm not always the cheapest?",
+        "a": "A floor means you will not win sales that would cost you money to fulfil. In practice, most eBay shoppers do not select the absolute cheapest listing — reviews, seller feedback, shipping speed, and listing quality all influence the buy. Undercut keeps you competitive within the range where you can profit, rather than winning every sale at a loss."
+      },
+      {
+        "q": "Will repricing software keep dropping my price even on slow-moving inventory that I'd rather hold?",
+        "a": "Only if you let it. Undercut respects your floor absolutely, so slow-moving inventory will sit at the floor rather than being repriced below cost. If you want to clear aged stock deliberately, you can lower the floor temporarily for specific listings, then restore it. The tool does not make liquidation decisions autonomously."
+      }
+    ],
+    "cta": {
+      "heading": "Set Your Floors. Let Undercut Handle the Rest.",
+      "sub": "Start a 14-day free trial — no credit card required. Protect every listing with a hard floor from day one, and stop leaving margin on the table when prices move up."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/ebay-seller-fees-explained",
+        "label": "eBay Seller Fees Explained"
+      },
+      {
+        "href": "/guides/ebay-pricing-strategy",
+        "label": "eBay Pricing Strategy Guide"
+      },
+      {
+        "href": "/guides/manual-vs-automated-repricing",
+        "label": "Manual vs Automated Repricing"
+      }
+    ],
+    "slug": "repricing-without-losing-margin",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": true,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "Fastest eBay Repricer: Speed + Floor Protection — Undercut",
+    "metaDescription": "Learn how repricing speed wins eBay sales — and why a hard floor keeps every fast reprice profitable. Start a 14-day free trial, no card required.",
+    "h1": "How Repricing Speed Wins the Sale on eBay (Without Wrecking Your Margin)",
+    "eyebrow": "Guide",
+    "intro": "On eBay, the lowest-priced listing in a competitive search often sells first. But \"first\" is decided by minutes, not days — when a competitor drops their price, whoever responds fastest captures the next buyer. Repricing speed is the mechanical edge that converts your competitive intelligence into actual revenue. The catch: speed without a floor is just a faster race to losing money. The only repricer worth running is one that reacts in real time and stops cold at the minimum price you can afford.",
+    "sections": [
+      {
+        "h2": "Why Repricing Cycle Time Directly Affects How Often You Sell",
+        "body": "eBay's Best Match algorithm surfaces recently-priced competitive listings near the top of search. When a competing seller drops below your price, you may slip from position one to position three or four in seconds. If your repricer checks prices once every 24 hours, you can spend an entire day invisible to buyers who sort by price. Repricers that run every 15 minutes return you to the front of the results 96 times a day. At 5-minute cycles you get 288 checks — nearly continuous coverage across every buying window, including lunch breaks, evenings, and weekend traffic peaks when conversion rates are highest.",
+        "bullets": [
+          "Hourly repricing: up to 59 minutes of lost position per competitor move",
+          "15-minute repricing: maximum 14 minutes of exposure — practical for most categories",
+          "5-minute repricing: near-real-time, critical for electronics and trending items where prices shift hourly"
+        ]
+      },
+      {
+        "h2": "The Floor Calculation That Makes Speed Safe",
+        "body": "Speed is only an advantage if every reprice is still profitable. Before you turn on any repricer, calculate the absolute minimum price you can accept per listing — your hard floor. The formula: Floor = Cost + Shipping + (Sale Price × eBay Fee %) + Minimum Acceptable Margin.\n\nWorked example for a used kitchen appliance:\n- Item cost: $8.00\n- Estimated shipping: $4.00\n- eBay final value fee: 13.25% of sale price (applied to the floor price of ~$17.14 ≈ $2.27)\n- Minimum margin: 15% of cost ($1.20)\n- Floor: $8.00 + $4.00 + $2.27 + $1.20 ≈ $15.47, rounded up to $15.50 for safety\n\nEnter $15.50 as the hard floor in Undercut. No matter how fast the repricer fires, it will never push that listing below $15.50. Competitors can race each other to zero — you stop at profit.",
+        "bullets": [
+          "Set floors per SKU, not per account — every item has a different cost basis",
+          "Revisit floors when your supplier raises costs or eBay fee categories change",
+          "Include return-rate cushion for high-return categories like clothing or electronics"
+        ]
+      },
+      {
+        "h2": "Where 5-Minute vs. 15-Minute Repricing Actually Matters",
+        "body": "Not every category needs the fastest possible cycle. Matching cycle time to category volatility prevents unnecessary API churn and keeps your repricer focused where speed earns its keep.",
+        "bullets": [
+          "Electronics and video games: prices shift multiple times per hour around new releases or viral deals — 5-minute cycles are justified",
+          "Clothing and apparel: price movement is slower; 15-minute cycles are sufficient for most sellers",
+          "Books and media: commodity pricing changes infrequently; even hourly repricing outperforms manual adjustment",
+          "Collectibles and vintage: floor protection matters more than speed — set a firm floor and let the repricer catch occasional undercuts",
+          "High-volume sellers (1,000+ SKUs): 5-minute repricing at scale requires a tool built for throughput, not one that queues listings for hours"
+        ]
+      },
+      {
+        "h2": "AI Aggressiveness Tuning: Controlling How Hard You Chase the Lowest Price",
+        "body": "Raw speed tells the repricer when to fire. Aggressiveness tuning tells it how far to move. A repricer set to maximum aggression always matches or beats the lowest competitor price instantly — optimal when you have genuine cost advantages. A more conservative setting might undercut by only $0.01, preserve margin on slow-moving inventory, or hold price when the lowest competitor appears to be a liquidator you cannot sustainably match.\n\nUndercut's Pro and Scale plans include AI aggressiveness tuning that reads competitor pricing patterns — distinguishing a temporary flash sale from a permanent price drop — and adjusts downward pressure accordingly. This prevents the common failure mode where a fast repricer chases a one-hour clearance price and leaves your listing stuck $3 below market for the next two weeks.",
+        "bullets": []
+      },
+      {
+        "h2": "Choosing the Right Repricing Plan for Your Catalog Size",
+        "body": "Undercut's plans are built around listing count and the cycle speed your catalog demands. Matching plan to catalog size ensures you pay for the throughput you actually need.",
+        "bullets": [
+          "Free (25 listings): test repricing with your top sellers before committing — 14-day trial, no card required",
+          "Starter $29/mo (100 listings): suitable for part-time sellers or single-category stores with stable inventory",
+          "Pro $79/mo (1,000 listings): 15-minute repricing cycles plus AI aggressiveness tuning — the right tier for full-time eBay businesses",
+          "Scale $199/mo (10,000 listings): 5-minute cycles for high-volume operations where every minute of lost position costs real revenue"
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "How often does Undercut actually reprice my listings — and does the cycle time vary by plan?",
+        "a": "Reprice frequency depends on your plan. Pro reprices every 15 minutes; Scale reprices every 5 minutes. Free and Starter plans reprice less frequently. If your category sees rapid intraday price swings — electronics, gaming, trending collectibles — upgrading to Pro or Scale is where faster cycles translate directly into more sales."
+      },
+      {
+        "q": "What stops the repricer from dropping my price below what I paid for the item?",
+        "a": "Your hard floor. Before activating repricing on any listing, you set a minimum acceptable price per SKU. Undercut will never submit a price below that floor, regardless of what competitors do. The floor is enforced at the listing level, so different items in your store can have different floors based on their individual cost basis."
+      },
+      {
+        "q": "Will a 5-minute repricer help me if I only have 50 listings?",
+        "a": "Only if those listings are in genuinely volatile categories where competitors move prices several times an hour. For most small catalogs, 15-minute repricing captures the meaningful competitive moves without the cost of the Scale plan. Start on Free or Starter, monitor how often your listings are being undercut, and upgrade if you see consistent lag."
+      },
+      {
+        "q": "Can I set different aggressiveness levels for different parts of my catalog?",
+        "a": "Yes. On Pro and Scale plans, AI aggressiveness tuning can be configured at the listing or category level. You might set aggressive pursuit on commodity items where you have a clear cost advantage, and conservative holding behavior on unique or near-mint items where matching a liquidator's price makes no business sense."
+      },
+      {
+        "q": "Does repricing speed affect my eBay seller standing or trigger any account flags?",
+        "a": "No. Undercut submits price updates through eBay's official API, which is the same channel eBay expects third-party tools to use. Frequent price updates are normal seller behavior and do not negatively affect your seller metrics or Best Match ranking."
+      }
+    ],
+    "cta": {
+      "heading": "Reprice in minutes, never below your floor",
+      "sub": "Start your 14-day free trial with 25 live listings — set your hard floors first, then let Undercut do the rest. No credit card required."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/guides/electronics-repricing",
+        "label": "Electronics Repricing on eBay"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/ai-repricing-ebay",
+        "label": "AI Repricing on eBay: How It Works"
+      }
+    ],
+    "slug": "fastest-ebay-repricer",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": false,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "Smart AI Repricing for eBay That Protects Margin — Undercut",
+    "metaDescription": "Discover how AI repricing for eBay wins more sales without margin bleed — set a hard floor, tune aggressiveness, and start a 14-day free trial, no card needed.",
+    "h1": "AI Repricing for eBay: Win Sales Without Destroying Your Margin",
+    "eyebrow": "Guide",
+    "intro": "Most repricing tools do one thing: match or beat the lowest price. That sounds smart until you realize the lowest price is often set by a seller who miscalculated their fees, ships slowly, or simply doesn't care about profit. AI aggressiveness tuning changes the game entirely. Instead of chasing every price drop blindly, it measures how much competitive pressure actually exists in your listing — and nudges price only as far as necessary to win the sale, while your hard floor keeps every transaction profitable.",
+    "sections": [
+      {
+        "h2": "Why Dumb Undercutting Destroys eBay Sellers",
+        "body": "A basic repricer has one instruction: be the cheapest. Feed it a competitive category and it triggers a race to the bottom that compresses margins across your entire catalog. Two weeks in, you are selling the same volume at 8% lower average prices — with no net gain in units moved, because the other sellers repriced right back. Dumb undercutting also ignores context: a competitor with 94% feedback, 3-day handling, and no returns is not the same threat as one with 78% feedback and two negatives in the last month. AI aggressiveness tuning reads that context and prices accordingly.",
+        "bullets": [
+          "Race-to-the-bottom triggers when every seller runs the same naive 'beat lowest' rule",
+          "Margin erosion compounds: a 5% average price cut on $50K monthly GMV is $2,500 gone per month",
+          "Weak competitors are over-weighted: matching a seller with poor metrics costs you margin you did not need to give",
+          "Velocity is ignored: a listing already selling once a day does not need an aggressive cut to move"
+        ]
+      },
+      {
+        "h2": "What AI Aggressiveness Tuning Actually Does",
+        "body": "Undercut's AI aggressiveness tuning (available on Pro and Scale plans) lets you set a posture — conservative, moderate, or aggressive — per listing or category. The engine then evaluates three signals before repricing: competitor quality score (feedback, handling time, return policy), your own recent sales velocity, and gap size between your current price and the next-lowest clean competitor. If your velocity is healthy and the next competitor is weak, the engine holds price or drops by a fraction of a cent. If a high-quality competitor undercuts you and your velocity has stalled, it moves decisively. The result is a price that is competitive enough to win — not the lowest price in the room.",
+        "bullets": [
+          "Conservative posture: reprices only when a strong competitor undercuts you and your velocity has dropped",
+          "Moderate posture: light adjustments to stay within a defined spread of the best competitor",
+          "Aggressive posture: targets the buy box proactively, accepts tighter spreads to maximize sell-through",
+          "All three postures are bounded below by your hard floor — the engine cannot go lower, ever"
+        ]
+      },
+      {
+        "h2": "Setting a Hard Floor: A Worked Example",
+        "body": "The floor is the number below which no algorithm — however aggressive — can reprice your listing. Here is how to calculate one for a typical electronics accessory. Suppose your landed cost is $8.00, you charge $4.00 shipping (or absorb it in free shipping), eBay's final value fee is 13.25% of total sale price, and your minimum acceptable net margin is 15% of sale price. Working backwards: if sale price = X, then X minus 0.1325X minus $8 minus $4 must equal at least 0.15X. Solving: 0.7175X = $12, so X = $16.73. Round up to $17.00 and that is your floor. Enter $17.00 in Undercut and the repricer will never go below it regardless of what competitors do. On Pro and Scale plans, repricing checks happen every 15 and 5 minutes respectively, so your floor is enforced in near real-time.",
+        "bullets": [
+          "Floor formula: (cost + shipping) / (1 - fee% - target margin%) = minimum price",
+          "Example result: $8 cost + $4 ship + 13.25% fees + 15% margin = $17.00 floor",
+          "Set floors per SKU or apply a category-level default with per-item overrides",
+          "Floors survive plan changes — they are stored at the listing level, not the algorithm level"
+        ]
+      },
+      {
+        "h2": "Repricing Speed: When 5 Minutes vs 15 Minutes Actually Matters",
+        "body": "Pro plan reprices every 15 minutes; Scale plan every 5 minutes. For most categories — clothing, books, collectibles — 15 minutes is ample. A vintage jacket is not going to be undercut and sell in under a quarter hour. Electronics and high-velocity commodity items are different. A popular phone case or cable can see three or four price changes in an hour during peak shopping windows (evenings, weekends, major sale events). At 15-minute intervals, you may miss a window entirely. At 5 minutes, you catch it. The practical rule: if your average time-to-sale is under 48 hours and your category has more than 10 active competitive sellers, Scale's 5-minute cadence will outperform Pro's 15-minute cadence in win rate. For slower categories, Pro's AI tuning without the faster cadence is more than sufficient.",
+        "bullets": [
+          "5-minute repricing is meaningful for electronics, consumables, and commodity accessories",
+          "15-minute repricing is sufficient for clothing, books, collectibles, and most vintage items",
+          "Both speeds are bounded by your floors — faster repricing does not mean more risk"
+        ]
+      },
+      {
+        "h2": "How to Combine AI Tuning With a Floor Strategy by Category",
+        "body": "Different catalog segments need different postures. For high-competition commodity listings (cables, cases, generic accessories), set aggressive posture with a tight floor calculated on thin margin targets — the goal is velocity. For branded or unique items where you have limited direct competition, set conservative posture with a wider margin target baked into the floor — you do not need to race anyone. For collectibles and vintage, AI tuning has less utility because competitors are sparse and prices are idiosyncratic; moderate posture with a manually set floor based on acquisition cost is the right call. Mixing postures across your catalog is where sellers see the biggest real-world gain: high-velocity SKUs move faster, premium SKUs hold price, and nothing ever sells below cost.",
+        "bullets": [
+          "Commodity SKUs: aggressive posture, thin floor, maximize sell-through rate",
+          "Branded/unique SKUs: conservative posture, fat floor, protect average sale price",
+          "Collectibles/vintage: moderate posture, manual floor, reduce active management time",
+          "Books: conservative posture with floor set to cover FBA-style cost + shipping + fees"
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "Does AI aggressiveness tuning override my hard floor?",
+        "a": "No. The hard floor is an absolute constraint, not a preference. No posture setting — not even aggressive — can instruct Undercut to price below your floor. The AI layer decides how quickly and how steeply to move within the space above your floor. The floor itself is inviolable."
+      },
+      {
+        "q": "How does the AI decide a competitor is 'weak' and not worth matching?",
+        "a": "Undercut scores competitors on feedback percentage, feedback volume, handling time listed, and return policy. A seller with 78% feedback, 5-day handling, and no returns accepted scores significantly lower than one with 99.2% feedback and same-day dispatch. Conservative and moderate postures weight this score heavily — you will not be instructed to match a weak competitor's price just because it is technically lower."
+      },
+      {
+        "q": "I sell in multiple categories with very different margins. Can I set different floors per category?",
+        "a": "Yes. Floors are set at the listing level, but you can apply a category default and then override individual SKUs. For example, set a 20% margin floor as the default for your electronics category, then override specific high-competition SKUs to 12% where you need more price flexibility to compete."
+      },
+      {
+        "q": "Will the 5-minute repricing on Scale cause prices to swing wildly?",
+        "a": "No. Repricing frequency controls how often the engine checks, not how often it changes price. If nothing meaningful has changed in the competitive landscape, the engine holds price. Rapid oscillation only happens when competitors are themselves repricing frequently — and in that case, responding in 5 minutes rather than 15 means you spend less time underpriced between checks."
+      },
+      {
+        "q": "I am on the Free plan. Can I still set hard floors?",
+        "a": "Yes. Floor-setting is available on every plan including Free (up to 25 listings). AI aggressiveness tuning is a Pro and Scale feature, but the floor protection is universal — no seller on any plan can have a listing repriced below their set floor."
+      }
+    ],
+    "cta": {
+      "heading": "Reprice Smarter — Your Floor Comes First",
+      "sub": "Start your 14-day free trial and set hard floors on every listing from day one. No credit card required. Upgrade only when you need AI tuning or faster cadence."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/ebay-pricing-strategy",
+        "label": "eBay Pricing Strategy Guide"
+      },
+      {
+        "href": "/guides/electronics-repricing",
+        "label": "Electronics Repricing on eBay"
+      }
+    ],
+    "slug": "ai-repricing-ebay",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": false,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "Cheapest eBay Repricer: Real Cost Breakdown — Undercut",
+    "metaDescription": "What does a cheapest eBay repricer actually cost? Start free (25 listings, no card) then $29/mo — here's the honest math before you spend anything.",
+    "eyebrow": "Guide",
+    "h1": "What the Cheapest eBay Repricer Actually Costs — and What You Should Never Pay For",
+    "intro": "Most repricing guides skip straight to feature lists. This one starts with the bill. A free plan covers 25 listings with no card required. After that, the smallest paid tier is $29 per month for 100 listings. That's the real floor on cost — and it's the right question to ask first, before you evaluate speed, AI tuning, or anything else. Here's a plain-English breakdown of what repricing software costs, what those costs buy you, and which features are worth paying for at each stage of your eBay business.",
+    "sections": [
+      {
+        "h2": "The True Cost Tiers: Free to $199",
+        "body": "Undercut's pricing is designed so you only pay when repricing is actually generating returns. Every tier includes the same core safety guarantee — a per-item hard floor that prevents any listing from selling below your cost.",
+        "bullets": [
+          "Free: 25 active listings, no credit card, unlimited floor rules. Enough for a new seller to test repricing on their best SKUs.",
+          "Starter ($29/mo): 100 listings. Repricing runs on a standard schedule. Right for part-time sellers with a focused catalog.",
+          "Pro ($79/mo): 1,000 listings, 15-minute reprice cycles, and AI aggressiveness tuning — tells the algorithm how hard to chase the lowest price.",
+          "Scale ($199/mo): 10,000 listings, 5-minute cycles. Built for high-volume operations where speed directly translates to buy box wins."
+        ]
+      },
+      {
+        "h2": "Worked Example: Setting Your Floor Before You Reprice a Single Listing",
+        "body": "The cheapest repricer is useless if it sells your inventory below cost. Before activating any repricing tool, you need a hard floor per SKU. Here's a real calculation for a common scenario — a used electronics accessory.\n\nItem cost: $8.00. Shipping (you pay): $4.00. eBay final value fee: 13.25% of sale price. Minimum acceptable margin: 15%.\n\nFloor calculation: You need to recover $12.00 in hard costs, plus 13.25% in fees, plus 15% margin on top. Working backward: Floor = (Cost + Shipping) ÷ (1 − Fee% − Margin%) = $12.00 ÷ (1 − 0.1325 − 0.15) = $12.00 ÷ 0.7175 ≈ $16.73.\n\nRound up for safety: set your floor at $17.00. Undercut will never reprice below that number, no matter how aggressively competitors drop. That's the protection the free plan gives you on day one — before you've spent a cent on a subscription."
+      },
+      {
+        "h2": "What You Should Pay For — and What You Shouldn't",
+        "body": "Not every repricing feature justifies a higher monthly fee. Here's an honest read on where the upgrade value actually lives.",
+        "bullets": [
+          "Worth paying for: Faster reprice cycles (Pro/Scale) if you sell in competitive categories like electronics or media, where listings turn hourly.",
+          "Worth paying for: AI aggressiveness tuning (Pro+) if you have a mixed catalog — some SKUs should chase the floor hard, others shouldn't.",
+          "Not worth paying for at the start: 5-minute cycles if your category moves slowly. Collectibles, vintage, and handmade items rarely need sub-15-minute repricing.",
+          "Not worth paying for ever: Any tool that doesn't let you set a hard per-item floor. Speed without a floor is how sellers accidentally liquidate inventory at a loss.",
+          "Not worth paying for: Per-listing setup fees, 'AI insights' dashboards with no repricer underneath, or tools that charge extra for floor-rule features."
+        ]
+      },
+      {
+        "h2": "How to Evaluate 'Cheap' vs. 'Affordable'",
+        "body": "A $9/month repricer that reprices once per day and has no floor protection will cost you more than a $29/month tool that keeps you profitable. Cheap and affordable are not the same thing when your inventory is on the line.\n\nThe right benchmark is cost per listing per month. At Starter tier, $29 for 100 active listings is $0.29 per listing. If repricing wins you one extra sale per week on even a handful of those listings, the subscription pays for itself within days.\n\nFor sellers on the free plan (25 listings), the benchmark is simpler: $0.00. Start there. Graduate to Starter only when your active catalog outgrows 25 SKUs — not before."
+      },
+      {
+        "h2": "When to Upgrade: Practical Signals, Not Upsell Pressure",
+        "body": "You should move from Free to Starter when you consistently have more than 25 active listings you want repriced. You should move from Starter to Pro when you notice competitors beating your price within hours of your last reprice cycle — that's a signal that 15-minute cycles and AI tuning will recover sales you're currently losing.\n\nYou should move to Scale ($199) only when your catalog exceeds roughly 1,000 active SKUs and you operate in categories where speed matters. For most independent eBay sellers, Pro is the practical ceiling. Scale is built for catalog-level operations, not for sellers with a few hundred listings.\n\nThere is no pressure to upgrade. Every plan includes the hard floor. Every plan is month-to-month."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Can I use Undercut's free plan without entering a credit card?",
+        "a": "Yes. The free plan covers 25 active listings and requires no payment information. You set your floor rules, activate repricing, and pay nothing. A card is only required if you upgrade to a paid plan."
+      },
+      {
+        "q": "What happens to my listings when I hit the 25-listing limit on the free plan?",
+        "a": "Undercut stops repricing listings beyond the 25-listing cap — it does not deactivate them or change their prices. Your 25 selected listings continue repricing normally. You choose which listings to include."
+      },
+      {
+        "q": "Is the $29 Starter plan actually worth it for a part-time seller?",
+        "a": "It depends on your active catalog size and category competitiveness. If you have 26-100 active listings in a category where prices shift daily (electronics, media, sporting goods), $29/month typically recovers its cost in additional sales within the first week. If you sell fewer than 25 listings, the free plan is the right answer."
+      },
+      {
+        "q": "Does a cheaper repricing tool ever make sense over a more full-featured one?",
+        "a": "Only if the cheaper tool includes a hard floor per listing. Without that, you risk repricing below cost on any SKU where your cost data isn't perfectly maintained. The floor is not a premium feature — it is the baseline requirement for any repricer you should trust with live inventory."
+      },
+      {
+        "q": "How does the AI aggressiveness tuning on Pro actually affect my prices?",
+        "a": "AI tuning lets you tell the repricer how closely to chase the lowest competitor price. Set it conservative and Undercut will undercut by the minimum needed to stay competitive. Set it aggressive and it will move more decisively toward the floor. The hard floor you set per-item remains inviolable regardless of the aggressiveness setting."
+      }
+    ],
+    "cta": {
+      "heading": "Start Free — Set Your Floor, Pay Nothing",
+      "sub": "25 listings, no credit card, full floor protection from day one. Upgrade only when your catalog outgrows the free plan."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/ebay-seller-fees-explained",
+        "label": "eBay Seller Fees Explained"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/free-ebay-repricer",
+        "label": "Free eBay Repricer"
+      }
+    ],
+    "slug": "cheapest-ebay-repricer",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": true,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "eBay Repricing for Beginners — Undercut",
+    "metaDescription": "New to eBay repricing? Learn how to set a price floor and automate pricing safely — no race to the bottom. Start your 14-day free trial, no card required.",
+    "h1": "Your First eBay Repricer: Set a Floor, Connect, Turn It On",
+    "eyebrow": "Guide",
+    "intro": "Most sellers avoid auto-repricing because they picture prices spiraling toward zero overnight. That fear is legitimate — but it only happens when there is no floor. The safer approach is to set one hard minimum per item before you touch anything else, then let the repricer do its job above that line. This walkthrough covers exactly that sequence: calculate your floor, connect your eBay account, and switch on repricing in a single session. Nothing complicated, nothing irreversible.",
+    "sections": [
+      {
+        "h2": "What Repricing Actually Does (and What It Does Not)",
+        "body": "An eBay repricer watches the live prices of competing listings for the same item and adjusts your price to stay just below the lowest one — so buyers see your listing first. What it does not do, on its own, is know your costs. That is your job, and it is the only thing you need to supply. Once your floor is set, the repricer will never go below it, regardless of how aggressive competitors get. Think of it as a thermostat with a hard lower limit: it can turn the heat down, but it cannot freeze the pipes.",
+        "bullets": [
+          "Repricers match competitor drops automatically — you do not need to watch listings manually.",
+          "Without a floor, a repricer will follow competitors below your cost.",
+          "With a floor, it stops and holds until competitors recover.",
+          "You stay visible without becoming the seller who accidentally gives inventory away."
+        ]
+      },
+      {
+        "h2": "Step 1 — Calculate Your Floor Before You Do Anything Else",
+        "body": "Your floor is the lowest price at which a sale still puts money in your pocket after every cost is paid. Here is a worked example using a common household electronics item.\n\nSuppose you sourced a used Bluetooth speaker for $8.00 and your shipping supplies and label cost $4.00. eBay's final value fee runs roughly 13.25% of the total sale price. You want at least a 15% net margin on your cost to make the time worthwhile.\n\nFloor calculation:\n• Total hard cost: $8.00 (item) + $4.00 (shipping) = $12.00\n• Add 15% margin target: $12.00 × 1.15 = $13.80\n• Gross up for eBay fees (divide by 0.8675): $13.80 ÷ 0.8675 ≈ $15.91\n• Round up to a clean number for comfort: set floor at $16.00\n\nThat $16.00 is your hard floor. Enter it in Undercut per listing. The repricer will never propose a price below it, even if a competitor lists at $12.00.",
+        "bullets": [
+          "Item cost + all shipping costs = your base.",
+          "Apply your minimum margin multiplier.",
+          "Gross up for eBay fees (13.25% is a safe estimate for most categories).",
+          "Round up, not down — fees vary slightly, so give yourself a cushion."
+        ]
+      },
+      {
+        "h2": "Step 2 — Connect Your eBay Account (Takes About Three Minutes)",
+        "body": "Undercut connects through eBay's official OAuth flow, the same mechanism eBay uses for every authorized third-party app. You grant read and write access to your listings — nothing else. Undercut cannot touch your PayPal, your bank, or your eBay messages.\n\nOnce connected, Undercut imports your active listings. For each listing, you will see a floor field. You can enter floors one at a time, paste them from a spreadsheet, or use Undercut's bulk floor tool if you have many listings in the same cost band. Start with five to ten listings on your first session so you can watch how pricing behaves before scaling up.",
+        "bullets": [
+          "Sign in to Undercut and click 'Connect eBay Account'.",
+          "Approve read/write access on eBay's own OAuth page.",
+          "Your active listings appear in Undercut within seconds.",
+          "Set a floor on each listing before enabling repricing for that item."
+        ]
+      },
+      {
+        "h2": "Step 3 — Turn On Repricing and Read the Dashboard",
+        "body": "After floors are set, enable repricing per listing or in bulk. Undercut checks competitor prices and updates yours on its next repricing cycle — every hour on the Free plan, every 15 minutes on Pro, every 5 minutes on Scale. For beginners, hourly is plenty. Most eBay buyers do not refresh pages by the minute.\n\nThe dashboard shows three columns that matter most: your current price, the lowest competitor price, and your floor. When the competitor price falls below your floor, your listing holds at floor price and a small indicator flags the item as floor-locked. That flag is useful — it tells you a competitor may be selling below cost, liquidating, or pricing incorrectly. You can decide whether to reprice manually or simply wait them out.",
+        "bullets": [
+          "Floor-locked items hold at your minimum — no action required from you.",
+          "Watch the floor-locked count over a week; a high count may mean your floor needs recalibrating.",
+          "Repricing cycles run automatically; you do not need to log in every day.",
+          "The Free plan covers 25 listings — enough to test the workflow on your best movers."
+        ]
+      },
+      {
+        "h2": "Common Beginner Mistakes and How Floors Prevent Them",
+        "body": "The two most common beginner repricing errors are setting no floor at all and setting a floor based on the sale price rather than the cost. Both lead to the same outcome: profitable-looking sales that lose money once fees are counted.\n\nA third mistake is enabling repricing on every listing at once before verifying that floors are correct. If you miscalculate one floor, the repricer faithfully defends the wrong number. The fix is simple: start with a small batch, review your first week of sales against your floor spreadsheet, and expand only when the numbers match your expectations.\n\nUndercut's floor field is required — you cannot enable repricing on a listing without entering a value, which makes accidental omission impossible.",
+        "bullets": [
+          "Never set a floor from memory — always calculate from current sourcing cost.",
+          "Fees compound: a 13% fee on a $20 sale is $2.60, not a rounding error.",
+          "Enable repricing on 5-10 listings first, then review after one week.",
+          "Update floors whenever your sourcing cost or shipping rates change."
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "Will the repricer keep lowering my price until I am selling at a loss?",
+        "a": "No, as long as you set a floor. The floor is a hard stop — Undercut will not propose any price below the value you enter for that listing. If competitors drop below your floor, your listing holds at the floor price instead of following them down."
+      },
+      {
+        "q": "How do I know what floor to set if I sell items across many different cost points?",
+        "a": "Calculate a floor individually for each listing using the formula: (item cost + shipping cost) divided by (1 minus eBay fee rate), then multiplied by your margin target. If you have many listings in the same cost band — say, books that all cost you $3-4 — you can set a single floor for the batch and adjust individual listings that fall outside the range."
+      },
+      {
+        "q": "What happens to my floor if eBay changes its fee structure?",
+        "a": "Your floor stays at whatever number you entered — Undercut does not auto-adjust it. You are responsible for recalculating and updating floors if eBay's fee rates change or if your shipping costs shift. Undercut will send an alert if you have a floor-locked listing for more than 72 hours, which is a good prompt to review whether a recalculation is needed."
+      },
+      {
+        "q": "Can I try repricing without connecting my live eBay inventory?",
+        "a": "You can sign up and use Undercut's floor calculator and dashboard in preview mode before connecting. Once you are ready, connect your eBay account and enable repricing only on the specific listings you choose. Nothing is switched on automatically — every listing starts paused."
+      },
+      {
+        "q": "Is the Free plan genuinely usable, or is it just a teaser?",
+        "a": "The Free plan covers up to 25 active listings with hourly repricing and full floor protection — all core features included. It is genuinely functional for sellers who are still building inventory or want to validate the workflow before committing to a paid plan. No credit card is required to start, and the 14-day trial of Pro is also included so you can test faster repricing cycles on the same account."
+      }
+    ],
+    "cta": {
+      "heading": "Set Your First Floor and Start Repricing Today",
+      "sub": "14-day free trial, no credit card. Connect your eBay account, enter your floors, and let Undercut hold your prices above cost — automatically."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/ebay-seller-fees-explained",
+        "label": "eBay Seller Fees Explained"
+      },
+      {
+        "href": "/guides/manual-vs-automated-repricing",
+        "label": "Manual vs Automated Repricing"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      }
+    ],
+    "slug": "ebay-repricing-for-beginners",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": true,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "eBay Seller Fees Explained 2026 — Undercut",
+    "metaDescription": "eBay seller fees explained for 2026: insertion, final value, payment processing, and more — so your price floor is honest. 14-day free trial, no card required.",
+    "h1": "eBay Seller Fees in 2026: The Complete Breakdown for Setting an Honest Price Floor",
+    "eyebrow": "Guide",
+    "intro": "Most eBay guides treat fees as an afterthought. But fees are the hidden input to your price floor — get them wrong and every \"profitable\" sale quietly loses money. This guide breaks down every fee you'll encounter in 2026: insertion, final value, payment processing, and category surcharges. We'll show you how to add each one into a real floor calculation so the minimum price Undercut will ever reprice you to is mathematically sound, not a gut guess.",
+    "sections": [
+      {
+        "h2": "The Four Fee Buckets Every eBay Seller Pays in 2026",
+        "body": "eBay charges sellers through four distinct mechanisms, and conflating them is the most common source of floor miscalculation.",
+        "bullets": [
+          "Insertion fees: Free for your first 250 listings per month (or unlimited with an eBay Store). Beyond that, $0.35 per listing. Fixed-price listings in most categories renew every 30 days, so a slow-moving SKU accumulates these.",
+          "Final value fees (FVF): The biggest line item. Charged as a percentage of the total sale amount — item price plus shipping. Rates vary by category (see next section).",
+          "Payment processing: eBay Payments (formerly managed by PayPal) charges 2.9% + $0.30 per transaction on most sales. International transactions add an additional 1.65%.",
+          "Optional promoted listings: If you use Promoted Listings Standard, your chosen ad rate (typically 2–15%) is added only when a sale results from an ad click. This is discretionary but must be in your floor if you run ads."
+        ]
+      },
+      {
+        "h2": "Final Value Fee Rates by Category in 2026",
+        "body": "FVF rates are category-specific and change periodically. These are the 2026 standard rates for sellers without an eBay Store. Store subscribers pay lower rates in exchange for the monthly subscription fee — factor that subscription cost into your per-item overhead instead.",
+        "bullets": [
+          "Most categories (electronics, clothing, home): 13.25% on the total amount up to $7,500, then 2.35% on the portion above.",
+          "Books, DVDs, Music, Video Games: 14.95% up to $7,500.",
+          "Collectibles and Trading Cards (non-graded): 13.25% with potential category surcharges during high-demand periods.",
+          "Watches priced $1,000–$7,500: 6.5%.",
+          "Real estate, heavy industrial, select vehicle parts: flat fees apply instead of percentages.",
+          "Below-standard sellers: eBay adds a 6% FVF surcharge. Maintaining above-standard status is a direct cost-control measure."
+        ]
+      },
+      {
+        "h2": "How to Build Your Fee Math into a Real Price Floor",
+        "body": "Here is a concrete worked example using a general merchandise item. You source a product for $8.00 and ship it for $4.00 (you charge the buyer actual shipping on top of the item price, so shipping is covered — but eBay charges FVF on the shipping amount too, which sellers routinely miss).\n\nAssume: cost $8.00, shipping $4.00 (buyer pays), FVF 13.25%, payment processing 2.9% + $0.30, no promoted listing, minimum acceptable margin 15% on cost.\n\nFee calculation on a $14 item price (+ $4 shipping = $18 total charged to buyer):\n- FVF: 13.25% × $18.00 = $2.385\n- Payment processing: 2.9% × $18.00 + $0.30 = $0.822\n- Total fees: $3.207\n- Total cost: $8.00 (COGS) + $3.207 (fees) = $11.207\n- 15% margin on cost means target net ≥ $9.20 after fees, so item price must be at least: $8.00 × 1.15 + $3.207 ≈ $12.41 item price\n\nRounding conservatively, your hard floor for this SKU is $12.50. At $12.50 item price + $4.00 shipping, Undercut will never reprice you below that number regardless of what competitors do. Enter $12.50 as your floor per listing — and sleep soundly.\n\nNote: if you run Promoted Listings at 5%, add 5% × $18 = $0.90 to fees, pushing your floor to approximately $13.40.",
+        "bullets": []
+      },
+      {
+        "h2": "Store Subscriptions: When the Monthly Fee Lowers Your Effective FVF",
+        "body": "An eBay Store subscription reduces FVF rates but adds a fixed monthly cost ($7.95 Basic, $27.95 Premium, $74.95 Anchor, $349.95 Enterprise as of 2026). The break-even math is straightforward: divide your monthly subscription cost by the FVF percentage you save per dollar of sales to find the monthly sales volume at which the Store pays for itself.",
+        "bullets": [
+          "Basic Store saves roughly 1–3 percentage points of FVF depending on category. At 2% savings, you need $7.95 / 0.02 = $397.50 in monthly GMV to break even.",
+          "Premium Store is typically worth it at around $1,400+ monthly GMV in standard categories.",
+          "Anchor and Enterprise make sense only at high volume and when you value the additional free insertions and promotional credits.",
+          "Key point for floor math: if you have a Store, your per-item FVF is lower — but your per-item overhead now includes a pro-rated share of the subscription fee. Both belong in the floor calculation."
+        ]
+      },
+      {
+        "h2": "Common Fee Mistakes That Quietly Destroy Margin",
+        "body": "Even experienced sellers make these errors when setting price floors manually.",
+        "bullets": [
+          "Forgetting FVF applies to shipping: eBay charges final value fees on the full amount the buyer pays, including any shipping charge. A $4.99 shipping charge at 13.25% FVF costs you an extra $0.66 per sale.",
+          "Using list price instead of expected sale price to model fees: FVF is charged on actual sale price. If you discount or accept best offers, model fees on the expected transaction value.",
+          "Ignoring the $0.30 flat component of payment processing: On low-price items (under ~$10), the flat $0.30 is proportionally enormous. A $3.00 sale has $0.38 in payment processing fees alone — 12.7% of revenue.",
+          "Not accounting for returns: eBay refunds FVF on returned transactions, but you may still absorb payment processing fees and return shipping. Model a realistic return rate into your margin buffer.",
+          "Setting a floor once and never updating it: FVF rates change. Promoted Listings ad rates drift. Subscription tier changes. Audit your floor math at least quarterly."
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "Does eBay charge a final value fee on the shipping amount I charge buyers?",
+        "a": "Yes. eBay's final value fee is calculated on the total amount the buyer pays, which includes the item price plus any shipping and handling charge. This catches many sellers off guard — a $5.99 shipping charge at 13.25% FVF adds $0.79 to your fee bill on every sale. Your price floor must account for this or it will be understated."
+      },
+      {
+        "q": "How do I calculate my price floor if I use Promoted Listings?",
+        "a": "Add your promoted listing ad rate (the percentage you set) applied to the total buyer-paid amount, on top of your FVF and payment processing fees. For example, at a 5% ad rate on an $18 total transaction, you owe $0.90 extra per promoted sale. Since promoted sales are the ones most likely to generate revenue, assume your floor applies to promoted transactions and set it accordingly."
+      },
+      {
+        "q": "What happens to FVF if I have an eBay Store subscription?",
+        "a": "Store subscribers pay lower FVF rates in most categories — the exact savings depend on category and store tier. However, your floor math should now include a pro-rated share of your monthly subscription fee spread across your expected number of sales. Divide monthly subscription cost by expected monthly units sold and add that amount to your per-item cost before calculating the floor."
+      },
+      {
+        "q": "Will Undercut ever reprice me below the floor I set, even to win a sale?",
+        "a": "No. The hard floor you enter per listing is an absolute lower bound. Undercut's repricing engine will match or beat the lowest competitor price, but it will stop at your floor and go no lower — regardless of what competitors do. If the market price falls below your floor, your listing simply holds at the floor rather than selling at a loss."
+      },
+      {
+        "q": "How often do eBay's fee rates change, and how will I know to update my floors?",
+        "a": "eBay typically announces fee changes with 30 days' notice, usually in late Q1 or Q3. Major changes in recent years have included the migration from PayPal to eBay Payments (which altered the per-transaction structure) and periodic FVF adjustments in specific categories. Subscribe to eBay's seller announcements, and plan a floor audit any time you receive a fee-change notice. Stale floors are one of the most common sources of margin erosion for high-volume sellers."
+      }
+    ],
+    "cta": {
+      "heading": "Set a Floor That Actually Protects Your Margin",
+      "sub": "Undercut enforces your per-listing hard floor on every reprice — start free for 14 days, no credit card required."
+    },
+    "internalLinks": [
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/ebay-profit-calculator",
+        "label": "eBay Profit Calculator"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to Set an eBay Price Floor"
+      }
+    ],
+    "slug": "ebay-seller-fees-explained",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": false,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "How to Reprice eBay Listings — Undercut",
+    "metaDescription": "Learn how to reprice eBay listings manually, where the process breaks down at scale, and how a floor-first repricer protects margin — 14-day free trial, no card.",
+    "h1": "How to Reprice eBay Listings Without Selling Below Cost",
+    "eyebrow": "Guide",
+    "intro": "Most eBay sellers start repricing manually: open Sold listings, check the lowest active price, edit their own listing. It works for five items. At fifty it becomes a part-time job, and at five hundred it breaks entirely — prices drift stale overnight, winning bids slip to competitors, and panic cuts eat margin. This guide walks through every step of that manual process, pinpoints exactly where it fails, and shows how setting a hard price floor before you automate keeps you competitive without ever selling at a loss.",
+    "sections": [
+      {
+        "h2": "The Manual Repricing Process, Step by Step",
+        "body": "Here is what manual repricing actually looks like when done correctly — before automation enters the picture.",
+        "bullets": [
+          "Open eBay and search your exact item title or catalog match.",
+          "Filter results to 'Buy It Now', sorted by lowest price + shipping.",
+          "Note the lowest total landed price (item + shipping) from a credible seller — ignore listings with 0 feedback or obvious junk.",
+          "Open your own listing and edit the price to beat that number by a small amount, typically $0.50–$2.00 depending on category.",
+          "Record your new price and the timestamp in a spreadsheet.",
+          "Repeat for every active listing."
+        ]
+      },
+      {
+        "h2": "Where Manual Repricing Breaks Down",
+        "body": "The manual loop has three structural failure points that compound as your catalog grows. First, staleness: competitors can relist or reprice within minutes of a market move, but you are checking prices at most once a day. A competitor who drops to undercut you at 9 AM captures all the traffic by the time you log in at 7 PM. Second, floor blindness: when you are moving fast through a spreadsheet, it is easy to set a price that feels competitive but is actually below your cost plus fees. A single mis-priced SKU can wipe out the margin from ten other sales. Third, human exhaustion: at around 80–120 active listings, the daily repricing task takes longer than the revenue it protects. Sellers either stop doing it or start doing it sloppily — both outcomes cost money."
+      },
+      {
+        "h2": "How to Calculate Your Price Floor Before You Touch Any Tool",
+        "body": "A price floor is the lowest price you will ever accept for a specific item. You must calculate it per SKU before you reprice — manually or automatically. The formula is straightforward: Floor = (Cost + Shipping Out) / (1 − eBay Fee Rate) / (1 − Minimum Margin). Here is a concrete example for a used electronics accessory. Cost of goods: $8.00. Outbound shipping: $4.00. eBay final value fee: 13.25% (electronics category as of 2025). Minimum acceptable margin: 15%. Step one: total cash in = $8.00 + $4.00 = $12.00. Step two: divide by (1 − 0.1325) = $12.00 / 0.8675 = $13.83 to cover fees. Step three: divide by (1 − 0.15) = $13.83 / 0.85 = $16.27, which rounds up to a floor of $16.27. Set your floor at $16.27. No repricer — automated or manual — should ever move that listing below that number. If competitors are pricing below $16.27, you simply do not match them. You hold or you pull the listing.",
+        "bullets": [
+          "Cost of goods: $8.00",
+          "Outbound shipping: $4.00",
+          "eBay fee rate (electronics): 13.25%",
+          "Minimum margin target: 15%",
+          "Calculated floor: $16.27 — never go below this"
+        ]
+      },
+      {
+        "h2": "When and Why to Automate — and What 'Floor-First' Means",
+        "body": "Automation earns its keep at the point where manual checking costs more in time than it saves in margin. For most sellers that threshold is somewhere between 50 and 150 active listings. The critical design question is not speed — it is constraint. A repricer that only chases the lowest price without limits will eventually reach your cost, then go below it, because it has no way to know what your cost is. A floor-first repricer inverts the logic: you set the floor per SKU, and the repricer is only permitted to move the price between that floor and your ceiling. It will always try to beat the lowest competitor, but it physically cannot go below your floor. The result is that you stay competitive on listings where the market supports your margin, and you automatically hold firm on listings where competitors have priced themselves into losses — without you having to watch either situation manually. Undercut's 15-minute repricing interval on the Pro plan means your prices are never more than 15 minutes stale. The 5-minute interval on Scale brings that window down further for high-velocity categories like trading cards, media, and consumer electronics where prices move intraday."
+      },
+      {
+        "h2": "Putting It Together: A Simple Repricing Workflow",
+        "body": "Here is the complete workflow that combines the manual floor calculation with automated execution.",
+        "bullets": [
+          "For every SKU, calculate your floor using the formula above — cost, shipping, fee rate, and margin target. Enter it into your repricer before the rule goes live.",
+          "Set a ceiling price that reflects the upper bound a buyer would reasonably pay (often your original list price).",
+          "Let the repricer monitor competitors and move your price within that band automatically.",
+          "Review a 'held at floor' report weekly — if many listings are stuck at floor, your cost structure or sourcing price needs attention, not your repricing rule.",
+          "Adjust floors whenever your shipping carrier rates, supplier costs, or eBay fee tiers change."
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "How often should I reprice my eBay listings?",
+        "a": "For slow-moving categories like clothing or antiques, once per day is often sufficient. For competitive categories like consumer electronics, trading cards, or media, competitors can reprice within minutes, so a 15-minute automated interval captures most opportunities without overcorrecting on every price tick."
+      },
+      {
+        "q": "What happens if a competitor prices below my floor?",
+        "a": "A floor-first repricer holds your listing at your floor price rather than matching the competitor's unsustainable price. You may lose the sale on that item, but you do not sell at a loss. In practice, competitors who price below cost tend to either sell out quickly or reprice back up — at which point your listing automatically becomes the lowest again."
+      },
+      {
+        "q": "Can I set a different floor for each listing, or is it one global setting?",
+        "a": "With Undercut, floors are per-listing. A bulk CSV import lets you set individual floors across your catalog at once, which is important because your cost basis, shipping weight, and category fee rate differ by SKU. A single global floor would either be too conservative on some items or too permissive on others."
+      },
+      {
+        "q": "Do eBay fees change by category, and does that affect my floor calculation?",
+        "a": "Yes, meaningfully. eBay's final value fee rates vary from around 3% for heavy equipment to 15% for jewelry. If you use a single average rate for your floor formula, you will systematically under-calculate floors in high-fee categories. Check the current rate for each category you sell in — eBay publishes the full table in the Seller Center — and use the exact rate in the floor formula for that SKU."
+      },
+      {
+        "q": "Is there a risk that automated repricing will trigger eBay's duplicate listing policies?",
+        "a": "Repricing an existing listing — changing its price — is entirely within eBay's policies. The duplicate listing concern arises if you create multiple listings for the same item. A repricer edits your existing listing's price field; it does not create new listings. That said, always confirm the repricer you use operates via eBay's official API to avoid any policy exposure."
+      }
+    ],
+    "cta": {
+      "heading": "Set Your Floor. Let Undercut Do the Rest.",
+      "sub": "Start with up to 25 listings free — no credit card required. Add your floors, set your ceiling, and stop watching competitor prices manually. 14-day full trial on paid plans."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/manual-vs-automated-repricing",
+        "label": "Manual vs. Automated Repricing"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/guides/ebay-seller-fees-explained",
+        "label": "eBay Seller Fees Explained"
+      }
+    ],
+    "slug": "how-to-reprice-ebay-listings",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": true,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "Managing Repricing Across Many eBay Listings — Undercut",
+    "metaDescription": "Manage repricing across many eBay listings using account defaults + per-item floors. Beat competitors automatically without babysitting each listing. 14-day free trial, no card.",
+    "h1": "How to Manage Repricing Across Hundreds of eBay Listings Without Losing Margin",
+    "eyebrow": "Guide",
+    "intro": "The insight most multi-listing sellers miss: you do not need to configure every item individually. Set one account-level repricing default — target lowest competitor, respect a minimum margin — then override the floor only for the listings that truly need it. That two-layer approach lets Undercut watch hundreds of SKUs simultaneously, undercutting rivals on every one of them, while a hard floor on each item ensures you never sell below cost no matter how aggressive the market gets.",
+    "sections": [
+      {
+        "h2": "The Two-Layer System: Account Defaults and Per-Item Floor Overrides",
+        "body": "Undercut separates repricing logic into two layers so you spend minutes on setup, not hours per SKU. At the account level you choose a single default rule — for example, beat the lowest competitor by $0.01 and reprice every 15 minutes. Every new listing you create inherits that rule automatically. The second layer is the per-item floor override. Any listing can carry its own floor that Undercut will never cross, regardless of what the account default says. If the market crashes and competitors list below your cost, Undercut simply holds your price at the floor rather than following them down.",
+        "bullets": [
+          "Account default: applies instantly to every listing you add, no per-item setup needed.",
+          "Per-item floor override: set once per SKU, stored permanently, updated any time.",
+          "Undercut checks the floor before every reprice — the floor always wins.",
+          "Changing the account default updates all listings that have not been individually overridden."
+        ]
+      },
+      {
+        "h2": "How to Calculate a Defensible Floor for Any Listing",
+        "body": "A floor that is too low destroys margin; one that is too high costs you sales. The correct floor covers every cost you will actually incur. Work through this example for a small electronics accessory: item cost $8.00, shipping supplies and postage $4.00, eBay final value fee 13.25% of the total sale price, and a minimum acceptable margin of 15%. Because the fee and margin are both percentages of the sale price, solve for it: floor = (cost + shipping) / (1 − fee% − margin%) = $12.00 / (1 − 0.1325 − 0.15) = $12.00 / 0.7175 ≈ $16.73. Round up to $16.80 and that is the floor you enter in Undercut. The platform will never reprice below that number, so every sale at or above it is profitable by construction.",
+        "bullets": [
+          "Include all variable costs: item cost, postage, packaging, and the eBay fee tier for that category.",
+          "Add your minimum margin as a percentage so profit scales with price.",
+          "Recalculate floors when your supplier raises costs or eBay changes fee structures.",
+          "Undercut's free eBay profit calculator can pre-fill the formula for you."
+        ]
+      },
+      {
+        "h2": "Organizing Large Catalogs: Where to Override and Where to Trust the Default",
+        "body": "For sellers with hundreds or thousands of listings, the practical question is which items actually need a custom floor. In most catalogs, roughly 70–80% of SKUs share similar margin profiles and the account default handles them well. Reserve per-item overrides for three situations: items with unusually high acquisition cost (liquidation lots, rare collectibles), items in categories with atypical eBay fee structures (media items carry a lower fee, which shifts the floor down), and items you purchased at varying costs across restocking runs. For everything else, let the account default do the work. This distinction is what makes managing repricing across many eBay listings tractable rather than exhausting.",
+        "bullets": [
+          "High-cost or irregular-margin SKUs: always set a custom floor.",
+          "Commodity or refill SKUs with stable costs: account default is sufficient.",
+          "Seasonal items: review floors before peak season when costs and demand shift.",
+          "Use Undercut's bulk import to upload floors for an entire catalog in one CSV."
+        ]
+      },
+      {
+        "h2": "Reprice Frequency and AI Aggressiveness at Scale",
+        "body": "Speed and strategy interact differently across catalog sizes. At small volumes — the Free plan covers 25 listings — hourly repricing is usually fast enough because your competitors are not moving that quickly. As your catalog grows past a few hundred listings, faster cycles matter more because you are competing in more sub-niches simultaneously. Undercut's Pro plan reprices every 15 minutes and adds AI aggressiveness tuning, which adjusts how sharply Undercut undercuts based on demand signals and your own sales velocity on each SKU. The Scale plan runs every 5 minutes across up to 10,000 listings and is designed for liquidators and wholesale resellers where margin windows open and close within an hour. In all cases the floor constraint is enforced at every reprice cycle, regardless of how aggressive the AI setting is.",
+        "bullets": [
+          "Free and Starter plans: reprice on a standard cycle, suitable for steady-state catalogs.",
+          "Pro (15-min cycle + AI tuning): right for active resellers competing in fast-moving categories.",
+          "Scale (5-min cycle, 10,000 listings): built for high-volume and liquidation operations.",
+          "AI aggressiveness affects how far below the competitor you go — the floor caps the downside."
+        ]
+      },
+      {
+        "h2": "Common Mistakes That Erode Margin When Repricing at Scale",
+        "body": "The most frequent error is setting a floor based on purchase price alone and forgetting the eBay fee. A seller who paid $20 for an item and sets a $22 floor believes they are making $2 per sale. After a 13.25% final value fee on $22, they net $22 − $2.915 = $19.09 — a loss of $0.91 on every transaction. The second mistake is a single global floor across all categories, which ignores that eBay charges different fee rates by category. The third is never updating floors after supplier price changes. Undercut does not know your new landed cost — that update must come from you, either manually or via CSV re-import. Build a calendar reminder to audit floors quarterly, or whenever a major supplier invoice arrives.",
+        "bullets": [
+          "Always calculate floors on the net-after-fees sale price, not the gross price.",
+          "Use category-specific floors when you sell across categories with different fee structures.",
+          "Treat floor maintenance as a recurring task, not a one-time setup.",
+          "Undercut logs every reprice decision — review the history to spot listings drifting near the floor."
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "If I change my account-level default rule, does it override floors I already set on individual listings?",
+        "a": "No. Changing the account default updates the repricing logic — how aggressively Undercut targets competitors — but it never overrides a per-item floor you have set. The floor on each listing is a separate, protected value. If you want to raise or lower floors across your catalog in bulk, use the CSV import to push new floor values to specific SKUs."
+      },
+      {
+        "q": "What happens when every competitor's price drops below my floor?",
+        "a": "Undercut holds your listing at the floor price rather than following competitors down. Your listing will not be the lowest price in those moments, but you will not sell at a loss. Once competitors raise their prices above your floor again, Undercut resumes normal repricing and undercuts them automatically."
+      },
+      {
+        "q": "Can I set floors as a percentage of cost rather than a fixed dollar amount?",
+        "a": "Currently Undercut stores floors as a fixed dollar amount per listing. The recommended workflow is to calculate your margin-inclusive floor (cost + shipping + fees + minimum margin %) as a dollar figure and enter that value. The free eBay profit calculator on the Undercut site walks through this calculation for any category's fee structure."
+      },
+      {
+        "q": "How do I manage repricing for listings I add frequently without reconfiguring from scratch each time?",
+        "a": "New listings automatically inherit your current account-level default repricing rule. You only need to enter a custom floor for the new listing if its cost structure differs from your catalog average. For frequent restockers, the CSV bulk-import lets you upload item costs and Undercut can help you pre-calculate suggested floors before you go live."
+      },
+      {
+        "q": "Does Undercut reprice listings that are already at the buy box price, or only ones being undercut?",
+        "a": "Undercut reprices any listing where a lower-priced competitor exists, including listings that are currently winning but could be challenged. If your listing is already the lowest and no competitor undercuts you, Undercut holds the current price rather than lowering unnecessarily — protecting margin while you hold position."
+      }
+    ],
+    "cta": {
+      "heading": "Set Your Floors Once — Let Undercut Handle the Rest",
+      "sub": "Start your 14-day free trial and reprice up to 25 listings today. No credit card required. Add per-item floors in minutes and never sell below cost again."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/multi-listing-repricing-strategy",
+        "label": "Multi-Listing Repricing Strategy"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/guides/high-volume-repricing",
+        "label": "High-Volume Repricing on eBay"
+      },
+      {
+        "href": "/ebay-profit-calculator",
+        "label": "Free eBay Profit Calculator"
+      }
+    ],
+    "slug": "multi-listing-repricing-strategy",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": false,
+    "lastUpdated": "2026-06-09"
+  },
+  {
+    "title": "eBay Repricing Best Practices — Undercut",
+    "metaDescription": "The eBay repricing best practices that actually protect margin: set hard floors, filter outliers, review competitors regularly. Start free — no card needed, 14-day trial.",
+    "h1": "The Guardrails Checklist: eBay Repricing Best Practices That Keep Automation Safe",
+    "eyebrow": "Guide",
+    "intro": "Most repricing advice focuses on speed — how fast can you match the lowest price? But the sellers who burn out on repricing do so because they moved fast without guardrails. The best practice that separates profitable automation from a race to zero is simple: define what you will never do before you define what the software can do. This guide covers the exact checklist — hard floors, competitor filtering, outlier detection, and cadence — that makes automated eBay repricing safe enough to run while you sleep.",
+    "sections": [
+      {
+        "h2": "Best Practice #1: Set a Hard Floor Before You Touch Any Repricing Rule",
+        "body": "A floor is not a preference — it is a constraint the software cannot cross under any circumstance. Calculate yours item by item before you configure a single repricing rule. The formula is: Cost + Shipping Cost + eBay Fees + Minimum Acceptable Margin = Floor.\n\nWorked example: You source a phone case for $8.00, ship it for $4.00, and eBay charges ~13.25% of the sale price (final value fee + payment processing on a $20 item ≈ $2.65). You want at least 15% net margin on cost. That means: $8 + $4 + $2.65 + $1.20 (15% of $8) = $15.85 floor, rounded up to $16.00 for safety.\n\nUntil that number is locked in as a hard floor in your repricer, do not enable any automation. Every other best practice builds on this one.",
+        "bullets": [
+          "Use landed cost (cost + inbound shipping + prep fees), not just invoice price",
+          "Recalculate floors when your supplier raises prices — automation does not do this for you",
+          "Set a separate floor for bundles and multi-packs; bundled items have different fee structures",
+          "If you sell across categories, note that eBay fee rates differ — electronics and collectibles are not the same"
+        ]
+      },
+      {
+        "h2": "Best Practice #2: Filter Competitor Listings Before You Chase Their Price",
+        "body": "Your repricer should never react to every listing that appears in search results. Low-feedback sellers, listings with no returns, drop-shippers with inflated shipping, and sellers listing a damaged or incomplete item all pull the apparent market price down below what a reputable seller should charge. Chasing those prices is how good sellers train buyers to distrust the category.\n\nBefore enabling repricing, audit who you are competing against. In Undercut you can restrict the competitor pool to sellers above a feedback threshold, with returns accepted, and with handling times within a defined window. Run this filter first, then let the algorithm work within that cleaned pool.",
+        "bullets": [
+          "Exclude sellers with fewer than 50 feedback or below 98% positive",
+          "Exclude listings where the competitor's shipping cost makes their true landed price higher than yours",
+          "Flag listings marked 'for parts / not working' — they should never anchor your price",
+          "Revisit competitor filters monthly; new drop-shippers enter categories constantly"
+        ]
+      },
+      {
+        "h2": "Best Practice #3: Detect and Ignore Outliers — One Rogue Listing Can Collapse Your Margin",
+        "body": "Outliers are single listings priced absurdly low — a competitor clearing dead stock, a data-entry error, or a seller who has already sold out but whose listing is still live. If your repricer is set to beat the lowest price unconditionally, one outlier pulls every one of your listings down with it.\n\nThe guardrail here is a minimum-price delta rule: only match or beat prices that are within a defined percentage band of the current median. If the median price for your item is $42 and one listing appears at $19, that listing is almost certainly anomalous. A well-configured repricer ignores it until at least two or three comparable listings exist at that level.\n\nThis is the single most underused best practice among high-volume sellers, and it is responsible for a disproportionate share of margin erosion events.",
+        "bullets": [
+          "Set an outlier threshold: ignore any competitor priced more than 25-35% below the category median",
+          "Review repricing logs weekly for any listing that dropped more than 20% in a single repricing cycle",
+          "Use Undercut's 15-minute (Pro) or 5-minute (Scale) cadence to recover quickly once an outlier sells through"
+        ]
+      },
+      {
+        "h2": "Best Practice #4: Match Repricing Cadence to Category Velocity",
+        "body": "Not every category needs to reprice every five minutes. High-velocity categories — consumer electronics, phone accessories, popular media — can see prices shift meaningfully within an hour. Slow-moving categories — vintage, antiques, collectibles, niche books — may not need repricing more than once per day, and repricing too aggressively in slow categories can signal desperation to buyers who are already doing price research.\n\nMatch your cadence to actual category behavior. As a starting framework: electronics and accessories benefit from 15-minute repricing; clothing, shoes, and general merchandise are well-served by hourly; collectibles, vintage, and antiques rarely need better than daily. Over-repricing is not a performance problem — it is a margin problem, because it trains the algorithm to chase noise.",
+        "bullets": [
+          "Electronics / phone accessories: 5–15 minute cadence",
+          "Clothing, shoes, home goods: 30–60 minute cadence",
+          "Books, media, collectibles: daily or every 12 hours",
+          "Use Undercut Pro (15-min) for most active categories; Scale (5-min) for high-volume electronics operations"
+        ]
+      },
+      {
+        "h2": "Best Practice #5: Build a Weekly Review Ritual — Automation Drifts Without Human Oversight",
+        "body": "The biggest mistake sellers make after setting up a repricer is treating it as a set-and-forget system. Markets shift, suppliers raise costs, eBay adjusts fee rates, and competitor pools change. A repricer operating on stale floors and outdated competitor filters will quietly erode your margin over weeks without triggering any obvious alarm.\n\nSchedule a 20-minute weekly review covering three questions: (1) Have my costs changed for any active listing? (2) Are there new low-feedback or anomalous sellers anchoring my category prices? (3) Did any listing reprice more than 15% downward this week — and if so, why? This ritual catches drift before it becomes a problem and keeps automation safe over the long term.",
+        "bullets": [
+          "Export your weekly repricing log and flag any listing that hit its floor more than twice",
+          "Recalculate floors for any item where supplier cost or shipping cost changed",
+          "Check eBay fee rate updates — category fee changes can invalidate floors calculated months ago",
+          "Review your lowest-priced competitor per category — if new entrants have appeared, reassess whether your competitor filter is still catching bad actors"
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "How do I calculate a safe price floor when eBay's fees vary by category?",
+        "a": "Look up your category's final value fee rate in eBay's fee schedule, then add the 0.30 fixed payment processing fee per order. Build your floor formula as: landed cost + shipping cost + (sale price × category FVF rate) + 0.30 + minimum margin. Because the fee is a percentage of the sale price, you may need to solve for the floor iteratively — or simply add 2-3% buffer to your estimate to account for variation."
+      },
+      {
+        "q": "What happens if I forget to update my floors when my supplier raises prices?",
+        "a": "Your repricer will keep competing at prices that no longer cover your actual cost. This is one of the most common causes of margin erosion among automated sellers — the automation is working correctly, but the floor inputs are stale. Build a cost-review trigger into your inventory workflow: any time a supplier invoice changes, that item's floor gets recalculated before the next repricing cycle runs."
+      },
+      {
+        "q": "Should I set the same repricing aggressiveness for all my listings?",
+        "a": "No. High-turnover commodity items (phone cases, common cables) benefit from aggressive repricing to stay visible, while unique or scarce items (vintage, collectibles, limited-run products) have pricing power you lose by chasing every competitor. Undercut's Pro and Scale plans include AI aggressiveness tuning so you can set different strategies per listing segment rather than applying a single rule to your entire catalog."
+      },
+      {
+        "q": "How do I handle a competitor who keeps pricing $0.01 below me?",
+        "a": "First, verify they are in your competitor pool legitimately — check their feedback, return policy, and shipping terms. If they are a credible competitor, accept that some categories are price-efficient and focus on service signals (faster handling, better photos, more detailed descriptions) rather than trying to out-penny them indefinitely. If their floor is below your cost, your floor will stop the chase automatically. The goal of repricing is not to win every price comparison — it is to win the profitable ones."
+      },
+      {
+        "q": "Can I use Undercut's free plan to test floor-based repricing before committing?",
+        "a": "Yes. The free plan supports up to 25 listings with no credit card required. That is enough to run your full guardrails checklist — set floors, configure competitor filters, and observe one full week of repricing behavior — before deciding whether to expand to a paid plan. Start with your 25 most active listings to get the most signal from the trial period."
+      }
+    ],
+    "cta": {
+      "heading": "Set Your Floors. Start Repricing Safely — Free for 14 Days.",
+      "sub": "No credit card required. Add up to 25 listings on the free plan and run the full guardrails checklist before you spend a cent."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to Set an eBay Price Floor"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/guides/manual-vs-automated-repricing",
+        "label": "Manual vs. Automated Repricing: Which Is Right for You?"
+      }
+    ],
+    "slug": "ebay-repricing-best-practices",
+    "collection": "guides",
+    "template": "guide",
+    "leadForm": false,
+    "lastUpdated": "2026-06-09"
+  }
+]

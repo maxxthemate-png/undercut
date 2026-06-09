@@ -82,6 +82,14 @@ def metrics(x_admin_key: str | None = Header(default=None), db: Session = Depend
     recent_leads = db.scalars(select(Lead).order_by(Lead.created_at.desc()).limit(8)).all()
     recent_signups = db.scalars(select(User).order_by(User.created_at.desc()).limit(8)).all()
 
+    # Funnel rates
+    signed_up = db.scalar(select(func.count()).select_from(Lead).where(Lead.email.in_(select(User.email)))) or 0
+    paid_total = sum(by_plan.get(pid, 0) for pid in PLAN_PRICE)
+    expired_trials = db.scalar(
+        select(func.count()).select_from(User)
+        .where(User.trial_ends_at.isnot(None), User.trial_ends_at <= now)) or 0
+    _trial_denom = paid_total + int(active_trials) + int(expired_trials)
+
     return {
         "generated_at": now.isoformat() + "Z",
         "mrr": mrr,
@@ -94,6 +102,16 @@ def metrics(x_admin_key: str | None = Header(default=None), db: Session = Depend
                           "at": l.created_at.isoformat() if l.created_at else None} for l in recent_leads],
         "recent_signups": [{"email": _mask(u.email), "plan": u.plan,
                             "at": u.created_at.isoformat() if u.created_at else None} for u in recent_signups],
+        "funnel": {
+            "leads": int(leads_total),
+            "lead_to_signup": int(signed_up),
+            "lead_to_signup_rate": round(signed_up / leads_total, 3) if leads_total else 0,
+            "signups": int(users_total),
+            "paid": int(paid_total),
+            "active_trials": int(active_trials),
+            "expired_trials": int(expired_trials),
+            "trial_to_paid_rate": round(paid_total / _trial_denom, 3) if _trial_denom else 0,
+        },
     }
 
 

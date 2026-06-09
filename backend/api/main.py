@@ -61,6 +61,8 @@ from .leads_routes import public_router as leads_public_router
 app.include_router(leads_public_router)
 from .admin_routes import router as admin_router
 app.include_router(admin_router)
+from .cron_routes import public_router as cron_public_router
+app.include_router(cron_public_router)
 
 
 # ─── Request models ───────────────────────────────────────────────────────────

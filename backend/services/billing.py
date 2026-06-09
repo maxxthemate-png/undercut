@@ -19,9 +19,9 @@ FREE_LIMIT = 25
 
 # plan id -> display/price/limit + the settings attr that holds its Stripe price id
 PLANS = {
-    "starter": {"name": "Starter", "price": 29,  "listing_limit": 100,   "price_env": "STRIPE_PRICE_STARTER"},
-    "pro":     {"name": "Pro",     "price": 79,  "listing_limit": 1000,  "price_env": "STRIPE_PRICE_PRO"},
-    "scale":   {"name": "Scale",   "price": 199, "listing_limit": 10000, "price_env": "STRIPE_PRICE_SCALE"},
+    "starter": {"name": "Starter", "price": 29,  "listing_limit": 100,   "price_env": "STRIPE_PRICE_STARTER", "annual_price_env": "STRIPE_PRICE_STARTER_ANNUAL"},
+    "pro":     {"name": "Pro",     "price": 79,  "listing_limit": 1000,  "price_env": "STRIPE_PRICE_PRO", "annual_price_env": "STRIPE_PRICE_PRO_ANNUAL"},
+    "scale":   {"name": "Scale",   "price": 199, "listing_limit": 10000, "price_env": "STRIPE_PRICE_SCALE", "annual_price_env": "STRIPE_PRICE_SCALE_ANNUAL"},
 }
 
 
@@ -84,23 +84,30 @@ def access_summary(user) -> dict:
     }
 
 
-def _price_id(plan: str) -> str | None:
+def _price_id(plan: str, interval: str = "month") -> str | None:
     p = PLANS.get(plan)
-    return getattr(settings, p["price_env"], None) if p else None
+    if not p:
+        return None
+    env = p["annual_price_env"] if interval == "year" else p["price_env"]
+    return getattr(settings, env, None)
 
 
 def plan_from_price(price_id: str | None) -> str | None:
+    if not price_id:
+        return None
     for pid, p in PLANS.items():
-        if price_id and getattr(settings, p["price_env"], None) == price_id:
+        if (getattr(settings, p["price_env"], None) == price_id
+                or getattr(settings, p["annual_price_env"], None) == price_id):
             return pid
     return None
 
 
-def create_checkout_session(user, plan: str, success_url: str, cancel_url: str):
-    """Returns (checkout_url, customer_id). Creates a Stripe customer if needed."""
-    price = _price_id(plan)
+def create_checkout_session(user, plan: str, success_url: str, cancel_url: str, interval: str = "month"):
+    """Returns (checkout_url, customer_id). Creates a Stripe customer if needed.
+    interval='month' (default, unchanged behavior) or 'year' for annual plans."""
+    price = _price_id(plan, interval)
     if not price:
-        raise ValueError(f"no Stripe price configured for plan '{plan}'")
+        raise ValueError(f"no Stripe price configured for plan '{plan}' ({interval})")
     customer = user.stripe_customer_id
     if not customer:
         customer = stripe.Customer.create(email=user.email, metadata={"user_id": str(user.id)}).id
@@ -108,7 +115,7 @@ def create_checkout_session(user, plan: str, success_url: str, cancel_url: str):
         mode="subscription", customer=customer,
         line_items=[{"price": price, "quantity": 1}],
         success_url=success_url, cancel_url=cancel_url,
-        metadata={"user_id": str(user.id), "plan": plan},
+        metadata={"user_id": str(user.id), "plan": plan, "interval": interval},
     )
     return session.url, customer
 

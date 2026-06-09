@@ -20,6 +20,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true)
   const [busy, setBusy] = useState('')
   const [manualToken, setManualToken] = useState('')
+  const [billingInterval, setBillingInterval] = useState<'month' | 'year'>('month')
 
   useEffect(() => {
     if (!tok.get()) { router.push('/login'); return }
@@ -52,8 +53,8 @@ export default function Dashboard() {
   }
   async function saveRule(id: string, patch: any) { await api(`/api/repricer/listings/${id}/rule`, { method: 'PUT', body: JSON.stringify(patch) }); fetchAll() }
   async function runReprice() { setBusy('run'); await api('/api/repricer/run', { method: 'POST' }); setBusy(''); fetchAll() }
-  async function upgrade(plan: string) {
-    const d = await (await api('/api/billing/checkout', { method: 'POST', body: JSON.stringify({ plan }) })).json()
+  async function upgrade(plan: string, interval: 'month' | 'year' = 'month') {
+    const d = await (await api('/api/billing/checkout', { method: 'POST', body: JSON.stringify({ plan, interval }) })).json()
     if (d.url) window.location.href = d.url; else alert(d.detail || 'Billing not configured yet.')
   }
   function logout() { tok.clear(); router.push('/login') }
@@ -75,10 +76,11 @@ export default function Dashboard() {
         {me && me.is_trialing && (
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-center justify-between">
             <p className="text-sm text-amber-900">🎉 <b>Founding trial</b> — {me.trial_days_left} day{me.trial_days_left === 1 ? '' : 's'} left · full Starter features ({me.listing_limit} listings), no card. Lock in your plan anytime.</p>
-            <div className="flex gap-2">
-              <button onClick={() => upgrade('starter')} className="px-3 py-1.5 text-sm rounded-lg bg-white border">Starter $29</button>
-              <button onClick={() => upgrade('pro')} className="px-3 py-1.5 text-sm rounded-lg bg-blue-600 text-white">Pro $79</button>
-              <button onClick={() => upgrade('scale')} className="px-3 py-1.5 text-sm rounded-lg bg-white border">Scale $199</button>
+            <div className="flex items-center gap-2">
+              <button onClick={() => setBillingInterval(billingInterval === 'year' ? 'month' : 'year')} className="text-xs underline text-gray-500 mr-1 whitespace-nowrap">{billingInterval === 'year' ? 'Annual · 2 mo free' : 'Monthly'}</button>
+              <button onClick={() => upgrade('starter', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-white border">Starter $29</button>
+              <button onClick={() => upgrade('pro', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-blue-600 text-white">Pro $79</button>
+              <button onClick={() => upgrade('scale', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-white border">Scale $199</button>
             </div>
           </div>
         )}
@@ -86,10 +88,11 @@ export default function Dashboard() {
         {me && me.plan === 'free' && (
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center justify-between">
             <p className="text-sm text-blue-900">You're on <b>Free</b> (25 listings). Upgrade for more + 15-min AI repricing.</p>
-            <div className="flex gap-2">
-              <button onClick={() => upgrade('starter')} className="px-3 py-1.5 text-sm rounded-lg bg-white border">Starter $29</button>
-              <button onClick={() => upgrade('pro')} className="px-3 py-1.5 text-sm rounded-lg bg-blue-600 text-white">Pro $79</button>
-              <button onClick={() => upgrade('scale')} className="px-3 py-1.5 text-sm rounded-lg bg-white border">Scale $199</button>
+            <div className="flex items-center gap-2">
+              <button onClick={() => setBillingInterval(billingInterval === 'year' ? 'month' : 'year')} className="text-xs underline text-gray-500 mr-1 whitespace-nowrap">{billingInterval === 'year' ? 'Annual · 2 mo free' : 'Monthly'}</button>
+              <button onClick={() => upgrade('starter', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-white border">Starter $29</button>
+              <button onClick={() => upgrade('pro', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-blue-600 text-white">Pro $79</button>
+              <button onClick={() => upgrade('scale', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-white border">Scale $199</button>
             </div>
           </div>
         )}

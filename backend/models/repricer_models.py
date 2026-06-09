@@ -29,6 +29,8 @@ class User(Base):
     stripe_customer_id = Column(String(100))
     stripe_subscription_id = Column(String(100))
     trial_ends_at = Column(DateTime)                   # founding-trial expiry (no-card); NULL = not on trial
+    last_lifecycle_email = Column(DateTime)            # last nurture/lifecycle email sent
+    last_lifecycle_stage = Column(String(30))          # e.g. trial_ending | trial_expired
 
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
@@ -129,3 +131,5 @@ class Lead(Base):
     email = Column(String(255), nullable=False, index=True)
     source = Column(String(50))            # landing | compare | ...
     created_at = Column(DateTime, default=datetime.utcnow, index=True)
+    nurture_stage = Column(Integer, default=0)   # 0=none,1=day1,2=day3,3=day7,99=converted/done
+    last_emailed_at = Column(DateTime)
