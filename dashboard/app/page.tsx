@@ -1,5 +1,6 @@
 /** Undercut — marketing landing + pricing. */
 import Link from 'next/link'
+import LeadForm from './lead-form'
 
 const TIERS = [
   { name: 'Free', price: '$0', listings: '25 listings', features: ['Rule-based undercut', 'Hourly repricing', 'Hard price floor'], cta: 'Start free', highlight: false },
@@ -65,6 +66,14 @@ export default function Landing() {
           ))}
         </div>
         <p className="text-center text-xs text-gray-400 mt-6">Every account starts with a 14-day Founding trial — full Starter features, no card. Then stay on Free (25 listings) or upgrade. Cancel anytime.</p>
+      </section>
+
+      <section className="bg-gray-50 border-t border-gray-100">
+        <div className="max-w-2xl mx-auto px-6 py-14 text-center">
+          <h2 className="text-2xl font-bold">Not ready to connect your store yet?</h2>
+          <p className="text-gray-600 mt-2 mb-6">Drop your email — we'll send early access and lock in founding pricing for you.</p>
+          <LeadForm source="landing" />
+        </div>
       </section>
 
       <footer className="border-t border-gray-100 py-8 text-center text-sm text-gray-400">

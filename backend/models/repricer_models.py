@@ -119,3 +119,13 @@ class CompetitorSnapshot(Base):
     lowest_price = Column(Float)
     listing_count = Column(Integer)
     fetched_at = Column(DateTime, default=datetime.utcnow, index=True)
+
+
+class Lead(Base):
+    """A captured lead / waitlist email (pre-account) — from the marketing pages."""
+    __tablename__ = "leads"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    email = Column(String(255), nullable=False, index=True)
+    source = Column(String(50))            # landing | compare | ...
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)

@@ -2,6 +2,7 @@
  *  Targets high-intent search: "ebay repricer comparison", "repricer with a hard floor",
  *  "ebay repricer that won't race to the bottom". Honest, first-party positioning. */
 import Link from 'next/link'
+import LeadForm from '../lead-form'
 
 export const metadata = {
   title: 'Undercut vs StreetPricer, RepricerExpress & Informed.co — eBay Repricer Comparison (2026)',
@@ -137,6 +138,14 @@ export default function Compare() {
         </div>
         <div className="text-center mt-10">
           <Link href="/signup" className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free — 14-day trial, no card</Link>
+        </div>
+      </section>
+
+      <section className="bg-gray-50 border-t border-gray-100">
+        <div className="max-w-2xl mx-auto px-6 py-14 text-center">
+          <h2 className="text-2xl font-bold">Want in but not ready today?</h2>
+          <p className="text-gray-600 mt-2 mb-6">Leave your email and we'll send early access + founding pricing.</p>
+          <LeadForm source="compare" />
         </div>
       </section>
 
