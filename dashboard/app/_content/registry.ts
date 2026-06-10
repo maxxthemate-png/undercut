@@ -2,8 +2,9 @@ import type { PageContent, Collection } from './types'
 import { guides } from './guides'
 import { alternatives } from './alternatives'
 import { glossary } from './glossary'
+import { repricers } from './repricers'
 
-const COLLECTIONS: Record<Collection, PageContent[]> = { guides, alternatives, glossary }
+const COLLECTIONS: Record<Collection, PageContent[]> = { guides, alternatives, glossary, repricers }
 
 export function pagesIn(collection: Collection): PageContent[] {
   return (COLLECTIONS[collection] || []).filter((p) => !p.draft)

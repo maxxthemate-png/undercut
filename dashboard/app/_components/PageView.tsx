@@ -49,6 +49,16 @@ export default function PageView({ page }: { page: PageContent }) {
         </section>
       )}
       <Faq items={page.faq} />
+      <section className="max-w-3xl mx-auto px-6 pb-4">
+        <h2 className="text-lg font-bold mb-3">Free tools</h2>
+        <ul className="flex flex-wrap gap-2 text-sm">
+          {[['Fee calculator', '/ebay-fee-calculator'], ['Price checker', '/ebay-price-checker'], ['Profit calculator', '/ebay-profit-calculator']].map(([label, href]) => (
+            <li key={href}>
+              <Link href={href} className="inline-block px-3 py-1.5 rounded-full border border-gray-200 text-blue-600 hover:bg-gray-50">{label}</Link>
+            </li>
+          ))}
+        </ul>
+      </section>
       <InternalLinks links={page.internalLinks} />
       {siblings.length > 0 && (
         <section className="max-w-3xl mx-auto px-6 pb-12">

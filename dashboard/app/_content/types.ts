@@ -3,8 +3,8 @@
 // shared template (app/{guides,alternatives,glossary}/[slug]/page.tsx) + the
 // presentational components in app/_components/.
 
-export type Collection = 'guides' | 'alternatives' | 'glossary'
-export type Template = 'guide' | 'comparison' | 'glossary'
+export type Collection = 'guides' | 'alternatives' | 'glossary' | 'repricers'
+export type Template = 'guide' | 'comparison' | 'glossary' | 'repricer'
 
 export interface FaqItem {
   q: string

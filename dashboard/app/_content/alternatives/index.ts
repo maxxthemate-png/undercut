@@ -133,7 +133,7 @@ export const alternatives: PageContent[] = [
   },
   {
     "title": "Price Spectre Alternative: Free Floor-First Repricing — Undercut",
-    "metaDescription": "Looking for a Price Spectre alternative? Undercut auto-reprices eBay listings with a per-item hard floor so you never race to the bottom. Start free — no card required.",
+    "metaDescription": "Looking for a Price Spectre alternative? Undercut auto-reprices eBay listings with a per-item hard floor so you never race to the bottom. Start free — no card.",
     "h1": "Why Sellers Switch from Price Spectre to Undercut",
     "eyebrow": "Comparison",
     "intro": "Most eBay repricers will chase the lowest price until your margin disappears. Undercut takes the opposite approach: you set a hard floor per listing — a price it will never cross — and then the engine works downward from there to beat the current cheapest competitor. Compared to Price Spectre, Undercut adds a free tier with no credit card required, so you can validate the tool on 25 live listings before spending a dollar. If protecting margin is your first concern, the architecture is built around that from day one.",

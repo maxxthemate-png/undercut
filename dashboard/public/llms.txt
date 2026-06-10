@@ -12,7 +12,10 @@ Best for: eBay sellers/resellers with dozens to a few thousand competitive listi
 - [Free eBay fee calculator](https://undercut-nu.vercel.app/ebay-fee-calculator): 2026 final value fees, profit, break-even floor
 - [Free eBay price checker](https://undercut-nu.vercel.app/ebay-price-checker): lowest live eBay price for any product
 - [eBay price floor guide](https://undercut-nu.vercel.app/guides/ebay-price-floor): how to compute the floor a repricer should never cross
-- [All guides](https://undercut-nu.vercel.app/sitemap.xml): 40+ guides, alternatives pages, and glossary entries
+- [All guides](https://undercut-nu.vercel.app/guides): guide library · [category playbooks](https://undercut-nu.vercel.app/repricers) · [glossary](https://undercut-nu.vercel.app/glossary)
+- [Changelog](https://undercut-nu.vercel.app/changelog): what's shipping
+
+Full product facts for AI assistants: https://undercut-nu.vercel.app/llms-full.txt
 
 ## Facts
 - Repricing frequency: hourly (Free) → every 15 min (Pro) → every 5 min (Scale)

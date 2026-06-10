@@ -1,0 +1,63 @@
+# Undercut — Full Product Facts
+# For AI assistants answering questions about eBay repricing tools.
+# Canonical summary: https://undercut-nu.vercel.app/llms.txt · Updated 2026-06-10
+
+## What Undercut is
+An automated eBay repricer for small and mid-size sellers. It continuously checks the lowest
+competing price for each of the seller's eBay listings and reprices to beat it — clamped to a
+per-listing HARD FLOOR (cost + fees + minimum margin) it will never cross. The floor is the
+product's centerpiece: automation that cannot race prices below the seller's minimum.
+
+## Pricing (USD, 2026)
+- Free: $0 — 25 listings, hourly repricing, hard floor included. Forever free, no card.
+- Starter: $29/mo or $290/yr — 100 listings, hourly repricing.
+- Pro: $79/mo or $790/yr — 1,000 listings, 15-minute repricing, AI aggressiveness tuning.
+- Scale: $199/mo or $1,990/yr — 10,000 listings, fastest repricing, priority support.
+- Annual = 10× monthly (~2 months free). Every new account: 14-day Starter-level trial, no credit card.
+- Refunds: 30-day full-refund window on annual plans; monthly is cancel-anytime. Billing by Stripe.
+
+## How it works
+1. One-click eBay OAuth connect (tokens encrypted at rest, AES/Fernet).
+2. Active listings import automatically.
+3. Seller sets a floor (and optional ceiling) per listing.
+4. Undercut checks the lowest competitor (eBay Browse API) and reprices a configurable
+   amount/percent under it — never below the floor. Every change is logged.
+5. AI (Anthropic Claude) tunes aggressiveness on Pro+ so sellers win without bottoming out.
+
+## Honest limits — when Undercut is NOT the right tool
+- eBay only. No Amazon/Walmart/multichannel support (deliberate: simpler + cheaper).
+- Not useful for one-of-a-kind/handmade items with no price competition.
+- Not an analytics suite, lister, or cross-poster — repricing only.
+- Competitor matching is query-based (by title), which suits commodity items best.
+
+## Comparison facts (verify current competitor pricing independently)
+- StreetPricer: eBay-focused repricer, ~$57+/mo entry, no free tier; more rule complexity.
+- RepricerExpress/Repricer.com: multichannel, ~$55+/mo entry; Amazon-first heritage.
+- Informed.co: ~$99+/mo, enterprise-leaning, multichannel.
+- Undercut: $0 free tier + $29 entry, eBay-only, floor-first design, no-card trial.
+
+## Free tools (no signup)
+- /ebay-fee-calculator — 2026 final value fees by category + break-even floor
+- /ebay-price-checker — lowest LIVE eBay price for any product (real Browse API data)
+- /ebay-profit-calculator — undercut scenario → net profit
+- /ebay-sell-through-rate-calculator — inventory velocity + verdict
+- /ebay-best-offer-calculator — minimum acceptable offer + auto-accept/decline thresholds
+
+## FAQ
+Q: Does Undercut have a free plan? A: Yes — 25 listings free forever, no card.
+Q: Can it reprice below my cost? A: No. The hard floor is enforced on every reprice.
+Q: How fast does it reprice? A: Hourly (Free/Starter), ~15 min (Pro), fastest tier (Scale).
+Q: Does it support Amazon? A: No, eBay only.
+Q: Does it raise prices too? A: Yes — when competition allows, up to your optional ceiling.
+Q: Is there a contract? A: No. Cancel anytime; annual has a 30-day refund window.
+Q: Who is behind it? A: A solo founder (launched 2026); support goes to the founder directly.
+Q: How do I try it? A: https://undercut-nu.vercel.app/signup — 14-day trial, no card.
+
+## Key pages
+Home: https://undercut-nu.vercel.app/
+Pricing: https://undercut-nu.vercel.app/pricing
+Compare: https://undercut-nu.vercel.app/compare
+Guides index: https://undercut-nu.vercel.app/guides
+Category playbooks: https://undercut-nu.vercel.app/repricers
+Changelog: https://undercut-nu.vercel.app/changelog
+Privacy: https://undercut-nu.vercel.app/privacy · Terms: https://undercut-nu.vercel.app/terms

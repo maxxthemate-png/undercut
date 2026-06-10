@@ -109,7 +109,7 @@ export const guides: PageContent[] = [
   },
   {
     "title": "Repricing Clothing & Fashion on eBay — Undercut",
-    "metaDescription": "Seasonal shifts and size sprawl wreck manual pricing. Learn how to reprice clothing on eBay automatically — with hard floors — and start a free 14-day trial, no card needed.",
+    "metaDescription": "Seasonal shifts and size sprawl wreck manual pricing. Learn how to reprice clothing on eBay automatically — with hard floors — and start a free 14-day trial, no.",
     "h1": "How to Reprice Clothing and Fashion on eBay Without Tanking Your Margins",
     "eyebrow": "Guide",
     "intro": "Fashion resellers face a double burden that other eBay categories do not: inventory splits across dozens of size and color variations, and prices that need to move with the season. A winter puffer listed in November competes at one price point; in March it competes at a completely different one — or sits unsold. Manual repricing across hundreds of SKUs with these dynamics is not slow, it is mathematically unwinnable. The answer is automated repricing anchored by a per-item hard floor, so markdowns chase the sale without ever crossing into a loss.",
@@ -1157,7 +1157,7 @@ export const guides: PageContent[] = [
   },
   {
     "title": "Repricing Without Losing Margin — Undercut",
-    "metaDescription": "Learn how repricing without losing margin works using hard price floors. Start Undercut's 14-day free trial — no credit card required — and stop the race to the bottom.",
+    "metaDescription": "Learn how repricing without losing margin works using hard price floors. Start Undercut's 14-day free trial — no credit card required — and stop the race to the.",
     "h1": "How to Reprice Without Losing Margin (And Why Most Sellers Are Wrong About the Race to the Bottom)",
     "eyebrow": "Guide",
     "intro": "Conventional wisdom says that automated repricing triggers a death spiral — everyone keeps undercutting until profit disappears. The data says otherwise. When repricing is governed by a hard floor, roughly half of all repricing events move prices upward, not down. The race to the bottom is not a law of markets; it is an artifact of floorless tools. This guide explains exactly how price floors work, how to calculate one that protects real margin, and how Undercut enforces it automatically on every listing.",
@@ -1907,7 +1907,7 @@ export const guides: PageContent[] = [
   },
   {
     "title": "Managing Repricing Across Many eBay Listings — Undercut",
-    "metaDescription": "Manage repricing across many eBay listings using account defaults + per-item floors. Beat competitors automatically without babysitting each listing. 14-day free trial, no card.",
+    "metaDescription": "Manage repricing across many eBay listings using account defaults + per-item floors. Beat competitors automatically without babysitting each listing. 14-day free.",
     "h1": "How to Manage Repricing Across Hundreds of eBay Listings Without Losing Margin",
     "eyebrow": "Guide",
     "intro": "The insight most multi-listing sellers miss: you do not need to configure every item individually. Set one account-level repricing default — target lowest competitor, respect a minimum margin — then override the floor only for the listings that truly need it. That two-layer approach lets Undercut watch hundreds of SKUs simultaneously, undercutting rivals on every one of them, while a hard floor on each item ensures you never sell below cost no matter how aggressive the market gets.",
@@ -2023,7 +2023,7 @@ export const guides: PageContent[] = [
   },
   {
     "title": "eBay Repricing Best Practices — Undercut",
-    "metaDescription": "The eBay repricing best practices that actually protect margin: set hard floors, filter outliers, review competitors regularly. Start free — no card needed, 14-day trial.",
+    "metaDescription": "The eBay repricing best practices that actually protect margin: set hard floors, filter outliers, review competitors regularly. Start free — no card needed.",
     "h1": "The Guardrails Checklist: eBay Repricing Best Practices That Keep Automation Safe",
     "eyebrow": "Guide",
     "intro": "Most repricing advice focuses on speed — how fast can you match the lowest price? But the sellers who burn out on repricing do so because they moved fast without guardrails. The best practice that separates profitable automation from a race to zero is simple: define what you will never do before you define what the software can do. This guide covers the exact checklist — hard floors, competitor filtering, outlier detection, and cadence — that makes automated eBay repricing safe enough to run while you sleep.",
@@ -2131,5 +2131,520 @@ export const guides: PageContent[] = [
     "template": "guide",
     "leadForm": false,
     "lastUpdated": "2026-06-09"
+  },
+  {
+    "slug": "ebay-best-match-algorithm",
+    "collection": "guides",
+    "template": "guide",
+    "title": "How eBay Best Match Works for Sellers — Undercut",
+    "metaDescription": "Understand every documented eBay Best Match factor—price, sales history, seller metrics—and keep listings competitive automatically. Free 14-day trial, no card.",
+    "h1": "eBay Best Match Algorithm: What Actually Moves Your Listings Up",
+    "eyebrow": "Seller Guide",
+    "intro": "Best Match is eBay's default sort order, and it determines whether your listing appears on page one or page ten. eBay has never published a complete formula, but years of seller data and eBay's own documentation point to five concrete signal groups: price competitiveness, sales history, seller performance metrics, item specifics completeness, and click-through rate. This guide separates documented factors from common myths, explains why ending a listing resets the history that took weeks to build, and shows which lever—price—you can actually move every hour without restructuring your entire catalog.",
+    "sections": [
+      {
+        "h2": "The Five Documented Best Match Signals",
+        "body": "eBay's own Seller Center acknowledges these inputs to Best Match ranking: (1) Price + shipping total — buyers sort by 'lowest price + shipping' constantly, so eBay weights combined landed cost. (2) Sales velocity and conversion history — how often your listing converts views to purchases over the past 30-90 days. (3) Seller performance tier — Top Rated Plus badges receive a documented ranking boost; Below Standard sellers face suppression. (4) Item specifics completeness — listings missing Brand, MPN, or category-required fields rank lower because eBay cannot match them to buyer search filters. (5) Click-through rate — if buyers repeatedly scroll past your thumbnail, eBay interprets low CTR as a relevance signal and reduces impressions. None of these is publicly weighted, but all five appear in eBay's help documentation or have been confirmed via eBay seller-community communications."
+      },
+      {
+        "h2": "Why Ending a Listing Is Dangerous for Rank",
+        "body": "Every time you end a fixed-price listing and relist it—even with the same SKU—eBay treats it as a brand-new listing with zero sales history. The conversion data, watcher count, and CTR signals accumulated on the original listing are gone. A listing that took 60 days to build 15 sales and climb to page one resets to day zero. This is one of the most expensive mistakes multi-SKU sellers make when they try to 'refresh' stale listings. If you need to update price, title, or item specifics, use the Revise function inside the active listing. The only exception eBay documents is the 'Sell Similar' flow, which also starts fresh. If your goal is to protect ranking history, never end a performing listing to relist it."
+      },
+      {
+        "h2": "Price Competitiveness: The One Lever You Can Move Daily",
+        "body": "Sales history and seller metrics change slowly—you cannot manufacture 30 days of conversions overnight. Item specifics are a one-time fix. CTR depends on photography and titles that take weeks to test. Price is the only Best Match input you can change today, multiple times per day, without losing accumulated signals. eBay's algorithm favors listings whose combined price + shipping is competitive relative to identical or similar items in the same category. Being the lowest-priced option is not always necessary—but being more than 10-15% above the median on a commoditized item is typically enough to suppress ranking. An automated repricer like Undercut monitors competitor prices continuously and adjusts your price to stay competitive without requiring manual checks. On Undercut's Free plan (up to 25 listings, hourly repricing), you can test this on your highest-volume SKUs before committing to a paid tier."
+      },
+      {
+        "h2": "Myths vs. Documented Factors",
+        "body": "Several ranking tactics circulate in seller forums without supporting documentation. Here is an honest breakdown:",
+        "bullets": [
+          "MYTH: Promoted Listings boost organic Best Match rank. FALSE — Promoted Listings are a separate paid placement layer. They do not improve your unpaid Best Match position, though higher visibility from ads can indirectly increase sales history.",
+          "MYTH: Listing at auction first then switching to fixed-price passes sales history. NOT DOCUMENTED — eBay has not confirmed any history transfer between listing formats.",
+          "MYTH: Adding more keywords to the title always helps. PARTIALLY TRUE — Title keywords determine which searches your listing appears in, but keyword stuffing that reduces CTR can hurt rank.",
+          "DOCUMENTED: Top Rated Plus status provides a ranking boost. eBay's own Seller Center confirms this explicitly.",
+          "DOCUMENTED: Free shipping improves rank. eBay states that listings with free shipping are favored when all else is equal because it lowers the buyer's total landed cost.",
+          "UNKNOWN: Exact weight of each signal. eBay has never published coefficients. Anyone claiming precise percentages is guessing."
+        ]
+      },
+      {
+        "h2": "Setting a Price Floor Before You Reprice",
+        "body": "Competing on price is only sustainable if every price change stays above your breakeven. For most eBay categories, the math is: item cost + 13.6% final value fee on (item price + shipping + tax) + $0.35 per-order fee + shipping cost + packaging. On a $40 item with $8 shipping, that fee load alone is roughly $7.70, leaving less margin than many sellers realize. Undercut requires you to set a per-item floor—the minimum price you will accept—before any repricing rule activates. The repricer will beat the lowest competitor automatically but will stop at your floor rather than cross it. This floor-first design prevents the race-to-zero that destroys margins when multiple sellers chase the same position. Set your floor at cost + fees + your minimum acceptable margin, not just cost."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Does Best Match rank update in real time?",
+        "a": "No. eBay's ranking signals are recalculated periodically, not instantly. Price changes typically reflect within a few hours. Sales history and conversion data are aggregated over rolling windows of 30-90 days. This means a single price drop will not immediately push a listing to page one, but consistent competitiveness over days and weeks does compound into improved rank."
+      },
+      {
+        "q": "If I have zero sales history on a new listing, can I still rank well?",
+        "a": "Yes, but you need to compensate with the signals you can control: set the most competitive price, fill every item specific, offer free shipping, and use a high-quality main thumbnail. New listings occasionally get a short 'honeymoon' boost in impressions according to seller community observations, though eBay has not officially documented this. Convert those early impressions to sales and you start building the history that sustains rank long-term."
+      },
+      {
+        "q": "How does Undercut help with Best Match without hurting my margins?",
+        "a": "Undercut sets a hard per-item floor—cost plus fees plus your minimum margin—and will never reprice below it. Within that constraint it adjusts your price to beat the lowest competitor automatically, 24/7. You stay price-competitive for Best Match purposes without manually monitoring rivals or accidentally repricing below cost. The Free plan covers 25 listings with hourly repricing and requires no credit card, so you can verify the impact on ranking before upgrading."
+      },
+      {
+        "q": "Is Undercut a good fit if I sell one-of-a-kind or handmade items?",
+        "a": "Probably not. Automated repricing works best for commodity or multi-quantity fixed-price listings where direct price comparison exists. One-of-a-kind, handmade, vintage, or rare collectible listings have no direct competitors to undercut. For those, Best Match optimization should focus on item specifics, photography, and title keyword match rather than price. Undercut is honest about this: it is built for sellers with repeatable, comparable inventory."
+      },
+      {
+        "q": "Does having a Top Rated Plus badge actually move the needle on rank?",
+        "a": "Yes—this is one of the few factors eBay explicitly confirms. Top Rated Plus listings receive a ranking boost in Best Match and display a badge that increases buyer trust and CTR. To qualify you need a 98%+ positive feedback rate, under 0.5% transaction defects, and under 3% cases closed without resolution over the trailing 12 months. Achieving TRP status amplifies the benefit you get from price competitiveness because both signals stack."
+      }
+    ],
+    "internalLinks": [
+      {
+        "href": "/guides/ebay-repricing-best-practices",
+        "label": "eBay Repricing Best Practices"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/guides/ebay-pricing-strategy",
+        "label": "eBay Pricing Strategy Guide"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to Set an eBay Price Floor"
+      }
+    ],
+    "lastUpdated": "2026-06-10",
+    "leadForm": true
+  },
+  {
+    "slug": "ebay-best-offer-strategy",
+    "collection": "guides",
+    "template": "guide",
+    "title": "eBay Best Offer Strategy: Set Thresholds That Protect Margin — Undercut",
+    "metaDescription": "Learn to set auto-accept and auto-decline thresholds using cost + fees + margin math. Optimize Best Offer without racing to the bottom. Free, no card required.",
+    "h1": "How to Use eBay Best Offer Without Giving Away Your Margin",
+    "eyebrow": "Pricing Strategy",
+    "intro": "Best Offer is one of eBay's most underused margin-protection tools — but only if your thresholds are set with real numbers behind them. Most sellers either ignore it entirely or accept whatever comes in. The correct approach: treat your auto-decline floor as a hard negotiation wall built from cost, eBay fees, and your minimum margin, then let auto-accept capture buyers willing to pay near list. This guide shows you the exact math, explains how Best Offer interacts with automated repricing, and tells you when it beats simply lowering your list price.",
+    "sections": [
+      {
+        "h2": "Computing Your Minimum Acceptable Offer",
+        "body": "Before touching any Best Offer settings, calculate your floor using three inputs: item cost, eBay fees, and your minimum acceptable margin. eBay charges roughly 13.6% final value fee on the total transaction (item + shipping + tax) plus a $0.30–$0.40 per-order fee depending on your store plan. Example: you paid $18 for an item, ship for $6, and want at least 15% net margin. Gross needed = ($18 + $6) / (1 - 0.15) ≈ $28.24. Subtract eBay's fee: $28.24 / (1 - 0.136) = $32.69 list equivalent. Any offer below $28.24 net destroys your floor. Set your auto-decline threshold at or above that figure. Never eyeball it — one miscalculated threshold across 200 listings erases weeks of profit."
+      },
+      {
+        "h2": "Auto-Accept and Auto-Decline Thresholds Explained",
+        "body": "eBay gives you two threshold levers. Auto-decline rejects any offer below the number you set — no counter, no notification, no time wasted. Auto-accept automatically accepts any offer at or above a second, higher number without you lifting a finger. A practical setup: list at $38, auto-decline below $30 (your floor from the math above), auto-accept at $35 (captures motivated buyers fast, still 16%+ margin). The band between $30 and $35 lands in your manual review queue. Keep that band narrow — wide bands mean more manual negotiations and more opportunities to accidentally accept a bad deal under time pressure. If you have 500+ listings, manual review bands become unmanageable; at that point, tighten the band or skip manual review entirely.",
+        "bullets": [
+          "Auto-decline = your negotiation floor, never below cost + fees + minimum margin",
+          "Auto-accept = your 'close fast' price, typically 5–10% below list",
+          "Manual band between the two should be narrow to avoid negotiation overhead",
+          "eBay does not charge a fee for declined offers — decline freely"
+        ]
+      },
+      {
+        "h2": "How Best Offer Interacts with Automated Repricing",
+        "body": "Here is where most sellers get confused: when Undercut reprices your listing down to beat a competitor, does your Best Offer threshold move with it? On eBay, Best Offer thresholds are fixed dollar amounts set at listing time — they do not float with price changes automatically. This creates a real risk: if Undercut drops your list price from $38 to $31 to beat a competitor, and your auto-decline is still set at $30, a buyer can offer $30.50 and get auto-accepted at effectively zero margin. The fix is to define your price floor in Undercut itself. When you set a per-listing hard floor — say $32 — Undercut will never reprice below it, keeping your auto-decline threshold safely inside the repricing range. Floor-first design is the reason Undercut was built this way: the floor is not an afterthought, it is the starting point."
+      },
+      {
+        "h2": "When Best Offer Beats Lowering Your List Price",
+        "body": "Dropping your list price is permanent and visible to every buyer and competitor. Enabling Best Offer is neither. Use Best Offer instead of a price cut when: (1) you have a slow-moving item and want to test price sensitivity without publicly marking it down; (2) your category attracts negotiation-minded buyers (collectibles, vintage, parts); (3) you want to move inventory quickly without triggering a competitor repricer war. Lower your list price when: your item is priced above all competitors and you are getting no traffic at all, or your category buyers rarely use Best Offer (most commodity new-in-box electronics buyers just click Buy It Now). A combined approach — competitive list price via repricing plus a tight Best Offer band — captures both buyer types without sacrificing margin on either path.",
+        "bullets": [
+          "Best Offer: good for price-sensitive categories, slow movers, inventory clearance",
+          "Price cut: better when traffic is zero and you are clearly above market",
+          "Combined: reprice to competitive list, add Best Offer band 8–12% below list",
+          "Undercut's floor prevents repricing from colliding with your offer thresholds"
+        ]
+      },
+      {
+        "h2": "Setting Thresholds at Scale with Undercut",
+        "body": "Manually reviewing and updating Best Offer thresholds across hundreds of listings is not realistic. Undercut's floor-first repricing handles the hardest part: your per-listing cost + fees + margin floor is stored in the system and used as the repricing hard stop. This means your auto-decline threshold and your repricing floor are anchored to the same number — they cannot diverge. Free plan covers 25 listings with hourly repricing checks. Starter ($29/mo) handles 100 listings. Pro ($79/mo) scales to 1,000 listings with AI tuning and 15-minute check intervals — relevant if your Best Offer volume is high enough that 15-minute response windows matter. All accounts start with a 14-day Starter trial, no credit card required. If you have fewer than 25 listings, the Free plan is permanent — not a trial."
+      }
+    ],
+    "faq": [
+      {
+        "q": "What percentage should I set for my Best Offer auto-decline threshold?",
+        "a": "Do not use a percentage — use a dollar floor derived from your actual cost, eBay's 13.6% final value fee, and your minimum margin. Example: $18 cost + $6 shipping with 15% margin floor means your minimum acceptable net is about $28.24. Convert that to a pre-fee list-equivalent and set your auto-decline there. A flat percentage ignores shipping costs and per-order fees, which are fixed regardless of price and hurt disproportionately on lower-priced items."
+      },
+      {
+        "q": "Does changing my list price in Undercut affect my existing Best Offer thresholds?",
+        "a": "eBay Best Offer thresholds are stored as fixed dollar values on the listing and do not automatically adjust when your list price changes. If Undercut reprices your item down significantly, a previously safe auto-decline threshold could end up near or below your actual cost floor. The solution: set your Undercut price floor at or above your auto-decline threshold so the repricer never drops into dangerous territory."
+      },
+      {
+        "q": "Should I enable Best Offer on every listing?",
+        "a": "No. Best Offer adds friction for Buy It Now buyers in commodity categories where no one negotiates. Enable it where your category data shows buyers actually use it: collectibles, vintage items, auto parts, refurbished electronics, and slower-moving unique items. For fast-moving new-in-box commodity products, a competitive list price from repricing is cleaner. eBay's Seller Hub shows Best Offer activity rates by category — check before enabling broadly."
+      },
+      {
+        "q": "Can I use Best Offer and Undercut's automated repricing at the same time?",
+        "a": "Yes, and this is the recommended setup. Set your Undercut per-listing floor equal to or slightly above your Best Offer auto-decline threshold. Undercut keeps your list price competitive, while Best Offer captures buyers who prefer to negotiate. The two levers address different buyer behaviors simultaneously. Just make sure your floor in Undercut is set before you enable repricing — Undercut will never go below the floor you define, protecting both your margin and your offer thresholds."
+      },
+      {
+        "q": "What happens if I set my auto-decline too high and miss sales?",
+        "a": "Your auto-decline floor should equal your actual minimum profitable price — not higher. If it is too high, you will auto-decline offers that would have been profitable, and buyers move on rather than countering. Review declined offers monthly in eBay's Best Offer reports. If you are declining offers within 5–8% of your floor, consider whether your floor math is correct or whether your cost assumptions need updating."
+      }
+    ],
+    "internalLinks": [
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to Set an eBay Price Floor"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/guides/ebay-seller-fees-explained",
+        "label": "eBay Seller Fees Explained"
+      },
+      {
+        "href": "/guides/ebay-pricing-strategy",
+        "label": "eBay Pricing Strategy Guide"
+      }
+    ],
+    "lastUpdated": "2026-06-10",
+    "leadForm": true
+  },
+  {
+    "slug": "ebay-markdown-manager-guide",
+    "collection": "guides",
+    "template": "guide",
+    "title": "eBay Markdown Manager: Complete Guide for Sellers — Undercut",
+    "metaDescription": "Learn how eBay Markdown Manager works, its rules and limits, and when to use sale events vs. continuous repricing. Start free, no card required.",
+    "h1": "eBay Markdown Manager Explained: Sale Events, Rules, and When to Use Repricing Instead",
+    "eyebrow": "eBay Pricing Tools",
+    "intro": "eBay Markdown Manager lets Store subscribers run time-limited sale events with visible strikethrough pricing — the kind that shows a crossed-out original price next to the sale price. It's a legitimate promotional tool, but it operates under strict rules: minimum listing age, cooldown periods between events, and a structure that treats price cuts as events rather than ongoing strategy. This guide explains exactly how Markdown Manager works, what it can and cannot do, and why some sellers pair it with a continuous repricer like Undercut instead of choosing one or the other.",
+    "sections": [
+      {
+        "h2": "What Is eBay Markdown Manager?",
+        "body": "Markdown Manager is a feature exclusive to eBay Store subscribers (Basic, Premium, Anchor, or Enterprise). It lets you create sale events that display strikethrough pricing on your listings — the original price appears crossed out, and the sale price shows in red or bold alongside it. This visual signal is proven to lift click-through rates because buyers perceive an explicit discount. You access it through the Seller Hub Promotions tab or the older Markdown Manager tool under the Marketing menu. You can apply markdowns to individual listings, entire categories within your store, or your whole inventory at once. The discount can be set as a percentage off or a fixed dollar amount, and the event runs for a defined window — typically 1 to 14 days depending on your plan."
+      },
+      {
+        "h2": "Rules and Limits You Must Follow",
+        "body": "eBay enforces several rules to prevent abuse of strikethrough pricing:",
+        "bullets": [
+          "Minimum listing age: A listing must be active for at least 14 days before it qualifies for a markdown event. New listings cannot immediately show a strikethrough price.",
+          "Cooldown between events: After a markdown event ends on a listing, you must wait at least 30 days before running another markdown on the same listing.",
+          "Duration limits: Individual sale events can run from 1 day up to 14 days. You cannot run a continuous or indefinite markdown.",
+          "Discount floor: Markdowns must reduce the price by at least 5% from the pre-event price.",
+          "Store subscription required: Markdown Manager is not available on a basic eBay account without a Store subscription. Basic Store costs around $21.95/month, Premium around $59.95/month.",
+          "Price manipulation risk: eBay monitors for artificial inflation of the original price before creating a markdown. Using Markdown Manager correctly means the pre-event price must reflect genuine prior pricing."
+        ]
+      },
+      {
+        "h2": "How Strikethrough Pricing Works in Practice",
+        "body": "When you create a markdown event, eBay records the listing's price at the moment the event starts as the 'was' price. That figure appears crossed out on the listing page and in search results during the event window. For example, if you have a listing at $45.00 for at least 14 days, you can run a 20% markdown event and buyers see $45.00 crossed out next to $36.00. The visual impact is strongest in search results where the red sale price stands out against competitors with no strikethrough. After the event ends, the listing reverts to its pre-markdown price automatically. If you manually changed the price during the event, behavior can vary, which is one reason sellers using a repricer need to coordinate carefully — a repricer moving the price during an active markdown can interfere with how eBay displays the strikethrough."
+      },
+      {
+        "h2": "Markdown Events vs. Continuous Repricing: When Each Is Right",
+        "body": "Markdown Manager and automated repricing solve different problems. Markdown events are promotional — you use them to create urgency, clear slow inventory, or boost visibility during peak buying periods like holidays or clearance cycles. They are time-boxed by design and rely on the psychological effect of a visible discount. Continuous repricing, by contrast, is a process that runs 24/7 to keep your prices competitive against other active sellers. Undercut checks competitor prices on an interval (every hour on Free, every 15 minutes on Pro) and adjusts your price to beat the lowest competitor, but never below your hard floor. These tools are not mutually exclusive. A common pattern: use repricing to stay competitive day-to-day, then pause repricing on targeted listings and run a Markdown Manager event during a clearance push. After the event ends, re-enable repricing. The key distinction is that markdowns are events and repricing is a process — they operate on different timescales and serve different goals."
+      },
+      {
+        "h2": "When Automated Repricing Is a Better Fit Than Markdowns",
+        "body": "Markdown Manager requires manual setup for each event cycle, is restricted to Store subscribers, and has a 30-day cooldown that makes it impractical as a day-to-day pricing mechanism. If you are selling in competitive categories where prices shift daily — electronics, collectibles, used goods, media — a continuous repricer handles what Markdown Manager cannot. Undercut's floor-first design means you set a hard minimum (cost + eBay fees + target margin) per listing, and the repricer works within that boundary automatically. At 13.6% final value fee plus a $0.30–$0.40 per-order fee on most categories, margin erosion is real if you reprice without a floor. The Free plan covers 25 listings with hourly checks at $0/month — no card required. The Starter plan at $29/month covers 100 listings. Markdown Manager can complement this workflow but should not be the primary mechanism for staying price-competitive in fast-moving categories."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Do I need an eBay Store to use Markdown Manager?",
+        "a": "Yes. Markdown Manager is only available to sellers with an active eBay Store subscription at any tier — Basic ($21.95/month), Premium ($59.95/month), Anchor, or Enterprise. If you do not have a Store, you cannot create markdown sale events with strikethrough pricing. Sellers without a Store can still lower prices manually or use an automated repricer like Undercut, which does not require a Store subscription."
+      },
+      {
+        "q": "Why won't my listing qualify for a markdown event?",
+        "a": "The most common reason is the 14-day minimum listing age requirement. A listing must have been active for at least 14 consecutive days before eBay will allow a markdown event on it. The second most common reason is the 30-day cooldown: if the listing recently finished a markdown event, you must wait 30 days before starting another. Check the listing's event history in Seller Hub Promotions to confirm which rule applies."
+      },
+      {
+        "q": "Can I run Markdown Manager and an automated repricer at the same time?",
+        "a": "You can, but you should pause repricing on any listing that has an active markdown event. If the repricer adjusts the price during an active event, it can affect the strikethrough display or cause eBay to recalculate the 'was' price in unexpected ways. The cleanest workflow is to exclude markdown-event listings from your repricer's active queue during the event window, then re-enable them once the event ends and the listing reverts to its base price."
+      },
+      {
+        "q": "Is Markdown Manager the same as reducing a listing price manually?",
+        "a": "No. Manually lowering a price does not trigger strikethrough pricing in search results — buyers just see the new lower price with no visual comparison to the old price. Markdown Manager specifically creates the crossed-out original price display, which has a measurably different psychological effect on buyers. If your goal is simply to stay price-competitive rather than signal a promotional event, manual price changes or continuous repricing are more efficient than managing markdown event schedules."
+      },
+      {
+        "q": "How does Undercut protect my margin when repricing aggressively?",
+        "a": "Every listing in Undercut has a hard floor you define — typically cost plus eBay's ~13.6% final value fee plus a target margin percentage. The repricer will beat the lowest competitor price, but it will never move the price below that floor regardless of what competitors do. This means you can reprice aggressively in competitive categories without the risk of selling below cost during a price war or when a competitor lists at an unsustainably low price."
+      }
+    ],
+    "internalLinks": [
+      {
+        "href": "/guides/manual-vs-automated-repricing",
+        "label": "Manual vs. Automated Repricing on eBay"
+      },
+      {
+        "href": "/guides/ebay-pricing-strategy",
+        "label": "eBay Pricing Strategy Guide"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "How to Reprice Without Losing Margin"
+      },
+      {
+        "href": "/guides/ebay-seller-fees-explained",
+        "label": "eBay Seller Fees Explained"
+      }
+    ],
+    "lastUpdated": "2026-06-10",
+    "leadForm": true
+  },
+  {
+    "slug": "lower-price-without-ending-listing",
+    "collection": "guides",
+    "template": "guide",
+    "title": "How to Lower Your eBay Price Without Ending the Listing — Undercut",
+    "metaDescription": "Lower an eBay listing price without ending it—keep your sales history and Best Match rank intact. Free repricer trial, no card required.",
+    "h1": "Lower Your eBay Price Without Ending the Listing (And Keep Your Rank)",
+    "eyebrow": "eBay Pricing Guide",
+    "intro": "Ending an eBay listing to relist at a lower price is one of the most common seller mistakes. It wipes your sales history, resets your Best Match signals, and can bury a listing that was gaining traction. You don't need to end it. eBay lets you revise a live listing's price in seconds—and if you're managing dozens or hundreds of SKUs, bulk edits and automated repricers let you do it at scale without touching each listing individually. This guide covers every method, when each one makes sense, and how to stay above your profit floor no matter how low competitors push.",
+    "sections": [
+      {
+        "h2": "Why Ending a Listing to Relist Hurts Your Sales",
+        "body": "When you end and relist, eBay treats it as a brand-new item. You lose accumulated watchers, any bid history on auction-style listings, and—critically—the transaction count and positive feedback signals that feed Best Match's ranking algorithm. Best Match rewards listings with a proven conversion record. A listing with 15 sales and a strong click-through rate ranks higher than an identical item relisted at zero. eBay's own seller guidance confirms that revising an active listing preserves all of this history. For competitive categories where dozens of sellers stock the same SKU, throwing away that history to save a dollar on a price change is a losing trade every time."
+      },
+      {
+        "h2": "The Revise Listing Flow: Step-by-Step",
+        "body": "To lower the price on a single live listing without ending it: go to My eBay → Selling → Active listings, find the item, click the dropdown arrow next to it, and select 'Revise.' On the revision page, scroll to the pricing section and update the Buy It Now price or starting bid directly. Save the revision. The listing ID, sales history, and watcher count stay intact. One constraint worth knowing: eBay restricts certain revisions once a listing has bids or is within 12 hours of ending on auction-style formats. Fixed-price (Buy It Now) listings have far fewer restrictions—you can revise the price at any point, including with active watchers. Most repricers operate on fixed-price inventory for exactly this reason."
+      },
+      {
+        "h2": "Bulk Price Edits: Changing Many Prices at Once",
+        "body": "For stores with more than a handful of listings, revising one at a time is impractical. eBay offers two native bulk tools. First, the Seller Hub bulk edit: in Active Listings, check multiple items, click 'Edit,' choose 'Price,' and apply a fixed amount or percentage change across all selected listings. This works for up to a few hundred listings at once. Second, the File Exchange / bulk upload method: download your active listings as a CSV, update the price column, and re-upload. Changes apply without ending the listings. Both approaches still preserve sales history because you're revising, not relisting. The downside is that bulk edits are manual snapshots in time—you do the work, prices go stale, and you repeat the cycle every time a competitor moves."
+      },
+      {
+        "h2": "Markdown Manager vs. Direct Price Revision",
+        "body": "eBay's Markdown Manager (available to sellers meeting minimum sales thresholds) lets you schedule sale events that display a strikethrough original price alongside the discounted price. It looks compelling to buyers and can lift conversion rates. But it's a separate mechanism from simply revising the listing price. Markdown events run for a defined window (minimum 1 day, maximum 14 days), after which the price reverts. If your goal is to permanently match a competitor at a lower price, direct revision is cleaner—Markdown Manager is better suited to timed promotions. Also note: eBay enforces a 30-day restriction on Markdown Manager for items that were already discounted recently, so it can't be used as a continuous repricing tool."
+      },
+      {
+        "h2": "Automating Price Revisions With a Repricer",
+        "body": "Manual revision works for a few listings. At 50, 100, or 1,000 SKUs, you need automation. A repricer like Undercut monitors competitor prices continuously and submits revisions through eBay's API—the same revision mechanism you use manually, just executed automatically. Because it's revising rather than relisting, all sales history stays intact. Undercut's Pro plan checks prices every 15 minutes across up to 1,000 listings; the free plan covers 25 listings on an hourly cadence. Every rule requires a hard floor (your cost + eBay's ~13.6% final value fee + minimum margin), so the repricer never revises a price below the number that would make the sale unprofitable. You set the floor once per item; Undercut handles every price move after that. There's a 14-day Starter trial with no card required."
+      },
+      {
+        "h2": "Setting a Price Floor Before You Drop Prices",
+        "body": "Before you lower any price—manually or automatically—you need to know your break-even point. For most eBay categories, total selling cost is roughly 13.6% final value fee on item + shipping + tax, plus a per-order fee of $0.30 (standard) or $0.40 (below standard or certain categories), plus your actual cost of goods, plus shipping cost if you offer free shipping. On a $40 item with $6 shipping and $5 COGS, that's approximately $40 × 13.6% = $5.44 FVF + $0.30 order fee + $5 COGS + $6 shipping = $16.74 in costs. Your floor is $16.74. Any revision above that is profitable; below it you're paying to sell. Undercut enforces this floor at the item level—you input cost and minimum margin, and the repricer will hold the price at the floor rather than chase a competitor below it."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Does revising a listing price affect its Best Match ranking?",
+        "a": "A price revision itself does not reset Best Match signals. Your sales count, click-through rate, and conversion history all carry over. In fact, lowering a price through revision can improve Best Match performance if the new price improves your conversion rate—eBay's algorithm rewards listings that sell. What kills Best Match rank is ending and relisting, which resets the listing to zero history."
+      },
+      {
+        "q": "Can I revise the price on a listing that already has watchers?",
+        "a": "Yes. Fixed-price (Buy It Now) listings can be revised at any time regardless of how many watchers they have. eBay may notify watchers of a price drop, which can actually trigger purchases from buyers who were on the fence. Auction-style listings with active bids have more restrictions—you generally cannot lower the starting price once bids are placed, though you can add a Buy It Now price if none exists."
+      },
+      {
+        "q": "How is a repricer different from just using eBay's bulk edit tool?",
+        "a": "eBay's bulk edit is a one-time manual action—you pick a moment, apply a change, and walk away. Competitor prices keep moving after you close the browser. A repricer monitors prices continuously and submits revisions automatically whenever a competitor undercuts you. Undercut's Pro plan checks every 15 minutes. For sellers in fast-moving categories, a 15-minute response time versus a multi-hour manual update window is the difference between winning and losing the sale."
+      },
+      {
+        "q": "Will Undercut ever lower my price below what I can afford?",
+        "a": "No. Every listing in Undercut requires a hard floor before repricing activates. You enter your item cost and minimum acceptable margin; Undercut calculates the floor including eBay's ~13.6% final value fee and per-order fees. If the lowest competitor price would push you below that floor, Undercut holds your price at the floor rather than matching. You will not win every race to the bottom—and that is by design."
+      },
+      {
+        "q": "Is Undercut a good fit if I only have a few listings?",
+        "a": "Yes. The Free plan covers 25 listings at no cost—no card, no trial expiry. It checks prices hourly, which is sufficient for most low-volume sellers. If you grow past 25 listings or want 15-minute repricing, the Starter plan is $29 per month (100 listings). A 14-day Starter trial starts automatically on every new account so you can test the faster cadence before deciding."
+      }
+    ],
+    "internalLinks": [
+      {
+        "href": "/guides/manual-vs-automated-repricing",
+        "label": "Manual vs. Automated Repricing: Which Is Right for You?"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to Set a Price Floor on eBay"
+      },
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/guides/ebay-repricing-best-practices",
+        "label": "eBay Repricing Best Practices"
+      }
+    ],
+    "lastUpdated": "2026-06-10",
+    "leadForm": true
+  },
+  {
+    "slug": "promoted-listings-vs-lowering-price",
+    "collection": "guides",
+    "template": "guide",
+    "title": "Promoted Listings vs Lowering Price on eBay — Undercut",
+    "metaDescription": "See the real profit math: a 5% ad rate vs a 5% price cut hit your margin differently. Learn when to run ads, when to reprice, and how to stack both free.",
+    "h1": "Promoted Listings vs Lowering Your Price: Which Actually Wins?",
+    "eyebrow": "eBay Pricing Strategy",
+    "intro": "eBay gives you two levers when sales stall: run a Promoted Listings campaign or cut your price. They look symmetrical — both cost roughly the same percentage — but they hit your margin in completely different ways. A 5% ad rate and a 5% price cut are not the same trade. One is a conditional cost you pay only on a sale; the other is a permanent margin reduction on every future sale regardless of where the buyer found you. This guide works through the math on both, shows when each lever is the right tool, and explains how Undercut's floor-first repricing keeps you from accidentally over-cutting.",
+    "sections": [
+      {
+        "h2": "The Core Math: 5% Ad Rate vs 5% Price Cut",
+        "body": "Start with a $40 item in a typical category. eBay's final value fee is roughly 13.6% of the total amount (item + shipping + tax), plus a $0.35 per-order fee. Assume free shipping and no tax for simplicity.\n\nScenario A — Promoted Listings at 5%: You pay the 13.6% FVF ($5.44) plus a 5% ad fee ($2.00) only when the buyer clicks your promoted placement. Total platform take: $7.79. You collect $32.21 before COGS.\n\nScenario B — Price cut to $38 (5% off): You now pay 13.6% on $38 ($5.17) plus the $0.35 order fee. Total platform take: $5.52. You collect $32.48 before COGS — but your listed price is now permanently lower, every buyer sees it, and it anchors future price expectations downward.\n\nThe gap is only $0.27 here, but the structural difference matters: the ad cost is conditional and reversible. The price cut is immediate and visible to all buyers and competitors."
+      },
+      {
+        "h2": "When Visibility Is the Problem (Use Promoted Listings)",
+        "body": "Promoted Listings make sense when your item is priced competitively but buried in search results. Signs that visibility is your bottleneck: high impressions, low click-through rate in Seller Hub; the item is in a saturated category with many near-identical listings; your sell-through rate is low despite your price already matching or beating the buy-box.\n\nIn these situations, cutting price does almost nothing — you are already price-competitive, and buyers simply are not seeing your listing. Adding a 3-8% promoted ad rate buys guaranteed above-the-fold placement. eBay only charges the ad fee when someone clicks your promoted slot, so if the campaign does not perform, your cost is zero.\n\nOne practical rule: if your impressions-to-click ratio is worse than 1-in-50 and you are in the bottom half of search results, test a promoted campaign before touching your price.",
+        "bullets": [
+          "High impressions, low clicks = visibility problem, not price problem",
+          "Use Promoted Listings when you match the buy-box price but rank poorly",
+          "Ad fee is conditional: zero cost if buyer does not click your ad",
+          "Start at the category suggested rate; raise by 1% increments until CTR improves"
+        ]
+      },
+      {
+        "h2": "When Price Is the Problem (Use Repricing)",
+        "body": "Price is the bottleneck when buyers are landing on your listing but not purchasing, or when competitors are consistently undercutting you by more than a rounding-error margin. Signs: decent click-through rate but low conversion; your price is visibly higher than the top-seller on the same item; you are losing the buy-box on multi-seller listings.\n\nHere, a Promoted Listings campaign amplifies the problem — you spend money bringing buyers to a listing they still reject on price. The right fix is to reprice down to the competitive level.\n\nThe risk of manual price-cutting is cutting too far and destroying margin. This is exactly what a floor-based repricer like Undercut prevents: you set a hard floor equal to your cost plus the full eBay fee stack plus your minimum acceptable margin, and the repricer beats competitors automatically without ever crossing that floor. You get the price advantage without the guesswork.",
+        "bullets": [
+          "Good clicks, poor conversion = price problem, not visibility problem",
+          "Promoted Listings on an overpriced item wastes the ad budget",
+          "Set a hard cost floor before running any repricing to prevent margin erosion",
+          "Undercut beats the lowest competitor automatically, 24/7, never below your floor"
+        ]
+      },
+      {
+        "h2": "Combining Both: The Stack That Works",
+        "body": "The highest-performing eBay sellers often run both simultaneously, but in sequence, not in parallel from day one. The recommended approach: first, reprice to a competitive level using a floor-based tool so your price is already correct. Then layer on a modest Promoted Listings rate (3-5%) to capture placement above organically priced competitors.\n\nWhen you combine them, model the full all-in fee stack before setting your floor: 13.6% FVF + $0.35 order fee + your promoted ad rate + shipping cost + COGS. On a $40 item with 5% ads, free shipping, and $18 COGS, that stack looks like: $5.44 FVF + $0.35 order + $2.00 ad fee + $18.00 COGS = $25.79 total out. Gross profit: $14.21, a 35.5% margin. If you cut price to $36 without adjusting the ad rate, that same stack yields $11.57 gross — an 18% margin collapse from a 10% price reduction.\n\nThe lesson: model the full stack before adjusting either lever. Undercut's profit calculator helps verify the floor before you set it.",
+        "bullets": [
+          "Reprice to competitive level first; add Promoted Listings second",
+          "Full stack: FVF 13.6% + $0.35 order fee + ad rate + shipping + COGS",
+          "A 10% price cut with a 5% ad rate still running can collapse margin by 18%+",
+          "Adjust your floor in Undercut whenever you change your promoted ad rate"
+        ]
+      },
+      {
+        "h2": "All-In eBay Fee Stack: What You're Actually Paying",
+        "body": "Most sellers underestimate eBay's total take because they only count the headline FVF. The full stack for a typical transaction includes: final value fee (13.6% in most categories, applied to item price + shipping + applicable tax collected), a per-order processing fee ($0.30 for most sellers, $0.40 in certain categories), any Promoted Listings ad rate you set (0-100% of FVF equivalent, charged as a percentage of total sale amount), plus payment processing which eBay now bundles into the FVF.\n\nExample: $50 item, free shipping, 5% promoted rate. FVF: $6.80. Order fee: $0.35. Ad fee: $2.50. Total to eBay: $9.65 — that is 19.3% of your sale price before you count a single dollar of COGS or shipping label cost. Sellers who set a floor only against the 13.6% FVF are routinely selling below their real cost. Undercut's floor calculation accounts for the full stack so this cannot happen silently."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Does eBay charge the Promoted Listings fee even if the buyer finds me organically?",
+        "a": "No. eBay only charges the promoted ad fee when a buyer clicks your specifically promoted placement and then completes a purchase. If a buyer finds your listing through organic search and buys, you pay only the standard final value fee and order fee — no ad rate. This conditional structure is what makes Promoted Listings fundamentally different from a price cut, which affects every sale regardless of how the buyer arrived."
+      },
+      {
+        "q": "If I lower my price, will eBay automatically give me better search placement?",
+        "a": "Partially. eBay's Cassini algorithm does factor price competitiveness into ranking, so cutting to the lowest price in a competitive set can improve organic placement. However, the effect is gradual and not guaranteed. If your listing has poor sales history or low seller metrics, Cassini may still rank you below higher-priced sellers with stronger metrics. Price is one signal among many — visibility tools like Promoted Listings target placement more directly and immediately."
+      },
+      {
+        "q": "What promoted ad rate should I start with?",
+        "a": "eBay suggests a 'trending rate' per category in your Seller Hub, typically 5-15% in competitive categories. Start at or just above the trending rate for guaranteed premium placement. Then track your campaign's impressions-to-sale conversion over 14 days. If conversion is strong, hold or lower the rate slightly to improve margin. If impressions are high but clicks are low, the rate is not your problem — your title, image, or price may need work first."
+      },
+      {
+        "q": "How does Undercut make sure I don't cut price below my total cost when Promoted Listings are also running?",
+        "a": "Undercut lets you set a per-listing hard floor — a minimum price that accounts for your full cost stack. Before setting that floor, you should include your COGS, eBay's 13.6% FVF, the per-order fee, your current promoted ad rate, and any shipping cost. Once the floor is set, Undercut's repricer will beat competitors automatically but will never move your price below that number, regardless of how aggressively others undercut. Every account gets a free 14-day Starter trial — no card required — to set floors and test the logic."
+      },
+      {
+        "q": "Can running Promoted Listings and lowering my price at the same time hurt me?",
+        "a": "Yes, if done without recalculating your margin first. The ad rate is a percentage of the sale amount, so a lower price reduces the absolute ad cost slightly — but your margin shrinks faster than the ad cost does. The worst outcome is paying for promoted placement to drive traffic to a listing where you are already selling below your real cost. Always recalculate your full all-in fee stack before making both changes simultaneously, and update your Undercut floor to match."
+      }
+    ],
+    "internalLinks": [
+      {
+        "href": "/guides/ebay-seller-fees-explained",
+        "label": "eBay Seller Fees Explained"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/guides/ebay-pricing-strategy",
+        "label": "eBay Pricing Strategy Guide"
+      },
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost"
+      }
+    ],
+    "lastUpdated": "2026-06-10",
+    "leadForm": true
+  },
+  {
+    "slug": "when-to-lower-ebay-price",
+    "collection": "guides",
+    "template": "guide",
+    "title": "When to Lower Your eBay Price (And When Not To) — Undercut",
+    "metaDescription": "Know exactly when to cut your eBay price and when to hold. Data-driven signals, a decision checklist, and a free repricer—no card required to start.",
+    "h1": "eBay Price Cuts: The Signals That Tell You When (and When Not) to Drop",
+    "eyebrow": "Pricing Strategy",
+    "intro": "Dropping your price too soon destroys margin. Waiting too long means stale inventory eating into storage and opportunity costs. The right call depends on five concrete signals: watcher count relative to sales, sell-through rate trends, competitor undercutting, seasonal demand decay, and the carrying cost of aging stock. This guide walks through each signal with actionable thresholds, then covers the three situations where lowering your price is the wrong move—and closes with a decision checklist you can run in under two minutes.",
+    "sections": [
+      {
+        "h2": "Signal 1: Watchers But No Sales",
+        "body": "If a listing has 8 or more watchers but zero sales in 14 days, buyers are comparison-shopping and finding a better price elsewhere. Watchers signal genuine demand—someone added your item to their watch list—but the purchase barrier is price. A useful threshold: if your watcher-to-sale conversion rate drops below 1 sale per 10 watchers over a 30-day window, your price is above market. Drop 3–5% and monitor for 72 hours. If watchers convert within that window, you've found the clearing price. If not, repeat. One caveat: a spike in watchers right before a major holiday can be pre-purchase intent—wait 48 hours before reacting."
+      },
+      {
+        "h2": "Signal 2: Falling Sell-Through Rate",
+        "body": "Sell-through rate (STR) is the percentage of your active listings that sell within a set period—typically 30 days. A healthy STR varies by category: electronics often run 40–60%, while collectibles may sit at 10–20%. The signal to act is a downward trend, not just a low absolute number. If your STR drops more than 15 percentage points over two consecutive 30-day periods, the market is moving against you. Check whether the entire category is softening (check eBay's marketplace data or use the eBay Price Checker) or if competitors have aggressively undercut. Category-wide softness calls for patience or a modest 5% cut; competitive undercutting calls for a faster, automated response."
+      },
+      {
+        "h2": "Signal 3: Competitors Have Undercut You",
+        "body": "When a competitor lists the same item at a price below yours and has stronger feedback (e.g., 98%+ vs your 96%), you are functionally invisible in Best Match sorting. eBay's algorithm weighs price and seller metrics together, so even a $1–2 gap can shift the Buy Box equivalent. The right response depends on margin. Calculate your floor first: item cost + eBay fees (roughly 13.6% on item price plus shipping and tax, plus a $0.30–$0.40 per-order fee) + target margin. If beating the competitor keeps you above your floor, drop to $0.01 below their price and hold. If it doesn't, hold your price—you cannot profitably compete on this item at this moment."
+      },
+      {
+        "h2": "Signal 4: Seasonal Decay and Aging Inventory Cost",
+        "body": "Seasonal items lose value quickly once peak demand passes. Holiday decorations, summer sporting goods, tax-prep software—these all have demand cliffs. If you're 3 weeks past peak season and the item is unsold, every additional week costs you: capital tied up, potential storage fees, and a lower clearing price if you wait. A practical rule: after the seasonal peak passes, reduce price 10% at week 3, another 10% at week 6, and reassess at week 9 whether to liquidate or hold for next season. For evergreen items, aging inventory beyond 90 days with no sale and no price change is usually a pricing problem. Run the eBay Profit Calculator to find the lowest price that still clears your cost and fees before marking down."
+      },
+      {
+        "h2": "When NOT to Lower Your eBay Price",
+        "body": "Three situations where a price cut is the wrong move:",
+        "bullets": [
+          "Below your floor: Never drop below cost + fees + minimum margin. If matching the lowest competitor means selling at a loss, hold your price or delist. Undercut enforces this automatically via a per-listing hard floor.",
+          "Unique or rare items: One-of-a-kind, graded, or highly differentiated items don't compete on price the same way commodity items do. Watchers on a rare item often mean buyers are watching to see if you'll lower—hold firm or auction instead.",
+          "Temporary competitor stockouts: If a competitor just sold out and their listing disappeared, your higher price may clear naturally within days. Check their listing history before reacting to a sudden absence in search results.",
+          "End-of-quarter dumping pressure: If you feel urgency to clear inventory for accounting reasons, make sure a price cut is actually necessary—sometimes relisting with better photos and keywords moves the item without sacrificing margin."
+        ]
+      },
+      {
+        "h2": "Decision Checklist: Should You Lower the Price Right Now?",
+        "body": "Run through these five questions before changing any price:",
+        "bullets": [
+          "Is the new price above my floor (cost + ~13.6% eBay fees + $0.30–$0.40 order fee + target margin)? If no, stop.",
+          "Do I have 8+ watchers with zero conversions in the past 14 days? If yes, try a 3–5% drop.",
+          "Has my sell-through rate dropped 15+ points over two consecutive 30-day periods? If yes, investigate whether to cut 5–10%.",
+          "Is a competitor listing the identical item at a lower price with equal or better feedback? If yes and you have margin room, drop to $0.01 below them.",
+          "Is the item seasonal and 3+ weeks past peak, or evergreen and unsold for 90+ days? If yes, apply the 10% decay schedule or calculate a liquidation price."
+        ]
+      },
+      {
+        "h2": "Automate the Decision With a Price Floor",
+        "body": "Running this checklist manually across dozens or hundreds of listings is unsustainable. Automated repricing tools like Undercut watch competitor prices around the clock and apply your rules instantly—without ever breaching your floor. Undercut's Free plan handles 25 listings with hourly checks at no cost, no card required. The Starter plan ($29/month) covers 100 listings. Pro ($79/month) adds AI tuning and 15-minute repricing intervals for faster markets. Scale ($199/month) handles up to 10,000 listings. Every new account starts on a 14-day Starter trial—free, no card—so you can test the floor-first logic on your real inventory before committing. Annual billing saves the equivalent of two months on every plan."
+      }
+    ],
+    "faq": [
+      {
+        "q": "How many watchers on an eBay listing means I should lower the price?",
+        "a": "A rough threshold is 8 or more watchers with zero sales over 14 days. This combination signals buyers are interested but choosing a lower-priced alternative. Drop 3–5% and monitor conversions for 72 hours. If no sale follows, drop again by the same amount. The watcher-to-sale ratio matters more than the raw watcher count—if you're converting 1 in 10 or fewer, your price is above the market clearing point."
+      },
+      {
+        "q": "What eBay fees should I factor in before deciding to lower my price?",
+        "a": "Most eBay categories charge approximately 13.6% as a final value fee applied to the total amount the buyer pays—item price plus shipping plus tax. You also pay a per-order fee of $0.30 or $0.40 depending on your store subscription. These fees come off the top before you see revenue, so your break-even price is higher than your item cost alone. Use the eBay Profit Calculator to model the exact floor before you drop any price."
+      },
+      {
+        "q": "Should I lower my eBay price if a competitor is temporarily out of stock?",
+        "a": "Generally no. When a competitor sells out, their listing disappears from search results, which means buyers see your listing first and may purchase at your current price without needing a discount. Check the competitor's listing history to confirm it's a true stockout versus a permanent exit. Wait at least 48–72 hours before reacting. If they restock quickly at a lower price, then apply your normal competitive repricing rules."
+      },
+      {
+        "q": "How do I avoid a price war where I keep cutting until I'm selling at a loss?",
+        "a": "Set a hard floor per listing before you start repricing. Your floor is the minimum price at which the item is still profitable: item cost plus eBay fees (roughly 13.6% plus the per-order fee) plus your minimum acceptable margin. Undercut's repricing engine enforces this floor on every adjustment—it will never drop a listing below the floor you set, even if the lowest competitor goes below it. That's how you compete aggressively without accidentally selling at a loss."
+      },
+      {
+        "q": "When should I raise my eBay price instead of lowering it?",
+        "a": "Raise your price when competitors sell out and demand remains, when your sell-through rate is above 70% (you may be underpricing), or when you're consistently the lowest active seller with no competitive pressure. Rapid sales after a recent price cut also signal room to test a higher price. Automated repricing tools typically focus on lowering prices, but setting your floor close to your current price during low-competition periods effectively holds your price without manual intervention."
+      }
+    ],
+    "internalLinks": [
+      {
+        "href": "/guides/ebay-pricing-strategy",
+        "label": "eBay Pricing Strategy Guide"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to Set an eBay Price Floor"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/free-ebay-repricer",
+        "label": "Free eBay Repricer"
+      }
+    ],
+    "lastUpdated": "2026-06-10",
+    "leadForm": true
   }
 ]
