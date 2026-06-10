@@ -1,7 +1,15 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { api, tok } from '../lib/api'
+import Onboarding from './Onboarding'
+import { PLANS } from '../_content/shared'
+
+const planLabel = (key: string, interval: 'month' | 'year') => {
+  const p = PLANS.find((x) => x.key === key)
+  if (!p) return key
+  return interval === 'year' ? `${p.name} $${p.annual.toLocaleString()}/yr` : `${p.name} $${p.monthly}`
+}
 
 interface Listing {
   id: string; ebay_item_id: string; title: string
@@ -21,6 +29,8 @@ export default function Dashboard() {
   const [busy, setBusy] = useState('')
   const [manualToken, setManualToken] = useState('')
   const [billingInterval, setBillingInterval] = useState<'month' | 'year'>('month')
+  const [justImported, setJustImported] = useState(0)
+  const prevCount = useRef<number | null>(null)
 
   useEffect(() => {
     if (!tok.get()) { router.push('/login'); return }
@@ -33,9 +43,22 @@ export default function Dashboard() {
     setMe(await meRes.json())
     const [s, l, c] = await Promise.all([api('/api/repricer/stores'), api('/api/repricer/listings'), api('/api/repricer/price-changes')])
     if (s.ok) setStores((await s.json()).stores || [])
-    if (l.ok) setListings((await l.json()).listings || [])
+    if (l.ok) {
+      const ls = (await l.json()).listings || []
+      if (prevCount.current === 0 && ls.length > 0) setJustImported(ls.length)
+      prevCount.current = ls.length
+      setListings(ls)
+    }
     if (c.ok) setChanges((await c.json()).changes || [])
     setLoading(false)
+  }
+
+  async function importListings() {
+    if (!stores.length) return
+    setBusy('import')
+    await api(`/api/repricer/stores/${stores[0].id}/import`, { method: 'POST' })
+    setBusy('')
+    fetchAll()
   }
 
   async function connectEbay() {
@@ -73,28 +96,65 @@ export default function Dashboard() {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8 space-y-6">
-        {me && me.is_trialing && (
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-center justify-between">
-            <p className="text-sm text-amber-900">🎉 <b>Founding trial</b> — {me.trial_days_left} day{me.trial_days_left === 1 ? '' : 's'} left · full Starter features ({me.listing_limit} listings), no card. Lock in your plan anytime.</p>
+        {me && me.is_trialing && (() => {
+          const d = me.trial_days_left ?? 0
+          const urgent = d <= 3
+          const soon = d > 3 && d <= 7
+          const wrap = urgent ? 'bg-red-50 border-red-200' : 'bg-amber-50 border-amber-200'
+          const text = urgent ? 'text-red-900' : 'text-amber-900'
+          return (
+            <div className={`${wrap} border rounded-xl p-4`}>
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                <p className={`text-sm ${text}`}>
+                  {urgent
+                    ? <>⏰ <b>Only {d} day{d === 1 ? '' : 's'} left</b> on your founding trial — lock in founding pricing now.</>
+                    : soon
+                      ? <><b>Your founding trial ends in {d} days.</b> Full Starter features ({me.listing_limit} listings), no card.</>
+                      : <>🎉 <b>Founding trial</b> — {d} day{d === 1 ? '' : 's'} left · full Starter features ({me.listing_limit} listings), no card. Lock in your plan anytime.</>}
+                </p>
+                <div className="flex items-center gap-2">
+                  <button onClick={() => setBillingInterval(billingInterval === 'year' ? 'month' : 'year')} className="text-xs underline text-gray-500 mr-1 whitespace-nowrap">{billingInterval === 'year' ? 'Annual — 2 months free' : 'Monthly'}</button>
+                  <button onClick={() => upgrade('starter', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-white border whitespace-nowrap">{planLabel('starter', billingInterval)}</button>
+                  <button onClick={() => upgrade('pro', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-blue-600 text-white whitespace-nowrap">{planLabel('pro', billingInterval)}</button>
+                  <button onClick={() => upgrade('scale', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-white border whitespace-nowrap">{planLabel('scale', billingInterval)}</button>
+                </div>
+              </div>
+              <p className={`text-xs mt-2 ${urgent ? 'text-red-700' : 'text-amber-700'}`}>
+                When your trial ends you keep your account and move to Free (25 listings) — repricing pauses on the rest until you upgrade. No surprise charges.
+              </p>
+            </div>
+          )
+        })()}
+
+        {me && me.plan === 'free' && (
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center justify-between gap-3 flex-wrap">
+            <p className="text-sm text-blue-900">You're on <b>Free</b> (25 listings). Upgrade for more listings + 15-min AI repricing — your floors and settings are all saved.</p>
             <div className="flex items-center gap-2">
-              <button onClick={() => setBillingInterval(billingInterval === 'year' ? 'month' : 'year')} className="text-xs underline text-gray-500 mr-1 whitespace-nowrap">{billingInterval === 'year' ? 'Annual · 2 mo free' : 'Monthly'}</button>
-              <button onClick={() => upgrade('starter', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-white border">Starter $29</button>
-              <button onClick={() => upgrade('pro', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-blue-600 text-white">Pro $79</button>
-              <button onClick={() => upgrade('scale', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-white border">Scale $199</button>
+              <button onClick={() => setBillingInterval(billingInterval === 'year' ? 'month' : 'year')} className="text-xs underline text-gray-500 mr-1 whitespace-nowrap">{billingInterval === 'year' ? 'Annual — 2 months free' : 'Monthly'}</button>
+              <button onClick={() => upgrade('starter', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-white border whitespace-nowrap">{planLabel('starter', billingInterval)}</button>
+              <button onClick={() => upgrade('pro', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-blue-600 text-white whitespace-nowrap">{planLabel('pro', billingInterval)}</button>
+              <button onClick={() => upgrade('scale', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-white border whitespace-nowrap">{planLabel('scale', billingInterval)}</button>
             </div>
           </div>
         )}
 
-        {me && me.plan === 'free' && (
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center justify-between">
-            <p className="text-sm text-blue-900">You're on <b>Free</b> (25 listings). Upgrade for more + 15-min AI repricing.</p>
-            <div className="flex items-center gap-2">
-              <button onClick={() => setBillingInterval(billingInterval === 'year' ? 'month' : 'year')} className="text-xs underline text-gray-500 mr-1 whitespace-nowrap">{billingInterval === 'year' ? 'Annual · 2 mo free' : 'Monthly'}</button>
-              <button onClick={() => upgrade('starter', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-white border">Starter $29</button>
-              <button onClick={() => upgrade('pro', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-blue-600 text-white">Pro $79</button>
-              <button onClick={() => upgrade('scale', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-white border">Scale $199</button>
-            </div>
+        {justImported > 0 && (
+          <div className="bg-green-50 border border-green-200 rounded-xl p-4 flex items-center justify-between">
+            <p className="text-sm text-green-900">✅ Imported <b>{justImported} listing{justImported === 1 ? '' : 's'}</b> — now set a floor on each so we never price below your minimum.</p>
+            <button onClick={() => setJustImported(0)} className="text-xs text-green-700 hover:text-green-900">dismiss</button>
           </div>
+        )}
+
+        {!loading && (
+          <Onboarding
+            stores={stores}
+            listings={listings}
+            changes={changes}
+            busy={busy}
+            onConnect={connectEbay}
+            onImport={importListings}
+            onReprice={runReprice}
+          />
         )}
 
         {stores.length === 0 ? (
@@ -108,7 +168,7 @@ export default function Dashboard() {
             </div>
           </div>
         ) : (
-          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+          <div id="listings" className="bg-white border border-gray-200 rounded-xl overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-gray-50 border-b text-xs text-gray-500 uppercase">
                 <tr><th className="px-4 py-3 text-left">Item</th><th className="px-4 py-3 text-right">Current</th><th className="px-4 py-3 text-right">Comp low</th><th className="px-4 py-3 text-right">Floor</th><th className="px-4 py-3 text-right">Ceiling</th><th className="px-4 py-3 text-right">Undercut</th><th className="px-4 py-3 text-center">AI</th><th className="px-4 py-3 text-center">On</th></tr>

@@ -3,13 +3,13 @@ import Checker from './checker'
 import LeadForm from '../lead-form'
 import Faq from '../_components/Faq'
 import Footer from '../_components/Footer'
+import { pageMeta } from '../_content/shared'
 
-export const metadata = {
-  title: 'Free eBay Price Checker — See the Lowest Live Price for Any Item',
-  description:
-    'Check the lowest live eBay price for any product in seconds — real listings, real prices. Then see what you’d need to charge to win the sale without losing margin.',
-  alternates: { canonical: '/ebay-price-checker' },
-}
+export const metadata = pageMeta(
+  'Free eBay Price Checker — See the Lowest Live Price for Any Item',
+  'Check the lowest live eBay price for any product in seconds — real listings, real prices. Then see what you’d need to charge to win the sale without losing margin.',
+  '/ebay-price-checker'
+)
 
 const FAQ = [
   {

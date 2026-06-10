@@ -1,6 +1,8 @@
 /** Undercut — marketing landing + pricing. */
 import Link from 'next/link'
 import LeadForm from './lead-form'
+import TrustSection from './_components/TrustSection'
+import Footer from './_components/Footer'
 
 const TIERS = [
   { name: 'Free', price: '$0', listings: '25 listings', features: ['Rule-based undercut', 'Hourly repricing', 'Hard price floor'], cta: 'Start free', highlight: false },
@@ -16,6 +18,7 @@ export default function Landing() {
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <span className="flex items-center gap-2 font-bold text-lg"><img src="/logo-mark.svg" alt="" className="h-7 w-7" />under<span className="text-[#EE2B1C]">cut</span></span>
           <div className="flex items-center gap-4 text-sm">
+            <Link href="/pricing" className="text-gray-600 hover:text-gray-900">Pricing</Link>
             <Link href="/compare" className="text-gray-600 hover:text-gray-900">Compare</Link>
             <Link href="/login" className="text-gray-600 hover:text-gray-900">Log in</Link>
             <Link href="/signup" className="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free</Link>
@@ -69,6 +72,8 @@ export default function Landing() {
         <p className="text-center text-xs text-gray-400 mt-6">Every account starts with a 14-day Founding trial — full Starter features, no card. Then stay on Free (25 listings) or upgrade. <span className="font-medium text-gray-500">Pay annually and get 2 months free.</span> Cancel anytime.</p>
       </section>
 
+      <TrustSection />
+
       <section className="bg-gray-50 border-t border-gray-100">
         <div className="max-w-2xl mx-auto px-6 py-14 text-center">
           <h2 className="text-2xl font-bold">Not ready to connect your store yet?</h2>
@@ -77,13 +82,7 @@ export default function Landing() {
         </div>
       </section>
 
-      <footer className="border-t border-gray-100 py-8 text-center text-sm text-gray-400">
-        <div className="flex items-center justify-center gap-4 mb-2">
-          <Link href="/compare" className="hover:text-gray-600">Compare repricers</Link>
-          <Link href="/login" className="hover:text-gray-600">Log in</Link>
-        </div>
-        © Undercut — automated eBay repricing.
-      </footer>
+      <Footer />
     </div>
   )
 }

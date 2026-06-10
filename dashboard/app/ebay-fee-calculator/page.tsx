@@ -3,13 +3,13 @@ import Calculator from './calculator'
 import LeadForm from '../lead-form'
 import Faq from '../_components/Faq'
 import Footer from '../_components/Footer'
+import { pageMeta } from '../_content/shared'
 
-export const metadata = {
-  title: 'Free eBay Fee Calculator (2026) — Final Value Fees, Profit & Break-Even',
-  description:
-    'Calculate exactly what eBay takes from a sale — final value fee, per-order fee, Promoted Listings — plus your real profit and break-even floor. Free, no signup.',
-  alternates: { canonical: '/ebay-fee-calculator' },
-}
+export const metadata = pageMeta(
+  'Free eBay Fee Calculator (2026) — Final Value Fees, Profit & Break-Even',
+  'Calculate exactly what eBay takes from a sale — final value fee, per-order fee, Promoted Listings — plus your real profit and break-even floor. Free, no signup.',
+  '/ebay-fee-calculator'
+)
 
 const FAQ = [
   {

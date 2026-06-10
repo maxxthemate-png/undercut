@@ -1,13 +1,13 @@
 import Link from 'next/link'
 import Calculator from './calculator'
 import LeadForm from '../lead-form'
+import { pageMeta } from '../_content/shared'
 
-export const metadata = {
-  title: 'Free eBay Repricing Profit Calculator — Undercut',
-  description:
-    'See your safe price floor and exactly what you net when you undercut the lowest competitor — without ever selling below your minimum. Free, no signup.',
-  alternates: { canonical: '/ebay-profit-calculator' },
-}
+export const metadata = pageMeta(
+  'Free eBay Repricing Profit Calculator — Undercut',
+  'See your safe price floor and exactly what you net when you undercut the lowest competitor — without ever selling below your minimum. Free, no signup.',
+  '/ebay-profit-calculator'
+)
 
 export default function Page() {
   return (

@@ -1,13 +1,13 @@
 /** SEO landing — category intent: "eBay repricing software". First-party, honest. */
 import Link from 'next/link'
 import LeadForm from '../lead-form'
+import { pageMeta } from '../_content/shared'
 
-export const metadata = {
-  title: 'eBay Repricing Software — Undercut (auto-undercut with a hard price floor)',
-  description:
-    'eBay repricing software that beats your lowest competitor automatically and never sells below a floor you set. 1-click connect, AI tuning, 14-day trial — no credit card.',
-  alternates: { canonical: '/ebay-repricing-software' },
-}
+export const metadata = pageMeta(
+  'eBay Repricing Software — Undercut (auto-undercut with a hard price floor)',
+  'eBay repricing software that beats your lowest competitor automatically and never sells below a floor you set. 1-click connect, AI tuning, 14-day trial — no credit card.',
+  '/ebay-repricing-software'
+)
 
 const CHECKS = [
   ['A hard per-item floor', 'The #1 thing to demand: software that will never reprice below your minimum. Undercut treats the floor as sacred.'],

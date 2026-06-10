@@ -3,13 +3,13 @@
  *  "ebay repricer that won't race to the bottom". Honest, first-party positioning. */
 import Link from 'next/link'
 import LeadForm from '../lead-form'
+import { pageMeta } from '../_content/shared'
 
-export const metadata = {
-  title: 'Undercut vs StreetPricer, RepricerExpress & Informed.co — eBay Repricer Comparison (2026)',
-  description:
-    'Compare Undercut to the top eBay repricing tools. Floor-first repricing that undercuts the lowest competitor automatically but never sells below the minimum you set. Free to start, no card.',
-  alternates: { canonical: '/compare' },
-}
+export const metadata = pageMeta(
+  'Undercut vs StreetPricer, RepricerExpress & Informed.co — eBay Repricer Comparison (2026)',
+  'Compare Undercut to the top eBay repricing tools. Floor-first repricing that undercuts the lowest competitor automatically but never sells below the minimum you set. Free to start, no card.',
+  '/compare'
+)
 
 type Row = { label: string; undercut: string; street: string; rex: string; informed: string }
 

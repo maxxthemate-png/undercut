@@ -28,6 +28,7 @@ export default function Login() {
                value={email} onChange={e => setEmail(e.target.value)} required />
         <input className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" type="password" placeholder="Password"
                value={pw} onChange={e => setPw(e.target.value)} required />
+        <p className="text-right -mt-2"><Link href="/forgot-password" className="text-xs text-blue-600 hover:text-blue-700">Forgot password?</Link></p>
         {err && <p className="text-sm text-red-600">{err}</p>}
         <button disabled={busy} className="w-full bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700 disabled:opacity-50">
           {busy ? 'Logging in…' : 'Log in'}

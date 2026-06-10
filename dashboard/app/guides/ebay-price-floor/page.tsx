@@ -1,13 +1,13 @@
 /** SEO pillar guide — "eBay price floor". Genuine educational content marketing
  *  that targets high-intent search and routes to signup. Isolated new file. */
 import Link from 'next/link'
+import { pageMeta } from '../../_content/shared'
 
-export const metadata = {
-  title: 'How to Set an eBay Price Floor (and Never Race to the Bottom) — Undercut',
-  description:
-    'A practical guide to setting a price floor on eBay: the exact formula (cost + fees + minimum margin), worked examples, and how to automate repricing so you undercut competitors without ever selling below your minimum.',
-  alternates: { canonical: '/guides/ebay-price-floor' },
-}
+export const metadata = pageMeta(
+  'How to Set an eBay Price Floor (and Never Race to the Bottom) — Undercut',
+  'A practical guide to setting a price floor on eBay: the exact formula (cost + fees + minimum margin), worked examples, and how to automate repricing so you undercut competitors without ever selling below your minimum.',
+  '/guides/ebay-price-floor'
+)
 
 function H2({ children }: { children: React.ReactNode }) {
   return <h2 className="text-2xl font-bold mt-12 mb-3">{children}</h2>

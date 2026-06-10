@@ -1,12 +1,12 @@
 /** SEO landing — high intent: "free eBay repricer". New file (no collision). */
 import Link from 'next/link'
+import { pageMeta } from '../_content/shared'
 
-export const metadata = {
-  title: 'Free eBay Repricer — Undercut (hard floor, no card)',
-  description:
-    'A free eBay repricer that auto-undercuts the lowest competitor with a hard floor so you never sell below your minimum. Start with a 14-day Starter trial, then stay free for 25 listings. No card.',
-  alternates: { canonical: '/free-ebay-repricer' },
-}
+export const metadata = pageMeta(
+  'Free eBay Repricer — Undercut (hard floor, no card)',
+  'A free eBay repricer that auto-undercuts the lowest competitor with a hard floor so you never sell below your minimum. Start with a 14-day Starter trial, then stay free for 25 listings. No card.',
+  '/free-ebay-repricer'
+)
 
 const STEPS: [string, string][] = [
   ['1. Connect eBay', 'Link your store in one click. We import your active listings automatically.'],

@@ -2,13 +2,13 @@
  *  Honest, first-party positioning. */
 import Link from 'next/link'
 import LeadForm from '../lead-form'
+import { pageMeta } from '../_content/shared'
 
-export const metadata = {
-  title: 'RepricerExpress / Repricer.com Alternative — Undercut (floor-first eBay repricer)',
-  description:
-    'A simpler, floor-first RepricerExpress alternative for eBay sellers. Undercut beats the lowest competitor automatically but never sells below the per-item minimum you set. 14-day trial, no card.',
-  alternates: { canonical: '/repricerexpress-alternative' },
-}
+export const metadata = pageMeta(
+  'RepricerExpress / Repricer.com Alternative — Undercut (floor-first eBay repricer)',
+  'A simpler, floor-first RepricerExpress alternative for eBay sellers. Undercut beats the lowest competitor automatically but never sells below the per-item minimum you set. 14-day trial, no card.',
+  '/repricerexpress-alternative'
+)
 
 const ROWS: [string, string, string][] = [
   ['Price to start', '14-day Starter trial (no card) — then Free (25) or $29/mo', 'Paid, multi-channel tiers'],

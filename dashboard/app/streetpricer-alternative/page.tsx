@@ -1,13 +1,13 @@
 /** SEO landing — high commercial intent: "StreetPricer alternative".
  *  Honest, first-party positioning. New file (no collision with edited pages). */
 import Link from 'next/link'
+import { pageMeta } from '../_content/shared'
 
-export const metadata = {
-  title: 'StreetPricer Alternative — Undercut (floor-first eBay repricer)',
-  description:
-    'Looking for a StreetPricer alternative? Undercut auto-undercuts the lowest competitor with a hard floor so you never sell below your minimum. 14-day Starter trial, no card.',
-  alternates: { canonical: '/streetpricer-alternative' },
-}
+export const metadata = pageMeta(
+  'StreetPricer Alternative — Undercut (floor-first eBay repricer)',
+  'Looking for a StreetPricer alternative? Undercut auto-undercuts the lowest competitor with a hard floor so you never sell below your minimum. 14-day Starter trial, no card.',
+  '/streetpricer-alternative'
+)
 
 const ROWS: [string, string, string][] = [
   ['Start with no card', '14-day Starter trial, then Free (25 listings) or $29/mo', 'Paid plans'],
