@@ -24,13 +24,13 @@
 
 ## Build Priorities
 *(Top 3 to reach first revenue. The product + billing are live; revenue now needs activation + traffic + a buyer.)*
-1. **Activate the email nurture engine** — verify a SendGrid sender + set `SENDGRID_API_KEY` (+ `FROM_EMAIL`) at the Render **service** level → welcome/drip/trial-reminder emails start converting captured leads → trials → paid. (Code is built + deployed; runs dormant — verified `0 sent` with no key.)
-2. **Drive traffic + land the first paying seller** — only the owner can: post the ready-written outreach (`Docs/FIRST_CUSTOMER_OUTREACH_PACK.md` §E, eBay Seller Tools forum) + submit directory listings (`Docs/ROUNDUP_PITCHES.md` §C; copy in `Docs/UNDERCUT_ONE_PAGER.md`). The live SEO funnel (30+ pages) compounds over weeks.
+1. ~~Activate the email nurture engine~~ **DONE 2026-06-09** — SendGrid live at the service level; welcome/drip/trial emails active (test send 202; cron + Action verified green).
+2. **Drive traffic + land the first paying seller** — only the owner can post. Real assets (verified to exist): **`GTM_OUTREACH.md`** (repo root, gitignored/local-only — channels, per-platform scripts, 7-day plan, founding offer) and **`~/Documents/Brain/Docs/UNDERCUT_GTM_DAY1.md`** (paste-ready eBay-forum/Reddit replies + directory-listing copy). Fastest path: eBay Seller Tools forum threads (§8/§"Fastest path to $1" in GTM_OUTREACH.md). The live SEO funnel (47 pages) compounds over weeks.
 3. **Tighten trial → paid conversion** — in-app upgrade nudges, the now-live annual plans (second revenue stream), and monitor lead→signup / trial→paid in `/admin`.
 
 ## Known Blockers
-- **SendGrid [BLOCKING LAUNCH]:** no verified sender / `SENDGRID_API_KEY` set → customer emails (welcome + nurture) are dormant. This is the one thing that unblocks more autonomous build.
-- **Rotate `sk_live` [BLOCKING LAUNCH / security]:** the live secret key was pasted in chat — roll it (dashboard.stripe.com/apikeys) and re-set at the Render service level.
+- ~~SendGrid~~ **DONE — verified 2026-06-09:** sender `nuvent66@gmail.com` verified; `SENDGRID_API_KEY`/`FROM_EMAIL`/`OPERATOR_EMAIL` set at the api service level + deployed; test send 202, cron endpoint 200 clean, GitHub Action green. Email engine is LIVE (welcome on signup + daily drip/trial reminders). *Deliverability note: gmail.com from-address → some mail lands in Promotions/spam; post-revenue upgrade = custom domain + SendGrid domain auth.*
+- ~~Rotate `sk_live`~~ **DONE — verified 2026-06-09:** Stripe returned "Expired API Key" for the chat-pasted key (it's dead); the currently active key was set by the owner directly in Render and never exposed in chat.
 - **No paying customers yet:** requires human outreach — Claude cannot acquire customers or post through the owner's accounts.
 - **Owner has no eBay seller account** → can't self-demo repricing; needs real eBay-seller customers.
 - **Render Postgres free/basic tier:** watch the expiry (~90 days from DB creation) — upgrade before then or data is lost.

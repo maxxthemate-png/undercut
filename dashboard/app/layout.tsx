@@ -4,6 +4,7 @@ export const metadata = {
   title: 'Undercut — automated eBay repricing',
   description:
     'Undercut automatically reprices your eBay listings to beat the lowest competitor — with a hard floor so you never sell below your minimum.',
+  verification: { google: 'zD2b6hZVML47szgBwkOGmg4lKCngzVA4ZGW6p6XGKj8' },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
