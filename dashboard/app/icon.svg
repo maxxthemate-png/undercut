@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Undercut brand mark: red price tag, black cap, floor-arrow cut-out -->
+  <g transform="rotate(45 256 256)">
+    <rect x="171" y="60" width="170" height="330" rx="46" fill="#EE2B1C"/>
+    <rect x="171" y="300" width="170" height="120" rx="46" fill="#19191B"/>
+    <circle cx="256" cy="128" r="27" fill="#FFFFFF"/>
+  </g>
+  <path d="M292 245 v72 m0 0 l-24 -24 m24 24 l24 -24" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

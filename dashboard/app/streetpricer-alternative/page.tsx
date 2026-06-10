@@ -28,7 +28,7 @@ export default function StreetPricerAlternative() {
     <div className="min-h-screen bg-white text-gray-900">
       <nav className="border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="font-bold text-lg">Undercut</Link>
+          <Link href="/" className="flex items-center gap-2 font-bold text-lg"><img src="/logo-mark.svg" alt="" className="h-7 w-7" />under<span className="text-[#EE2B1C]">cut</span></Link>
           <div className="flex items-center gap-4 text-sm">
             <Link href="/compare" className="text-gray-600 hover:text-gray-900">Compare</Link>
             <Link href="/login" className="text-gray-600 hover:text-gray-900">Log in</Link>
