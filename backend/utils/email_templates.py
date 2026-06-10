@@ -102,3 +102,79 @@ def password_reset_email(link: str):
             "your password is unchanged.</p>"
         ),
     )
+
+
+def first_reprice_email(old_price: float, new_price: float, competitor_low: float | None):
+    app = _app()
+    comp = f" (lowest competitor was ${competitor_low:,.2f})" if competitor_low else ""
+    return (
+        "Your repricer just made its first move",
+        _wrap(
+            f"<p>Undercut just repriced one of your listings for the first time: "
+            f"<b>${old_price:,.2f} → ${new_price:,.2f}</b>{comp} — and it stayed above the floor you set.</p>"
+            "<p>This now happens around the clock, on every listing you’ve enabled. "
+            f'See every change in your <a href="{app}/dashboard">price log →</a></p>'
+        ),
+    )
+
+
+def weekly_digest_email(reprices: int, listings: int):
+    app = _app()
+    return (
+        f"Your Undercut week: {reprices} reprice{'s' if reprices != 1 else ''} on {listings} listing{'s' if listings != 1 else ''}",
+        _wrap(
+            f"<p>This week Undercut made <b>{reprices}</b> price update{'s' if reprices != 1 else ''} "
+            f"across <b>{listings}</b> of your listings — every one of them at or above your floor.</p>"
+            f'<p><a href="{app}/dashboard">See the full log →</a></p>'
+            "<p>Tip: listings without a floor never reprice. If you’ve added inventory, set floors on the new items.</p>"
+        ),
+    )
+
+
+def winback_email():
+    app = _app()
+    return (
+        "Your price floors are still saved",
+        _wrap(
+            "<p>Your Undercut account is still here — store connection, floors, and settings all saved. "
+            "While you’ve been away, competitors keep moving their prices.</p>"
+            f'<p>Pick up where you left off (Free covers 25 listings): <a href="{app}/login">log back in →</a></p>'
+            "<p>Reply if something didn’t work for you — I read every reply and it shapes what I build next.</p>"
+        ),
+    )
+
+
+def payment_failed_email():
+    app = _app()
+    return (
+        "Action needed: your Undercut payment didn't go through",
+        _wrap(
+            "<p>Your latest payment failed — usually an expired or replaced card. "
+            "Your repricing is still running, but it will pause if the card isn’t updated.</p>"
+            f'<p><a href="{app}/dashboard">Update your card →</a> (Billing → manage subscription)</p>'
+        ),
+    )
+
+
+def payment_retry_email():
+    app = _app()
+    return (
+        "Reminder: update your card to keep Undercut repricing",
+        _wrap(
+            "<p>Quick reminder — your payment still hasn’t gone through. Stripe will keep retrying, "
+            "but if it can’t charge the card your account drops to the Free plan (25 listings).</p>"
+            f'<p><a href="{app}/dashboard">Fix it in 1 minute →</a></p>'
+        ),
+    )
+
+
+def access_reduced_email():
+    app = _app()
+    return (
+        "Repricing reduced to Free limits — restore your plan anytime",
+        _wrap(
+            "<p>We couldn’t collect payment, so your account is temporarily on Free limits "
+            "(25 listings, hourly repricing). Nothing is deleted — floors, settings, and history are intact.</p>"
+            f'<p>Update your card and everything is restored instantly: <a href="{app}/dashboard">restore my plan →</a></p>'
+        ),
+    )

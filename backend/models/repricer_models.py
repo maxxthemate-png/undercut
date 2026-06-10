@@ -32,6 +32,11 @@ class User(Base):
     last_lifecycle_email = Column(DateTime)            # last nurture/lifecycle email sent
     last_lifecycle_stage = Column(String(30))          # e.g. trial_ending | trial_expired
     email_unsubscribed = Column(Boolean, default=False)  # CAN-SPAM opt-out (marketing/lifecycle)
+    payment_status = Column(String(20), default="ok")  # ok | past_due (dunning; plan untouched)
+    payment_failed_at = Column(DateTime)               # first failure of the current dunning cycle
+    first_reprice_emailed_at = Column(DateTime)        # one-shot 'first reprice' email stamp
+    last_weekly_digest_at = Column(DateTime)           # weekly digest cadence stamp
+    winback_emailed_at = Column(DateTime)              # one-shot win-back email stamp
 
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
@@ -59,6 +64,7 @@ class Store(Base):
     default_undercut_value = Column(Float, default=0.01)
     default_undercut_type = Column(String(10), default="amount")  # amount | percent
 
+    last_reprice_run_at = Column(DateTime)             # last scheduled run that processed this store
     connected_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -92,6 +98,9 @@ class RepricerListing(Base):
 
     last_competitor_low = Column(Float)
     last_repriced_at = Column(DateTime)
+    consecutive_failures = Column(Integer, default=0)  # eBay update failures in a row
+    last_error = Column(Text)
+    last_error_at = Column(DateTime)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     changes = relationship("PriceChange", back_populates="listing")
@@ -135,3 +144,15 @@ class Lead(Base):
     nurture_stage = Column(Integer, default=0)   # 0=none,1=day1,2=day3,3=day7,99=converted/done
     last_emailed_at = Column(DateTime)
     email_unsubscribed = Column(Boolean, default=False)  # CAN-SPAM opt-out
+
+
+class RepriceRun(Base):
+    """One scheduled/manual reprice run — powers the ops digest + staleness alarm."""
+    __tablename__ = "reprice_runs"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    ran_at = Column(DateTime, default=datetime.utcnow, index=True)
+    checked = Column(Integer, default=0)
+    repriced = Column(Integer, default=0)
+    errors = Column(Integer, default=0)
+    error_sample = Column(Text)

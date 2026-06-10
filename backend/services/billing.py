@@ -72,6 +72,28 @@ def normalize_access(user) -> bool:
     return False
 
 
+# Minimum minutes between SCHEDULED reprice runs per plan (manual runs are never
+# throttled). Designed for the 15-min cron: scale/pro run every cycle; starter/
+# free/trial hourly — matching the marketing promises. Cadence-agnostic: if the
+# cron later moves to */5, scale=5-min and pro=15-min automatically.
+PLAN_REPRICE_INTERVAL_MIN = {"scale": 0, "pro": 12, "starter": 55, "free": 55, TRIAL_PLAN: 55}
+
+
+def effective_access(user) -> tuple[str, int]:
+    """(effective_plan, effective_listing_limit) for ENFORCEMENT — read-only.
+    - expired trial                  -> free limits
+    - past_due beyond the grace days -> free limits (plan column untouched)
+    - otherwise                      -> the user's stored plan/limit"""
+    plan = getattr(user, "plan", None) or "free"
+    if plan == TRIAL_PLAN and not is_trialing(user):
+        return "free", FREE_LIMIT
+    if getattr(user, "payment_status", "ok") == "past_due":
+        failed_at = getattr(user, "payment_failed_at", None)
+        if failed_at and datetime.utcnow() - failed_at > timedelta(days=settings.DUNNING_GRACE_DAYS):
+            return "free", FREE_LIMIT
+    return plan, (getattr(user, "listing_limit", None) or FREE_LIMIT)
+
+
 def access_summary(user) -> dict:
     """Account access snapshot for the frontend (plan + trial countdown)."""
     trialing = is_trialing(user)

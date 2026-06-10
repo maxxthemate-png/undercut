@@ -63,6 +63,9 @@ class Settings(BaseSettings):
     STRIPE_PRICE_SCALE_ANNUAL: Optional[str] = None
     PUBLIC_APP_URL: Optional[str] = None
     PUBLIC_API_URL: Optional[str] = None   # backend base URL (unsubscribe links)
+    REPRICER_ENFORCE_PLAN_LIMITS: bool = False   # gate reprice volume by plan (dark until verified)
+    REPRICER_TIER_FREQUENCY: bool = False        # plan-based reprice interval (dark until verified)
+    DUNNING_GRACE_DAYS: int = 7                  # days past_due before access drops to free
 
     # Proxy
     PROXY_URL: Optional[str] = None

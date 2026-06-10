@@ -224,4 +224,17 @@ async def cron_reprice_all(x_cron_key: str | None = Header(default=None)):
     if not settings.UNDERCUT_API_KEY or x_cron_key != settings.UNDERCUT_API_KEY:
         raise HTTPException(status_code=403, detail="invalid cron key")
     from ..services.reprice_service import reprice_all
-    return await reprice_all()
+    result = await reprice_all()
+    try:  # persist a run record for the ops digest + staleness alarm — never block the run
+        from ..models.database import SessionLocal
+        from ..models.repricer_models import RepriceRun
+        sample = "; ".join(
+            f"{r.get('item')}: {r.get('error')}" for r in result.get("results", [])
+            if r.get("error") and r["error"] != "no floor set")[:1000]
+        s = SessionLocal()
+        s.add(RepriceRun(checked=result.get("checked", 0), repriced=result.get("repriced", 0),
+                         errors=result.get("errors", 0), error_sample=sample or None))
+        s.commit(); s.close()
+    except Exception:
+        pass
+    return result

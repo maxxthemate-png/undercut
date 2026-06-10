@@ -10,7 +10,7 @@ from sqlalchemy import select, func
 from sqlalchemy.orm import Session
 
 from ..models.database import get_db
-from ..models.repricer_models import User, Store, RepricerListing, PriceChange, Lead
+from ..models.repricer_models import User, Store, RepricerListing, PriceChange, Lead, RepriceRun
 from ..services import billing
 from ..utils.settings import settings
 
@@ -112,7 +112,87 @@ def metrics(x_admin_key: str | None = Header(default=None), db: Session = Depend
             "expired_trials": int(expired_trials),
             "trial_to_paid_rate": round(paid_total / _trial_denom, 3) if _trial_denom else 0,
         },
+        "churn": {
+            "churned_paid": int(db.scalar(
+                select(func.count()).select_from(User)
+                .where(User.stripe_customer_id.isnot(None), User.plan == "free")) or 0),
+            "past_due": int(db.scalar(
+                select(func.count()).select_from(User)
+                .where(User.payment_status == "past_due")) or 0)
+            if hasattr(User, "payment_status") else 0,
+        },
+        "cohorts": _cohorts(db, now),
+        "source_funnel": _source_funnel(db),
+        "email_health": {
+            "users_unsubscribed": int(db.scalar(
+                select(func.count()).select_from(User).where(User.email_unsubscribed.is_(True))) or 0),
+            "leads_unsubscribed": int(db.scalar(
+                select(func.count()).select_from(Lead).where(Lead.email_unsubscribed.is_(True))) or 0),
+        },
+        "repricer_health": {
+            "listings_failing": int(db.scalar(
+                select(func.count()).select_from(RepricerListing)
+                .where(RepricerListing.consecutive_failures >= 3)) or 0),
+            "last_run_at": (lambda r: r.ran_at.isoformat() if r and r.ran_at else None)(
+                db.scalars(select(RepriceRun).order_by(RepriceRun.ran_at.desc()).limit(1)).first()),
+        },
     }
+
+
+def _cohorts(db: Session, now: datetime) -> list[dict]:
+    """Last 8 ISO weeks of signups: count + how many are paid now."""
+    out = []
+    for w in range(7, -1, -1):
+        start = (now - timedelta(weeks=w + 1))
+        end = now - timedelta(weeks=w)
+        users = db.scalars(select(User).where(User.created_at >= start, User.created_at < end)).all()
+        paid = sum(1 for u in users if u.plan in billing.PLANS)
+        out.append({"week_start": start.strftime("%m/%d"), "signups": len(users), "paid_now": paid})
+    return out
+
+
+def _source_funnel(db: Session) -> list[dict]:
+    """Per lead source: leads → became users → became paid."""
+    out = []
+    for src, n in db.execute(select(Lead.source, func.count()).group_by(Lead.source)).all():
+        emails = set(db.scalars(select(Lead.email).where(Lead.source == src)).all())
+        if not emails:
+            continue
+        users = db.scalars(select(User).where(User.email.in_(emails))).all()
+        out.append({"source": src or "unknown", "leads": int(n), "signups": len(users),
+                    "paid": sum(1 for u in users if u.plan in billing.PLANS)})
+    return sorted(out, key=lambda r: -r["leads"])
+
+
+@router.get("/gating-preview")
+def gating_preview(x_admin_key: str | None = Header(default=None), db: Session = Depends(get_db)):
+    """Read-only preview of what plan/frequency enforcement WOULD do — check this
+    against live data before flipping REPRICER_ENFORCE_PLAN_LIMITS / _TIER_FREQUENCY."""
+    _require_admin(x_admin_key)
+    out = []
+    for u in db.scalars(select(User)).all():
+        store_ids = [s.id for s in db.scalars(select(Store).where(Store.user_id == u.id)).all()]
+        if not store_ids:
+            continue
+        enabled = int(db.scalar(
+            select(func.count()).select_from(RepricerListing)
+            .where(RepricerListing.store_id.in_(store_ids),
+                   RepricerListing.repricing_enabled.is_(True))) or 0)
+        if not enabled:
+            continue
+        plan, limit = billing.effective_access(u)
+        out.append({
+            "email": _mask(u.email),
+            "stored_plan": u.plan,
+            "effective_plan": plan,
+            "effective_limit": limit,
+            "enabled_listings": enabled,
+            "would_skip_over_limit": max(0, enabled - limit),
+            "frequency_interval_min": billing.PLAN_REPRICE_INTERVAL_MIN.get(plan, 55),
+        })
+    return {"users": out,
+            "flags": {"enforce_plan_limits": settings.REPRICER_ENFORCE_PLAN_LIMITS,
+                      "tier_frequency": settings.REPRICER_TIER_FREQUENCY}}
 
 
 @public_router.get("/public-stats")
