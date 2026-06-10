@@ -8,6 +8,7 @@ export default function Footer() {
         <Link href="/compare" className="hover:text-gray-600">Compare</Link>
         <Link href="/guides/ebay-price-floor" className="hover:text-gray-600">Guides</Link>
         <Link href="/ebay-fee-calculator" className="hover:text-gray-600">Fee calculator</Link>
+        <Link href="/ebay-price-checker" className="hover:text-gray-600">Price checker</Link>
         <Link href="/signup" className="hover:text-gray-600">Start free</Link>
       </div>
       © Undercut — automated eBay repricing.

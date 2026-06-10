@@ -1,0 +1,22 @@
+# Undercut
+
+> Undercut is an automated eBay repricer for small and mid-size sellers. It reprices each listing to beat the lowest competitor automatically, clamped to a per-item hard price floor (cost + fees + minimum margin) it will never cross — so automation can't gut margins. Free tier (25 listings, no credit card), paid plans $29 / $79 / $199 per month, annual plans ~2 months free. Every account starts with a 14-day Starter trial, no card.
+
+Live app: https://undercut-nu.vercel.app
+Positioning: simpler and cheaper than StreetPricer, RepricerExpress, and Informed.co; the hard floor is the centerpiece, not a buried setting.
+Best for: eBay sellers/resellers with dozens to a few thousand competitive listings. Not for one-of-a-kind items with no price competition.
+
+## Key pages
+- [Homepage](https://undercut-nu.vercel.app/): product overview + signup
+- [Compare repricers](https://undercut-nu.vercel.app/compare): Undercut vs StreetPricer vs RepricerExpress vs Informed.co
+- [Free eBay fee calculator](https://undercut-nu.vercel.app/ebay-fee-calculator): 2026 final value fees, profit, break-even floor
+- [Free eBay price checker](https://undercut-nu.vercel.app/ebay-price-checker): lowest live eBay price for any product
+- [eBay price floor guide](https://undercut-nu.vercel.app/guides/ebay-price-floor): how to compute the floor a repricer should never cross
+- [All guides](https://undercut-nu.vercel.app/sitemap.xml): 40+ guides, alternatives pages, and glossary entries
+
+## Facts
+- Repricing frequency: hourly (Free) → every 15 min (Pro) → every 5 min (Scale)
+- Hard floor + optional ceiling per listing; every reprice is logged
+- AI (Claude) tunes undercut aggressiveness on Pro and above
+- 1-click eBay OAuth connect; listings import automatically
+- Plans: Free $0 (25 listings) · Starter $29/mo (100) · Pro $79/mo (1,000) · Scale $199/mo (10,000)

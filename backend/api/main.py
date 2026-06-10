@@ -59,10 +59,13 @@ app.include_router(billing_router)
 app.include_router(billing_public_router)
 from .leads_routes import public_router as leads_public_router
 app.include_router(leads_public_router)
-from .admin_routes import router as admin_router
+from .admin_routes import router as admin_router, public_router as admin_public_router
 app.include_router(admin_router)
+app.include_router(admin_public_router)
 from .cron_routes import public_router as cron_public_router
 app.include_router(cron_public_router)
+from .tools_routes import public_router as tools_public_router
+app.include_router(tools_public_router)
 
 
 # ─── Request models ───────────────────────────────────────────────────────────

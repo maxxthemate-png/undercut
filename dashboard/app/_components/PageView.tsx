@@ -39,7 +39,7 @@ export default function PageView({ page }: { page: PageContent }) {
       )}
       <Prose sections={page.sections} />
       <CtaBanner heading={cta.heading} sub={cta.sub} />
-      {page.leadForm && (
+      {page.leadForm !== false && (
         <section className="bg-gray-50 border-t border-gray-100">
           <div className="max-w-2xl mx-auto px-6 py-14 text-center">
             <h2 className="text-2xl font-bold">Not ready to connect your store yet?</h2>

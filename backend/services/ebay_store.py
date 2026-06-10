@@ -128,6 +128,40 @@ class EbayStoreClient:
             logger.warning("app token failed", error=str(e))
             return None
 
+    async def search_lowest(self, query: str, limit: int = 30, top: int = 5) -> dict:
+        """Public price-checker variant of get_competitor_low: lowest + count +
+        the cheapest few live listings (title/price/condition/link)."""
+        token = await self._app_token()
+        if not token:
+            return {"lowest": None, "count": 0, "items": []}
+        try:
+            async with httpx.AsyncClient(timeout=20) as c:
+                r = await c.get(
+                    _BROWSE[self._env],
+                    params={"q": query, "sort": "price", "limit": limit},
+                    headers={"Authorization": f"Bearer {token}",
+                             "X-EBAY-C-MARKETPLACE-ID": "EBAY_US"},
+                )
+            data = r.json()
+            items, prices = [], []
+            for s in data.get("itemSummaries", []) or []:
+                v = (s.get("price") or {}).get("value")
+                if not v:
+                    continue
+                prices.append(float(v))
+                if len(items) < top:
+                    items.append({
+                        "title": s.get("title"),
+                        "price": float(v),
+                        "condition": s.get("condition"),
+                        "url": s.get("itemWebUrl"),
+                    })
+            return {"lowest": min(prices) if prices else None,
+                    "count": len(prices), "items": items}
+        except Exception as e:
+            logger.warning("price check lookup failed", error=str(e))
+            return {"lowest": None, "count": 0, "items": []}
+
     async def get_competitor_low(self, query: str, limit: int = 30) -> dict:
         """Lowest competing price + count for a query via the Buy Browse API."""
         token = await self._app_token()
