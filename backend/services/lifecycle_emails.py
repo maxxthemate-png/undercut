@@ -32,7 +32,8 @@ def run_lifecycle_emails() -> dict:
         user_emails = set(db.scalars(select(User.email)).all())
 
         # --- Lead drip (to leads who haven't signed up) ---
-        leads = db.scalars(select(Lead).where(Lead.nurture_stage < 3)).all()
+        leads = db.scalars(select(Lead).where(
+            Lead.nurture_stage < 3, Lead.email_unsubscribed.is_(False))).all()
         for lead in leads:
             if lead.email in user_emails:
                 lead.nurture_stage = 99  # converted — stop drip
@@ -59,7 +60,8 @@ def run_lifecycle_emails() -> dict:
         soon = now + timedelta(days=3)
         for u in db.scalars(select(User).where(
                 User.plan == billing.TRIAL_PLAN, User.trial_ends_at.isnot(None),
-                User.trial_ends_at > now, User.trial_ends_at <= soon)).all():
+                User.trial_ends_at > now, User.trial_ends_at <= soon,
+                User.email_unsubscribed.is_(False))).all():
             if u.last_lifecycle_stage == "trial_ending":
                 continue
             subject, html = T.trial_ending_email(billing.trial_days_left(u))
@@ -75,7 +77,8 @@ def run_lifecycle_emails() -> dict:
         # --- Trial expired (ended, not yet notified) ---
         for u in db.scalars(select(User).where(
                 User.plan == billing.TRIAL_PLAN, User.trial_ends_at.isnot(None),
-                User.trial_ends_at <= now)).all():
+                User.trial_ends_at <= now,
+                User.email_unsubscribed.is_(False))).all():
             if u.last_lifecycle_stage == "trial_expired":
                 continue
             subject, html = T.trial_expired_email()

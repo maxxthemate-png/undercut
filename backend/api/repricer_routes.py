@@ -128,12 +128,33 @@ def list_listings(store_id: str | None = None, user: User = Depends(current_user
             **billing.access_summary(user)}
 
 
+def _validate_rule(l: RepricerListing, body: RuleIn) -> str | None:
+    """Validate the MERGED rule state (PATCH semantics: incoming value if set,
+    else current DB value) so a partial update can't create a broken rule."""
+    floor = body.floor_price if body.floor_price is not None else l.floor_price
+    ceiling = body.ceiling_price if body.ceiling_price is not None else l.ceiling_price
+    if body.floor_price is not None and body.floor_price < 0.01:
+        return "floor_price must be at least $0.01"
+    if body.ceiling_price is not None and body.ceiling_price <= 0:
+        return "ceiling_price must be positive"
+    if floor is not None and ceiling is not None and ceiling < floor:
+        return "ceiling_price cannot be below floor_price"
+    if body.undercut_value is not None and body.undercut_value < 0:
+        return "undercut_value cannot be negative"
+    if body.undercut_type is not None and body.undercut_type not in ("amount", "percent"):
+        return "undercut_type must be 'amount' or 'percent'"
+    return None
+
+
 @router.put("/listings/{listing_id}/rule")
 def set_rule(listing_id: str, body: RuleIn, user: User = Depends(current_user), db: Session = Depends(get_db)):
     l = db.get(RepricerListing, _uuid(listing_id))
     store = db.get(Store, l.store_id) if l else None
     if not l or not store or store.user_id != user.id:
         raise HTTPException(status_code=404, detail="listing not found")
+    err = _validate_rule(l, body)
+    if err:
+        raise HTTPException(status_code=400, detail=err)
     for field in ("floor_price", "ceiling_price", "undercut_value", "undercut_type",
                   "ai_enabled", "repricing_enabled"):
         v = getattr(body, field)

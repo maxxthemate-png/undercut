@@ -45,7 +45,7 @@ def send_email_alert(subject: str, body: str, html_body: str = None) -> bool:
         message = Mail(
             from_email=settings.FROM_EMAIL,
             to_emails=settings.OPERATOR_EMAIL,
-            subject=f"[ListingArb] {subject}",
+            subject=f"[Undercut] {subject}",
             plain_text_content=body,
             html_content=html_body or f"<pre>{body}</pre>",
         )
@@ -69,6 +69,20 @@ def send_customer_email(to: str, subject: str, html: str, reply_to: str = None) 
         import re as _re
         import sendgrid
         from sendgrid.helpers.mail import Mail, ReplyTo
+
+        # CAN-SPAM footer appended centrally so every customer email carries a
+        # working unsubscribe link + postal address, regardless of template.
+        try:
+            from .email_tokens import unsubscribe_url
+            unsub = unsubscribe_url(to)
+            if unsub:
+                html += (
+                    '<p style="color:#999;font-size:11px;margin-top:18px">'
+                    f'<a href="{unsub}" style="color:#999">Unsubscribe</a> · '
+                    f"{settings.OPERATOR_LEGAL_NAME}, {settings.OPERATOR_ADDRESS}</p>"
+                )
+        except Exception:
+            pass
 
         text = _re.sub(r"<[^>]+>", "", html).strip()
         message = Mail(

@@ -13,7 +13,7 @@ def _wrap(inner: str) -> str:
         f"{inner}"
         '<p style="color:#888;font-size:12px;margin-top:28px">— Maxx, Undercut · '
         f'<a href="{_app()}">undercut</a><br>'
-        "Don’t want these? Just reply and I’ll take you off.</p></div>"
+        "Reply anytime — or use the unsubscribe link below.</p></div>"
     )
 
 
@@ -88,5 +88,17 @@ def trial_expired_email():
         _wrap(
             "<p>Your trial wrapped up, so you’re now on the Free plan (25 listings, hourly repricing, hard floor).</p>"
             f'<p>Want the full power back — more listings, AI tuning, 15-minute repricing? <a href="{app}/dashboard">Upgrade anytime →</a></p>'
+        ),
+    )
+
+
+def password_reset_email(link: str):
+    return (
+        "Reset your Undercut password",
+        _wrap(
+            "<p>Someone (hopefully you) asked to reset the password on this Undercut account.</p>"
+            f'<p><a href="{link}">Choose a new password →</a></p>'
+            "<p>The link works for 60 minutes. If you didn\u2019t ask for this, you can ignore it — "
+            "your password is unchanged.</p>"
         ),
     )

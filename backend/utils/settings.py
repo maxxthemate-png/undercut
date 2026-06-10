@@ -62,6 +62,7 @@ class Settings(BaseSettings):
     STRIPE_PRICE_PRO_ANNUAL: Optional[str] = None
     STRIPE_PRICE_SCALE_ANNUAL: Optional[str] = None
     PUBLIC_APP_URL: Optional[str] = None
+    PUBLIC_API_URL: Optional[str] = None   # backend base URL (unsubscribe links)
 
     # Proxy
     PROXY_URL: Optional[str] = None

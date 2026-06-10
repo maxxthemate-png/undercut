@@ -66,6 +66,8 @@ from .cron_routes import public_router as cron_public_router
 app.include_router(cron_public_router)
 from .tools_routes import public_router as tools_public_router
 app.include_router(tools_public_router)
+from .email_routes import public_router as email_public_router
+app.include_router(email_public_router)
 
 
 # ─── Request models ───────────────────────────────────────────────────────────

@@ -60,6 +60,38 @@ def verify_oauth_state(state: str | None):
     return payload.get("sub")
 
 
+_RESET_MIN = 60
+
+
+def make_reset_token(user: User) -> str:
+    """Signed, 60-min password-reset token. Bound to the tail of the current
+    password hash, so it self-invalidates once the password changes (single-use)."""
+    return jwt.encode(
+        {"sub": str(user.id), "purpose": "pwd_reset", "pwv": (user.password_hash or "")[-12:],
+         "exp": datetime.utcnow() + timedelta(minutes=_RESET_MIN)},
+        settings.SECRET_KEY, algorithm=_ALGO,
+    )
+
+
+def verify_reset_token(token: str, db: Session) -> User | None:
+    """Return the User for a valid, unexpired, unused reset token, else None."""
+    try:
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[_ALGO])
+    except JWTError:
+        return None
+    if payload.get("purpose") != "pwd_reset":
+        return None
+    try:
+        user = db.get(User, _uuid.UUID(str(payload.get("sub"))))
+    except (ValueError, TypeError):
+        return None
+    if not user or not user.is_active:
+        return None
+    if payload.get("pwv") != (user.password_hash or "")[-12:]:
+        return None  # password already changed — token spent
+    return user
+
+
 def current_user(authorization: str | None = Header(default=None),
                  db: Session = Depends(get_db)) -> User:
     if not authorization or not authorization.lower().startswith("bearer "):

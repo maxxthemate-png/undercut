@@ -1,6 +1,6 @@
 """Public lead capture (waitlist) — turns landing/compare visitors into leads
 even before they sign up or before billing is live. No auth; email only."""
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel
 from sqlalchemy import select, func
 from sqlalchemy.orm import Session
@@ -8,8 +8,11 @@ from sqlalchemy.orm import Session
 from ..models.database import get_db
 from ..models.repricer_models import Lead
 from ..utils.notifications import send_email_alert
+from ..utils.throttle import IPThrottle, client_ip
 
 public_router = APIRouter(prefix="/api/leads", tags=["leads-public"])
+
+_lead_throttle = IPThrottle(5, 60)
 
 
 class LeadIn(BaseModel):
@@ -22,12 +25,19 @@ def _valid(email: str) -> bool:
 
 
 @public_router.post("")
-def capture_lead(body: LeadIn, db: Session = Depends(get_db)):
+def capture_lead(body: LeadIn, request: Request, db: Session = Depends(get_db)):
+    if _lead_throttle.over_limit(client_ip(request)):
+        raise HTTPException(status_code=429, detail="Too many submissions — try again in a minute.")
     email = (body.email or "").strip().lower()
     if not _valid(email):
         raise HTTPException(status_code=400, detail="valid email required")
     src = (body.source or "landing")[:50]
-    if not db.scalar(select(Lead).where(Lead.email == email)):
+    existing = db.scalar(select(Lead).where(Lead.email == email))
+    if existing:
+        if existing.email_unsubscribed:   # re-submitting the form = explicit re-consent
+            existing.email_unsubscribed = False
+            db.commit()
+    else:
         db.add(Lead(email=email, source=src))
         db.commit()
         try:  # best-effort operator alert (speed-to-lead) — never blocks capture
