@@ -16,6 +16,7 @@ export default function Page() {
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="font-bold text-lg">Undercut</Link>
           <div className="flex items-center gap-4 text-sm">
+            <Link href="/ebay-fee-calculator" className="text-gray-600 hover:text-gray-900">Fee calculator</Link>
             <Link href="/compare" className="text-gray-600 hover:text-gray-900">Compare</Link>
             <Link href="/signup" className="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free</Link>
           </div>
