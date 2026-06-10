@@ -19,3 +19,11 @@ jobs:
         env:
           API_URL: ${{ secrets.API_URL }}
           CRON_KEY: ${{ secrets.CRON_KEY }}
+      - name: Trigger ops-digest
+        run: |
+          curl -fsS -X POST "$API_URL/api/cron/ops-digest" \
+            -H "X-Cron-Key: $CRON_KEY" \
+            --max-time 120 -w '\nHTTP %{http_code}\n'
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          CRON_KEY: ${{ secrets.CRON_KEY }}

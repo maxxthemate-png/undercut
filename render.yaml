@@ -1,6 +1,11 @@
-# Render Blueprint — Undercut eBay repricer backend (API + worker + beat + Postgres + Redis).
+# Render Blueprint — Undercut eBay repricer backend (API + Postgres + Redis).
 # Dashboard (Next.js) deploys separately on Vercel (set API_URL to the API service URL).
 # Secrets (sync:false) are entered once in the Render dashboard.
+# NOTE: scheduling runs via GitHub Actions crons hitting key-protected endpoints
+# (reprice every 15 min, lifecycle emails + ops digest daily, health check every
+# 10 min) — the old celery worker/beat services were removed 2026-06-10 (~$20/mo).
+# GOTCHA: the api service reads SERVICE-level env vars, not this group — set
+# secrets at the service level in the dashboard and redeploy.
 
 databases:
   - name: undercut-db
@@ -24,32 +29,6 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: "3.11.9"
-      - key: DATABASE_URL
-        fromDatabase: { name: undercut-db, property: connectionString }
-      - key: REDIS_URL
-        fromService: { type: keyvalue, name: undercut-redis, property: connectionString }
-      - fromGroup: undercut-secrets
-
-  - type: worker
-    name: undercut-worker
-    runtime: python
-    plan: starter
-    buildCommand: pip install -r backend/requirements.txt
-    startCommand: celery -A backend.tasks.worker:celery_app worker --loglevel=info --concurrency=2
-    envVars:
-      - key: DATABASE_URL
-        fromDatabase: { name: undercut-db, property: connectionString }
-      - key: REDIS_URL
-        fromService: { type: keyvalue, name: undercut-redis, property: connectionString }
-      - fromGroup: undercut-secrets
-
-  - type: worker
-    name: undercut-beat
-    runtime: python
-    plan: starter
-    buildCommand: pip install -r backend/requirements.txt
-    startCommand: celery -A backend.tasks.worker:celery_app beat --loglevel=info
-    envVars:
       - key: DATABASE_URL
         fromDatabase: { name: undercut-db, property: connectionString }
       - key: REDIS_URL

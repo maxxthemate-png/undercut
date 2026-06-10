@@ -1,97 +1,44 @@
-# ListingArb — AI-Powered Marketplace Arbitrage System
+# Undercut
 
-## What It Does
-Monitors Facebook Marketplace for high-ticket items ($10k+), auto-outreaches sellers with a zero-risk pitch, cross-posts agreements to 10-15 platforms, and coordinates deals — capturing the upside as your fee.
+**Automated eBay repricer with a hard price floor.** Beats the lowest competitor on every
+listing, 24/7 — but never reprices below the per-item floor the seller sets
+(cost + fees + minimum margin). Live at **https://undercut-nu.vercel.app**.
 
-## Quick Start
+## Architecture
 
-### Prerequisites
-- Python 3.11+
-- Node.js 18+
-- Docker + Docker Compose
-- Supabase account (free tier works)
-- Redis (via Docker)
-- Twilio account (SMS alerts)
-- Anthropic API key
+| Piece | Tech | Where |
+|---|---|---|
+| API | FastAPI + SQLAlchemy 2 + Alembic (Python 3.11) | Render (`undercut-api`, auto-deploys on push to `main`; preDeploy runs migrations) |
+| DB / cache | Postgres (basic-256mb) + Redis (free) | Render |
+| Frontend | Next.js 14 App Router + Tailwind | Vercel (deploy with `cd dashboard && npx vercel --prod`) |
+| Billing | Stripe Checkout + portal + webhooks (monthly + annual) | live mode |
+| Marketplace | eBay OAuth (per-seller, encrypted at rest) + Trading/Browse APIs | — |
+| AI | Anthropic Claude pricing advisor | `backend/agents/pricing_advisor.py` |
+| Email | SendGrid — customer lifecycle + operator alerts | `backend/utils/notifications.py` |
+| Scheduling | GitHub Actions crons → key-protected endpoints (no celery in prod) | `.github/workflows/` |
 
-### 1. Clone and configure
+### Scheduled jobs (GitHub Actions)
+- `reprice.yml` — every 15 min → `POST /api/repricer/cron/reprice-all`
+- `lifecycle-emails.yml` — daily → lifecycle emails + ops digest
+- `health-check.yml` — every 10 min → probes API/frontend/billing, emails operator on failure
+- `db-backup.yml` — weekly → encrypted `pg_dump` artifact (28-day retention)
+
+## Local dev
 ```bash
-git clone <your-repo>
-cd listingarb
-cp .env.example .env
-# Fill in all values in .env
+# backend
+cd backend && python -m venv venv && venv/bin/pip install -r requirements.txt
+cp ../.env.example ../.env   # fill in keys
+venv/bin/uvicorn backend.api.main:app --reload   # from repo root
+# frontend
+cd dashboard && npm i && npm run dev
 ```
 
-### 2. Start infrastructure
-```bash
-docker-compose up -d redis
-```
+## Key directories
+- `backend/api/` — routes (auth, repricer, billing, leads, tools, admin, cron, email)
+- `backend/services/` — reprice engine, billing, lifecycle emails, ops digest
+- `dashboard/app/` — marketing site + SEO engine (`_content/` registry) + dashboard
+- `OPERATIONS.md` — ops runbook · `DEPLOY_UNDERCUT.md` — deploy specifics
 
-### 3. Install Python dependencies
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-playwright install chromium
-```
-
-### 4. Run database migrations
-```bash
-python -m alembic upgrade head
-```
-
-### 5. Start the backend
-```bash
-# Terminal 1: FastAPI server
-uvicorn api.main:app --reload --port 8000
-
-# Terminal 2: Celery worker
-celery -A tasks.worker worker --loglevel=info
-
-# Terminal 3: Celery beat (scheduler)
-celery -A tasks.worker beat --loglevel=info
-```
-
-### 6. Start the dashboard
-```bash
-cd dashboard
-npm install
-npm run dev
-# Visit http://localhost:3000
-```
-
-## Autonomy Levels
-Set `AUTONOMY_LEVEL` in `.env`:
-- `1` — Monitors + suggests + drafts DMs (you approve/send)
-- `2` — Auto-sends DMs + handles conversation until agreement
-- `3` — Full autonomy: listing creation + posting after seller agreement
-
-**Start at Level 1. Prove the model. Then escalate.**
-
-## Emergency Pause
-```bash
-# Halt all agents immediately
-curl -X POST http://localhost:8000/api/system/pause
-
-# Or from the dashboard: click the red "Emergency Pause" button
-```
-
-## Project Structure
-```
-listingarb/
-├── backend/
-│   ├── agents/          # AI agent logic (scorer, dm_gen, response_classifier)
-│   ├── scrapers/        # Marketplace scrapers (Facebook, Craigslist)
-│   ├── automation/      # Playwright automation (DM sender, platform poster)
-│   ├── services/        # Core business logic services
-│   ├── api/             # FastAPI routes
-│   ├── models/          # SQLAlchemy models
-│   ├── tasks/           # Celery tasks + scheduler
-│   └── utils/           # Helpers: logging, rate limiter, notifications
-├── dashboard/           # Next.js operator dashboard
-├── contracts/           # Contract template + generator
-├── docker/              # Dockerfiles
-├── n8n/                 # n8n workflow exports
-└── scripts/             # Setup and utility scripts
-```
+> **Legacy note:** files referencing "ListingArb" (FB-arbitrage: `backend/scrapers/facebook.py`,
+> `backend/automation/`, `backend/tasks/worker.py` legacy jobs, `contracts/`) are from the
+> pre-pivot product, are gated behind `ENABLE_LEGACY_ARBITRAGE=false`, and never run.

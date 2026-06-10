@@ -1,0 +1,40 @@
+# Uptime monitor — probes the revenue path every 10 min; emails the operator on failure.
+# Alerts go direct via SendGrid (the backend can't report its own death).
+name: health-check
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Probe API, frontend, billing
+        id: probe
+        continue-on-error: true
+        run: |
+          set -e
+          FAILS=""
+          # 1. API health — must be 200 AND report the database as up
+          BODY=$(curl -fsS --max-time 30 --retry 2 --retry-delay 5 "${{ secrets.API_URL }}/health" || echo "FETCH_FAILED")
+          echo "$BODY" | grep -q '"database":\s*"up"' || FAILS="$FAILS api-health"
+          # 2. Frontend canary
+          curl -fsS -o /dev/null --max-time 30 --retry 2 --retry-delay 5 "https://undercut-nu.vercel.app/" || FAILS="$FAILS frontend"
+          # 3. Public revenue-path canary
+          curl -fsS -o /dev/null --max-time 30 --retry 2 --retry-delay 5 "${{ secrets.API_URL }}/api/billing/plans" || FAILS="$FAILS billing-plans"
+          if [ -n "$FAILS" ]; then
+            echo "fails=$FAILS" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
+      - name: Alert operator
+        if: steps.probe.outcome == 'failure'
+        run: |
+          curl -sS -X POST https://api.sendgrid.com/v3/mail/send \
+            -H "Authorization: Bearer ${{ secrets.SENDGRID_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"personalizations\":[{\"to\":[{\"email\":\"${{ secrets.ALERT_TO }}\"}]}],\"from\":{\"email\":\"${{ secrets.ALERT_FROM }}\",\"name\":\"Undercut Monitor\"},\"subject\":\"[Undercut DOWN] ${{ steps.probe.outputs.fails }}\",\"content\":[{\"type\":\"text/plain\",\"value\":\"Health check failed: ${{ steps.probe.outputs.fails }}\\nTime: $(date -u)\\nRe-runs every 10 minutes until green.\"}]}"
+      - name: Fail the run if probes failed
+        if: steps.probe.outcome == 'failure'
+        run: exit 1

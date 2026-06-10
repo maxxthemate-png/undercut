@@ -13,3 +13,11 @@ async def cron_lifecycle_emails(x_cron_key: str = Header(default=None)):
         raise HTTPException(status_code=403, detail="invalid cron key")
     from ..services.lifecycle_emails import run_lifecycle_emails
     return run_lifecycle_emails()
+
+
+@public_router.post("/ops-digest")
+async def cron_ops_digest(x_cron_key: str = Header(default=None)):
+    if not settings.UNDERCUT_API_KEY or x_cron_key != settings.UNDERCUT_API_KEY:
+        raise HTTPException(status_code=403, detail="invalid cron key")
+    from ..services.ops_digest import run_ops_digest
+    return run_ops_digest()

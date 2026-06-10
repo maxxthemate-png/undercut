@@ -1,0 +1,29 @@
+# Weekly encrypted Postgres backup → GitHub artifact (28-day retention).
+# Encrypted with BACKUP_PASSPHRASE (AES-256) — dumps contain user emails/hashes.
+# Restore: openssl enc -d -aes-256-cbc -pbkdf2 -pass pass:<PHRASE> -in dump.enc | pg_restore -d "$URL" --clean
+name: db-backup
+on:
+  schedule:
+    - cron: "23 9 * * 1"
+  workflow_dispatch:
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Install postgres client
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq postgresql-client
+      - name: Dump + encrypt
+        run: |
+          pg_dump "${{ secrets.DATABASE_URL_EXTERNAL }}" -Fc \
+            | openssl enc -aes-256-cbc -pbkdf2 -pass env:PASS -out "undercut-$(date +%F).dump.enc"
+          ls -la undercut-*.dump.enc
+        env:
+          PASS: ${{ secrets.BACKUP_PASSPHRASE }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: db-backup-${{ github.run_id }}
+          path: undercut-*.dump.enc
+          retention-days: 28
