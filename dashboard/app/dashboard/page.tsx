@@ -80,6 +80,12 @@ export default function Dashboard() {
     const d = await (await api('/api/billing/checkout', { method: 'POST', body: JSON.stringify({ plan, interval }) })).json()
     if (d.url) window.location.href = d.url; else alert(d.detail || 'Billing not configured yet.')
   }
+  async function manageBilling() {
+    setBusy('portal')
+    const d = await (await api('/api/billing/portal', { method: 'POST' })).json()
+    setBusy('')
+    if (d.url) window.location.href = d.url; else alert(d.detail || 'No billing account yet.')
+  }
   function logout() { tok.clear(); router.push('/login') }
 
   return (
@@ -90,6 +96,7 @@ export default function Dashboard() {
           <div className="flex items-center gap-3 text-sm">
             {me && <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-700">{me.plan} · {listings.length}/{me.listing_limit}</span>}
             <button onClick={runReprice} disabled={busy === 'run'} className="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 disabled:opacity-50">{busy === 'run' ? 'Repricing…' : '↺ Reprice now'}</button>
+            {me?.stripe_customer_id && <button onClick={manageBilling} disabled={busy === 'portal'} className="px-3 py-1.5 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 disabled:opacity-50">{busy === 'portal' ? '…' : 'Billing'}</button>}
             <button onClick={logout} className="text-gray-500 hover:text-gray-800">Log out</button>
           </div>
         </div>
