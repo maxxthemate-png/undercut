@@ -156,3 +156,14 @@ class RepriceRun(Base):
     repriced = Column(Integer, default=0)
     errors = Column(Integer, default=0)
     error_sample = Column(Text)
+
+
+class ProductPriceSnapshot(Base):
+    """Daily lowest-price snapshot for a tracked product (public price-tracker pages)."""
+    __tablename__ = "product_price_snapshots"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    slug = Column(String(80), index=True)
+    lowest = Column(Float)
+    listing_count = Column(Integer)
+    captured_at = Column(DateTime, default=datetime.utcnow, index=True)

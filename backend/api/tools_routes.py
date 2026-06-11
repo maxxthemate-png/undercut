@@ -40,6 +40,32 @@ def _throttled(ip: str) -> bool:
     return False
 
 
+@public_router.get("/price-history")
+def price_history(request: Request, slug: str = Query(min_length=2, max_length=80)):
+    """Daily snapshots for a tracked product — powers the public price-tracker charts."""
+    if _throttled(_client_ip(request)):
+        raise HTTPException(429, "Too many requests — try again in a minute.")
+    from ..utils.tracked_products import TRACKED_PRODUCTS
+    if slug not in TRACKED_PRODUCTS:
+        raise HTTPException(404, "unknown product")
+    from datetime import datetime, timedelta
+    from sqlalchemy import select
+    from ..models.database import SessionLocal
+    from ..models.repricer_models import ProductPriceSnapshot
+    db = SessionLocal()
+    try:
+        rows = db.scalars(
+            select(ProductPriceSnapshot)
+            .where(ProductPriceSnapshot.slug == slug,
+                   ProductPriceSnapshot.captured_at >= datetime.utcnow() - timedelta(days=35))
+            .order_by(ProductPriceSnapshot.captured_at)).all()
+        return {"slug": slug, "history": [
+            {"date": r.captured_at.strftime("%m/%d") if r.captured_at else None,
+             "lowest": r.lowest, "count": r.listing_count} for r in rows]}
+    finally:
+        db.close()
+
+
 @public_router.get("/price-check")
 async def price_check(request: Request, q: str = Query(min_length=3, max_length=80)):
     """Lowest live eBay price + cheapest listings for a product query."""
