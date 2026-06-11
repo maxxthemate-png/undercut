@@ -1,0 +1,29 @@
+name: IndexNow ping
+# Autonomous search distribution: every frontend change + a weekly refresh pushes
+# all sitemap URLs to Bing/DuckDuckGo/Yandex/Seznam/Naver via IndexNow.
+# No secrets needed — the IndexNow key is public by design.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "dashboard/**"
+  schedule:
+    - cron: "0 7 * * 1" # weekly refresh, Mondays 07:00 UTC
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      # Give Vercel time to finish deploying the just-pushed content before
+      # telling engines to crawl it (push events only; harmless otherwise).
+      - name: Wait for deploy propagation
+        if: github.event_name == 'push'
+        run: sleep 180
+      - name: Submit sitemap URLs to IndexNow
+        run: node scripts/indexnow-ping.mjs
