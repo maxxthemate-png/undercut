@@ -11,6 +11,8 @@ jobs:
   lifecycle-emails:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout (for Airtable sync script)
+        uses: actions/checkout@v4
       - name: Trigger lifecycle-emails
         run: |
           curl -fsS -X POST "$API_URL/api/cron/lifecycle-emails" \
@@ -35,3 +37,11 @@ jobs:
         env:
           API_URL: ${{ secrets.API_URL }}
           CRON_KEY: ${{ secrets.CRON_KEY }}
+      - name: Sync Lead Funnel → Airtable
+        # Clean no-op until the AIRTABLE_PAT repo secret is set (see scripts/sync-airtable-funnel.mjs).
+        run: node scripts/sync-airtable-funnel.mjs
+        env:
+          AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
+          API_URL: ${{ secrets.API_URL }}
+          ADMIN_KEY: ${{ secrets.ADMIN_KEY }}
+          UNDERCUT_API_KEY: ${{ secrets.CRON_KEY }}
