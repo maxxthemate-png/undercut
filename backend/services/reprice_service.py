@@ -149,24 +149,22 @@ async def reprice_all(store_ids: list | None = None) -> dict:
                 plan, limit = billing.effective_access(user)
 
                 if settings.REPRICER_TIER_FREQUENCY and is_scheduled:
-                    interval = billing.PLAN_REPRICE_INTERVAL_MIN.get(plan, 55)
-                    if interval and store.last_reprice_run_at and \
-                            (now - store.last_reprice_run_at) < timedelta(minutes=interval):
+                    if billing.freq_should_skip(plan, store.last_reprice_run_at, now):
                         skipped_frequency += len(group)
                         continue
 
                 if settings.REPRICER_ENFORCE_PLAN_LIMITS and is_scheduled:
                     budget = user_budget.setdefault(user.id, limit)
-                    if budget <= 0:
-                        skipped_over_limit += len(group)
-                        continue
-                    if len(group) > budget:
+                    take, skipped = billing.plan_budget_take(budget, len(group))
+                    if skipped:
+                        skipped_over_limit += skipped
+                    if take < len(group):
+                        if take == 0:
+                            continue
                         # stalest-first so capped accounts rotate fairly across runs
                         group = sorted(group, key=lambda l: (l.last_repriced_at is not None,
-                                                             l.last_repriced_at or datetime.min))
-                        skipped_over_limit += len(group) - budget
-                        group = group[:budget]
-                    user_budget[user.id] = budget - len(group)
+                                                             l.last_repriced_at or datetime.min))[:take]
+                    user_budget[user.id] = budget - take
 
             # Backfill the run stamp even with flags off, so flipping
             # REPRICER_TIER_FREQUENCY on later is safe immediately.

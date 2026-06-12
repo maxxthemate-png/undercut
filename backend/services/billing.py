@@ -79,6 +79,33 @@ def normalize_access(user) -> bool:
 PLAN_REPRICE_INTERVAL_MIN = {"scale": 0, "pro": 12, "starter": 55, "free": 55, TRIAL_PLAN: 55}
 
 
+def freq_should_skip(plan: str, last_run_at, now) -> bool:
+    """Pure decision: should a SCHEDULED reprice run skip this store on plan grounds?
+
+    Skips when the plan has a minimum interval (>0) and the store was repriced
+    more recently than that interval. scale (interval 0) never skips. A store
+    that has never run (last_run_at is None) never skips. Pure + side-effect free
+    so it is unit-testable; reprice_all gates it behind REPRICER_TIER_FREQUENCY.
+    """
+    interval = PLAN_REPRICE_INTERVAL_MIN.get(plan, 55)
+    if not interval or not last_run_at:
+        return False
+    return (now - last_run_at) < timedelta(minutes=interval)
+
+
+def plan_budget_take(remaining: int, group_len: int) -> tuple[int, int]:
+    """Pure decision: of `group_len` listings, how many to (take, skip) given the
+    user's `remaining` per-run listing budget. take is capped at the budget;
+    everything beyond it is skipped. The caller subtracts take from remaining.
+    Behind REPRICER_ENFORCE_PLAN_LIMITS. Pure so it is unit-testable.
+    """
+    if remaining <= 0:
+        return 0, group_len
+    if group_len > remaining:
+        return remaining, group_len - remaining
+    return group_len, 0
+
+
 def effective_access(user) -> tuple[str, int]:
     """(effective_plan, effective_listing_limit) for ENFORCEMENT — read-only.
     - expired trial                  -> free limits
