@@ -2646,5 +2646,109 @@ export const guides: PageContent[] = [
     ],
     "lastUpdated": "2026-06-10",
     "leadForm": true
+  },
+  {
+    "slug": "ebay-repricing-for-sneakers",
+    "collection": "guides",
+    "template": "guide",
+    "title": "eBay Repricing for Sneakers & Streetwear Resellers — Undercut",
+    "metaDescription": "Set hard floors and the right repricing aggressiveness for sneaker and streetwear flips where comps swing on hype. Start a 14-day no-card trial.",
+    "h1": "How to Reprice Sneakers and Streetwear on eBay Without Torching Your Margin",
+    "eyebrow": "Guide",
+    "intro": "Sneakers and streetwear are the most volatile category most eBay resellers will ever touch. A hyped release can trade at triple retail on drop day and sag back toward retail two weeks later, while a quiet colorway barely moves for months. Repricing by hand in that environment is a losing game — you are either overpriced and invisible, or chasing a falling market and giving away margin on every pair. The fix is automated repricing anchored to a hard floor for each listing, so you follow the market down to a win but never let a $120 pair go for $90 just to beat someone who mispriced theirs.",
+    "sections": [
+      {
+        "h2": "Why Sneaker and Streetwear Repricing Is Its Own Beast",
+        "body": "Most eBay categories move slowly. Sneakers do not. Prices spin around release hype, restock rumors, and influencer moments, and a single StockX dip can drag the whole eBay comp set down within hours. On top of that, condition is everything: a deadstock (DS) pair and a visibly worn pair of the same SKU are effectively two different products with two different floors. If your repricing treats them the same, you will either underprice your DS pairs or fail to move your used inventory before it depreciates further. A repricer that beats the lowest live competitor while respecting a per-listing hard floor lets you stay competitive on the pairs worth winning without racing a mispriced seller to the bottom.",
+        "bullets": [
+          "Hyped releases can swing 20-40% within a single news or restock cycle",
+          "Deadstock, VNDS, and used pairs of the same SKU need separate floors",
+          "Cross-platform comps (StockX, GOAT) pull eBay prices down faster than most sellers check them",
+          "Aging hype stock loses value every week — a floor keeps you honest about when to cut a pair loose"
+        ]
+      },
+      {
+        "h2": "Calculating a Hard Floor for a Sneaker Listing",
+        "body": "Your floor is the lowest price at which selling the pair is still worth it after every cost. For sneakers, that means cost of goods, shipping (double-boxing and a heavier label than most categories), eBay's final value fee, and your minimum acceptable margin. Here is a worked example for a popular Jordan retail pickup:\n\nCost of goods: $120.00\nShipping (box-in-box + label): $12.00\neBay final value fee: 13.25%\nMinimum margin target: 12%\n\nFloor = (Cost + Shipping) / (1 - FVF% - Margin%) = (120 + 12) / (1 - 0.1325 - 0.12) = 132 / 0.7475 = $176.59\n\nRound up to $176.99 and that is your hard floor. Undercut will reprice that listing down to beat the lowest competitor, but it will never cross $176.99 chasing a sale. You win the pair at a profit or you let it sit — you never sell at a loss.",
+        "bullets": [
+          "Always use real double-boxed shipping cost — sneaker packaging is heavier than it looks",
+          "Use eBay's current final value fee for the sneakers category, not a blended guess",
+          "Add a buffer for returns and 'not as described' claims, which run high in sneakers",
+          "Re-check floors as the resale market and your replacement cost move"
+        ]
+      },
+      {
+        "h2": "Setting Aggressiveness: Drop-Day Hype vs. Aging Stock",
+        "body": "Not every pair should chase the floor at the same speed. A brand-new hyped release with deep demand should hold near market — dropping fast only trains buyers to wait you out and leaves money on the table. A pair that has sat 60 days while three other sellers undercut each other is the opposite case: you want to be at or near your floor quickly to move it before the hype fully decays. Undercut's AI aggressiveness tuning (Pro and Scale) lets you configure how quickly and how far each listing moves toward its floor, and you can set rules by tag — for example, anything tagged 'aging' moves aggressively while anything tagged 'hyped DS' stays conservative. That way one inventory of wildly different demand curves does not get one blunt repricing behavior."
+      },
+      {
+        "h2": "Condition Tiers: Why One Floor Never Fits DS, VNDS, and Used",
+        "body": "The single biggest margin leak in sneaker repricing is applying one floor across condition tiers. A deadstock pair, a 'very near deadstock' (VNDS) pair, and a used pair carry different costs, different buyer expectations, and different acceptable margins. The right approach is to compute a separate floor for each listing using the same formula, then let the repricer compete only against genuinely comparable listings. A used pair priced against deadstock comps will look overpriced and never sell; a deadstock pair floored like a used pair will sell instantly and burn your margin. Treat each condition as its own product, set its own floor, and let automation hold the line on all of them at once.",
+        "bullets": [
+          "Compute a distinct floor per condition tier, not one floor per SKU",
+          "Match each listing against comparable-condition competitors where possible",
+          "Tag condition explicitly so AI aggressiveness rules can target it",
+          "Liquidate the lowest tier first when storage or cash flow is tight"
+        ]
+      },
+      {
+        "h2": "Repricing Frequency for Release-Day Volatility",
+        "body": "On a normal day, repricing once or twice is fine. On a release or restock day, the comp set can move every few minutes, and the seller who is consistently one position too high simply does not get the sale. The faster your repricing cycle, the more time your listing spends at the top of search while the market churns. Undercut's Pro plan reprices every 15 minutes and Scale reprices every 5 minutes — for sellers moving real volume around drops, that cadence is the difference between catching the wave and watching it pass. If you are just starting, the free plan (25 listings, repriced multiple times daily) is enough to learn the floor-first workflow on a single model before you scale up."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Should I reprice deadstock and used pairs of the same shoe the same way?",
+        "a": "No. Deadstock and used pairs are effectively different products with different costs, buyer expectations, and acceptable margins. Give each listing its own hard floor and, on Pro or Scale, its own aggressiveness rule so used stock can liquidate while deadstock holds near market."
+      },
+      {
+        "q": "How low should my floor be on a hyped release?",
+        "a": "Your floor should equal the lowest price that still clears your cost of goods, double-boxed shipping, eBay's final value fee, and your minimum margin. On a hyped pair you will rarely hit the floor, but it protects you on the day the hype breaks and comps fall fast."
+      },
+      {
+        "q": "Can Undercut handle size-run listings where each size has a different cost?",
+        "a": "Yes. Each listing carries its own floor, so a size you paid more for can be floored higher than a common size. Set the floor per listing and the repricer respects it independently while still beating the lowest comparable competitor."
+      },
+      {
+        "q": "Will automated repricing make it look like I'm dumping pairs?",
+        "a": "Not if your floor is set correctly. Undercut only undercuts the live competitor low and stops at your floor — it never spirals to the bottom. Buyers see a competitive price; you keep your margin intact on every sale."
+      },
+      {
+        "q": "Is the free plan enough to test this on my sneaker inventory?",
+        "a": "For most resellers, yes, to start. The free plan covers 25 listings repriced multiple times daily, which is enough to prove the floor-first workflow on a focused set of pairs before moving to Starter or Pro for more listings and faster cycles."
+      }
+    ],
+    "cta": {
+      "heading": "Reprice your sneakers without selling below cost",
+      "sub": "Set a hard floor on every pair and let Undercut win the sale for you — start a 14-day no-card trial."
+    },
+    "internalLinks": [
+      {
+        "href": "/repricers/sneakers",
+        "label": "Undercut's eBay sneaker repricer"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to set an eBay price floor"
+      },
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "Never sell below cost on eBay"
+      },
+      {
+        "href": "/ebay-profit-calculator",
+        "label": "Free eBay profit calculator"
+      },
+      {
+        "href": "/guides/collectibles-repricing",
+        "label": "Repricing collectibles on eBay"
+      },
+      {
+        "href": "/pricing",
+        "label": "Undercut plans & pricing"
+      }
+    ],
+    "lastUpdated": "2026-06-12",
+    "leadForm": true
   }
 ]
