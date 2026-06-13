@@ -3338,5 +3338,305 @@ export const guides: PageContent[] = [
     ],
     "lastUpdated": "2026-06-13",
     "leadForm": true
+  },
+  {
+    "slug": "winning-ebay-price-wars",
+    "collection": "guides",
+    "template": "guide",
+    "title": "How to Win an eBay Price War Without Going Broke — Undercut",
+    "metaDescription": "When two sellers keep undercutting each other, a hard floor lets you compete on the listings worth winning and walk away from the rest. 14-day no-card trial.",
+    "h1": "Surviving an eBay Price War: Compete Where It Pays, Walk Away Where It Doesn't",
+    "eyebrow": "Guide",
+    "intro": "A price war starts innocently: a competitor drops a dollar, you match, they drop again, and within a week you're both selling near cost. The seller who \"wins\" a race to the bottom often wins nothing but a pile of break-even sales. The way out isn't to undercut harder — it's to know your floor cold, compete only on the listings where winning is still profitable, and deliberately let the unprofitable ones go. This guide lays out how a hard floor turns an emotional price war into a calm, rules-based decision you make once and let run.",
+    "sections": [
+      {
+        "h2": "Why Price Wars Destroy Margin So Fast",
+        "body": "A price war is a feedback loop. Each undercut invites a counter-undercut, and because eBay buyers sort by price, neither seller can stop without ceding the sale. Without a hard limit, that loop only ends when someone hits cost — and often both sellers are now selling at a margin that doesn't cover the time and risk of fulfilling the order. The mistake is treating every listing as a war worth winning. Some are; many aren't. The sellers who stay profitable are the ones who decided their floor in advance and let it make the stop-or-fight call automatically, instead of reacting emotionally to every competitor move.",
+        "bullets": [
+          "Price-sorted search turns each undercut into a forced counter-undercut",
+          "Without a floor, the loop ends only at (or below) cost",
+          "Winning a race to the bottom often means break-even sales",
+          "The fix is a pre-set floor, not undercutting harder"
+        ]
+      },
+      {
+        "h2": "Your Floor Decides When to Fight and When to Fold",
+        "body": "A hard floor converts \"should I match this?\" into a yes/no the system answers for you. Worked example: your floor on an item is $48 (cost $32 + shipping $6 + fees + margin). A competitor sits at $52, so Undercut prices you to $51.99 and you win the sale profitably — fight. The competitor then drops to $46, below your $48 floor. Undercut holds you at $48 and stops — fold. You don't chase them to $45.99 and lose money to \"win.\" You've decided, in advance and without emotion, that this sale isn't worth having below $48. The competitor can have the unprofitable sales; you keep your margin and your sanity.",
+        "bullets": [
+          "Floor = cost + shipping + fees + minimum margin",
+          "Competitor above your floor → undercut and win profitably",
+          "Competitor below your floor → hold and let them have it",
+          "The decision is pre-made, so no emotional price-chasing"
+        ]
+      },
+      {
+        "h2": "Pick Your Battles Across the Catalog",
+        "body": "Not every listing deserves the same fight. Items with healthy demand, thin competition, or a differentiator (faster shipping, better feedback, bundled extras) are worth defending aggressively toward their floor. Commodity items where five sellers are racing each other to cost are often worth conceding — you let your price sit at the floor and win only when the others run out of stock or give up. Tagging your inventory by how contested and how profitable each item is lets you apply different repricing aggressiveness per group, so your attention and your margin go to the battles you can actually win.",
+        "bullets": [
+          "Defend items with demand, thin competition, or a real differentiator",
+          "Concede crowded commodity races — sit at the floor and wait",
+          "Tag inventory by contest level and profitability",
+          "Aggressiveness follows the listings worth winning"
+        ]
+      },
+      {
+        "h2": "Let Automation Hold the Line for You",
+        "body": "The hardest part of a price war is discipline — it's tempting to drop \"just one more dollar\" to win a sale you can see slipping away. Automation removes the temptation. With Undercut, you set each listing's floor once and the repricer enforces it on every cycle, undercutting competitors down to the floor and never past it, around the clock. On Pro and Scale, AI aggressiveness tuning decides how hard to push within those limits based on the competitive picture. You stop watching competitors obsessively and start trusting a rule that already encodes your worst-acceptable price — which is exactly the discipline a price war demands."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Should I always match a competitor who undercuts me?",
+        "a": "No. Match only while the competitor's price is above your floor, where winning is still profitable. Once they drop below your floor, hold and let them take the unprofitable sale. A hard floor makes that call automatically on every listing."
+      },
+      {
+        "q": "Doesn't refusing to chase mean I lose sales?",
+        "a": "You lose the unprofitable ones, which is the point. Chasing a competitor below cost wins sales that lose money. Holding at your floor keeps you the lowest profitable option, so you still win every sale that's actually worth having."
+      },
+      {
+        "q": "How do I decide which listings to fight for?",
+        "a": "Defend items with solid demand, limited competition, or a real edge like faster shipping or better feedback. Concede crowded commodity races to the floor. Tagging inventory and setting per-group aggressiveness focuses your margin on winnable battles."
+      },
+      {
+        "q": "Can automated repricing make price wars worse?",
+        "a": "Not when it's floor-bounded. Undercut only undercuts down to your floor and then stops — it never spirals. It actually ends the emotional part of a price war, because the stop point is decided in advance and enforced automatically."
+      },
+      {
+        "q": "What plan do I need for per-group aggressiveness?",
+        "a": "Any plan lets you set per-listing floors. Pro and Scale add AI aggressiveness tuning, so you can push hard on contested winnable items while conceding crowded races — useful once you're managing more than a handful of listings."
+      }
+    ],
+    "cta": {
+      "heading": "End the race to the bottom",
+      "sub": "Set a floor on every listing and let Undercut decide when to fight and when to fold — start a 14-day no-card trial."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/how-much-to-undercut-competitors-ebay",
+        "label": "How much to undercut competitors"
+      },
+      {
+        "href": "/glossary/race-to-the-bottom",
+        "label": "What is a race to the bottom?"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to set an eBay price floor"
+      },
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "Never sell below cost on eBay"
+      },
+      {
+        "href": "/ebay-profit-calculator",
+        "label": "eBay profit calculator"
+      },
+      {
+        "href": "/pricing",
+        "label": "Undercut plans & pricing"
+      }
+    ],
+    "lastUpdated": "2026-06-13",
+    "leadForm": true
+  },
+  {
+    "slug": "ebay-bulk-price-editing",
+    "collection": "guides",
+    "template": "guide",
+    "title": "Bulk Price Editing on eBay vs. Automated Repricing — Undercut",
+    "metaDescription": "eBay's bulk-edit and Seller Hub price tools are a manual stopgap. See where rules-based repricing with hard floors takes over. Start a 14-day no-card trial.",
+    "h1": "Where eBay's Bulk Price Editing Ends and Automated Repricing Begins",
+    "eyebrow": "Guide",
+    "intro": "eBay gives you real tools to change prices in bulk — Seller Hub's bulk editor, promotions, and markdown manager. They're genuinely useful for a one-time reset. But they share one limitation: they're manual snapshots. You set prices, walk away, and the market keeps moving without you. This guide is an honest comparison of what eBay's built-in bulk editing does well, where it falls short for active inventory, and the specific point at which rules-based automated repricing with a hard floor takes over — so you can use each for what it's actually good at.",
+    "sections": [
+      {
+        "h2": "What eBay's Bulk Editing Does Well",
+        "body": "Seller Hub's bulk editor lets you select many listings and change price, quantity, or other fields in one pass — perfect for a seasonal reset, a store-wide sale, or correcting a pricing mistake across a category. The markdown manager schedules percentage discounts for events. These tools are free, built in, and exactly right for deliberate, occasional, manual changes. If you're repricing your whole store once a quarter or running a Black Friday promotion, bulk editing is the correct tool and you don't need anything else. Credit where due: for set-piece changes, it works.",
+        "bullets": [
+          "Great for one-time, store-wide resets and seasonal sales",
+          "Markdown manager schedules event discounts",
+          "Free and built into Seller Hub",
+          "The right tool for deliberate, occasional changes"
+        ]
+      },
+      {
+        "h2": "Where It Falls Short for Active Inventory",
+        "body": "The limitation is that bulk editing is a snapshot, not a system. The moment you save, your prices are frozen while competitors keep moving. If you bulk-set a listing to $40 on Monday and a competitor drops to $38 on Tuesday, you're invisible until you notice and bulk-edit again. There's also no floor logic: a bulk percentage markdown applies the same cut to every item regardless of each one's actual cost, so a blanket \"20% off\" can quietly push your thin-margin items below break-even. For inventory in competitive, fast-moving categories, manual bulk edits are always one step behind the market.",
+        "bullets": [
+          "Prices freeze the instant you save — the market doesn't",
+          "No per-item floor: a blanket % cut can go below cost",
+          "Re-checking and re-editing is constant manual work",
+          "Always one step behind in competitive categories"
+        ]
+      },
+      {
+        "h2": "A Worked Comparison",
+        "body": "Say you have 200 active listings in a competitive category. Manual approach: you bulk-edit prices Monday morning, it takes 30 minutes, and by Wednesday a third of them are no longer the lowest because competitors moved. You either repeat the 30-minute edit every day (2.5 hours/week) or accept being stale. Automated approach: you set a hard floor on each listing once, and the repricer beats the lowest comparable competitor continuously, never crossing any floor — zero ongoing time. Even valuing your time at $20/hour, the manual route costs ~$50/week in labor to do worse than a $29/month plan does automatically. The break-even isn't close once inventory is active and contested.",
+        "bullets": [
+          "200 listings, manual: ~2.5 hrs/week and still goes stale",
+          "Automated: set floors once, then zero ongoing time",
+          "~$50/week of labor to underperform a $29/mo plan",
+          "Floors prevent the below-cost risk a blanket markdown creates"
+        ]
+      },
+      {
+        "h2": "Use Both — for What Each Is Good At",
+        "body": "This isn't either/or. Use eBay's bulk editor for what it's best at: the occasional deliberate reset, a scheduled sale, or fixing a category-wide mistake. Then let automated repricing handle the relentless day-to-day of staying competitive without going below your floor. In practice that means you bulk-set sensible starting prices and floors, then hand the ongoing adjustments to Undercut, which reprices on a 15-minute (Pro) or 5-minute (Scale) cycle and stops at every floor. The manual tool sets the stage; the repricer runs the show. You stop choosing between stale-but-free and current-but-manual, because automation gives you current-and-hands-off."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Is eBay's bulk price editor good enough on its own?",
+        "a": "For occasional, deliberate changes — seasonal resets, scheduled sales, fixing mistakes — yes. For active inventory in competitive categories it falls behind, because prices freeze the moment you save while competitors keep moving. That's where automated repricing takes over."
+      },
+      {
+        "q": "Can't I just bulk-edit prices every day?",
+        "a": "You can, but for a few hundred listings that's hours a week of manual work, and you're still stale between edits. Automated repricing does it continuously for no ongoing time, and adds per-item floors that blanket bulk edits can't enforce."
+      },
+      {
+        "q": "Does the markdown manager protect my margin?",
+        "a": "No. A markdown applies the same percentage to every item regardless of its individual cost, so a blanket cut can push thin-margin listings below break-even. A hard floor protects each listing's minimum individually, which a percentage markdown cannot."
+      },
+      {
+        "q": "Should I stop using bulk editing entirely?",
+        "a": "No — use it for what it's good at: one-time resets and scheduled promotions. Let automated repricing handle the ongoing competitive adjustments. The two complement each other; bulk editing sets the stage and the repricer runs the day-to-day."
+      },
+      {
+        "q": "How fast does automated repricing react versus manual edits?",
+        "a": "Undercut reprices on a 15-minute cycle (Pro) or 5-minute cycle (Scale), versus whenever you next sit down to bulk-edit. That difference is how much time your listings spend at the front of the price sort instead of stale and invisible."
+      }
+    ],
+    "cta": {
+      "heading": "Stop choosing between stale and manual",
+      "sub": "Bulk-set your floors once, then let Undercut keep you current and profitable automatically — 14-day no-card trial."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/manual-vs-automated-repricing",
+        "label": "Manual vs. automated repricing"
+      },
+      {
+        "href": "/guides/how-to-reprice-ebay-listings",
+        "label": "How to reprice eBay listings"
+      },
+      {
+        "href": "/guides/multi-listing-repricing-strategy",
+        "label": "Repricing across many listings"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to set an eBay price floor"
+      },
+      {
+        "href": "/ebay-profit-calculator",
+        "label": "eBay profit calculator"
+      },
+      {
+        "href": "/pricing",
+        "label": "Undercut plans & pricing"
+      }
+    ],
+    "lastUpdated": "2026-06-13",
+    "leadForm": true
+  },
+  {
+    "slug": "ebay-competitor-price-tracking",
+    "collection": "guides",
+    "template": "guide",
+    "title": "How to Track Competitor Prices on eBay — Undercut",
+    "metaDescription": "Manual comp-checking vs. continuous competitor-low tracking on eBay, and how that data should feed your repricing decisions. Start a 14-day no-card trial.",
+    "h1": "Tracking Competitor Prices on eBay — and Actually Using the Data",
+    "eyebrow": "Guide",
+    "intro": "Knowing what your competitors charge is step one of pricing well — but on eBay the lowest comparable price changes constantly, so a number you checked this morning may be wrong by lunch. Most sellers either spot-check a few listings by hand or ignore competitor prices entirely until sales dry up. Neither scales. This guide covers how to track competitor prices on eBay properly, the difference between a manual snapshot and continuous competitor-low tracking, and the part most guides skip: how that tracking data should actually drive a repricing decision rather than just sitting in a spreadsheet.",
+    "sections": [
+      {
+        "h2": "Manual Comp-Checking and Why It Breaks Down",
+        "body": "The manual method is familiar: search your item, sort by lowest price plus shipping, note the cheapest comparable listing, and decide whether to adjust. It works for a handful of items checked occasionally. It breaks down on two axes at once — volume and freshness. Across a few hundred listings you can't check them all often enough, and even the ones you do check go stale within hours as competitors move. You end up with a spreadsheet that's perpetually out of date and a nagging sense that you're leaving sales on the table. The information isn't wrong; it's just old by the time you act on it.",
+        "bullets": [
+          "Search, sort by lowest price + shipping, note the comp",
+          "Fine for a few items checked occasionally",
+          "Breaks on volume (too many) and freshness (goes stale fast)",
+          "A spreadsheet that's out of date the moment you finish it"
+        ]
+      },
+      {
+        "h2": "Continuous Competitor-Low Tracking",
+        "body": "The alternative is to track the lowest comparable price continuously and automatically. Instead of you checking, a system polls the live market on a schedule and records the competitor low for each of your listings, building a history rather than a single snapshot. That history is valuable on its own — you can see whether an item's market is trending down (time to be more aggressive) or holding firm (no need to discount) — but its real power is that it can feed pricing decisions in real time instead of waiting for you to read a report. Continuous tracking turns competitor price from something you look up into something your prices respond to automatically.",
+        "bullets": [
+          "A system polls the live market on a schedule, per listing",
+          "Records competitor-low history, not just a one-time snapshot",
+          "History reveals trends: drop aggressively vs. hold firm",
+          "Tracking that feeds pricing beats tracking you have to read"
+        ]
+      },
+      {
+        "h2": "Turning Tracking Into a Pricing Decision",
+        "body": "Tracking data only pays off when it drives action. Worked example: your listing sits at $60, your floor is $54, and continuous tracking shows the competitor low just dropped from $62 to $58. A manual workflow means you eventually notice and edit to $57.99. An automated workflow means the moment the competitor-low reading updates to $58, your price moves to $57.99 — above your $54 floor, so still profitable — without you touching anything. If the competitor low instead dropped to $51 (below your $54 floor), the system holds you at $54 rather than chasing a loss. The tracking and the decision are the same loop, closed automatically.",
+        "bullets": [
+          "$62 → $58 competitor low: auto-move to $57.99 (above $54 floor)",
+          "$58 → $51 competitor low: hold at $54, don't chase a loss",
+          "Tracking + decision become one automatic loop",
+          "No lag between learning the comp moved and acting on it"
+        ]
+      },
+      {
+        "h2": "How Undercut Tracks and Reprices Together",
+        "body": "Undercut treats tracking and repricing as one system. It reads the lowest comparable competitor for each listing, records it, and immediately uses it to reprice — undercutting down to the price you set and never below your floor. You see the latest competitor low right next to each listing in the dashboard, so the data that drove the price is visible, not hidden. On Pro the cycle runs every 15 minutes and on Scale every 5, which is how often the tracking-and-decision loop closes. You get the competitor intelligence and the action it implies in the same place, instead of maintaining a tracking spreadsheet on one screen and editing prices on another."
+      }
+    ],
+    "faq": [
+      {
+        "q": "What's the best way to track competitor prices on eBay?",
+        "a": "For a few items, manually sorting by lowest price plus shipping is fine. For real inventory, continuous automated tracking of the competitor low per listing is the only approach that stays current — and it's most useful when it feeds your repricing directly rather than a spreadsheet."
+      },
+      {
+        "q": "Why isn't a price-tracking spreadsheet enough?",
+        "a": "Because it's stale the moment you finish it and it doesn't act. Competitor prices move within hours, so a spreadsheet you update manually is always behind. Tracking only pays off when the data drives a pricing decision automatically and in real time."
+      },
+      {
+        "q": "Does competitor-low history actually matter?",
+        "a": "Yes. A history shows whether an item's market is trending down — signaling you can afford to be more aggressive toward your floor — or holding firm, where discounting just gives away margin. A single snapshot can't show that direction."
+      },
+      {
+        "q": "How does tracking turn into a price change safely?",
+        "a": "When the tracked competitor low updates, Undercut undercuts down to it — but never below your hard floor. So a falling competitor price moves you only as far as it's still profitable, and a competitor pricing below your floor leaves you holding at the floor instead of chasing a loss."
+      },
+      {
+        "q": "Can I see the competitor data behind a price change?",
+        "a": "Yes. The latest competitor low is shown next to each listing in the dashboard, so the data that drove the price is visible rather than hidden. Tracking and repricing live in the same place instead of separate tools."
+      }
+    ],
+    "cta": {
+      "heading": "Track competitors and act on it — automatically",
+      "sub": "Let Undercut read the market and reprice to win, never below your floor — start a 14-day no-card trial."
+    },
+    "internalLinks": [
+      {
+        "href": "/ebay-price-checker",
+        "label": "Free eBay price checker"
+      },
+      {
+        "href": "/guides/ebay-best-match-algorithm",
+        "label": "How eBay Best Match works"
+      },
+      {
+        "href": "/guides/how-to-reprice-ebay-listings",
+        "label": "How to reprice eBay listings"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to set an eBay price floor"
+      },
+      {
+        "href": "/ebay-profit-calculator",
+        "label": "eBay profit calculator"
+      },
+      {
+        "href": "/pricing",
+        "label": "Undercut plans & pricing"
+      }
+    ],
+    "lastUpdated": "2026-06-13",
+    "leadForm": true
   }
 ]
