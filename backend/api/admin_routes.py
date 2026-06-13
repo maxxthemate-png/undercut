@@ -6,12 +6,13 @@ scheduled cron uses). No PII beyond masked emails is returned.
 from datetime import datetime, timedelta
 
 from fastapi import APIRouter, Depends, HTTPException, Header
+from pydantic import BaseModel
 from sqlalchemy import select, func
 from sqlalchemy.orm import Session
 
 from ..models.database import get_db
-from ..models.repricer_models import User, Store, RepricerListing, PriceChange, Lead, RepriceRun
-from ..services import billing
+from ..models.repricer_models import User, Store, RepricerListing, PriceChange, CompetitorSnapshot, Lead, RepriceRun
+from ..services import auth, billing
 from ..utils.settings import settings
 
 router = APIRouter(prefix="/api/admin", tags=["admin"])
@@ -203,3 +204,83 @@ def public_stats(db: Session = Depends(get_db)):
     sellers = db.scalar(select(func.count()).select_from(Store)) or 0
     listings = db.scalar(select(func.count()).select_from(RepricerListing)) or 0
     return {"reprices": int(reprices), "sellers": int(sellers), "listings_managed": int(listings)}
+
+
+# --- demo seeding (internal verification tooling) --------------------------
+_DEMO_TITLES = [
+    "Refurbished Wireless Earbuds", "Vintage Levi's Denim Jacket", "Mechanical Keyboard 75%",
+    "Pokemon Booster Box (Sealed)", "OEM Brake Caliper - Front Left", "Nintendo Switch OLED",
+    "Cast Iron Dutch Oven 6Qt", "Carbon Road Bike Wheelset", "RTX Graphics Card",
+    "Leather Messenger Bag", "Cordless Impact Driver Kit", "Air Jordan 1 Retro - 10.5",
+    "Standing Desk Frame (Dual Motor)", "Noise-Cancelling Headphones", "Espresso Machine - Stainless",
+]
+
+
+class SeedDemoBody(BaseModel):
+    email: str = "demo@undercut.test"
+    password: str = "undercut-demo-1234"
+    plan: str = "free"        # free | starter | pro | scale (sets listing_limit)
+    listings: int = 40        # seed > limit to exercise the over-limit upgrade nudge
+    reset: bool = True        # wipe this demo account's stores/listings first
+
+
+@router.post("/seed-demo")
+def seed_demo(body: SeedDemoBody, x_admin_key: str | None = Header(default=None), db: Session = Depends(get_db)):
+    """Create/refresh a DEMO account with synthetic listings so the dashboard
+    (limit nudge, repricing UI) can be verified end-to-end without a real eBay
+    store. Key-gated. SAFETY: only touches obvious demo emails so it can never
+    clobber a real customer's data."""
+    _require_admin(x_admin_key)
+    email = body.email.strip().lower()
+    if not (email.endswith(".test") or "demo" in email):
+        raise HTTPException(status_code=400, detail="seed-demo only allows demo emails (must contain 'demo' or end in '.test')")
+    n = max(1, min(int(body.listings), 500))
+    plan = body.plan if body.plan in ("free", "starter", "pro", "scale") else "free"
+    limit = billing.limit_for_plan(plan)
+
+    user = db.scalar(select(User).where(User.email == email))
+    if user and body.reset:
+        store_ids = [s.id for s in db.scalars(select(Store).where(Store.user_id == user.id)).all()]
+        if store_ids:
+            lids = [l.id for l in db.scalars(select(RepricerListing).where(RepricerListing.store_id.in_(store_ids))).all()]
+            if lids:
+                db.query(PriceChange).filter(PriceChange.listing_id.in_(lids)).delete(synchronize_session=False)
+                db.query(CompetitorSnapshot).filter(CompetitorSnapshot.listing_id.in_(lids)).delete(synchronize_session=False)
+                db.query(RepricerListing).filter(RepricerListing.id.in_(lids)).delete(synchronize_session=False)
+            db.query(Store).filter(Store.id.in_(store_ids)).delete(synchronize_session=False)
+        db.commit()
+
+    if not user:
+        user = User(email=email, password_hash=auth.hash_pw(body.password))
+        db.add(user)
+    else:
+        user.password_hash = auth.hash_pw(body.password)
+    user.plan = plan
+    user.listing_limit = limit
+    user.trial_ends_at = None          # deterministic: no trial banner, just the plan/limit nudge
+    user.is_active = True
+    db.commit(); db.refresh(user)
+
+    store = Store(user_id=user.id, name="Demo eBay Store", ebay_user_id="demo_seller", is_active=True)
+    db.add(store); db.commit(); db.refresh(store)
+
+    for i in range(n):
+        base = 20 + (i * 7) % 240                      # spread prices across 20–260
+        db.add(RepricerListing(
+            store_id=store.id,
+            ebay_item_id=f"DEMO{i:05d}", sku=f"DEMO-SKU-{i:04d}",
+            title=f"{_DEMO_TITLES[i % len(_DEMO_TITLES)]} #{i + 1}",
+            current_price=round(base + 9.99, 2), quantity=1,
+            floor_price=round(base * 0.9 + 2, 2),
+            undercut_value=0.01, undercut_type="amount",
+            ai_enabled=True, repricing_enabled=True,
+            last_competitor_low=round(base + 4.99, 2),
+        ))
+    db.commit()
+
+    return {
+        "email": email, "password": body.password, "plan": plan,
+        "listing_limit": limit, "listings_created": n, "overflow": max(0, n - limit),
+        "token": auth.make_token(user.id),
+        "login_url": "https://undercut-nu.vercel.app/login",
+    }

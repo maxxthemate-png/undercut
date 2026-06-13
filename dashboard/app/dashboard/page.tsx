@@ -114,7 +114,7 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div><h1 className="text-lg font-bold">Undercut</h1><p className="text-xs text-gray-400">Automated eBay repricing</p></div>
           <div className="flex items-center gap-3 text-sm">
-            {me && <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-700">{me.plan} · {listings.length}/{me.listing_limit}</span>}
+            {me && <span className={`text-xs px-2 py-1 rounded-full ${limitNudge === 'over' ? 'bg-red-100 text-red-800' : limitNudge === 'near' ? 'bg-amber-100 text-amber-800' : 'bg-gray-100 text-gray-700'}`} title={limitNudge === 'over' ? `${overflow} listings over your plan limit` : limitNudge === 'near' ? 'Approaching your listing limit' : ''}>{me.plan} · {listings.length}/{me.listing_limit}</span>}
             <button onClick={runReprice} disabled={busy === 'run'} className="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 disabled:opacity-50">{busy === 'run' ? 'Repricing…' : '↺ Reprice now'}</button>
             {me?.stripe_customer_id && <button onClick={manageBilling} disabled={busy === 'portal'} className="px-3 py-1.5 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 disabled:opacity-50">{busy === 'portal' ? '…' : 'Billing'}</button>}
             <button onClick={logout} className="text-gray-500 hover:text-gray-800">Log out</button>
