@@ -2750,5 +2750,287 @@ export const guides: PageContent[] = [
     ],
     "lastUpdated": "2026-06-12",
     "leadForm": true
+  },
+  {
+    "slug": "ebay-repricing-for-auto-parts",
+    "collection": "guides",
+    "template": "guide",
+    "title": "eBay Repricing for Auto Parts & Accessories — Undercut",
+    "metaDescription": "How to set hard floors for fitment-sensitive auto parts on eBay — account for core charges and heavy shipping, and reprice safely. 14-day no-card trial.",
+    "h1": "Repricing Auto Parts on eBay When Fitment, Core Charges, and Freight All Move Your Floor",
+    "eyebrow": "Guide",
+    "intro": "Auto parts are a high-margin, high-headache category on eBay. Listings are fitment-sensitive, often OEM, frequently heavy, and sometimes carry a core charge — and the competitor undercutting you may simply have mis-listed a part that does not actually fit the same vehicles. Reprice blindly against that listing and you either lose money or train buyers to expect a price your costs cannot support. The right approach is a hard floor on every part that bakes in real freight and any core exposure, paired with repricing that beats genuinely comparable listings and ignores the noise. This guide shows how to set that up.",
+    "sections": [
+      {
+        "h2": "Why Auto-Parts Repricing Is Different From Everything Else",
+        "body": "Two parts that share a name are not always interchangeable. Fitment varies by year, trim, engine, and sometimes production date, so the 'lowest competitor' your repricer sees may be a part for a different application or a mislabeled listing. Matching it can drag you below cost for no reason. Auto parts are also disproportionately heavy — an alternator, caliper set, or body panel can cost more to ship than many whole items in other categories — and some carry a refundable core charge that distorts the headline price. A floor that ignores freight and core exposure is not a real floor. The fix is to encode those costs into each listing's hard floor and let automation compete only where it makes sense.",
+        "bullets": [
+          "Fitment differences mean the 'lowest comp' is often not the same product",
+          "Freight can be the single largest cost line on heavy parts",
+          "Core charges inflate or distort competitor headline prices",
+          "Mislisted or counterfeit parts create false lows you should not chase"
+        ]
+      },
+      {
+        "h2": "Building a Hard Floor That Includes Freight and Core Exposure",
+        "body": "Your floor is the lowest price at which the sale still clears every cost. For parts, that means cost of goods, realistic outbound freight, eBay's final value fee, and your minimum margin — and if there is a core charge, your floor logic should assume the worst case where the core is never returned. Worked example for a remanufactured alternator:\n\nCost of goods: $45.00\nFreight (heavy, padded box): $14.00\neBay final value fee: 13.25%\nMinimum margin target: 15%\n\nFloor = (Cost + Freight) / (1 - FVF% - Margin%) = (45 + 14) / (1 - 0.1325 - 0.15) = 59 / 0.7175 = $82.23\n\nRound up to $82.99 and that is your hard floor. Undercut will reprice down to beat a comparable competitor but never cross $82.99. If a mislisted cheaper part appears, your floor keeps you from following it into a loss.",
+        "bullets": [
+          "Use real, current freight cost per part — not a flat category average",
+          "If a core charge applies, floor as if the core is never recovered",
+          "Use eBay Motors' Parts & Accessories final value fee, not a blended rate",
+          "Add a margin buffer for returns, which run high on fitment errors"
+        ]
+      },
+      {
+        "h2": "Don't Match Mislisted or Non-Comparable Competitors",
+        "body": "The biggest trap in parts repricing is reacting to a low price that is not really your competition. A listing might be a used part sold as new, a different OEM number, or a part for a similar-but-different platform. Because Undercut clamps every move to your floor, a bogus low can never pull you below profitability — the worst case is you simply hold at your floor and wait for a buyer who needs the correct part. For sellers with deep catalogs, the practical workflow is to set accurate floors once, tag parts by platform or OEM family, and let the repricer hold the line automatically rather than manually policing every suspicious competitor."
+      },
+      {
+        "h2": "Repricing Frequency and Aggressiveness for Parts Inventories",
+        "body": "Most parts do not move on a minute-by-minute basis the way hyped sneakers do, so an aggressive 5-minute cycle is rarely necessary on the whole catalog. What matters more is consistent coverage across a large SKU count and the ability to be more aggressive on slow-moving or seasonal stock (think AC parts in fall) while staying conservative on scarce OEM pieces with little competition. On Pro and Scale, AI aggressiveness tuning lets you set those behaviors by tag, so a warehouse of thousands of parts does not get one blunt rule. A high-volume parts seller typically lands on Pro ($79/mo, 1,000 listings, 15-minute repricing) or Scale ($199/mo, 10,000 listings)."
+      }
+    ],
+    "faq": [
+      {
+        "q": "How do core charges affect my floor?",
+        "a": "Treat the core as if it may never come back. Set your floor on the assumption that you keep none of the core deposit, so even a worst-case sale where the buyer never returns the core still clears your cost and margin. If the core is returned, that is upside, not something to price around."
+      },
+      {
+        "q": "What if the cheapest competitor listed the wrong part?",
+        "a": "Your hard floor protects you. Undercut never prices below the floor you set, so a mislisted or non-comparable competitor cannot pull you into a loss. You hold at your floor and wait for a buyer who needs the correct fitment."
+      },
+      {
+        "q": "Can I set different behavior for OEM vs aftermarket parts?",
+        "a": "Yes. Each listing has its own floor, and on Pro or Scale you can tag listings and apply different aggressiveness rules — for example, conservative on scarce OEM parts and aggressive on overstocked aftermarket items that you want to move."
+      },
+      {
+        "q": "Is heavy shipping really worth building into the floor?",
+        "a": "Absolutely. On heavy parts, freight is often the largest single cost. A floor that ignores it can look profitable on the screen while actually losing money once the label prints. Always include real outbound freight in the floor formula."
+      },
+      {
+        "q": "How many parts can I reprice on each plan?",
+        "a": "The free plan covers 25 listings, Starter ($29/mo) covers 100, Pro ($79/mo) covers 1,000 with 15-minute repricing, and Scale ($199/mo) covers 10,000 with 5-minute cycles. Most serious parts sellers run Pro or Scale given catalog size."
+      }
+    ],
+    "cta": {
+      "heading": "Floor every part, then let repricing win the sale",
+      "sub": "Bake freight and core exposure into a hard floor and compete safely — start a 14-day no-card trial."
+    },
+    "internalLinks": [
+      {
+        "href": "/repricers/auto-parts",
+        "label": "Undercut's eBay auto-parts repricer"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to set an eBay price floor"
+      },
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "Never sell below cost on eBay"
+      },
+      {
+        "href": "/ebay-fee-calculator",
+        "label": "Free eBay fee calculator"
+      },
+      {
+        "href": "/ebay-profit-calculator",
+        "label": "eBay profit calculator"
+      },
+      {
+        "href": "/pricing",
+        "label": "Undercut plans & pricing"
+      }
+    ],
+    "lastUpdated": "2026-06-12",
+    "leadForm": true
+  },
+  {
+    "slug": "ebay-repricing-for-trading-cards",
+    "collection": "guides",
+    "template": "guide",
+    "title": "eBay Repricing for Trading Cards & TCG — Undercut",
+    "metaDescription": "Reprice Pokemon, sports, and Magic singles on eBay where prices move daily — floor by grading cost and graded-vs-raw. Start a 14-day no-card trial.",
+    "h1": "Repricing Trading Cards on eBay When the Market Moves Every Single Day",
+    "eyebrow": "Guide",
+    "intro": "Trading cards are one of the few eBay categories where the fair price can change overnight. A tournament result, a new set announcement, or a single influential break can move Pokemon, sports, and Magic singles by double digits in a day. On top of that, the same card exists as raw and in several graded tiers, each a different product with a different cost basis. Manually re-checking comps across a card inventory is impossible to keep up with, and stale prices mean you are either invisible or selling under value. Automated repricing anchored to a per-card hard floor keyed to your real cost — including grading — keeps you competitive without giving cards away.",
+    "sections": [
+      {
+        "h2": "Why Card Prices Demand Automated Repricing",
+        "body": "Card markets are reflexive and fast. Sold comps that were accurate last week can be meaningfully wrong today, and the spread between the lowest active listing and the last sold price is often where the next sale happens. If you list a few hundred singles and reprice by hand, you simply cannot revisit each one often enough to stay at the front of search as the market moves. A repricer that continuously beats the lowest comparable live listing — while never crossing the floor you set for that exact card and condition — does the watching for you. That is the difference between catching the momentum on a spiking card and missing it because your price was a day behind.",
+        "bullets": [
+          "Tournament results and set releases can move singles 10-30% in a day",
+          "Raw and each graded tier are distinct products with distinct floors",
+          "The lowest active listing, not the last sold, usually wins the next sale",
+          "Hundreds of singles make manual comp-checking impossible to sustain"
+        ]
+      },
+      {
+        "h2": "Floor a Card by Its Real Cost Basis — Including Grading",
+        "body": "For raw cards, your floor is cost plus shipping, fees, and margin. For graded cards, the floor must also absorb grading cost and the time and risk you took to submit. Worked example for a card you bought raw and graded:\n\nCard cost (raw): $20.00\nGrading cost (per card, all-in): $19.00\nShipping (carded, tracked): $5.00\neBay final value fee: 13.25%\nMinimum margin target: 15%\n\nFloor = (Card + Grading + Shipping) / (1 - FVF% - Margin%) = (20 + 19 + 5) / (1 - 0.1325 - 0.15) = 44 / 0.7175 = $61.32\n\nRound up to $61.99 and that is your floor for the graded copy. Your raw copies of the same card get a separate, lower floor without the grading line. Undercut reprices each down to beat its comparable competitors but never below its own floor.",
+        "bullets": [
+          "Graded and raw copies of the same card get separate floors",
+          "Roll grading cost (and submission risk) into the graded floor",
+          "Use tracked, carded shipping cost — not a flat guess",
+          "Revisit floors as your replacement cost for the card changes"
+        ]
+      },
+      {
+        "h2": "Match Like-for-Like: Grade, Grader, and Condition",
+        "body": "A PSA 10 should not be repriced against a PSA 9 or a raw copy, and a card graded by one company should not blindly chase another grader's pricing. The cheapest 'comp' eBay shows you is frequently not the same product. Because every Undercut listing is clamped to its own floor, a non-comparable low can never force you below profitability — at worst you hold at your floor. The practical workflow for a card seller is to set accurate per-listing floors, keep grade and grader explicit in the listing, and let the repricer compete within the right tier instead of chasing the absolute lowest number on the page."
+      },
+      {
+        "h2": "Repricing Cadence for Spikes and Slabs",
+        "body": "During a spike, minutes matter — the lowest live listing changes fast and the sale goes to whoever is at the front when a buyer with cash shows up. Faster repricing cycles keep you there. Undercut's Pro plan reprices every 15 minutes and Scale every 5 minutes, which suits sellers actively trading hot singles. For a slower long-tail inventory of commons and mid-value slabs, daily repricing on the free or Starter plan is plenty. Many card sellers split the difference: a focused, fast-repriced set of high-value cards plus a larger, lightly-repriced long tail, scaling the plan to the listing count."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Should raw and graded copies of the same card share a floor?",
+        "a": "No. They are different products with different cost bases. The graded copy's floor must include grading cost; the raw copy's floor should not. Set each listing's floor independently so neither one sells under its true cost."
+      },
+      {
+        "q": "How do I keep from repricing a PSA 10 against a PSA 9?",
+        "a": "Keep grade and grader explicit in each listing and rely on your per-card floor. Because Undercut never prices below the floor you set, a lower-grade or different-grader comp can't pull a PSA 10 into a loss — at worst it holds at its floor."
+      },
+      {
+        "q": "Can repricing keep up with a card that's spiking?",
+        "a": "Yes, that's where it shines. On Pro (15-minute) or Scale (5-minute) cycles, your listing stays at or near the front of search as the lowest live price moves, so you catch the sale instead of being a day behind with a manual price."
+      },
+      {
+        "q": "Is it worth automating for a few hundred singles?",
+        "a": "Usually, yes. A few hundred singles is already more than you can re-check by hand often enough to stay competitive. Automation holds every floor and beats comparable lows continuously, which is exactly what a fast-moving card inventory needs."
+      },
+      {
+        "q": "Which plan fits a card inventory?",
+        "a": "Free covers 25 listings, Starter ($29/mo) 100, Pro ($79/mo) 1,000 with 15-minute repricing, and Scale ($199/mo) 10,000 with 5-minute cycles. Card sellers often run Pro for an active inventory or split into a fast high-value set plus a larger long tail."
+      }
+    ],
+    "cta": {
+      "heading": "Stop letting day-old prices cost you card sales",
+      "sub": "Floor every raw and graded copy and let Undercut track the market for you — start a 14-day no-card trial."
+    },
+    "internalLinks": [
+      {
+        "href": "/repricers/trading-cards",
+        "label": "Undercut's eBay trading-card repricer"
+      },
+      {
+        "href": "/guides/collectibles-repricing",
+        "label": "Repricing collectibles on eBay"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to set an eBay price floor"
+      },
+      {
+        "href": "/glossary/sell-through-rate",
+        "label": "What is sell-through rate?"
+      },
+      {
+        "href": "/ebay-profit-calculator",
+        "label": "eBay profit calculator"
+      },
+      {
+        "href": "/pricing",
+        "label": "Undercut plans & pricing"
+      }
+    ],
+    "lastUpdated": "2026-06-12",
+    "leadForm": true
+  },
+  {
+    "slug": "ebay-repricing-for-part-time-sellers",
+    "collection": "guides",
+    "template": "guide",
+    "title": "eBay Repricing for Part-Time & Weekend Sellers — Undercut",
+    "metaDescription": "Have a day job and under 100 eBay listings? See how automated repricing with a hard floor wins sales while you're away. Start a 14-day no-card trial.",
+    "h1": "How Part-Time eBay Sellers Win Sales While They're at Their Day Job",
+    "eyebrow": "Guide",
+    "intro": "If you sell on eBay around a full-time job, your biggest disadvantage is not price — it is attention. Full-time competitors adjust prices throughout the day while you are at work, asleep, or with family, and the listing sitting one dollar too high quietly loses the sale. You do not need to babysit prices to compete, though. Automated repricing with a hard floor handles the adjusting for you: it beats the lowest competitor in the moments you cannot, and it never drops below the minimum you set. This guide shows how a part-time seller with under 100 listings gets most of the upside on the free or Starter plan.",
+    "sections": [
+      {
+        "h2": "The Real Problem Isn't Price — It's Coverage",
+        "body": "A part-time seller and a full-time seller can list the identical item at the identical price. The difference shows up over the next eight hours: when a competitor drops their price at 11am, the full-timer responds by noon and the part-timer responds at 6pm — after losing a day of being the cheapest comparable listing. Multiply that across a week and a modest inventory and it is a real number of missed sales. Repricing software closes that gap by reacting on your behalf around the clock. You are effectively present in the market even when you are not at your screen, and a hard floor guarantees nothing ever sells below the price you would have accepted yourself.",
+        "bullets": [
+          "Most price moves happen during hours a part-timer can't monitor",
+          "Being one position too high for hours quietly forfeits the sale",
+          "A hard floor means hands-off repricing never costs you margin",
+          "You compete on equal footing with full-time sellers' attention"
+        ]
+      },
+      {
+        "h2": "A Simple Worked Example of What Coverage Is Worth",
+        "body": "Suppose you carry 25 active listings averaging a $12 profit per sale, and being consistently first on price would win you just two extra sales per week. That is roughly $24 a week, or about $100 a month, in recovered profit — from sales you were already losing to slow manual repricing. The free plan covers exactly that 25-listing scenario at no cost, so the recovered profit is pure upside. If you grow to 100 listings, the Starter plan is $29/mo; at the same $12 average profit you only need about three extra sales in the entire month to cover it, and active repricing typically wins far more than that. The point is that the math favors automation well before you go full-time.",
+        "bullets": [
+          "Free plan: 25 listings, repriced multiple times daily — $0",
+          "Starter $29/mo: 100 listings — pays for itself in ~3 extra sales",
+          "Each recovered sale is profit you were already losing to lag",
+          "No card required to run the 14-day trial at Starter level"
+        ]
+      },
+      {
+        "h2": "Set It Once: Floors, Then Walk Away",
+        "body": "The whole appeal for a busy seller is that the setup is front-loaded and the running is hands-off. You connect your eBay account, import your listings, and set a hard floor on each one — the lowest price that still clears your cost, shipping, eBay's fee, and the margin you want. From then on the repricer beats the lowest comparable competitor automatically and stops at your floor every time. There is nothing to check daily. You can revisit floors when your costs change or when you add inventory, but the day-to-day price chasing — the part that does not fit around a job — is simply gone."
+      },
+      {
+        "h2": "When to Stay Free, and When to Upgrade",
+        "body": "Stay on the free plan while you are at or under 25 active listings; it covers the core benefit at no cost and is the right way to learn the floor-first workflow. Move to Starter when your active count climbs past 25 and the extra sales clearly cover $29/mo — which, as the example above shows, happens quickly. You generally do not need Pro's 15-minute cycle or AI aggressiveness tuning as a part-timer; those matter most for high-volume or fast-moving inventories. Upgrade for listing capacity first, speed second, and only when the inventory actually justifies it."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Do I need to watch prices at all once it's set up?",
+        "a": "No. After you set a hard floor on each listing, repricing runs on its own — it beats the lowest comparable competitor and stops at your floor automatically. You only revisit floors when your costs change or you add new inventory."
+      },
+      {
+        "q": "Is the free plan really enough for a part-time seller?",
+        "a": "For many, yes. The free plan covers 25 active listings repriced multiple times daily, which captures the core benefit of staying competitive while you're at work. You upgrade only when your listing count grows past 25."
+      },
+      {
+        "q": "Will hands-off repricing accidentally sell my items too cheap?",
+        "a": "No. The hard floor is the safeguard — Undercut never prices any listing below the floor you set, so automation can only ever win sales at or above your minimum acceptable price. It never races to the bottom."
+      },
+      {
+        "q": "I have a day job — how long does setup take?",
+        "a": "Setup is a one-time job: connect eBay, import listings, and set a floor on each. For a small inventory that's a short evening's work, and there's nothing to maintain daily afterward. The 14-day trial needs no card to start."
+      },
+      {
+        "q": "When should I move from free to Starter?",
+        "a": "Upgrade when your active listings pass 25 or when the extra sales clearly cover the $29/mo Starter cost. At a typical $12 profit per sale, roughly three extra sales a month covers it, and active repricing usually wins more than that."
+      }
+    ],
+    "cta": {
+      "heading": "Compete like a full-timer — without quitting your job",
+      "sub": "Set floors once and let Undercut win sales while you're away — start a 14-day no-card trial, no card required."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/ebay-repricing-for-beginners",
+        "label": "eBay repricing for beginners"
+      },
+      {
+        "href": "/guides/manual-vs-automated-repricing",
+        "label": "Manual vs. automated repricing"
+      },
+      {
+        "href": "/free-ebay-repricer",
+        "label": "Free eBay repricer"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to set an eBay price floor"
+      },
+      {
+        "href": "/ebay-profit-calculator",
+        "label": "eBay profit calculator"
+      },
+      {
+        "href": "/pricing",
+        "label": "Undercut plans & pricing"
+      }
+    ],
+    "lastUpdated": "2026-06-12",
+    "leadForm": true
   }
 ]
