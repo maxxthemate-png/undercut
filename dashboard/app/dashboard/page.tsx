@@ -10,6 +10,11 @@ const planLabel = (key: string, interval: 'month' | 'year') => {
   if (!p) return key
   return interval === 'year' ? `${p.name} $${p.annual.toLocaleString()}/yr` : `${p.name} $${p.monthly}`
 }
+// numeric listing capacity for a plan key, parsed from its "1,000 listings" label
+const planCap = (key: string) => {
+  const p = PLANS.find((x) => x.key === key)
+  return p ? parseInt(p.listings.replace(/[^0-9]/g, ''), 10) || 0 : 0
+}
 
 interface Listing {
   id: string; ebay_item_id: string; title: string
@@ -88,6 +93,21 @@ export default function Dashboard() {
   }
   function logout() { tok.clear(); router.push('/login') }
 
+  // Usage-based upgrade nudge: the highest-intent upsell moment is when a seller
+  // is at/over their listing limit (overflow listings are silently not repriced).
+  const limit: number = me?.listing_limit ?? 0
+  const overflow = me ? listings.length - limit : 0
+  const usagePct = limit > 0 ? Math.round((listings.length / limit) * 100) : 0
+  const upgradeTargets = PLANS.filter((p) => planCap(p.key) > limit) // only tiers with more capacity
+  const limitNudge: 'over' | 'near' | null =
+    !me || limit <= 0 || upgradeTargets.length === 0
+      ? null
+      : overflow > 0
+        ? 'over'
+        : listings.length / limit >= 0.8
+          ? 'near'
+          : null
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
@@ -133,7 +153,25 @@ export default function Dashboard() {
           )
         })()}
 
-        {me && me.plan === 'free' && (
+        {limitNudge && (
+          <div className={`border rounded-xl p-4 ${limitNudge === 'over' ? 'bg-red-50 border-red-200' : 'bg-amber-50 border-amber-200'}`}>
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <p className={`text-sm ${limitNudge === 'over' ? 'text-red-900' : 'text-amber-900'}`}>
+                {limitNudge === 'over'
+                  ? <>⚠️ <b>{overflow} of your {listings.length} listings aren't being repriced.</b> Your plan covers {limit.toLocaleString()} — upgrade to reprice all {listings.length.toLocaleString()} and stop leaving sales on the table.</>
+                  : <><b>You're using {listings.length.toLocaleString()} of {limit.toLocaleString()} listings ({usagePct}%).</b> Upgrade before new imports get paused at your limit.</>}
+              </p>
+              <div className="flex items-center gap-2">
+                <button onClick={() => setBillingInterval(billingInterval === 'year' ? 'month' : 'year')} className="text-xs underline text-gray-500 mr-1 whitespace-nowrap">{billingInterval === 'year' ? 'Annual — 2 months free' : 'Monthly'}</button>
+                {upgradeTargets.map((p, i) => (
+                  <button key={p.key} onClick={() => upgrade(p.key, billingInterval)} className={`px-3 py-1.5 text-sm rounded-lg whitespace-nowrap ${i === 0 ? 'bg-blue-600 text-white' : 'bg-white border'}`}>{planLabel(p.key, billingInterval)}</button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {me && me.plan === 'free' && !limitNudge && (
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center justify-between gap-3 flex-wrap">
             <p className="text-sm text-blue-900">You're on <b>Free</b> (25 listings). Upgrade for more listings + 15-min AI repricing — your floors and settings are all saved.</p>
             <div className="flex items-center gap-2">
