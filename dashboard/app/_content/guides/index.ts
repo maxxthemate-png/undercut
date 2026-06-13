@@ -3032,5 +3032,311 @@ export const guides: PageContent[] = [
     ],
     "lastUpdated": "2026-06-12",
     "leadForm": true
+  },
+  {
+    "slug": "how-much-to-undercut-competitors-ebay",
+    "collection": "guides",
+    "template": "guide",
+    "title": "How Much Should You Undercut Competitors on eBay? — Undercut",
+    "metaDescription": "When $0.01 below wins and when a percentage undercut makes sense on eBay — and how a hard floor caps the race. Start a 14-day no-card trial.",
+    "h1": "Choosing Your Undercut Amount on eBay: A Penny, a Percent, or Neither",
+    "eyebrow": "Guide",
+    "intro": "\"Undercut the competition\" sounds simple until you have to pick the actual number. Go a penny under and you barely move; go too far under and you hand away margin you never needed to give. The right undercut amount depends on how buyers shop the listing, how many competitors there are, and — most importantly — how close the lowest price already sits to your floor. This guide breaks down when a one-cent undercut is plenty, when a percentage cut earns its keep, and how a hard floor keeps any undercut strategy from turning into a race to the bottom.",
+    "sections": [
+      {
+        "h2": "When a One-Cent Undercut Is All You Need",
+        "body": "For most commodity-style listings where buyers sort by price and grab the cheapest acceptable option, being the lowest by a single cent captures the same sale as being lowest by five dollars — at five dollars more margin. If the lowest comparable competitor is at $100.00, listing at $99.99 makes you the cheapest result without throwing away profit. The penny undercut is the default for a reason: it wins the price-sort position at the smallest possible cost. You only need a bigger gap when something about the listing makes a one-cent difference invisible or unconvincing to the buyer.",
+        "bullets": [
+          "Best for price-sorted, commodity-style listings with clear comparables",
+          "Captures the same buyers as a larger cut, at higher margin",
+          "$100.00 lowest comp → list at $99.99 and you're the cheapest result",
+          "The default undercut for most inventory"
+        ]
+      },
+      {
+        "h2": "When a Percentage Undercut Actually Earns Its Keep",
+        "body": "A larger, percentage-based undercut makes sense when a penny won't change behavior. That happens when buyers weigh more than price — seller feedback, photos, shipping speed — or when you are deliberately trying to move aging stock faster than the market. Worked example: the lowest comp is $100, and you carry more feedback risk as a newer seller. A 3% undercut to $97 may be what it takes to overcome a buyer's hesitation. The question is always whether the extra $2.99 of discount buys enough additional conversion to be worth it — and that answer changes by category, condition, and how badly you need the cash.",
+        "bullets": [
+          "Use when buyers weigh feedback, photos, or shipping over raw price",
+          "Use to deliberately accelerate aging or seasonal stock",
+          "$100 comp → 3% cut = $97; ask if the extra $3 buys enough conversion",
+          "A bigger undercut is a tool, not a default — spend it on purpose"
+        ]
+      },
+      {
+        "h2": "The Floor Is What Makes Any Undercut Safe",
+        "body": "Whatever undercut amount you choose, it only stays profitable if it can never cross your floor. Say your floor on an item is $92 (cost + shipping + fees + minimum margin). A penny undercut from a $100 comp lands at $99.99 — fine. But if a competitor misprices at $90, a blind \"always undercut\" rule would chase them to $89.99 and lose you money. With a hard floor, Undercut undercuts only down to $92 and then stops, holding there until a buyer who needs the item shows up. The undercut amount decides how you compete; the floor decides how far you're willing to go. You need both.",
+        "bullets": [
+          "Floor = cost + shipping + eBay fee + minimum margin",
+          "A blind undercut rule chases mispriced competitors into a loss",
+          "Undercut clamps every move to the floor, then holds",
+          "Set the undercut for strategy, the floor for safety"
+        ]
+      },
+      {
+        "h2": "Letting AI Tune the Undercut Per Listing",
+        "body": "The honest answer to \"how much should I undercut?\" is that it varies by listing, and maintaining per-listing rules by hand across a large inventory is impractical. On Pro and Scale, Undercut's AI aggressiveness tuning adjusts how hard each listing pushes toward its floor based on the competitive situation — staying near market on items with little competition and pressing closer to the floor on items where several sellers are actively undercutting each other. You set the floor and the guardrails; the AI decides the moment-to-moment undercut within them. That turns a question you'd otherwise answer manually, thousands of times, into a policy you set once."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Is undercutting by one cent really enough?",
+        "a": "For most price-sorted, commodity-style listings, yes. Being the lowest by a penny wins the same buyers as being lowest by several dollars, at much higher margin. Reserve larger undercuts for cases where a penny won't change buyer behavior."
+      },
+      {
+        "q": "When does a percentage undercut beat a flat penny?",
+        "a": "When buyers weigh more than price — feedback, photos, shipping speed — or when you're deliberately trying to move aging stock. In those cases a few percent below can lift conversion enough to be worth the smaller margin. Otherwise the penny undercut wins."
+      },
+      {
+        "q": "How does the floor relate to the undercut amount?",
+        "a": "They're separate controls. The undercut amount is how you compete; the floor is the hard limit you'll never cross. Undercut applies your undercut down to the floor and then stops, so a mispriced competitor can't drag you into a loss."
+      },
+      {
+        "q": "What happens if a competitor prices below my floor?",
+        "a": "Undercut holds at your floor rather than following them down. You stay at the lowest profitable price and wait for a buyer, instead of selling at a loss to beat a price that doesn't even clear your costs."
+      },
+      {
+        "q": "Can I set different undercut amounts for different listings?",
+        "a": "Yes. Each listing carries its own floor, and on Pro or Scale the AI aggressiveness tuning adapts the undercut per listing based on competition. You set the policy once instead of hand-tuning thousands of items."
+      }
+    ],
+    "cta": {
+      "heading": "Undercut competitors without underselling yourself",
+      "sub": "Set a floor, pick your aggressiveness, and let Undercut win the price-sort for you — start a 14-day no-card trial."
+    },
+    "internalLinks": [
+      {
+        "href": "/glossary/undercutting",
+        "label": "What is undercutting?"
+      },
+      {
+        "href": "/guides/ebay-pricing-strategy",
+        "label": "eBay pricing strategy"
+      },
+      {
+        "href": "/guides/win-the-buy-box",
+        "label": "Win the eBay buy box"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to set an eBay price floor"
+      },
+      {
+        "href": "/ebay-profit-calculator",
+        "label": "eBay profit calculator"
+      },
+      {
+        "href": "/pricing",
+        "label": "Undercut plans & pricing"
+      }
+    ],
+    "lastUpdated": "2026-06-13",
+    "leadForm": true
+  },
+  {
+    "slug": "ebay-repricing-roi",
+    "collection": "guides",
+    "template": "guide",
+    "title": "Does eBay Repricing Software Pay for Itself? — Undercut",
+    "metaDescription": "A worked ROI model for eBay repricing software: recovered margin and extra sell-through vs. a $29/mo subscription. Start a 14-day no-card trial.",
+    "h1": "The Real ROI Math on eBay Repricing Software",
+    "eyebrow": "Guide",
+    "intro": "Any subscription is only worth it if it returns more than it costs. For eBay repricing software the return comes from two places: extra sales you win by spending more time at the top of the price sort, and margin you stop giving away because a hard floor keeps every sale profitable. The cost side is simple — a flat monthly fee. This guide builds an honest ROI model with real numbers, shows the break-even listing count for each plan, and is upfront about when repricing software is not worth it yet. No hand-waving, just the arithmetic you can run against your own store.",
+    "sections": [
+      {
+        "h2": "The Two Ways Repricing Returns Money",
+        "body": "Repricing pays off through recovered sales and protected margin. Recovered sales: when your price tracks the lowest comparable competitor automatically, your listing spends more hours at the front of the price sort, so you win sales that previously went to whoever happened to be cheapest at that moment. Protected margin: a hard floor stops you from ever selling below cost, which means the sales you do win are profitable rather than panic discounts. Neither effect is magic — they are just the difference between a price that's current and a price that's hours or days stale. The ROI question is whether those two effects, added up over a month, beat a flat subscription fee.",
+        "bullets": [
+          "Recovered sales: more time at the top of the price sort",
+          "Protected margin: a floor stops below-cost discounting",
+          "Both come from prices being current instead of stale",
+          "ROI = (recovered sales × profit) + protected margin − subscription"
+        ]
+      },
+      {
+        "h2": "A Worked ROI Example",
+        "body": "Take a seller on the Starter plan ($29/mo, up to 100 listings) averaging $14 profit per sale. Suppose automated repricing wins them just one extra sale every four days that they'd otherwise have lost to a fresher competitor price. That's roughly 7-8 extra sales a month:\n\n7.5 extra sales × $14 profit = $105/month in recovered profit\nSubscription cost = $29/month\nNet gain = $76/month, before counting any margin protected by the floor\n\nThat's a 3.6x return on the subscription from recovered sales alone. The break-even is only about 2.1 extra sales per month ($29 ÷ $14). If repricing wins you more than two extra sales a month — a low bar for an active store — it has already paid for itself.",
+        "bullets": [
+          "Starter $29/mo, $14 avg profit → break-even ≈ 2.1 extra sales/month",
+          "7.5 recovered sales = $105 profit → $76 net gain (3.6x)",
+          "Floor-protected margin is upside on top of this",
+          "Run the same math with your real profit-per-sale and volume"
+        ]
+      },
+      {
+        "h2": "Break-Even by Plan",
+        "body": "The break-even scales with plan cost and your profit per sale. On Free (25 listings) the cost is zero, so any recovered sale is pure gain — it's the obvious starting point. On Starter ($29/mo) you need roughly two extra sales a month at a $14 average. On Pro ($79/mo, 1,000 listings, 15-minute repricing) the break-even is around six extra sales a month, which a store large enough to need 1,000 listings clears easily — and the faster cycle plus AI aggressiveness tuning typically lifts the recovered-sales number well past that. On Scale ($199/mo, 10,000 listings, 5-minute repricing), the per-listing cost is tiny and the break-even is trivial relative to that inventory size. The rule of thumb: match the plan to your listing count, and the break-even takes care of itself.",
+        "bullets": [
+          "Free: zero cost, any recovered sale is pure gain — start here",
+          "Starter $29: ~2 extra sales/month to break even",
+          "Pro $79: ~6 extra sales/month, easily cleared at 1,000 listings",
+          "Scale $199: trivial break-even relative to 10,000 listings"
+        ]
+      },
+      {
+        "h2": "When Repricing Is NOT Worth It Yet",
+        "body": "Honesty matters here. Repricing software has the weakest payoff when your listings face little or no price competition — one-of-a-kind items, rare collectibles with no comparable live listings, or categories where you're the only seller. If nobody is undercutting you, there's nothing to track and little to recover. It's also less impactful for very low-volume hobby sellers who list a handful of items a month; the free plan covers that case at no cost anyway, so there's no downside to using it, but don't expect a paid plan to transform a five-listing store. Repricing earns its fee in competitive, multi-seller categories with steady volume — which is exactly where most eBay margin gets won or lost.",
+        "bullets": [
+          "Weak fit: unique items with no comparable competitors",
+          "Weak fit: very low-volume hobby selling (use Free, not paid)",
+          "Strong fit: competitive, multi-seller categories with volume",
+          "Start on Free to measure your own recovered-sales rate first"
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "How many extra sales do I need for repricing to pay off?",
+        "a": "On the $29 Starter plan at a $14 average profit, about two extra sales a month covers the cost. Anything beyond that is net gain. Most active, competitive stores clear that bar easily, before even counting margin protected by the floor."
+      },
+      {
+        "q": "Can I measure my own ROI before paying?",
+        "a": "Yes — start on the free plan (25 listings). It captures the core benefit at no cost, so you can watch your recovered-sales rate directly and decide whether a paid plan's higher listing limit and faster cycle are worth it for your volume."
+      },
+      {
+        "q": "Does the floor factor into ROI?",
+        "a": "Yes, as upside. Beyond recovered sales, the hard floor prevents below-cost discounting, so every sale stays profitable. That protected margin is real return that the simple 'extra sales' math above doesn't even include."
+      },
+      {
+        "q": "When is repricing software not worth paying for?",
+        "a": "When your items have little price competition — unique pieces or categories where you're the only seller — there's little to track or recover. Very low-volume sellers should simply use the free plan rather than expect a paid plan to transform a tiny store."
+      },
+      {
+        "q": "Which plan gives the best ROI?",
+        "a": "Match the plan to your listing count and the break-even takes care of itself. Free is pure upside to start; Starter pays off at ~2 extra sales/month; Pro and Scale have trivial break-evens relative to the inventory sizes they're built for."
+      }
+    ],
+    "cta": {
+      "heading": "Run the math on your own store",
+      "sub": "Start free, watch the recovered sales add up, and upgrade only when the numbers say so — 14-day no-card trial."
+    },
+    "internalLinks": [
+      {
+        "href": "/pricing",
+        "label": "Undercut plans & pricing"
+      },
+      {
+        "href": "/ebay-profit-calculator",
+        "label": "eBay profit calculator"
+      },
+      {
+        "href": "/ebay-fee-calculator",
+        "label": "eBay fee calculator"
+      },
+      {
+        "href": "/guides/manual-vs-automated-repricing",
+        "label": "Manual vs. automated repricing"
+      },
+      {
+        "href": "/guides/cheapest-ebay-repricer",
+        "label": "Cheapest eBay repricer breakdown"
+      },
+      {
+        "href": "/guides/ebay-repricing-for-beginners",
+        "label": "eBay repricing for beginners"
+      }
+    ],
+    "lastUpdated": "2026-06-13",
+    "leadForm": true
+  },
+  {
+    "slug": "ebay-repricing-for-used-items",
+    "collection": "guides",
+    "template": "guide",
+    "title": "Repricing Used & Pre-Owned Items on eBay — Undercut",
+    "metaDescription": "Why one floor fails across used conditions on eBay, and how to reprice aging pre-owned stock toward liquidation without losing money. 14-day no-card trial.",
+    "h1": "Repricing Used and Pre-Owned Inventory Without Losing Your Shirt",
+    "eyebrow": "Guide",
+    "intro": "Used inventory breaks the simple repricing playbook. The same model in \"like new\" and \"acceptable\" condition are two different products with two different buyers, two different costs, and two different right prices. Pile on that pre-owned stock depreciates the longer it sits, and a single blanket repricing rule will either overprice your rough units so they never sell, or underprice your clean ones and burn margin. This guide covers why used goods need condition-specific floors, how to reprice aging stock toward liquidation deliberately, and how to do it across a mixed used inventory without hand-pricing every item.",
+    "sections": [
+      {
+        "h2": "Why One Floor Fails Across Conditions",
+        "body": "eBay condition tiers — new other, used, very good, good, acceptable — aren't cosmetic labels; they map to real differences in what a buyer will pay and what you can profitably accept. A \"like new\" unit competes against near-retail comps; an \"acceptable\" unit competes on being cheap. If you set one floor for the SKU, you'll price the rough unit as if it were clean (it sits forever) or the clean unit as if it were rough (it sells instantly at a loss of margin you could have kept). The fix is a separate floor per condition tier, each built from that unit's actual cost and the margin you need, so each listing competes only where it belongs.",
+        "bullets": [
+          "Condition tiers map to real differences in buyer willingness-to-pay",
+          "One SKU-wide floor mis-prices both your best and worst units",
+          "Set a distinct floor per condition tier",
+          "Let each listing compete against comparable-condition comps"
+        ]
+      },
+      {
+        "h2": "Building a Condition-Specific Floor",
+        "body": "Each used unit gets its own floor from its own cost basis. Worked example for the same model in two conditions:\n\nLike-new unit — acquisition $40, refurb/cleaning $6, shipping $8, eBay FVF 13.25%, target margin 18%:\nFloor = (40 + 6 + 8) / (1 - 0.1325 - 0.18) = 54 / 0.6875 = $78.55 → $78.99\n\nAcceptable unit — acquisition $18, minimal prep $2, shipping $8, same FVF, but a thinner 10% margin to move it:\nFloor = (18 + 2 + 8) / (1 - 0.1325 - 0.10) = 28 / 0.7675 = $36.48 → $36.99\n\nSame model, two floors that differ by more than 2x — because the cost basis and the margin you'll accept are genuinely different. Undercut holds each listing to its own floor while beating its own comparable competitors.",
+        "bullets": [
+          "Floor each unit from its real acquisition + prep + shipping cost",
+          "Accept a thinner margin on lower tiers you want to move",
+          "Like-new $78.99 vs. acceptable $36.99 on the same model",
+          "Each listing's floor is independent — no blanket SKU price"
+        ]
+      },
+      {
+        "h2": "Repricing Aging Stock Toward Liquidation",
+        "body": "Used goods have a clock on them. A unit that's sat 90 days is worth less than the day you listed it, and storage and tied-up cash have a cost too. The smart move is to plan the glide path: as a unit ages, you accept a thinner margin to move it — but never below the floor that still clears your hard costs. In practice that means setting a more aggressive repricing behavior on aging tiers so they press toward their (already lower) floor faster, while clean, fresh stock holds nearer market. The floor guarantees that even your most aggressive liquidation price still covers cost — you're trimming margin to move metal, not selling at a loss.",
+        "bullets": [
+          "Pre-owned stock depreciates and ties up cash the longer it sits",
+          "Plan a glide path: thinner accepted margin as a unit ages",
+          "Aggressive toward the floor on aging tiers, conservative on fresh stock",
+          "The floor still covers hard cost even at full liquidation pressure"
+        ]
+      },
+      {
+        "h2": "Managing a Mixed Used Inventory at Scale",
+        "body": "Hand-pricing every used unit by condition and age is exactly the kind of work that doesn't scale past a few dozen listings. With Undercut, you set each listing's floor once and tag it by condition and age, then let rules do the rest: on Pro and Scale, AI aggressiveness tuning lets aging-and-rough tiers move aggressively toward their floors while like-new stock holds near market — all running continuously without you touching it. A reseller flipping a steady stream of mixed-condition used goods is the ideal case for automation, because the manual alternative is re-checking dozens of condition-and-age combinations by hand, every day, forever."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Can I use one price for all conditions of the same item?",
+        "a": "You shouldn't. Different conditions have different cost bases and attract different buyers, so one price either overprices your rough units or underprices your clean ones. Give each condition tier its own floor and let it compete against comparable-condition listings."
+      },
+      {
+        "q": "How do I reprice used stock that isn't selling?",
+        "a": "Plan a glide path: accept a thinner margin as the unit ages and set a more aggressive repricing behavior so it presses toward its floor faster. The floor still covers your hard costs, so you're trimming margin to move it — not selling at a loss."
+      },
+      {
+        "q": "Does the floor formula change for used items?",
+        "a": "The formula is the same — cost + prep + shipping over one minus fees and margin — but the inputs differ per unit. Lower-tier units have lower acquisition costs and often a thinner accepted margin, which is exactly why each one needs its own floor."
+      },
+      {
+        "q": "Is automated repricing worth it for used inventory?",
+        "a": "Especially so, because used inventory multiplies the variables — condition times age times competition. Hand-pricing that doesn't scale past a few dozen listings, while Undercut holds every condition-specific floor and reprices continuously on its own."
+      },
+      {
+        "q": "What plan handles mixed-condition tagging and rules?",
+        "a": "Any plan lets you set per-listing floors. Pro and Scale add AI aggressiveness tuning, so you can make aging or rough tiers move aggressively toward their floors while like-new stock holds near market — useful once your used inventory grows."
+      }
+    ],
+    "cta": {
+      "heading": "Floor every condition, liquidate the rest on purpose",
+      "sub": "Set condition-specific floors and let Undercut move aging stock without losing money — 14-day no-card trial."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/collectibles-repricing",
+        "label": "Repricing collectibles on eBay"
+      },
+      {
+        "href": "/guides/vintage-antiques-repricing",
+        "label": "Repricing vintage & antiques"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to set an eBay price floor"
+      },
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "Never sell below cost on eBay"
+      },
+      {
+        "href": "/ebay-profit-calculator",
+        "label": "eBay profit calculator"
+      },
+      {
+        "href": "/pricing",
+        "label": "Undercut plans & pricing"
+      }
+    ],
+    "lastUpdated": "2026-06-13",
+    "leadForm": true
   }
 ]
