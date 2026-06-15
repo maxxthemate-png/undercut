@@ -60,12 +60,36 @@ jobs:
           git push
           echo "committed=true" >> "$GITHUB_OUTPUT"
 
+      # Git->Vercel auto-deploy is not enabled on this project, so the new page
+      # won't go live on its own. Deploy it here (synchronous: returns when READY).
+      # Gated on VERCEL_TOKEN — until the owner adds that secret, the page is
+      # committed but not published, and a manual `vercel --prod` ships it.
+      - name: Deploy to Vercel
+        id: deploy
+        if: steps.commit.outputs.committed == 'true'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: team_PqNwcN0aoZVHZONfusUKK6sU
+          VERCEL_PROJECT_ID: prj_C4SdJQsQxNmal55HNqemQcwxNcS2
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "::warning::VERCEL_TOKEN not set — page committed but NOT published. Add it (repo Settings → Secrets → Actions) to auto-publish, or run 'vercel --prod' manually."
+            echo "deployed=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          npm i -g vercel@latest >/dev/null 2>&1
+          cd dashboard
+          vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+          vercel deploy --prod --yes --token="$VERCEL_TOKEN" -b API_URL=https://undercut-api.onrender.com
+          echo "deployed=true" >> "$GITHUB_OUTPUT"
+
       # The bot's push (GITHUB_TOKEN) won't trigger indexnow.yml, so submit here.
-      # Wait for Vercel to deploy the new page into the live sitemap first; the
-      # weekly IndexNow cron is the backstop if this fires a touch early.
+      # If we deployed above, the page is already live; otherwise wait a bit in
+      # case another deploy is in flight. The weekly IndexNow cron is the backstop.
       - name: Submit to IndexNow
         if: steps.commit.outputs.committed == 'true'
         run: |
-          echo "Waiting for Vercel to deploy the new page into the live sitemap..."
-          sleep 240
+          if [ "${{ steps.deploy.outputs.deployed }}" != "true" ]; then
+            echo "No deploy ran here — waiting in case a deploy is in flight before submitting."
+            sleep 180
+          fi
           node scripts/indexnow-ping.mjs
