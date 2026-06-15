@@ -26,6 +26,13 @@ services:
     buildCommand: pip install -r backend/requirements.txt
     preDeployCommand: "cd backend && python -m alembic upgrade head"
     startCommand: uvicorn backend.api.main:app --host 0.0.0.0 --port $PORT
+    # Only rebuild when backend code/deps or this blueprint change. Content/frontend
+    # pushes (dashboard/**, scripts/**, docs, markdown, workflows) skip the backend
+    # build entirely — saves Render pipeline minutes on the weekly content-machine pushes.
+    buildFilters:
+      paths:
+        - backend/**
+        - render.yaml
     envVars:
       - key: PYTHON_VERSION
         value: "3.11.9"
