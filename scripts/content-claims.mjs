@@ -37,6 +37,8 @@ const PATTERNS = [
   { id: 'listing-groups', why: 'no listing-group / cohort segmentation exists', re: /per listing group|listing group|by listing group/gi },
   { id: 'invented-ai-inputs', why: 'AI tuning does not read demand/velocity/sell-through/pattern signals',
     re: /(reads? competitor pricing patterns|pricing patterns)|demand signals|sales velocity|(aggressiv[^.]{0,60}(sell-through|sales velocity|demand|inventory level))/gi },
+  { id: 'default-floor-feature', why: 'no account/catalog/site-wide default floor or per-item floor override exists — floors are per-listing (the only account-level default is the undercut amount)',
+    re: /default floor|per-item (floor )?override|per-listing override|two-layer system/gi },
 ]
 
 export function scanText(text) {

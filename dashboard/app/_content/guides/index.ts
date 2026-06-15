@@ -357,7 +357,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Practical Setup: Getting Your Collectibles Inventory Floor-Ready",
-        "body": "The most common mistake sellers make when connecting Undercut to a collectibles inventory is importing all listings with a single default floor. That works for commodity goods; for collectibles it is wrong. A $0.99 common sports card and a $400 vintage action figure in sealed packaging do not share a floor.\n\nThe right approach is to set floors at the listing level or, at minimum, by condition tier. Undercut lets you set per-listing floors directly, so you can start with your highest-value items where the floor matters most, verify the math, and then work through your lower-value long tail. Start your 14-day free trial to connect your eBay seller account, import your listings, and test floor logic on up to 25 items before upgrading.",
+        "body": "The most common mistake sellers make when connecting Undercut to a collectibles inventory is setting one blanket floor across every listing instead of giving each its own. That works for commodity goods; for collectibles it is wrong. A $0.99 common sports card and a $400 vintage action figure in sealed packaging do not share a floor.\n\nThe right approach is to set floors at the listing level or, at minimum, by condition tier. Undercut lets you set per-listing floors directly, so you can start with your highest-value items where the floor matters most, verify the math, and then work through your lower-value long tail. Start your 14-day free trial to connect your eBay seller account, import your listings, and test floor logic on up to 25 items before upgrading.",
         "bullets": [
           "Export your active listings to a spreadsheet first and calculate floors offline, so you have the right number ready when you set each listing's Floor Price.",
           "Group your spreadsheet by condition tier as you calculate, so similar items get consistent floors when you enter them.",
@@ -584,8 +584,8 @@ export const guides: PageContent[] = [
         "a": "Your listing stays at your floor price and will not undercut further. You won't win the buy box in that moment, but you also won't execute a loss-making sale. Undercut is designed on the assumption that a sale below floor is worse than no sale at all."
       },
       {
-        "q": "How do I set a safe default floor when my catalog spans multiple categories with different fee rates?",
-        "a": "Use the most conservative (highest-fee) category's rate for your default floor so every listing is protected. Then apply per-item overrides for categories with lower fees to recover the margin you'd otherwise leave on the table with a blanket conservative default."
+        "q": "How do I set safe floors when my catalog spans multiple categories with different fee rates?",
+        "a": "Set each listing's floor from its own category fee rate — because floors are per-listing, a lower-fee media item can carry a lower floor than an electronics item, and each stays protected. For a fast start, floor everything using your highest-fee category's rate, then revisit the lower-fee listings to recover the margin a blanket number leaves behind."
       },
       {
         "q": "Does the Scale plan's 5-minute repricing cycle apply to all listings or can I select which listings get faster cycles?",
@@ -1913,13 +1913,13 @@ export const guides: PageContent[] = [
     "intro": "The insight most multi-listing sellers miss: you do not need to configure every item individually. Set one account-level repricing default — target lowest competitor, respect a minimum margin — then override the floor only for the listings that truly need it. That two-layer approach lets Undercut watch hundreds of SKUs simultaneously, undercutting rivals on every one of them, while a hard floor on each item ensures you never sell below cost no matter how aggressive the market gets.",
     "sections": [
       {
-        "h2": "The Two-Layer System: Account Defaults and Per-Item Floor Overrides",
-        "body": "Undercut separates repricing logic into two layers so you spend minutes on setup, not hours per SKU. At the account level you choose a single default rule — for example, beat the lowest competitor by $0.01 and reprice every 15 minutes. Every new listing you create inherits that rule automatically. The second layer is the per-item floor override. Any listing can carry its own floor that Undercut will never cross, regardless of what the account default says. If the market crashes and competitors list below your cost, Undercut simply holds your price at the floor rather than following them down.",
+        "h2": "Two Layers: An Account Undercut Rule and Per-Listing Floors",
+        "body": "Undercut separates setup into two layers so you spend minutes, not hours per SKU. At the account level you choose a single default undercut rule — for example, beat the lowest competitor by $0.01 — plus your repricing cadence by plan. Every listing follows that rule automatically. The second layer is each listing's own hard floor: any listing can carry a floor Undercut will never cross, regardless of the undercut rule. If the market crashes and competitors list below your cost, Undercut holds your price at that listing's floor rather than following them down.",
         "bullets": [
-          "Account default: applies instantly to every listing you add, no per-item setup needed.",
-          "Per-item floor override: set once per SKU, stored permanently, updated any time.",
+          "Account undercut rule: applies to every listing automatically, no per-item setup needed.",
+          "Per-listing floor: set once per SKU, stored permanently, updated any time.",
           "Undercut checks the floor before every reprice — the floor always wins.",
-          "Changing the account default updates all listings that have not been individually overridden."
+          "The account undercut rule sets the behavior; each listing's own floor sets its hard limit."
         ]
       },
       {

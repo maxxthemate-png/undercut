@@ -370,7 +370,7 @@ export const glossary: PageContent[] = [
       },
       {
         "q": "Can I use a single floor for all my eBay listings?",
-        "a": "You can set a site-wide default floor as a starting point, but a single floor is usually too blunt. A $15 item in the Books category carries different fee rates and shipping costs than a $15 item in Electronics. Undercut supports per-listing floors so each SKU reflects its actual cost structure."
+        "a": "You set a floor on each listing, and a single blanket number across all of them is usually too blunt. A $15 item in the Books category carries different fee rates and shipping costs than a $15 item in Electronics. Undercut supports per-listing floors so each SKU reflects its actual cost structure."
       }
     ],
     "cta": {
