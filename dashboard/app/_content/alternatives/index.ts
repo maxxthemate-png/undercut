@@ -19,7 +19,7 @@ export const alternatives: PageContent[] = [
       },
       {
         "h2": "How to Calculate a Hard Floor (Worked Example)",
-        "body": "Knowing what to enter as your floor is as important as having one. Take a typical electronics accessory: cost of goods $8.00, outbound shipping $4.00, eBay final value fee 13.25% of sale price, and a minimum acceptable margin of 15%. Solving for floor price P where P × (1 − 0.1325) − $12.00 ≥ 0.15 × P gives P ≥ $17.14. Enter $17.14 as your hard floor in Undercut for that listing. No matter how aggressively competitors drop, Undercut will not touch that listing below $17.14. The same logic applies to any category — swap in your actual fees, shipping, and margin target. Undercut's eBay profit calculator (linked below) can walk through the arithmetic for you."
+        "body": "Knowing what to enter as your floor is as important as having one. Take a typical electronics accessory: cost of goods $8.00, outbound shipping $4.00, eBay final value fee 13.25% of sale price, and a minimum acceptable margin of 15%. Solving for floor price P where P × (1 − 0.1325) − $12.00 ≥ 0.15 × P gives P ≥ $16.72. Enter $16.72 as your hard floor in Undercut for that listing. No matter how aggressively competitors drop, Undercut will not touch that listing below $16.72. The same logic applies to any category — swap in your actual fees, shipping, and margin target. Undercut's eBay profit calculator (linked below) can walk through the arithmetic for you."
       },
       {
         "h2": "Feature-by-Feature: Undercut vs Price Guard",
@@ -32,7 +32,7 @@ export const alternatives: PageContent[] = [
         "bullets": [
           "Free: up to 25 listings, no card required — enough to validate the floor logic on your fastest-moving items",
           "Starter $29/mo: 100 listings — right for most part-time or side-hustle sellers",
-          "Pro $79/mo: 1,000 listings, 15-minute reprice cycles, and AI aggressiveness tuning to push harder when inventory is aging",
+          "Pro $79/mo: 1,000 listings, 15-minute reprice cycles, and AI aggressiveness tuning to control how fast each listing moves toward its floor",
           "Scale $199/mo: 10,000 listings, 5-minute cycles — designed for power sellers and multi-category stores"
         ]
       },
@@ -48,7 +48,7 @@ export const alternatives: PageContent[] = [
       },
       {
         "q": "If I switch from Price Guard to Undercut, do I have to re-enter all my minimum prices?",
-        "a": "You can bulk-import listing data including floor prices via CSV, so you are not re-entering hundreds of minimums by hand. The free 14-day trial gives you time to set up floors and watch a full reprice cycle before committing."
+        "a": "You set each listing's Floor Price directly in the Undercut dashboard, so you only enter the minimum that matters for each item. The free 14-day trial gives you time to set up floors and watch a full reprice cycle before committing."
       },
       {
         "q": "How often does Undercut reprice compared to Price Guard?",
@@ -115,7 +115,7 @@ export const alternatives: PageContent[] = [
         },
         {
           "label": "AI aggressiveness tuning",
-          "undercut": "Available on Pro ($79/mo) and Scale ($199/mo)",
+          "undercut": "Available on Pro ($79/mo)",
           "competitor": "Supported"
         }
       ],
@@ -153,11 +153,11 @@ export const alternatives: PageContent[] = [
       },
       {
         "h2": "Getting Started: Setup Time Compared",
-        "body": "One of the most common complaints about switching repricers is migration friction — re-entering floors, rules, and exceptions for hundreds of listings. Undercut is designed around bulk CSV import and a single floor field per SKU, so the typical onboarding path is:\n\n1. Export your current listings from eBay Seller Hub (standard CSV).\n2. Add a 'floor_price' column — or let Undercut's floor calculator suggest one based on cost + fee inputs you provide.\n3. Import. Repricing begins within minutes.\n\nPrice Spectre's setup process is documented in their own help center; our sellers who migrated report the Undercut path took under an hour for catalogs up to 500 SKUs. Your experience will vary by catalog complexity.",
+        "body": "One of the most common complaints about switching repricers is migration friction — re-entering floors for hundreds of listings. Undercut keeps setup simple: a single Floor Price field per listing, set in the dashboard, so the typical onboarding path is:\n\n1. Connect your eBay account and pull in your active listings.\n2. Set each listing's Floor Price in the dashboard — or use Undercut's floor calculator to suggest one based on cost + fee inputs you provide.\n3. Repricing begins within minutes.\n\nPrice Spectre's setup process is documented in their own help center; our sellers who migrated report the Undercut path took under an hour for catalogs up to 500 SKUs. Your experience will vary by catalog complexity.",
         "bullets": [
           "No credit card required to start — 25 listings on the Free plan immediately",
-          "Bulk floor import means you do not set floors one listing at a time",
-          "Rules are per-listing or per-category, not buried in nested logic trees"
+          "Each listing gets its own Floor Price, set directly in the dashboard",
+          "Settings are per listing — a hard floor, an undercut amount, and (on Pro) AI aggressiveness — not buried in nested logic trees"
         ]
       },
       {
@@ -165,19 +165,19 @@ export const alternatives: PageContent[] = [
         "body": "Repricing speed determines how quickly you capture a price drop or recover when a competitor goes out of stock. Undercut's plan speeds are:\n\n- Free & Starter: Standard cadence\n- Pro ($79/mo, up to 1,000 listings): 15-minute repricing cycles\n- Scale ($199/mo, up to 10,000 listings): 5-minute repricing cycles\n\nFaster cycles matter most in competitive, high-velocity categories like consumer electronics, trading cards, and media. In slower categories like vintage or antiques, standard cadence is usually sufficient and the Free plan handles it fine.\n\nPrice Spectre's repricing frequency varies by plan; check their current pricing page for exact cycle times before making a speed-based decision."
       },
       {
-        "h2": "AI Aggressiveness Tuning (Pro and Scale)",
-        "body": "On the Pro and Scale plans, Undercut adds AI aggressiveness tuning — a setting that adjusts how quickly and how far the engine moves toward the floor when competitors undercut you. A conservative setting makes small, slow moves to avoid triggering a price war. An aggressive setting reacts immediately to capture volume.\n\nThis is particularly useful for sellers who run multiple categories with different competitive dynamics: set electronics aggressive, set collectibles conservative, and let each category behave appropriately without manual intervention.",
+        "h2": "AI Aggressiveness Tuning (Pro)",
+        "body": "On the Pro plan, Undercut adds AI aggressiveness tuning — a per-listing setting that adjusts how quickly and how far the engine moves toward that listing's floor. A conservative setting makes small, slow moves to avoid triggering a price war. An aggressive setting moves faster toward the floor. It never overrides the floor and never goes below it.\n\nBecause it is set per listing, you can tune each item to match its own competitive dynamics: set a fast-moving electronics listing aggressive, set a collectible conservative, and let each one behave appropriately without manual intervention.",
         "bullets": [
-          "Aggressiveness is per-category or per-listing, not a single global dial",
+          "Aggressiveness is set per listing, not a single global dial",
           "Conservative mode is the default — you opt into aggression deliberately",
-          "Floor enforcement is unchanged regardless of aggressiveness setting; the floor is always the ceiling on how low the engine goes"
+          "Floor enforcement is unchanged regardless of aggressiveness setting; the floor is always the limit on how low the engine goes"
         ]
       }
     ],
     "faq": [
       {
-        "q": "Can I import my existing Price Spectre rules and floors into Undercut?",
-        "a": "Undercut does not have a direct Price Spectre rule importer, but any CSV with a listing ID and floor price column imports cleanly. If you export your current floors from Price Spectre, you can map them in a spreadsheet and bulk-upload in one pass. Most migrating sellers complete this in under an hour for catalogs under 500 SKUs."
+        "q": "Can I bring my existing Price Spectre floors into Undercut?",
+        "a": "Undercut does not import rules from Price Spectre. You set each listing's Floor Price directly in the Undercut dashboard, so if you already have your floors recorded you simply enter them per listing. Most migrating sellers complete this in under an hour for catalogs under 500 SKUs."
       },
       {
         "q": "Does Undercut reprice against Price Spectre users specifically, or all eBay sellers?",
@@ -217,7 +217,7 @@ export const alternatives: PageContent[] = [
         },
         {
           "label": "AI aggressiveness tuning",
-          "undercut": "Yes — Pro ($79) and Scale ($199) plans",
+          "undercut": "Yes — Pro ($79) plan",
           "competitor": "Varies"
         },
         {
@@ -227,7 +227,7 @@ export const alternatives: PageContent[] = [
         },
         {
           "label": "Setup complexity",
-          "undercut": "Bulk CSV import with single floor field per SKU; most catalogs under 500 SKUs migrate in under an hour",
+          "undercut": "Single Floor Price field per listing, set in the dashboard; most catalogs under 500 SKUs migrate in under an hour",
           "competitor": "Supported — rule-based import available; complexity varies by catalog size"
         }
       ]
@@ -283,7 +283,7 @@ export const alternatives: PageContent[] = [
       },
       {
         "h2": "Undercut's Core Difference: The Per-Item Hard Floor",
-        "body": "Every repricing tool claims to protect your margins. Undercut enforces it at the listing level, not the account level, with a hard floor you set per item. The repricer will undercut the lowest competitor price to win the sale — but it will never go below your floor, no matter how aggressive the competition gets.\n\nHere is a concrete example using a used electronics accessory:\n\n- Item cost: $8.00\n- Shipping cost: $4.00\n- eBay Final Value Fee (13.25% of sale price + $0.30): variable\n- Minimum target margin: 15%\n\nWorking backward: if total costs excluding fees are $12.00, and you need 15% margin after a ~13.25% fee, the floor calculation is roughly: floor = $12.00 / (1 - 0.1325 - 0.15) = $12.00 / 0.7175 ≈ $16.72, rounded up to $17.14 with the $0.30 fixed fee added. You enter $17.14 as your hard floor in Undercut. The repricer does the rest — competing down to that number and stopping cold. You never sell below cost by accident.",
+        "body": "Every repricing tool claims to protect your margins. Undercut enforces it at the listing level, not the account level, with a hard floor you set per item. The repricer will undercut the lowest competitor price to win the sale — but it will never go below your floor, no matter how aggressive the competition gets.\n\nHere is a concrete example using a used electronics accessory:\n\n- Item cost: $8.00\n- Shipping cost: $4.00\n- eBay Final Value Fee (13.25% of sale price + $0.30): variable\n- Minimum target margin: 15%\n\nWorking backward: if total costs excluding fees are $12.00, and you need 15% margin after a ~13.25% fee, the floor calculation is roughly: floor = $12.00 / (1 - 0.1325 - 0.15) = $12.00 / 0.7175 ≈ $16.72. You enter $16.72 as your hard floor in Undercut. The repricer does the rest — competing down to that number and stopping cold. You never sell below cost by accident.",
         "bullets": [
           "Floor is set per listing, not as a global account minimum",
           "Repricer stops at your floor regardless of competitor activity",
@@ -427,7 +427,7 @@ export const alternatives: PageContent[] = [
         "bullets": [
           "Per-item floor set in dollars, not as a vague percentage of a moving number",
           "Floor holds even if competitors drop below it — Undercut parks at floor, not below",
-          "Pro and Scale plans add AI aggressiveness tuning so you control how fast you chase"
+          "The Pro plan adds AI aggressiveness tuning so you control how fast each listing moves toward its floor"
         ]
       },
       {
@@ -463,8 +463,8 @@ export const alternatives: PageContent[] = [
         "a": "Undercut covers only repricing. Tools like automated feedback requests, order management, or custom store design are not part of Undercut. If you rely on those 3Dsellers features, you would need to keep that subscription or replace those functions separately — factor that into the comparison."
       },
       {
-        "q": "How does Undercut's AI aggressiveness tuning (Pro and Scale) work alongside the hard floor?",
-        "a": "The AI tuning controls how quickly and how far Undercut chases competitors toward the floor — whether it matches immediately, undercuts by a fixed amount, or applies a calculated margin. The hard floor is always the absolute lower bound; the AI operates in the space between your current price and the floor, not below it."
+        "q": "How does Undercut's AI aggressiveness tuning (Pro) work alongside the hard floor?",
+        "a": "The AI tuning controls how quickly and how far each listing moves toward its floor as it undercuts the lowest competitor. The hard floor is always the absolute lower bound; the AI operates in the space between your current price and the floor, and never overrides or crosses the floor."
       },
       {
         "q": "What happens in Undercut when a competitor prices below my hard floor?",
@@ -518,7 +518,7 @@ export const alternatives: PageContent[] = [
         },
         {
           "label": "AI aggressiveness tuning",
-          "undercut": "Included on Pro ($79/mo) and Scale ($199/mo)",
+          "undercut": "Included on Pro ($79/mo)",
           "competitor": "Varies"
         },
         {
@@ -657,7 +657,7 @@ export const alternatives: PageContent[] = [
         },
         {
           "label": "AI aggressiveness tuning",
-          "undercut": "Yes — Pro plan and above",
+          "undercut": "Yes — Pro plan",
           "competitor": "Supported"
         }
       ]
@@ -698,7 +698,7 @@ export const alternatives: PageContent[] = [
         "body": "For sellers with fewer than 1,000 eBay listings, Undercut's pricing is straightforward. The free plan covers 25 listings indefinitely — useful for testing with real inventory. Paid tiers are: Starter at $29/month (100 listings), Pro at $79/month (1,000 listings, adds AI aggressiveness tuning and 15-minute repricing cycles), and Scale at $199/month (10,000 listings, 5-minute cycles). Repricer.com's published pricing starts higher on entry-level plans and is structured around multi-channel access. If you are an eBay-focused seller who does not need Amazon or Walmart repricing, you are likely paying for capacity you will not use.",
         "bullets": [
           "Free tier: 25 listings, no card required — Undercut only.",
-          "Pro tier adds AI-driven aggressiveness tuning, letting Undercut decide how close to the floor to sit based on competition density.",
+          "Pro tier adds AI-driven aggressiveness tuning, letting you control how fast and how far each listing moves toward its floor.",
           "Scale tier's 5-minute repricing cycle is among the fastest available for eBay sellers at this price point."
         ]
       },
@@ -713,7 +713,7 @@ export const alternatives: PageContent[] = [
         "bullets": [
           "No credit card required for the free trial — zero financial commitment to start.",
           "Import your existing eBay listings directly; no manual re-entry.",
-          "Set floors per listing or apply a category-level floor rule to speed up initial setup."
+          "Set each listing's Floor Price directly in the dashboard during setup."
         ]
       }
     ],
@@ -724,7 +724,7 @@ export const alternatives: PageContent[] = [
       },
       {
         "q": "Can I migrate my repricing rules from Repricer.com to Undercut?",
-        "a": "There is no direct rule-import from Repricer.com. However, Undercut's rule structure is simpler by design — the primary input per listing is a hard floor and an aggressiveness setting (on Pro and above). Most sellers can recreate their core logic in under an hour. The free tier lets you test this without any payment commitment."
+        "a": "There is no direct rule-import from Repricer.com. However, Undercut's rule structure is simpler by design — the primary input per listing is a hard floor and an aggressiveness setting (on Pro). Most sellers can recreate their core logic in under an hour. The free tier lets you test this without any payment commitment."
       },
       {
         "q": "How does the per-item hard floor work in practice — can I accidentally override it?",
@@ -796,7 +796,7 @@ export const alternatives: PageContent[] = [
         },
         {
           "label": "AI aggressiveness tuning",
-          "undercut": "Available on Pro ($79/month) and above",
+          "undercut": "Available on Pro ($79/month)",
           "competitor": "Supported on higher-tier plans"
         }
       ]

@@ -27,11 +27,11 @@ export const repricers: PageContent[] = [
       },
       {
         "h2": "Scale Plan: Built for 10,000-Listing Auto Parts Catalogs",
-        "body": "The Scale plan at $199/month supports up to 10,000 active eBay listings with 15-minute repricing intervals and AI-tuned price suggestions. For an auto parts seller with 6,000 live SKUs, that's roughly $0.033 per listing per month — a rounding error against eBay's ~13.6% final value fee on every sale. Set a hard floor on each listing (your landed cost + eBay fees + minimum margin), and Undercut handles the rest. Pay annually and get two months free, dropping the effective cost to $166/month. No per-transaction fees, no percentage of revenue taken — a flat subscription regardless of whether you sell $20,000 or $200,000 that month.",
+        "body": "The Scale plan at $199/month supports up to 10,000 active eBay listings with the fastest repricing cycle. For an auto parts seller with 6,000 live SKUs, that's roughly $0.033 per listing per month — a rounding error against eBay's ~13.6% final value fee on every sale. Set a hard floor on each listing (your landed cost + eBay fees + minimum margin), and Undercut handles the rest. Pay annually and get two months free, dropping the effective cost to $166/month. No per-transaction fees, no percentage of revenue taken — a flat subscription regardless of whether you sell $20,000 or $200,000 that month.",
         "bullets": [
           "Up to 10,000 listings on Scale plan at $199/month",
           "15-minute reprice cycles — catches overnight competitor changes before the morning rush",
-          "AI tuning suggests optimal floors based on your category velocity",
+          "Set a hard floor per listing so repricing never crosses your minimum",
           "Annual billing saves $398/year vs. monthly"
         ]
       },
@@ -42,7 +42,7 @@ export const repricers: PageContent[] = [
           "Floor formula: landed cost ÷ (1 − 0.136) + shipping out + $0.35 per order + target margin",
           "Set tighter floors on high-competition commodity parts (oil filters, air filters)",
           "Allow wider repricing range on specialty or hard-to-source fitment parts",
-          "Review floors when supplier invoices change — bulk import keeps it manageable"
+          "Review floors when supplier invoices change — set each listing's Floor Price in the dashboard"
         ]
       },
       {
@@ -57,7 +57,7 @@ export const repricers: PageContent[] = [
       },
       {
         "q": "I have 8,000 auto parts listings. Which plan do I need?",
-        "a": "The Scale plan at $199/month covers up to 10,000 active listings. At 8,000 SKUs that gives you 2,000 headroom for catalog growth. Scale also includes the shortest reprice interval (15 minutes) and AI-assisted floor tuning — both relevant at high SKU counts where manual oversight isn't practical. Annual billing drops it to roughly $166/month effective."
+        "a": "The Scale plan at $199/month covers up to 10,000 active listings. At 8,000 SKUs that gives you 2,000 headroom for catalog growth. Scale also includes the shortest reprice interval (5 minutes), which is relevant at high SKU counts where manual oversight isn't practical. Annual billing drops it to roughly $166/month effective."
       },
       {
         "q": "What happens if a competitor lists a part for less than my cost floor?",
@@ -127,7 +127,7 @@ export const repricers: PageContent[] = [
       },
       {
         "h2": "When Undercut Is and Isn't the Right Tool",
-        "body": "Undercut fits booksellers with at least 26 active listings who list the same edition across multiple ISBNs and want hands-off floor protection. If you sell fewer than 25 books at a time, the Free plan (25 listings, hourly reprice, $0) is genuinely sufficient — no upsell needed. If you run a high-volume media operation with 1,000+ SKUs and want AI-assisted floor suggestions based on sell-through rate, that's the Pro plan. Where Undercut is not a fit: if you need cross-platform repricing (Amazon + eBay simultaneously), or if your catalog is 100% fixed-price rare books where you never want automated price movement. For those cases, manual pricing or a different tool is the honest answer.",
+        "body": "Undercut fits booksellers with at least 26 active listings who list the same edition across multiple ISBNs and want hands-off floor protection. If you sell fewer than 25 books at a time, the Free plan (25 listings, hourly reprice, $0) is genuinely sufficient — no upsell needed. If you run a high-volume media operation with 1,000+ SKUs and want per-listing AI aggressiveness tuning that adjusts how fast each listing moves toward its floor, that's the Pro plan. Where Undercut is not a fit: if you need cross-platform repricing (Amazon + eBay simultaneously), or if your catalog is 100% fixed-price rare books where you never want automated price movement. For those cases, manual pricing or a different tool is the honest answer.",
         "bullets": [
           "Free plan: 25 listings, hourly — good for casual or testing sellers",
           "Starter $29/mo: 100 listings — right for small dedicated book stores",
@@ -140,7 +140,7 @@ export const repricers: PageContent[] = [
         "body": "The setup is a three-field calculation per listing: acquisition cost, shipping cost estimate, and minimum acceptable margin. Undercut applies the 15.3% media fee automatically when your eBay category is set to Books, Movies & Music. You enter your cost (e.g., $0.50 from a library sale), estimated media mail cost for that weight tier (e.g., $3.19 for under 1 lb), and a minimum margin (e.g., $0.50). Undercut calculates the floor: $0.50 + $3.19 + $0.50 + $0.40 order fee + 15.3% of the total = your hard floor. The repricer then beats the current lowest ask but never goes below that number. No spreadsheet required.",
         "bullets": [
           "Category auto-detection applies the correct 15.3% rate",
-          "Bulk floor-setting available via CSV import on Starter and above",
+          "Set each listing's Floor Price in the dashboard",
           "Floor updates propagate to live listings within one reprice cycle"
         ]
       }
@@ -163,8 +163,8 @@ export const repricers: PageContent[] = [
         "a": "During the late-July-through-September and early-January windows, textbook prices move fast. The Pro plan's 15-minute reprice cycle is the best fit for high-demand ISBNs during rush periods. Set your floor for the off-season economics, then let Undercut track the market upward during peak demand without manual intervention. When the rush clears and prices compress, the floor holds your minimum, so you don't accidentally sell below cost chasing declining comps."
       },
       {
-        "q": "Can I import my existing book inventory floors via CSV?",
-        "a": "Yes, bulk CSV import is available on the Starter plan ($29/mo) and above. You can upload a spreadsheet with your ISBN or eBay listing ID, cost, shipping estimate, and margin target, and Undercut generates floors for each listing automatically. This is particularly useful when onboarding a large media catalog where setting floors one by one would be impractical."
+        "q": "How do I set floors across my existing book inventory?",
+        "a": "You set each listing's Floor Price directly in the Undercut dashboard. For every listing you enter your cost, shipping estimate, and margin target, and Undercut holds that listing's floor as a hard stop. When you onboard a large media catalog, you work through your listings in the dashboard and set the floor on each one before repricing takes over."
       }
     ],
     "internalLinks": [
@@ -289,7 +289,7 @@ export const repricers: PageContent[] = [
     "sections": [
       {
         "h2": "eBay's 8% Sneaker Fee — and What It Actually Changes",
-        "body": "eBay charges a reduced 8% final value fee on sneakers sold for $150 or more through its Authenticity Guarantee program, compared to the standard ~13.6% on most categories. That 5.6-point spread is meaningful. On a $220 pair, standard fees run about $30.32 (13.6% + $0.30 order fee); the sneaker rate drops that to $17.90 — a $12.42 difference per sale. When you build your floor in Undercut, use the 8% rate for eligible pairs so you're not leaving margin on the table by overcalculating fees. For pairs under $150 or categories that don't qualify, revert to 13.6%. Getting this input right is what makes the floor calculation trustworthy."
+        "body": "eBay charges a reduced 8% final value fee on sneakers sold for $150 or more through its Authenticity Guarantee program, compared to the standard ~13.6% on most categories. That 5.6-point spread is meaningful. On a $220 pair, standard fees run about $30.22 (13.6% + $0.30 order fee); the sneaker rate drops that to $17.90 — a $12.32 difference per sale. When you build your floor in Undercut, use the 8% rate for eligible pairs so you're not leaving margin on the table by overcalculating fees. For pairs under $150 or categories that don't qualify, revert to 13.6%. Getting this input right is what makes the floor calculation trustworthy."
       },
       {
         "h2": "Hype Cycle Price Decay — Why Hourly Repricing Isn't Fast Enough Post-Drop",
@@ -297,7 +297,7 @@ export const repricers: PageContent[] = [
       },
       {
         "h2": "Sizes Are Separate Markets — Manage Them That Way",
-        "body": "A size 10.5 Air Force 1 and a size 6.5 Air Force 1 in the same colorway are not competing with each other. Supply and demand differ enough that the size 6.5 might sit at $95 while size 10.5 clears at $75. If you list multiple sizes under one static price or one shared floor, you either leave money behind on scarce sizes or reprice rare sizes down unnecessarily. In Undercut, each listing gets its own floor. List your size 6.5 pair with a floor of $88 and your size 10.5 pair with a floor of $68, and both compete independently. Sellers running 20–50 size variants of the same shoe benefit most from Pro ($79/mo) where AI tuning adjusts repricing aggressiveness by listing velocity."
+        "body": "A size 10.5 Air Force 1 and a size 6.5 Air Force 1 in the same colorway are not competing with each other. Supply and demand differ enough that the size 6.5 might sit at $95 while size 10.5 clears at $75. If you list multiple sizes under one static price or one shared floor, you either leave money behind on scarce sizes or reprice rare sizes down unnecessarily. In Undercut, each listing gets its own floor. List your size 6.5 pair with a floor of $88 and your size 10.5 pair with a floor of $68, and both compete independently. Sellers running 20–50 size variants of the same shoe benefit most from Pro ($79/mo), where per-listing AI aggressiveness tuning lets you set how fast each listing moves toward its own floor."
       },
       {
         "h2": "Building a Real Floor: Cost + Fees + Margin Example",
@@ -391,7 +391,7 @@ export const repricers: PageContent[] = [
         "bullets": [
           "Free plan: hourly repricing, up to 25 listings — enough to test on your top movers",
           "Starter ($29/mo): 100 listings, hourly — good for a focused singles inventory",
-          "Pro ($79/mo): 1,000 listings, 15-minute cycles, AI floor tuning — for active flippers",
+          "Pro ($79/mo): 1,000 listings, 15-minute cycles, AI aggressiveness tuning — for active flippers",
           "Scale ($199/mo): 10,000 listings — sealed case breakers and large inventory sellers"
         ]
       },
@@ -465,7 +465,7 @@ export const repricers: PageContent[] = [
     "sections": [
       {
         "h2": "Commodity SKUs: Why Video Games Demand Automation",
-        "body": "A loose copy of Super Mario Bros. 3 for NES isn't unique — it's interchangeable with the 40 other copies listed right now. Buyers sort by price and condition, click the cheapest acceptable option, and move on. That commodity dynamic means a $2 gap between your price and a competitor's can redirect dozens of sales per week away from your store. Manual repricing requires you to check each title individually, research current comps, and edit listings one by one. For a catalog of 200 games spanning five consoles and three condition tiers each, that's hundreds of data points to update every few days. Undercut collapses that to zero manual work — it reads live eBay sold and active data, calculates the current competitive floor, and adjusts your listing automatically within minutes on the Pro plan or hourly on Free."
+        "body": "A loose copy of Super Mario Bros. 3 for NES isn't unique — it's interchangeable with the 40 other copies listed right now. Buyers sort by price and condition, click the cheapest acceptable option, and move on. That commodity dynamic means a $2 gap between your price and a competitor's can redirect dozens of sales per week away from your store. Manual repricing requires you to check each title individually, research current comps, and edit listings one by one. For a catalog of 200 games spanning five consoles and three condition tiers each, that's hundreds of data points to update every few days. Undercut collapses that to zero manual work — it checks the lowest comparable live competitor listing on eBay and adjusts your price to just beat it automatically, within minutes on the Pro plan or hourly on Free."
       },
       {
         "h2": "Condition Tiers Are Separate Markets — Price Them That Way",

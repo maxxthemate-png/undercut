@@ -36,7 +36,7 @@ export const glossary: PageContent[] = [
       },
       {
         "h2": "The Floor Calculation: A Worked Example",
-        "body": "Automated repricing is only safe if it cannot push you below profitability. That lower bound is called the price floor. Here is a concrete example for a used paperback book:\n\nCOGS (sourced at): $3.00\nShipping (poly mailer + postage): $4.25\neBay final value fee (13.25% of total): ~$0.96 on a $7.25 sale\nPayPal/managed payments processing: $0.30 + 2.9% ≈ $0.51\nMinimum acceptable margin: 15%\n\nWorking backwards: to clear 15% margin after all costs of $9.02, your floor is roughly $10.38. Any automated rule must stop at or above that number — it should never reprice below it regardless of what competitors do. In Undercut, you set this floor per listing. The repricer beats the lowest competitor right up to that line, then holds.",
+        "body": "Automated repricing is only safe if it cannot push you below profitability. That lower bound is called the price floor. Here is a concrete example for a used paperback book:\n\nCOGS (sourced at): $3.00\nShipping (poly mailer + postage): $4.25\neBay final value fee (13.25% of total): ~$1.26 on a ~$9.50 sale\nPayPal/managed payments processing: $0.30 + 2.9% ≈ $0.51\nMinimum acceptable margin: 15%\n\nWorking backwards: to clear 15% margin after all costs of $9.02, your floor is roughly $10.38. Any automated rule must stop at or above that number — it should never reprice below it regardless of what competitors do. In Undercut, you set this floor per listing. The repricer beats the lowest competitor right up to that line, then holds.",
         "bullets": []
       },
       {
@@ -48,7 +48,7 @@ export const glossary: PageContent[] = [
     "faq": [
       {
         "q": "Does repricing always mean dropping my price?",
-        "a": "No. Repricing means adjusting to the market in either direction. If a competitor sells out and you're the only seller left on a SKU, a repricer following demand signals can raise your price. The floor sets the downside limit; there's no ceiling unless you set one."
+        "a": "No. Repricing means adjusting to the market in either direction. If a competitor sells out and you're the only seller left on a SKU, there's no lower listing for Undercut to beat, so your price holds. The floor sets the downside limit, and you can also set an optional ceiling."
       },
       {
         "q": "How is a price floor different from just setting a minimum price manually?",
@@ -133,7 +133,7 @@ export const glossary: PageContent[] = [
       },
       {
         "h2": "How Undercut Enforces Your Floor on Every Listing",
-        "body": "When you connect Undercut, you set a floor for each listing — either manually, via a bulk CSV import, or by entering your cost and letting Undercut calculate it using your stored fee rate and margin target. From that point, the repricer checks the current lowest competitor price and sets your price to one cent below — unless doing so would breach your floor, in which case it holds at the floor.\n\nOn Pro and Scale plans, AI aggressiveness tuning adjusts how quickly Undercut chases a competitor drop versus holding at a premium price point. This is useful in categories like electronics and collectibles where demand is inelastic — the lowest price does not always win the sale. The floor still holds regardless of which aggressiveness setting you choose; it is not a target, it is a hard stop.",
+        "body": "When you connect Undercut, you set each listing's Floor Price in the dashboard — either by entering the floor directly, or by entering your cost and letting Undercut calculate it using your stored fee rate and margin target. From that point, the repricer checks the current lowest competitor price and sets your price to one cent below — unless doing so would breach your floor, in which case it holds at the floor.\n\nOn the Pro plan, per-listing AI aggressiveness tuning adjusts how quickly each listing moves toward its floor versus holding at a premium price point. This is useful in categories like electronics and collectibles where demand is inelastic — the lowest price does not always win the sale. The floor still holds regardless of which aggressiveness setting you choose; it is not a target, it is a hard stop.",
         "bullets": []
       },
       {
@@ -166,8 +166,8 @@ export const glossary: PageContent[] = [
         "a": "Your floor should not change unless your underlying costs change. Promotional pricing is a decision about your target price, not your minimum. If you run a sale, you are choosing to price closer to your floor — but the floor itself stays fixed at the cost-plus-minimum-margin figure."
       },
       {
-        "q": "How does a price floor interact with the AI aggressiveness tuning on Pro and Scale plans?",
-        "a": "AI aggressiveness controls how quickly and how deeply Undercut chases competitor price drops — but it operates entirely above your floor. A more aggressive setting means the repricer will close the gap to the competitor faster; a conservative setting holds at a premium longer. Either way, the floor is a hard stop the algorithm cannot cross."
+        "q": "How does a price floor interact with the AI aggressiveness tuning on the Pro plan?",
+        "a": "AI aggressiveness controls how quickly each listing moves toward its floor as it chases competitor price drops — but it operates entirely above your floor. A more aggressive setting means the listing closes the gap to the competitor faster; a conservative setting holds at a premium longer. Either way, the floor is a hard stop the algorithm cannot cross."
       }
     ],
     "cta": {
@@ -211,7 +211,7 @@ export const glossary: PageContent[] = [
     "sections": [
       {
         "h2": "Dynamic Pricing vs. Rule-Based Repricing: Not the Same Thing",
-        "body": "Rule-based repricing follows a fixed instruction: 'always be $0.10 below the lowest price.' It reacts to a snapshot of the market and applies one formula regardless of context. Dynamic pricing is broader — it can weigh multiple inputs simultaneously, including velocity, time of day, seasonal demand, and competitor behavior patterns, then adjust price along a range rather than by a fixed delta. In practice, most eBay repricers sold today are rule-based engines with a dynamic-sounding name. True dynamic pricing introduces variable aggressiveness: the system may drop more steeply when inventory is high and slow of movement, or hold price closer to your ceiling when stock is low and demand is rising. Undercut's AI aggressiveness tuning (available on Pro and Scale) is the mechanism that shifts between these modes automatically.",
+        "body": "Rule-based repricing follows a fixed instruction: 'always be $0.10 below the lowest price.' It reacts to a snapshot of the market and applies one formula regardless of context. Dynamic pricing is broader — it can weigh multiple inputs simultaneously, including velocity, time of day, seasonal demand, and competitor behavior patterns, then adjust price along a range rather than by a fixed delta. In practice, most eBay repricers sold today are rule-based engines with a dynamic-sounding name. True dynamic pricing introduces variable aggressiveness: the system may move more steeply toward the floor on some items, or hold closer to a premium price point on others. Undercut's per-listing AI aggressiveness tuning (available on the Pro plan) lets you set, per listing, how fast and how far that listing moves toward its already-set floor.",
         "bullets": [
           "Rule-based: one formula, always applied the same way",
           "Dynamic: multiple signals, variable response, range-aware",
@@ -233,7 +233,7 @@ export const glossary: PageContent[] = [
       },
       {
         "h2": "How Dynamic Pricing Behaves Above the Floor",
-        "body": "The floor defines the bottom of the range. Everything above it is where dynamic logic operates. Undercut's default mode targets the lowest active competitor price and undercuts it by the smallest increment needed to be the cheapest visible option — typically $0.01 to $0.05 depending on the category. On Pro and Scale plans, AI aggressiveness tuning adjusts this behavior based on your sell-through rate and margin headroom: when you have room and velocity is low, the engine moves more aggressively toward the competitive floor of the market; when stock is tight or velocity is already strong, it holds higher in the range to protect margin. This is the practical difference between static rule-based repricing and genuine dynamic pricing as applied to eBay."
+        "body": "The floor defines the bottom of the range. Everything above it is where dynamic logic operates. Undercut's default mode targets the lowest active competitor price and undercuts it by the smallest increment needed to be the cheapest visible option — typically $0.01 to $0.05 depending on the category. On the Pro plan, per-listing AI aggressiveness tuning adjusts this behavior on listings you choose: a more aggressive setting moves that listing toward its floor faster, while a conservative setting holds higher in the range longer. You decide the setting per listing — the AI only controls how fast and how far each listing moves toward the floor you already set, never the floor itself. This is the practical difference between a flat undercut and a tunable one as applied to eBay."
       },
       {
         "h2": "Dynamic Pricing on eBay: Practical Limits to Know",
@@ -338,7 +338,7 @@ export const glossary: PageContent[] = [
       },
       {
         "h2": "Why Automated Repricing Wins More Buy Boxes Than Manual Pricing",
-        "body": "A competitor can change their price at any hour. Manual repricing — checking listings once a day or once a week — means you spend most of your time out of position. Undercut's Pro plan reprices every 15 minutes; the Scale plan reprices every 5 minutes. For high-competition categories like consumer electronics or media, that frequency is the difference between holding the top spot through a busy weekend or watching a competitor absorb your sales. The AI aggressiveness tuning on Pro and Scale plans lets you control how quickly Undercut closes on a competitor's price versus how much cushion it keeps — so you are not always racing to the exact floor.",
+        "body": "A competitor can change their price at any hour. Manual repricing — checking listings once a day or once a week — means you spend most of your time out of position. Undercut's Pro plan reprices every 15 minutes; the Scale plan reprices every 5 minutes. For high-competition categories like consumer electronics or media, that frequency is the difference between holding the top spot through a busy weekend or watching a competitor absorb your sales. The per-listing AI aggressiveness tuning on the Pro plan lets you control how quickly each listing closes on a competitor's price versus how much cushion it keeps — so you are not always racing to the exact floor.",
         "bullets": []
       },
       {
@@ -732,10 +732,10 @@ export const glossary: PageContent[] = [
       },
       {
         "h2": "Automated Undercutting With a Floor: How Undercut Does It",
-        "body": "Undercut reprices every listing to beat the current lowest competitor automatically, 24/7—but the floor is hardcoded per listing and the repricer will not cross it. If the market drops below your floor, your listing simply holds at floor price and stops competing on price alone. This is the structural difference from a race to the bottom: the floor acts as a circuit breaker. On the Free plan ($0), 25 listings reprice hourly. Starter ($29/mo) covers 100 listings at hourly cadence. Pro ($79/mo) covers 1,000 listings with 15-minute repricing and AI tuning that learns which listings benefit from aggressive undercutting vs. floor-holding. Scale ($199/mo) handles 10,000 listings. Every account starts with a 14-day Starter trial—no card required—so you can set floors, watch the repricer run, and verify margin before committing. Annual plans include two months free.",
+        "body": "Undercut reprices every listing to beat the current lowest competitor automatically, 24/7—but the floor is hardcoded per listing and the repricer will not cross it. If the market drops below your floor, your listing simply holds at floor price and stops competing on price alone. This is the structural difference from a race to the bottom: the floor acts as a circuit breaker. On the Free plan ($0), 25 listings reprice hourly. Starter ($29/mo) covers 100 listings at hourly cadence. Pro ($79/mo) covers 1,000 listings with 15-minute repricing and per-listing AI aggressiveness tuning that lets you set, per listing, how fast and how far it moves toward its floor. Scale ($199/mo) handles 10,000 listings with 5-minute repricing. Every account starts with a 14-day Starter trial—no card required—so you can set floors, watch the repricer run, and verify margin before committing. Annual plans include two months free.",
         "bullets": [
           "Free plan: 25 listings, hourly repricing, floor protection included",
-          "Pro plan ($79/mo): 1,000 listings, 15-min cadence, AI tuning for smarter floor vs. undercut decisions",
+          "Pro plan ($79/mo): 1,000 listings, 15-min cadence, per-listing AI aggressiveness tuning toward your set floor",
           "Floor = your set minimum; repricer holds there if the market dips below it",
           "No card needed for 14-day Starter trial—test floors on live listings before paying"
         ]

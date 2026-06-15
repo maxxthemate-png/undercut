@@ -40,7 +40,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Using AI Aggressiveness Tuning for Electronics",
-        "body": "Not every electronics listing should chase the floor aggressively. A brand-new, sealed-in-box item with high demand should stay near market price — dropping fast only trains buyers to wait for a lower price. A refurbished unit with 90 days of shelf age and three competitors actively undercutting each other is a different situation: you want to be at the floor as soon as possible to move the unit before it depreciates further. Undercut's AI aggressiveness tuning (available on Pro and Scale) lets you configure how quickly and how far listings move toward their floor. You can set a category rule — for example, all listings tagged as refurbished electronics move aggressively; all listings tagged as sealed new move conservatively. This is especially useful for mixed electronics inventories where the same repricing behavior should not apply across every condition level.",
+        "body": "Not every electronics listing should chase the floor aggressively. A brand-new, sealed-in-box item with high demand should stay near market price — dropping fast only trains buyers to wait for a lower price. A refurbished unit with 90 days of shelf age and three competitors actively undercutting each other is a different situation: you want to be at the floor as soon as possible to move the unit before it depreciates further. Undercut's AI aggressiveness tuning (available on Pro) lets you configure, per listing, how quickly and how far a listing moves toward its floor. You can set a refurbished unit to move aggressively toward its floor while a sealed-new unit moves conservatively. This is especially useful for mixed electronics inventories where the same repricing behavior should not apply across every condition level.",
         "bullets": []
       },
       {
@@ -64,7 +64,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "Can I set different repricing aggressiveness for new versus refurbished condition?",
-        "a": "Yes. On the Pro and Scale plans, Undercut's AI aggressiveness tuning lets you create rules by condition, tag, or category. A common setup is conservative repricing for sealed-new electronics and aggressive repricing for refurbished or open-box units that are aging on the shelf."
+        "a": "Yes. On the Pro plan, Undercut's AI aggressiveness tuning lets you set a different aggressiveness on each listing. A common setup is conservative repricing on your sealed-new electronics and aggressive repricing on the refurbished or open-box units that are aging on the shelf."
       },
       {
         "q": "Does Undercut reprice multi-variation electronics listings (e.g. different storage sizes)?",
@@ -135,7 +135,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "How Seasonality Changes the Repricing Strategy — and How to Automate It",
-        "body": "Clothing has two repricing modes: in-season and clearance. In-season, the goal is to hold near the market price and win sales from buyers ready to buy now. Clearance, the goal is velocity — move inventory before it becomes unseasonal dead stock, but still above the floor.\n\nManually switching between these modes for hundreds of listings is the exact work automation eliminates. On Undercut's Pro and Scale plans, the AI aggressiveness tuning lets you dial repricing behavior from conservative (match the lowest price) to aggressive (undercut by a percentage or fixed amount). Sellers typically run conservative settings in peak season and shift to aggressive in the final four to six weeks of a season's sell window.\n\nThe floor stays constant throughout both phases — it is what keeps the clearance discount from becoming a loss.",
+        "body": "Clothing has two repricing modes: in-season and clearance. In-season, the goal is to hold near the market price and win sales from buyers ready to buy now. Clearance, the goal is velocity — move inventory before it becomes unseasonal dead stock, but still above the floor.\n\nManually switching between these modes for hundreds of listings is the exact work automation eliminates. On Undercut's Pro plan, the AI aggressiveness tuning lets you dial, per listing, how fast and how far a listing moves toward its floor — from conservative to aggressive. Sellers typically run conservative settings in peak season and shift to aggressive in the final four to six weeks of a season's sell window.\n\nThe floor stays constant throughout both phases — it is what keeps the clearance discount from becoming a loss.",
         "bullets": [
           "Peak season: conservative mode, protect margin, let the floor work as a ceiling against undercutting wars",
           "Late season: aggressive mode, beat the lowest price by a defined percentage, flush inventory above floor",
@@ -144,10 +144,10 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Size and Variation Sprawl: Repricing at Scale Without Chaos",
-        "body": "The practical problem with fashion repricing is volume. If you source 50 garments a week and each generates four size-variation listings, you are managing 200 new listings weekly — on top of your existing catalog. Repricing each one by hand before the next batch arrives is impossible without a team.\n\nUndercut ingests your full eBay catalog and applies repricing rules and floors at the listing level, not the account level. That means your XS listings compete against XS competitors and your XL listings compete against XL competitors — each with the floor you set for that specific cost basis. The Scale plan (10,000 listings, 5-minute repricing intervals) is built specifically for sellers at this volume.",
+        "body": "The practical problem with fashion repricing is volume. If you source 50 garments a week and each generates four size-variation listings, you are managing 200 new listings weekly — on top of your existing catalog. Repricing each one by hand before the next batch arrives is impossible without a team.\n\nUndercut connects to your full eBay catalog and reprices against a floor you set on each listing, not at the account level. That means your XS listings compete against XS competitors and your XL listings compete against XL competitors — each with the floor you set for that specific cost basis. The Scale plan (10,000 listings, 5-minute repricing intervals) is built specifically for sellers at this volume.",
         "bullets": [
-          "Import your catalog and map floors using your existing spreadsheet cost data",
-          "Rules apply per listing — a floor mismatch in one size does not affect another",
+          "Connect your eBay account and set each listing's Floor Price from your existing cost data",
+          "Floors apply per listing — a floor mismatch in one size does not affect another",
           "5-minute repricing on Scale ensures you respond to competitor price drops before buyers see a stale listing"
         ]
       },
@@ -159,7 +159,7 @@ export const guides: PageContent[] = [
     "faq": [
       {
         "q": "How do I set different floors for in-season versus end-of-season clearance on the same item?",
-        "a": "You can update a listing's floor at any point — Undercut will respect the new value immediately. Many clothing sellers keep a simple spreadsheet with two floor columns (peak and clearance) and update in bulk as the season shifts. The repricer holds at whichever floor is active, so there is no risk of the clearance price overshooting into a loss."
+        "a": "You can update a listing's floor at any point — Undercut will respect the new value immediately. Many clothing sellers keep a simple spreadsheet with two floor columns (peak and clearance) and update each listing's Floor Price in the dashboard as the season shifts. The repricer holds at whichever floor is active, so there is no risk of the clearance price overshooting into a loss."
       },
       {
         "q": "Does Undercut handle size variations as separate listings or as one listing with variants?",
@@ -167,7 +167,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "My clothing costs vary a lot because I source from thrift stores. How do I floor items I paid different prices for?",
-        "a": "Set the floor per listing based on that item's actual cost. If two identical jackets cost you $8 and $22 respectively, they get different floors. The formula is the same — cost + shipping + fees + margin target — but the input changes per unit. A bulk import via CSV lets you set this at scale without editing listings one by one."
+        "a": "Set the floor per listing based on that item's actual cost. If two identical jackets cost you $8 and $22 respectively, they get different floors. The formula is the same — cost + shipping + fees + margin target — but the input changes per unit. You set each listing's Floor Price in the dashboard, so two identical jackets with different costs each get the floor that matches what you actually paid."
       },
       {
         "q": "Competitors on my clothing listings sometimes price below their shipping cost. Will Undercut match those prices?",
@@ -235,7 +235,7 @@ export const guides: PageContent[] = [
         "h2": "How to Set Floors in Undercut for Your Book Inventory",
         "body": "Undercut lets you set a hard floor per listing, which the repricer will never breach regardless of what competitors do. For book sellers, the recommended approach is to calculate your floor for each ISBN or SKU using the formula above, then enter that floor when you import or create the listing in Undercut. The repricer will then beat the lowest visible competitor price by your configured amount — but the moment doing so would require going below your floor, it holds the listing at the floor instead of matching. This means you stay competitive on every title where margin exists, and you automatically step aside on titles where it does not. On the Pro plan, AI aggressiveness tuning lets you configure whether to hold at floor, fractionally undercut, or match — useful for slow-moving titles where you'd rather sell at cost than warehouse indefinitely.",
         "bullets": [
-          "Set floors per listing or in bulk via CSV upload.",
+          "Set each listing's Floor Price in the dashboard.",
           "Floors are respected even during rapid market drops — no manual intervention needed.",
           "Pro plan reprices every 15 minutes; Scale plan every 5 minutes — useful during peak selling hours on popular ISBNs."
         ]
@@ -275,8 +275,8 @@ export const guides: PageContent[] = [
         "a": "The Free and Starter plans reprice on a slower cadence suited to most book sellers. The Pro plan reprices every 15 minutes and the Scale plan every 5 minutes. For most book categories, the slower cadence is fine — book prices don't move as fast as electronics. Textbooks during semester rush are an exception where faster repricing can meaningfully affect sell-through."
       },
       {
-        "q": "Can I import my existing book inventory with floors already set, or do I have to enter them one at a time?",
-        "a": "You can upload a CSV with your inventory and include a floor price column, which Undercut maps to each listing on import. For sellers with hundreds or thousands of ISBNs, this is the practical path. You can also set floors in bulk by applying a formula (for example, cost × 1.45) to a filtered segment of your catalog after import."
+        "q": "How do I set floors across a large book inventory — do I have to do it one listing at a time?",
+        "a": "Undercut imports your active listings when you connect your eBay account, and you set the Floor Price on each listing in the dashboard. For sellers with hundreds or thousands of ISBNs, the practical path is to calculate floors offline in your own spreadsheet (for example, cost × 1.45), then enter each listing's floor. The floor you set is the floor the repricer respects."
       }
     ],
     "cta": {
@@ -339,7 +339,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Adding a Ceiling: Capturing Upside Without Manual Intervention",
-        "body": "A floor protects you from selling at a loss. A ceiling is the upper bound you set so that your repricer does not drift your price down to match a temporarily distressed seller dumping inventory. In collectibles, ceilings matter for a second reason: when comparable sold listings show rising prices — a set is discontinued, a player gets called up, a show gets a reboot — you want your price to rise with the market, not sit anchored to a stale competitor low.\n\nSet your ceiling at the highest price you believe the market will currently bear for your specific condition. A practical approach: check the last 30 days of eBay sold listings filtered to your exact condition and completeness, take the 75th-percentile sale price, and use that as your ceiling. Revisit monthly for active categories like vintage video games or modern Pokemon cards where values shift quickly.\n\nWith Undercut's Pro and Scale plans, AI aggressiveness tuning adjusts how quickly the repricer moves toward your ceiling versus your floor based on listing velocity and competitor churn — without ever breaking either boundary.",
+        "body": "A floor protects you from selling at a loss. A ceiling is the upper bound you set so that your repricer does not drift your price down to match a temporarily distressed seller dumping inventory. In collectibles, ceilings matter for a second reason: when comparable sold listings show rising prices — a set is discontinued, a player gets called up, a show gets a reboot — you want your price to rise with the market, not sit anchored to a stale competitor low.\n\nSet your ceiling at the highest price you believe the market will currently bear for your specific condition. A practical approach: check the last 30 days of eBay sold listings filtered to your exact condition and completeness, take the 75th-percentile sale price, and use that as your ceiling. Revisit monthly for active categories like vintage video games or modern Pokemon cards where values shift quickly.\n\nWith Undercut's Pro plan, AI aggressiveness tuning lets you set, per listing, how quickly and how far the repricer moves toward your floor — without ever breaking your floor or your ceiling.",
         "bullets": [
           "A ceiling without a floor is still dangerous — always set both.",
           "For graded collectibles, set separate ceiling values per grade tier if you have multiple copies.",
@@ -352,15 +352,15 @@ export const guides: PageContent[] = [
         "bullets": [
           "15-minute repricing on Pro is fast enough for 95% of collectibles categories.",
           "5-minute repricing on Scale matters most when you sell high-demand modern releases where competitor stock sells through rapidly.",
-          "AI aggressiveness tuning on Pro+ lets you reprice more defensively for rare, slow-moving items and more aggressively for common, liquid ones — without managing two separate tools."
+          "AI aggressiveness tuning on Pro lets you move more defensively toward the floor on rare, slow-moving items and more aggressively on common, liquid ones — without managing two separate tools."
         ]
       },
       {
         "h2": "Practical Setup: Getting Your Collectibles Inventory Floor-Ready",
-        "body": "The most common mistake sellers make when connecting Undercut to a collectibles inventory is importing all listings with a single default floor. That works for commodity goods; for collectibles it is wrong. A $0.99 common sports card and a $400 vintage action figure in sealed packaging do not share a floor.\n\nThe right approach is to set floors at the listing level or, at minimum, by condition tier. Undercut lets you set per-listing floors directly, so you can start with your highest-value items where the floor matters most, verify the math, and then batch-import floors for your lower-value long tail. Start your 14-day free trial to connect your eBay seller account, import your listings, and test floor logic on up to 25 items before upgrading.",
+        "body": "The most common mistake sellers make when connecting Undercut to a collectibles inventory is importing all listings with a single default floor. That works for commodity goods; for collectibles it is wrong. A $0.99 common sports card and a $400 vintage action figure in sealed packaging do not share a floor.\n\nThe right approach is to set floors at the listing level or, at minimum, by condition tier. Undercut lets you set per-listing floors directly, so you can start with your highest-value items where the floor matters most, verify the math, and then work through your lower-value long tail. Start your 14-day free trial to connect your eBay seller account, import your listings, and test floor logic on up to 25 items before upgrading.",
         "bullets": [
-          "Export your active listings to a spreadsheet first; calculate floors offline, then import — saves time versus setting them one by one.",
-          "Tag listings by condition in eBay's item specifics before importing; it makes batch floor-setting by condition tier easier.",
+          "Export your active listings to a spreadsheet first and calculate floors offline, so you have the right number ready when you set each listing's Floor Price.",
+          "Group your spreadsheet by condition tier as you calculate, so similar items get consistent floors when you enter them.",
           "Review floors after any significant purchase — if your cost basis changes (bulk lot buy, grading expense), update the floor before the listing goes live."
         ]
       }
@@ -380,7 +380,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "How does AI aggressiveness tuning help with collectibles specifically?",
-        "a": "Available on Pro and Scale plans, AI aggressiveness tuning adjusts how quickly Undercut moves your price toward the floor or ceiling based on signals like how fast competitor stock is selling through and how long your own listing has been active. For a rare item with one competitor, it can hold you closer to your ceiling. For a liquid common, it can move you more quickly toward competitive pricing. Floors and ceilings always remain hard boundaries regardless of the aggressiveness setting."
+        "a": "Available on the Pro plan, AI aggressiveness tuning lets you set, per listing, how quickly and how far Undercut moves your price toward the floor. Set a rare item with one competitor to move conservatively so it holds closer to your ceiling; set a liquid common to move aggressively so it reaches competitive pricing faster. Floors and ceilings always remain hard boundaries regardless of the aggressiveness setting."
       },
       {
         "q": "I sell across multiple collectibles categories — sports cards, vintage video games, and vinyl records. Can one Undercut account handle all of them?",
@@ -518,19 +518,19 @@ export const guides: PageContent[] = [
   },
   {
     "title": "eBay Repricing for High-Volume Sellers — Undercut",
-    "metaDescription": "Scale eBay repricing across 500+ listings with default floors and per-item overrides. Beat every competitor automatically — 14-day free trial, no card required.",
+    "metaDescription": "Scale eBay repricing across 500+ listings with a per-listing hard floor on every item. Beat every competitor automatically — 14-day free trial, no card.",
     "h1": "How High-Volume eBay Sellers Reprice at Scale Without Losing Margin Control",
     "eyebrow": "Guide",
-    "intro": "At 500 or more active listings, the math changes. You can't manually review every price, and a single misconfigured rule can silently erode margin across hundreds of SKUs overnight. The answer isn't faster hands — it's a system where default floor rules protect your entire catalog by default, and per-item overrides handle the exceptions. This guide shows exactly how to structure that system, including the floor formula that keeps every sale profitable, and where automation stops so your margins don't.",
+    "intro": "At 500 or more active listings, the math changes. You can't manually review every price, and a single misconfigured rule can silently erode margin across hundreds of SKUs overnight. The answer isn't faster hands — it's a per-listing hard floor on every item, so the repricer can chase competitors aggressively while never crossing the minimum you set. This guide shows exactly how to structure that, including the floor formula that keeps every sale profitable, and where automation stops so your margins don't.",
     "sections": [
       {
         "h2": "Why Standard Repricing Breaks Down Above 500 Listings",
-        "body": "Below 100 listings, a single flat rule — beat the lowest price by 2% — works well enough. Above 500, it doesn't, for two reasons. First, your catalog is heterogeneous: a lot of electronics might carry 8% margin while a vintage camera lot runs 35%. A single aggressiveness setting punishes your high-margin inventory. Second, listing churn accelerates: new competitors appear, old ones sell out, and buy-box positions shift faster than any weekly review cycle can track. High-volume repricing requires a two-layer architecture: catalog-wide defaults that are safe for every item, and targeted per-item overrides for your outliers.",
+        "body": "Below 100 listings, a single flat rule — beat the lowest price by 2% — works well enough. Above 500, it doesn't, for two reasons. First, your catalog is heterogeneous: a lot of electronics might carry 8% margin while a vintage camera lot runs 35%. A single repricing posture across the whole catalog punishes your high-margin inventory. Second, listing churn accelerates: new competitors appear, old ones sell out, and buy-box positions shift faster than any weekly review cycle can track. High-volume repricing requires a hard floor on every item, with the floor calculated from each item's own cost so the repricer can chase competitors without ever crossing it.",
         "bullets": [
           "A flat %-below rule ignores cost variance across categories",
           "Weekly manual reviews miss intraday buy-box shifts",
           "Without floors, a race-to-the-bottom wipes margin on fast-moving SKUs",
-          "Per-item overrides let you protect your best-margin listings selectively"
+          "A per-listing floor protects your best-margin listings individually"
         ]
       },
       {
@@ -544,12 +544,12 @@ export const guides: PageContent[] = [
         ]
       },
       {
-        "h2": "Default Floors vs. Per-Item Overrides: How to Use Both",
-        "body": "Undercut lets you set a catalog-level default floor as a percentage markup over cost — useful when you have consistent margins across a category. But the real unlock for high-volume sellers is per-item floor overrides. You import a floor price column in your bulk upload CSV, and Undercut respects each item's specific floor rather than the default. This matters when your catalog spans categories with very different fee structures or cost bases. A book category might carry 13% eBay fees; a collectibles category might carry 10%. Setting a single default floor that's safe for the highest-fee category leaves money on the table in lower-fee categories. Use the default as a safety net; use per-item overrides as the real control layer.",
+        "h2": "Per-Listing Floors: The Real Control Layer at Scale",
+        "body": "Every listing carries its own hard floor, which is the real control layer for high-volume sellers. You set each listing's Floor Price in the dashboard, and Undercut respects that specific floor on every reprice. This matters when your catalog spans categories with very different fee structures or cost bases. A book category might carry 13% eBay fees; a collectibles category might carry 10%. A floor that's safe for your highest-fee category leaves money on the table in lower-fee categories, so calculating the right number per listing — rather than reusing one figure everywhere — is what protects margin without underpricing.",
         "bullets": [
-          "Default floor: set once, covers every listing with no override",
-          "Per-item override: imported via CSV, takes precedence over the default",
-          "Override wins: ideal for high-cost or high-margin outliers",
+          "Per-listing floor: set on each listing in the dashboard, never crossed by the repricer",
+          "Calculate the right floor for high-cost or high-margin outliers individually",
+          "Free and Starter sellers set floors one listing at a time; the same per-listing control applies on every plan",
           "Audit quarterly — supplier cost changes should trigger a floor refresh"
         ]
       },
@@ -565,19 +565,19 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "AI Aggressiveness Tuning for Large Catalogs",
-        "body": "Undercut Pro and Scale include AI aggressiveness tuning, which adjusts how aggressively the algorithm undercuts based on factors like your sell-through rate, current stock level, and days listed. For high-volume sellers, this replaces the manual task of adjusting rules for aging inventory. A listing that has sat for 60 days at floor price might benefit from a more aggressive position — closer to the lowest active competitor. A fast-moving SKU with low stock might hold price near the top of the competitive range to protect margin on limited units. Aggressiveness tuning applies these adjustments automatically across your catalog, while your hard floor ensures the algorithm never executes a sale you'd regret.",
+        "body": "Undercut Pro includes per-listing AI aggressiveness tuning, which sets how fast and how far each listing moves toward its hard floor. It does not read sell-through, stock levels, or demand — you set the aggressiveness, and the AI controls the pace and depth of the move toward the floor you already defined. For high-volume sellers, that means a listing you expect to clear can be set to move aggressively toward its floor, while a high-margin item you'd rather hold can be set to move conservatively. As a unit ages and you decide to move it, you raise its aggressiveness or lower its floor yourself — the tuning never escalates on its own, and your hard floor is never crossed.",
         "bullets": [
-          "High stock + low velocity: AI pushes price lower within floor bounds",
-          "Low stock + high velocity: AI holds price higher to protect margin",
-          "Aging listings (60+ days): more aggressive positioning to clear stock",
+          "Set aggressive tuning on items you want to clear toward the floor",
+          "Set conservative tuning on high-margin items you'd rather hold near market",
+          "Aging listings (60+ days): raise the aggressiveness or lower the floor yourself when you decide to move them",
           "Floor is always honored — AI tuning operates above it, never below"
         ]
       }
     ],
     "faq": [
       {
-        "q": "Can I import floor prices in bulk for my entire catalog?",
-        "a": "Yes. Undercut accepts a floor price column in CSV bulk imports, so you can calculate floors in a spreadsheet and upload them all at once. Each item's imported floor overrides the catalog default, and you can re-import to update floors whenever your costs change."
+        "q": "How do I set floor prices across my entire catalog?",
+        "a": "Undercut imports your active listings when you connect your eBay account, then you set the Floor Price on each listing in the dashboard. The practical workflow is to calculate floors in your own spreadsheet first so you have the right number ready for each item, and to update a listing's floor in the dashboard whenever your costs change."
       },
       {
         "q": "What happens if every competitor lists below my floor?",
@@ -663,12 +663,12 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Automating Seasonal Floors with Undercut",
-        "body": "Manually updating floors across hundreds of listings before every seasonal shift is error-prone and time-consuming. Undercut lets you set a hard floor per listing — a number the repricer will never breach regardless of what competitors do. When your peak season arrives, you update that floor upward in bulk; Undercut then auto-undercuts the new lowest competitor price, but only down to your revised, higher floor. On Pro and Scale plans, the 15-minute and 5-minute repricing intervals mean that when a competitor sells through their last unit and prices spike, Undercut catches and responds to that opportunity within minutes — not hours. The AI aggressiveness tuning on Pro lets you configure how quickly Undercut chases a price up versus waiting for the market to settle, which is particularly valuable in fast-moving seasonal windows where prices can swing $5–$10 in a single afternoon.",
+        "body": "Manually updating floors across hundreds of listings before every seasonal shift is error-prone and time-consuming. Undercut lets you set a hard floor per listing — a number the repricer will never breach regardless of what competitors do. When your peak season arrives, you raise each listing's Floor Price in the dashboard; Undercut then auto-undercuts the new lowest competitor price, but only down to your revised, higher floor, so a higher floor effectively holds your price up during peak demand. On Pro and Scale plans, the 15-minute and 5-minute repricing intervals mean that when a competitor sells through their last unit and prices spike, Undercut responds within minutes — not hours. The AI aggressiveness tuning on Pro lets you set, per listing, how fast and how far the listing moves down toward that floor, which is particularly valuable in fast-moving seasonal windows where prices can swing $5–$10 in a single afternoon.",
         "bullets": [
           "Set per-listing hard floors that survive any repricing event",
-          "Bulk-update floors before peak season without touching individual listings one by one",
-          "Pro/Scale: catch competitor sell-throughs in 5–15 minutes and price up automatically",
-          "AI aggressiveness tuning controls how assertively Undercut raises price when demand spikes"
+          "Raise each listing's floor before peak season so a higher floor holds your price up",
+          "Pro/Scale: respond to competitor sell-throughs in 5–15 minutes",
+          "AI aggressiveness tuning (Pro) controls how fast and far each listing moves toward its floor"
         ]
       },
       {
@@ -688,7 +688,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "Can I set different floors for different seasons on the same SKU in Undercut?",
-        "a": "Undercut stores one active floor per listing at any time, which you update manually or in bulk when you want to change it. The practical workflow is to export your floor list, apply your seasonal multipliers in a spreadsheet, and re-import before each major season transition. Pro and Scale plans support bulk floor updates."
+        "a": "Undercut stores one active floor per listing at any time, which you update in the dashboard whenever you want to change it. The practical workflow is to keep your seasonal floor calculations in your own spreadsheet and update each listing's Floor Price before a major season transition. The repricer immediately respects the new floor."
       },
       {
         "q": "My category has unpredictable spikes — a viral moment or a news event. How does seasonal floor logic apply?",
@@ -777,11 +777,11 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Setting Up Floor-Protected Repricing in Undercut",
-        "body": "Undercut connects to your eBay account via the standard eBay API. During onboarding, you import your active listings. For each listing — or in bulk using category rules — you set a floor price. Once floors are set, you choose an undercut rule: beat the lowest competitor by a fixed amount (e.g. $0.10) or by a percentage (e.g. 1%). From that point forward, Undercut monitors competitor prices and adjusts your listing price downward to stay at the buy box position, stopping the moment the next move would breach your floor. On Pro and Scale plans, AI aggressiveness tuning lets you decide how close to the floor you are willing to operate — useful for margin-sensitive SKUs where you would rather lose the buy box than compress profit further.",
+        "body": "Undercut connects to your eBay account via the standard eBay API. During onboarding, you import your active listings. For each listing, you set a floor price in the dashboard. Once floors are set, you choose your undercut amount: beat the lowest competitor by a fixed amount (e.g. $0.10) or by a percentage (e.g. 1%). From that point forward, Undercut monitors competitor prices and adjusts your listing price downward to stay at the buy box position, stopping the moment the next move would breach your floor. On the Pro plan, AI aggressiveness tuning lets you set, per listing, how close to the floor you are willing to operate — useful for margin-sensitive SKUs where you would rather lose the buy box than compress profit further.",
         "bullets": [
           "Free plan covers up to 25 listings — enough to validate the approach on your best sellers before scaling.",
-          "Bulk floor-setting by category rule saves time for sellers with large, homogeneous catalogs.",
-          "AI aggressiveness tuning (Pro+) raises your floor threshold dynamically when sell-through data shows you can hold a higher price."
+          "Set the floor on each listing in the dashboard, calculating it from that item's own cost.",
+          "AI aggressiveness tuning (Pro) controls how fast and how far each listing moves toward its floor — it never crosses or changes the floor you set."
         ]
       }
     ],
@@ -894,7 +894,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Keeping Floors Current: When to Recalculate",
-        "body": "A floor set in January may be wrong by March. Supplier invoices change, USPS postage rates update, and eBay occasionally adjusts its fee schedule. If any input to the formula changes, the floor is stale. The practical habit is to recalculate floors whenever you receive a new supplier invoice, after any eBay fee announcement, and once per quarter as a standard review. For high-volume sellers with hundreds of SKUs, the most efficient approach is to maintain a spreadsheet with the formula per category and regenerate floors in bulk rather than editing them one by one. Undercut allows floor updates via CSV import on Pro and Scale, which makes a quarterly floor refresh a single upload rather than hours of manual edits."
+        "body": "A floor set in January may be wrong by March. Supplier invoices change, USPS postage rates update, and eBay occasionally adjusts its fee schedule. If any input to the formula changes, the floor is stale. The practical habit is to recalculate floors whenever you receive a new supplier invoice, after any eBay fee announcement, and once per quarter as a standard review. For high-volume sellers with hundreds of SKUs, the most efficient approach is to maintain a spreadsheet with the formula per category, recalculate floors there, and then update each listing's Floor Price in the dashboard. Keeping the math in your spreadsheet makes a quarterly floor refresh quick — you already have every new number ready to enter."
       }
     ],
     "faq": [
@@ -912,7 +912,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "Can I set one floor for an entire category instead of per SKU?",
-        "a": "You can, but it introduces risk. A category-level floor is only safe if every item in that category has the same or lower landed cost and fulfillment cost as your most expensive SKU. In practice, items in the same category often have a wide cost spread. A per-SKU floor is more work to set up initially but is the only approach that reliably protects each listing. Undercut's CSV import makes per-SKU floor management practical even at high volume."
+        "a": "You can, but it introduces risk. A category-level floor is only safe if every item in that category has the same or lower landed cost and fulfillment cost as your most expensive SKU. In practice, items in the same category often have a wide cost spread. A per-SKU floor is more work to set up initially but is the only approach that reliably protects each listing. Undercut's per-listing Floor Price field makes per-SKU floor management practical even at high volume."
       },
       {
         "q": "What margin percentage should I use as my minimum in the floor formula?",
@@ -982,7 +982,7 @@ export const guides: PageContent[] = [
         "body": "The only credible objection to automated repricing is the race-to-zero risk — the fear that the software will keep cutting price until you sell at a loss. A hard floor per listing makes this structurally impossible. Here is a worked example for a used textbook sold via standard shipping:\n\nItem cost: $8.00\nShipping cost: $4.00\neBay final value fee (13.25% of $20 sale): $2.65\nPayPal/managed payments processing (~2.9% + $0.30): $0.88\nMinimum target margin: 15% of sale price\n\nFloor = (cost + shipping + fees) / (1 - margin %) = ($8 + $4 + ~$3.53) / (1 - 0.15) ≈ $18.27\n\nSet your floor at $18.27. Undercut will chase every competitor down to that number and stop. It will never sell below it. If all competitors drop below your floor, Undercut holds at your floor rather than matching — you simply do not win that sale, which is exactly the right outcome. You keep margin integrity without lifting a finger.",
         "bullets": [
           "Set the floor once per listing — Undercut enforces it on every reprice cycle",
-          "Update floors in bulk if your supplier costs change",
+          "Update a listing's floor in the dashboard if your supplier costs change",
           "The floor also protects against competitors using loss-leader tactics to force rivals below cost"
         ]
       },
@@ -1020,7 +1020,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "What happens to my floor if my supplier raises costs mid-month?",
-        "a": "You update the floor manually (or in bulk via CSV). Undercut does not automatically recalculate floors when your costs change — you own that number because you own the cost data. The workflow is: update your cost sheet, recalculate the new floor, push the update to Undercut. Until you update it, the old floor remains in effect, which is a safe default — it will not let the price drop below the old floor while you catch up."
+        "a": "You update the floor yourself in the dashboard. Undercut does not automatically recalculate floors when your costs change — you own that number because you own the cost data. The workflow is: update your cost sheet, recalculate the new floor, and enter it on the listing in Undercut. Until you update it, the old floor remains in effect, which is a safe default — it will not let the price drop below the old floor while you catch up."
       }
     ],
     "cta": {
@@ -1093,11 +1093,11 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Automating the Strategy Without Losing Control",
-        "body": "A manual pricing strategy works for 10 listings. It does not work for 200. Automation should enforce your framework, not replace your judgment. That means two non-negotiable controls:\n\nFirst, the floor is inviolable. Every automated repricer decision runs through the floor check before executing. If beating the competitor requires breaching the floor, the repricer holds — and you get visibility into which listings are stuck so you can decide to relist, bundle, or liquidate through a different channel.\n\nSecond, repricing speed should match category volatility. Electronics and phone accessories can move significantly in hours; book prices are stable for days. Undercut's Pro plan reprices every 15 minutes and lets you tune aggressiveness per listing group, so fast-moving categories stay competitive without over-firing on stable ones. Scale plan drops to 5-minute cycles for highest-volume sellers.",
+        "body": "A manual pricing strategy works for 10 listings. It does not work for 200. Automation should enforce your framework, not replace your judgment. That means two non-negotiable controls:\n\nFirst, the floor is inviolable. Every automated repricer decision runs through the floor check before executing. If beating the competitor requires breaching the floor, the repricer holds — and you get visibility into which listings are stuck so you can decide to relist, bundle, or liquidate through a different channel.\n\nSecond, repricing speed should match category volatility. Electronics and phone accessories can move significantly in hours; book prices are stable for days. Undercut's Pro plan reprices every 15 minutes and lets you tune aggressiveness on each listing, so fast-moving items stay competitive without over-firing on stable ones. Scale plan drops to 5-minute cycles for highest-volume sellers.",
         "bullets": [
-          "Set category-level floors in bulk rather than per listing — saves setup time and ensures consistency across similar items.",
+          "Set the floor on each listing from that item's own cost — consistent math across similar items keeps your floors accurate.",
           "Review floor accuracy quarterly as eBay fee structures, shipping costs, and COGS change.",
-          "Use AI aggressiveness tuning (Pro and above) to be more conservative on high-margin items and more aggressive on commodity inventory simultaneously."
+          "Use AI aggressiveness tuning (Pro) to move conservatively toward the floor on high-margin items and aggressively on commodity inventory."
         ]
       }
     ],
@@ -1116,7 +1116,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "Should I use the same pricing strategy across all my eBay categories?",
-        "a": "No. Electronics accessories, books, collectibles, and clothing each have different demand curves, fee rates, and buyer behavior. A floor-and-undercut approach suits high-volume commodities; a hold-and-watch approach suits collectibles and vintage. Ideally, you segment your catalog and configure aggressiveness settings per group rather than applying a blanket rule."
+        "a": "No. Electronics accessories, books, collectibles, and clothing each have different demand curves, fee rates, and buyer behavior. A floor-and-undercut approach suits high-volume commodities; a hold-and-watch approach suits collectibles and vintage. Ideally, you set each listing's floor from its own cost and, on Pro, tune each listing's aggressiveness to match its category rather than applying one blanket setting."
       },
       {
         "q": "Can I use a pricing strategy to win the eBay Buy Box on fixed-price listings?",
@@ -1204,7 +1204,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Common Mistakes That Turn Repricing Into a Margin Problem",
-        "body": "Most repricing margin problems come from one of four errors. First, setting no floor at all — the tool has nothing to anchor to and follows competitors indefinitely. Second, setting a floor based on sale price alone without subtracting fees and shipping, which makes the floor an illusion. Third, setting a single global floor for an entire account when individual SKUs have different cost structures. Fourth, forgetting to update floors when costs change — a floor set six months ago may now be below actual cost if supplier prices or postage rates have risen. Undercut lets you update floors individually or in bulk via CSV, so a cost increase from a supplier can be reflected across affected SKUs in minutes rather than one listing at a time.",
+        "body": "Most repricing margin problems come from one of four errors. First, setting no floor at all — the tool has nothing to anchor to and follows competitors indefinitely. Second, setting a floor based on sale price alone without subtracting fees and shipping, which makes the floor an illusion. Third, setting a single global floor for an entire account when individual SKUs have different cost structures. Fourth, forgetting to update floors when costs change — a floor set six months ago may now be below actual cost if supplier prices or postage rates have risen. Undercut lets you update a listing's Floor Price in the dashboard the moment a cost changes, so a supplier increase is reflected on the affected SKUs before the next reprice cycle runs.",
         "bullets": [
           "No floor: the single most common cause of margin loss from repricing",
           "Fee-blind floor: a $10 floor with 13.25% fees means you net under $8.68 before shipping",
@@ -1220,7 +1220,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "Can I set a different floor for every listing, or is it one setting for my whole account?",
-        "a": "Floors are set per listing. Each SKU can carry its own floor reflecting its specific cost, shipping, and margin target. You can set floors one at a time through the dashboard or upload a CSV to update hundreds of listings at once. There is no single account-wide floor that would override individual settings."
+        "a": "Floors are set per listing. Each SKU can carry its own floor reflecting its specific cost, shipping, and margin target. You set each listing's Floor Price through the dashboard, calculating it from that item's own cost. There is no single account-wide floor that would override individual settings."
       },
       {
         "q": "How do I calculate a floor that actually protects margin after eBay fees?",
@@ -1305,7 +1305,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "AI Aggressiveness Tuning: Controlling How Hard You Chase the Lowest Price",
-        "body": "Raw speed tells the repricer when to fire. Aggressiveness tuning tells it how far to move. A repricer set to maximum aggression always matches or beats the lowest competitor price instantly — optimal when you have genuine cost advantages. A more conservative setting might undercut by only $0.01, preserve margin on slow-moving inventory, or hold price when the lowest competitor appears to be a liquidator you cannot sustainably match.\n\nUndercut's Pro and Scale plans include AI aggressiveness tuning that reads competitor pricing patterns — distinguishing a temporary flash sale from a permanent price drop — and adjusts downward pressure accordingly. This prevents the common failure mode where a fast repricer chases a one-hour clearance price and leaves your listing stuck $3 below market for the next two weeks.",
+        "body": "Raw speed tells the repricer when to fire. Aggressiveness tuning tells it how far to move. A repricer set to maximum aggression always matches or beats the lowest competitor price instantly — optimal when you have genuine cost advantages. A more conservative setting might undercut by only $0.01, preserve margin on slow-moving inventory, or hold price when the lowest competitor appears to be a liquidator you cannot sustainably match.\n\nUndercut's Pro plan includes AI aggressiveness tuning that lets you set, per listing, how fast and how far that listing moves toward its floor — so you can hold a conservative posture on items where you would rather not chase every momentary undercut. This helps avoid the common failure mode where a fast repricer races a one-hour clearance price down toward the floor when you would rather wait the seller out.",
         "bullets": []
       },
       {
@@ -1334,7 +1334,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "Can I set different aggressiveness levels for different parts of my catalog?",
-        "a": "Yes. On Pro and Scale plans, AI aggressiveness tuning can be configured at the listing or category level. You might set aggressive pursuit on commodity items where you have a clear cost advantage, and conservative holding behavior on unique or near-mint items where matching a liquidator's price makes no business sense."
+        "a": "Yes. On the Pro plan, AI aggressiveness tuning can be set on each listing individually. You might set aggressive movement toward the floor on commodity items where you have a clear cost advantage, and conservative movement on unique or near-mint items where matching a liquidator's price makes no business sense."
       },
       {
         "q": "Does repricing speed affect my eBay seller standing or trigger any account flags?",
@@ -1392,11 +1392,11 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "What AI Aggressiveness Tuning Actually Does",
-        "body": "Undercut's AI aggressiveness tuning (available on Pro and Scale plans) lets you set a posture — conservative, moderate, or aggressive — per listing or category. The engine then evaluates three signals before repricing: competitor quality score (feedback, handling time, return policy), your own recent sales velocity, and gap size between your current price and the next-lowest clean competitor. If your velocity is healthy and the next competitor is weak, the engine holds price or drops by a fraction of a cent. If a high-quality competitor undercuts you and your velocity has stalled, it moves decisively. The result is a price that is competitive enough to win — not the lowest price in the room.",
+        "body": "Undercut's AI aggressiveness tuning (available on the Pro plan) lets you set a posture — conservative, moderate, or aggressive — on each listing. That posture controls one thing: how fast and how far the listing moves toward the hard floor you already set as it undercuts the lowest comparable competitor. A conservative posture undercuts by a fraction and holds well above the floor; an aggressive posture moves more decisively toward it. You decide the posture per listing, and the AI applies it strictly within the floor you set. The result is a price that is competitive enough to win — not the lowest price in the room.",
         "bullets": [
-          "Conservative posture: reprices only when a strong competitor undercuts you and your velocity has dropped",
+          "Conservative posture: moves slowly toward the floor, holding well above it and undercutting by only a fraction",
           "Moderate posture: light adjustments to stay within a defined spread of the best competitor",
-          "Aggressive posture: targets the buy box proactively, accepts tighter spreads to maximize sell-through",
+          "Aggressive posture: moves decisively toward the floor to compete hard for the buy box",
           "All three postures are bounded below by your hard floor — the engine cannot go lower, ever"
         ]
       },
@@ -1406,7 +1406,7 @@ export const guides: PageContent[] = [
         "bullets": [
           "Floor formula: (cost + shipping) / (1 - fee% - target margin%) = minimum price",
           "Example result: $8 cost + $4 ship + 13.25% fees + 15% margin = $17.00 floor",
-          "Set floors per SKU or apply a category-level default with per-item overrides",
+          "Set the floor on each listing individually, calculated from that item's own cost",
           "Floors survive plan changes — they are stored at the listing level, not the algorithm level"
         ]
       },
@@ -1449,7 +1449,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "I am on the Free plan. Can I still set hard floors?",
-        "a": "Yes. Floor-setting is available on every plan including Free (up to 25 listings). AI aggressiveness tuning is a Pro and Scale feature, but the floor protection is universal — no seller on any plan can have a listing repriced below their set floor."
+        "a": "Yes. Floor-setting is available on every plan including Free (up to 25 listings). AI aggressiveness tuning is a Pro feature, but the floor protection is universal — no seller on any plan can have a listing repriced below their set floor."
       }
     ],
     "cta": {
@@ -1608,7 +1608,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Step 2 — Connect Your eBay Account (Takes About Three Minutes)",
-        "body": "Undercut connects through eBay's official OAuth flow, the same mechanism eBay uses for every authorized third-party app. You grant read and write access to your listings — nothing else. Undercut cannot touch your PayPal, your bank, or your eBay messages.\n\nOnce connected, Undercut imports your active listings. For each listing, you will see a floor field. You can enter floors one at a time, paste them from a spreadsheet, or use Undercut's bulk floor tool if you have many listings in the same cost band. Start with five to ten listings on your first session so you can watch how pricing behaves before scaling up.",
+        "body": "Undercut connects through eBay's official OAuth flow, the same mechanism eBay uses for every authorized third-party app. You grant read and write access to your listings — nothing else. Undercut cannot touch your PayPal, your bank, or your eBay messages.\n\nOnce connected, Undercut imports your active listings. For each listing, you will see a Floor Price field. You enter each listing's floor in the dashboard, calculating the number from that item's own cost — keeping your calculations in a spreadsheet makes this quick when several listings share a cost band. Start with five to ten listings on your first session so you can watch how pricing behaves before scaling up.",
         "bullets": [
           "Sign in to Undercut and click 'Connect eBay Account'.",
           "Approve read/write access on eBay's own OAuth page.",
@@ -1862,7 +1862,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "Can I set a different floor for each listing, or is it one global setting?",
-        "a": "With Undercut, floors are per-listing. A bulk CSV import lets you set individual floors across your catalog at once, which is important because your cost basis, shipping weight, and category fee rate differ by SKU. A single global floor would either be too conservative on some items or too permissive on others."
+        "a": "With Undercut, floors are per-listing. You set each listing's Floor Price in the dashboard, which is important because your cost basis, shipping weight, and category fee rate differ by SKU. A single global floor would either be too conservative on some items or too permissive on others."
       },
       {
         "q": "Do eBay fees change by category, and does that affect my floor calculation?",
@@ -1933,18 +1933,18 @@ export const guides: PageContent[] = [
         ]
       },
       {
-        "h2": "Organizing Large Catalogs: Where to Override and Where to Trust the Default",
-        "body": "For sellers with hundreds or thousands of listings, the practical question is which items actually need a custom floor. In most catalogs, roughly 70–80% of SKUs share similar margin profiles and the account default handles them well. Reserve per-item overrides for three situations: items with unusually high acquisition cost (liquidation lots, rare collectibles), items in categories with atypical eBay fee structures (media items carry a lower fee, which shifts the floor down), and items you purchased at varying costs across restocking runs. For everything else, let the account default do the work. This distinction is what makes managing repricing across many eBay listings tractable rather than exhausting.",
+        "h2": "Organizing Large Catalogs: Where to Spend Your Floor-Setting Time",
+        "body": "For sellers with hundreds or thousands of listings, the practical question is where to spend the most care when setting per-listing floors. In most catalogs, roughly 70–80% of SKUs share similar margin profiles, so you can reuse the same floor math across them quickly. Reserve your closest attention for three situations: items with unusually high acquisition cost (liquidation lots, rare collectibles), items in categories with atypical eBay fee structures (media items carry a lower fee, which shifts the floor down), and items you purchased at varying costs across restocking runs. For everything else, the standard formula gives you the floor to enter. This is what makes managing repricing across many eBay listings tractable rather than exhausting.",
         "bullets": [
-          "High-cost or irregular-margin SKUs: always set a custom floor.",
-          "Commodity or refill SKUs with stable costs: account default is sufficient.",
+          "High-cost or irregular-margin SKUs: calculate the floor individually with extra care.",
+          "Commodity or refill SKUs with stable costs: reuse the same floor math across them.",
           "Seasonal items: review floors before peak season when costs and demand shift.",
-          "Use Undercut's bulk import to upload floors for an entire catalog in one CSV."
+          "Set every listing's Floor Price in the dashboard from that item's own cost."
         ]
       },
       {
         "h2": "Reprice Frequency and AI Aggressiveness at Scale",
-        "body": "Speed and strategy interact differently across catalog sizes. At small volumes — the Free plan covers 25 listings — hourly repricing is usually fast enough because your competitors are not moving that quickly. As your catalog grows past a few hundred listings, faster cycles matter more because you are competing in more sub-niches simultaneously. Undercut's Pro plan reprices every 15 minutes and adds AI aggressiveness tuning, which adjusts how sharply Undercut undercuts based on demand signals and your own sales velocity on each SKU. The Scale plan runs every 5 minutes across up to 10,000 listings and is designed for liquidators and wholesale resellers where margin windows open and close within an hour. In all cases the floor constraint is enforced at every reprice cycle, regardless of how aggressive the AI setting is.",
+        "body": "Speed and strategy interact differently across catalog sizes. At small volumes — the Free plan covers 25 listings — hourly repricing is usually fast enough because your competitors are not moving that quickly. As your catalog grows past a few hundred listings, faster cycles matter more because you are competing in more sub-niches simultaneously. Undercut's Pro plan reprices every 15 minutes and adds AI aggressiveness tuning, which you set per listing to control how sharply that listing moves toward its floor as it undercuts the lowest competitor. The Scale plan runs every 5 minutes across up to 10,000 listings and is designed for liquidators and wholesale resellers where margin windows open and close within an hour. In all cases the floor constraint is enforced at every reprice cycle, regardless of how aggressive the AI setting is.",
         "bullets": [
           "Free and Starter plans: reprice on a standard cycle, suitable for steady-state catalogs.",
           "Pro (15-min cycle + AI tuning): right for active resellers competing in fast-moving categories.",
@@ -1954,7 +1954,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Common Mistakes That Erode Margin When Repricing at Scale",
-        "body": "The most frequent error is setting a floor based on purchase price alone and forgetting the eBay fee. A seller who paid $20 for an item and sets a $22 floor believes they are making $2 per sale. After a 13.25% final value fee on $22, they net $22 − $2.915 = $19.09 — a loss of $0.91 on every transaction. The second mistake is a single global floor across all categories, which ignores that eBay charges different fee rates by category. The third is never updating floors after supplier price changes. Undercut does not know your new landed cost — that update must come from you, either manually or via CSV re-import. Build a calendar reminder to audit floors quarterly, or whenever a major supplier invoice arrives.",
+        "body": "The most frequent error is setting a floor based on purchase price alone and forgetting the eBay fee. A seller who paid $20 for an item and sets a $22 floor believes they are making $2 per sale. After a 13.25% final value fee on $22, they net $22 − $2.915 = $19.09 — a loss of $0.91 on every transaction. The second mistake is a single global floor across all categories, which ignores that eBay charges different fee rates by category. The third is never updating floors after supplier price changes. Undercut does not know your new landed cost — that update must come from you by editing the listing's Floor Price in the dashboard. Build a calendar reminder to audit floors quarterly, or whenever a major supplier invoice arrives.",
         "bullets": [
           "Always calculate floors on the net-after-fees sale price, not the gross price.",
           "Use category-specific floors when you sell across categories with different fee structures.",
@@ -1966,7 +1966,7 @@ export const guides: PageContent[] = [
     "faq": [
       {
         "q": "If I change my account-level default rule, does it override floors I already set on individual listings?",
-        "a": "No. Changing the account default updates the repricing logic — how aggressively Undercut targets competitors — but it never overrides a per-item floor you have set. The floor on each listing is a separate, protected value. If you want to raise or lower floors across your catalog in bulk, use the CSV import to push new floor values to specific SKUs."
+        "a": "No. Changing your default undercut amount updates how far below the lowest competitor Undercut prices — but it never overrides a per-listing floor you have set. The floor on each listing is a separate, protected value. If you want to raise or lower floors, you edit each listing's Floor Price in the dashboard."
       },
       {
         "q": "What happens when every competitor's price drops below my floor?",
@@ -1978,7 +1978,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "How do I manage repricing for listings I add frequently without reconfiguring from scratch each time?",
-        "a": "New listings automatically inherit your current account-level default repricing rule. You only need to enter a custom floor for the new listing if its cost structure differs from your catalog average. For frequent restockers, the CSV bulk-import lets you upload item costs and Undercut can help you pre-calculate suggested floors before you go live."
+        "a": "New listings automatically inherit your current default undercut amount, so the repricing behavior carries over. You set the Floor Price on each new listing in the dashboard, calculated from that item's own cost. For frequent restockers, keeping your floor formula in a spreadsheet makes it quick to look up the right number and enter it before you go live."
       },
       {
         "q": "Does Undercut reprice listings that are already at the buy box price, or only ones being undercut?",
@@ -2089,7 +2089,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "Should I set the same repricing aggressiveness for all my listings?",
-        "a": "No. High-turnover commodity items (phone cases, common cables) benefit from aggressive repricing to stay visible, while unique or scarce items (vintage, collectibles, limited-run products) have pricing power you lose by chasing every competitor. Undercut's Pro and Scale plans include AI aggressiveness tuning so you can set different strategies per listing segment rather than applying a single rule to your entire catalog."
+        "a": "No. High-turnover commodity items (phone cases, common cables) benefit from aggressive repricing to stay visible, while unique or scarce items (vintage, collectibles, limited-run products) have pricing power you lose by chasing every competitor. Undercut's Pro plan includes AI aggressiveness tuning so you can set a different aggressiveness on each listing rather than applying a single posture to your entire catalog."
       },
       {
         "q": "How do I handle a competitor who keeps pricing $0.01 below me?",
@@ -2679,7 +2679,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Setting Aggressiveness: Drop-Day Hype vs. Aging Stock",
-        "body": "Not every pair should chase the floor at the same speed. A brand-new hyped release with deep demand should hold near market — dropping fast only trains buyers to wait you out and leaves money on the table. A pair that has sat 60 days while three other sellers undercut each other is the opposite case: you want to be at or near your floor quickly to move it before the hype fully decays. Undercut's AI aggressiveness tuning (Pro and Scale) lets you configure how quickly and how far each listing moves toward its floor, and you can set rules by tag — for example, anything tagged 'aging' moves aggressively while anything tagged 'hyped DS' stays conservative. That way one inventory of wildly different demand curves does not get one blunt repricing behavior."
+        "body": "Not every pair should chase the floor at the same speed. A brand-new hyped release with deep demand should hold near market — dropping fast only trains buyers to wait you out and leaves money on the table. A pair that has sat 60 days while three other sellers undercut each other is the opposite case: you want to be at or near your floor quickly to move it before the hype fully decays. Undercut's AI aggressiveness tuning (Pro) lets you configure, per listing, how quickly and how far each one moves toward its floor — for example, set an aging pair to move aggressively while a hyped deadstock pair stays conservative. That way one inventory of wildly different demand curves does not get one blunt repricing behavior."
       },
       {
         "h2": "Condition Tiers: Why One Floor Never Fits DS, VNDS, and Used",
@@ -2687,7 +2687,7 @@ export const guides: PageContent[] = [
         "bullets": [
           "Compute a distinct floor per condition tier, not one floor per SKU",
           "Match each listing against comparable-condition competitors where possible",
-          "Tag condition explicitly so AI aggressiveness rules can target it",
+          "Set each listing's aggressiveness to match its condition — aggressive on used, conservative on deadstock",
           "Liquidate the lowest tier first when storage or cash flow is tight"
         ]
       },
@@ -2699,7 +2699,7 @@ export const guides: PageContent[] = [
     "faq": [
       {
         "q": "Should I reprice deadstock and used pairs of the same shoe the same way?",
-        "a": "No. Deadstock and used pairs are effectively different products with different costs, buyer expectations, and acceptable margins. Give each listing its own hard floor and, on Pro or Scale, its own aggressiveness rule so used stock can liquidate while deadstock holds near market."
+        "a": "No. Deadstock and used pairs are effectively different products with different costs, buyer expectations, and acceptable margins. Give each listing its own hard floor and, on Pro, its own aggressiveness setting so used stock can liquidate while deadstock holds near market."
       },
       {
         "q": "How low should my floor be on a hyped release?",
@@ -2783,11 +2783,11 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Don't Match Mislisted or Non-Comparable Competitors",
-        "body": "The biggest trap in parts repricing is reacting to a low price that is not really your competition. A listing might be a used part sold as new, a different OEM number, or a part for a similar-but-different platform. Because Undercut clamps every move to your floor, a bogus low can never pull you below profitability — the worst case is you simply hold at your floor and wait for a buyer who needs the correct part. For sellers with deep catalogs, the practical workflow is to set accurate floors once, tag parts by platform or OEM family, and let the repricer hold the line automatically rather than manually policing every suspicious competitor."
+        "body": "The biggest trap in parts repricing is reacting to a low price that is not really your competition. A listing might be a used part sold as new, a different OEM number, or a part for a similar-but-different platform. Because Undercut clamps every move to your floor, a bogus low can never pull you below profitability — the worst case is you simply hold at your floor and wait for a buyer who needs the correct part. For sellers with deep catalogs, the practical workflow is to set an accurate floor on each part once and let the repricer hold the line automatically rather than manually policing every suspicious competitor."
       },
       {
         "h2": "Repricing Frequency and Aggressiveness for Parts Inventories",
-        "body": "Most parts do not move on a minute-by-minute basis the way hyped sneakers do, so an aggressive 5-minute cycle is rarely necessary on the whole catalog. What matters more is consistent coverage across a large SKU count and the ability to be more aggressive on slow-moving or seasonal stock (think AC parts in fall) while staying conservative on scarce OEM pieces with little competition. On Pro and Scale, AI aggressiveness tuning lets you set those behaviors by tag, so a warehouse of thousands of parts does not get one blunt rule. A high-volume parts seller typically lands on Pro ($79/mo, 1,000 listings, 15-minute repricing) or Scale ($199/mo, 10,000 listings)."
+        "body": "Most parts do not move on a minute-by-minute basis the way hyped sneakers do, so an aggressive 5-minute cycle is rarely necessary on the whole catalog. What matters more is consistent coverage across a large SKU count and the ability to be more aggressive on slow-moving or seasonal stock (think AC parts in fall) while staying conservative on scarce OEM pieces with little competition. On Pro, AI aggressiveness tuning lets you set that behavior on each listing, so a warehouse of thousands of parts does not get one blunt setting. A high-volume parts seller typically lands on Pro ($79/mo, 1,000 listings, 15-minute repricing) or Scale ($199/mo, 10,000 listings)."
       }
     ],
     "faq": [
@@ -2801,7 +2801,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "Can I set different behavior for OEM vs aftermarket parts?",
-        "a": "Yes. Each listing has its own floor, and on Pro or Scale you can tag listings and apply different aggressiveness rules — for example, conservative on scarce OEM parts and aggressive on overstocked aftermarket items that you want to move."
+        "a": "Yes. Each listing has its own floor, and on Pro you can set a different aggressiveness on each listing — for example, conservative on scarce OEM parts and aggressive on overstocked aftermarket items that you want to move."
       },
       {
         "q": "Is heavy shipping really worth building into the floor?",
@@ -3075,7 +3075,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Letting AI Tune the Undercut Per Listing",
-        "body": "The honest answer to \"how much should I undercut?\" is that it varies by listing, and maintaining per-listing rules by hand across a large inventory is impractical. On Pro and Scale, Undercut's AI aggressiveness tuning adjusts how hard each listing pushes toward its floor based on the competitive situation — staying near market on items with little competition and pressing closer to the floor on items where several sellers are actively undercutting each other. You set the floor and the guardrails; the AI decides the moment-to-moment undercut within them. That turns a question you'd otherwise answer manually, thousands of times, into a policy you set once."
+        "body": "The honest answer to \"how much should I undercut?\" is that it varies by listing, and hand-tuning every listing across a large inventory is impractical. On Pro, you set an aggressiveness on each listing and Undercut's AI applies it — controlling how hard that listing pushes toward its floor as it undercuts the lowest comparable competitor. Set conservative on items you'd rather hold near market and aggressive on items you want to move. You set the floor and the aggressiveness; the AI handles the moment-to-moment undercut within them. That turns a question you'd otherwise answer manually, thousands of times, into a setting you choose once per listing."
       }
     ],
     "faq": [
@@ -3097,7 +3097,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "Can I set different undercut amounts for different listings?",
-        "a": "Yes. Each listing carries its own floor, and on Pro or Scale the AI aggressiveness tuning adapts the undercut per listing based on competition. You set the policy once instead of hand-tuning thousands of items."
+        "a": "Yes. You can set the undercut amount (a fixed amount or a percentage), and each listing carries its own floor. On Pro, AI aggressiveness tuning lets you set how hard each listing moves toward its floor. You choose the settings once instead of hand-pricing thousands of items."
       }
     ],
     "cta": {
@@ -3281,7 +3281,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Managing a Mixed Used Inventory at Scale",
-        "body": "Hand-pricing every used unit by condition and age is exactly the kind of work that doesn't scale past a few dozen listings. With Undercut, you set each listing's floor once and tag it by condition and age, then let rules do the rest: on Pro and Scale, AI aggressiveness tuning lets aging-and-rough tiers move aggressively toward their floors while like-new stock holds near market — all running continuously without you touching it. A reseller flipping a steady stream of mixed-condition used goods is the ideal case for automation, because the manual alternative is re-checking dozens of condition-and-age combinations by hand, every day, forever."
+        "body": "Hand-pricing every used unit by condition and age is exactly the kind of work that doesn't scale past a few dozen listings. With Undercut, you set each listing's floor once and, on Pro, set its aggressiveness: AI aggressiveness tuning lets aging-and-rough units move aggressively toward their floors while like-new stock stays conservative and holds near market — all running continuously without you touching it. As a unit ages, you raise its aggressiveness or lower its floor yourself. A reseller flipping a steady stream of mixed-condition used goods is the ideal case for automation, because the manual alternative is re-checking dozens of condition-and-age combinations by hand, every day, forever."
       }
     ],
     "faq": [
@@ -3302,8 +3302,8 @@ export const guides: PageContent[] = [
         "a": "Especially so, because used inventory multiplies the variables — condition times age times competition. Hand-pricing that doesn't scale past a few dozen listings, while Undercut holds every condition-specific floor and reprices continuously on its own."
       },
       {
-        "q": "What plan handles mixed-condition tagging and rules?",
-        "a": "Any plan lets you set per-listing floors. Pro and Scale add AI aggressiveness tuning, so you can make aging or rough tiers move aggressively toward their floors while like-new stock holds near market — useful once your used inventory grows."
+        "q": "What plan handles different aggressiveness for mixed-condition inventory?",
+        "a": "Any plan lets you set per-listing floors. Pro adds AI aggressiveness tuning, so you can set aging or rough units to move aggressively toward their floors while like-new stock stays conservative near market — useful once your used inventory grows."
       }
     ],
     "cta": {
@@ -3371,17 +3371,17 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Pick Your Battles Across the Catalog",
-        "body": "Not every listing deserves the same fight. Items with healthy demand, thin competition, or a differentiator (faster shipping, better feedback, bundled extras) are worth defending aggressively toward their floor. Commodity items where five sellers are racing each other to cost are often worth conceding — you let your price sit at the floor and win only when the others run out of stock or give up. Tagging your inventory by how contested and how profitable each item is lets you apply different repricing aggressiveness per group, so your attention and your margin go to the battles you can actually win.",
+        "body": "Not every listing deserves the same fight. Items with healthy demand, thin competition, or a differentiator (faster shipping, better feedback, bundled extras) are worth defending aggressively toward their floor. Commodity items where five sellers are racing each other to cost are often worth conceding — you let your price sit at the floor and win only when the others run out of stock or give up. Deciding how contested and how profitable each item is lets you set a different aggressiveness on each listing, so your attention and your margin go to the battles you can actually win.",
         "bullets": [
           "Defend items with demand, thin competition, or a real differentiator",
           "Concede crowded commodity races — sit at the floor and wait",
-          "Tag inventory by contest level and profitability",
-          "Aggressiveness follows the listings worth winning"
+          "Judge each listing by contest level and profitability",
+          "Set aggressiveness per listing on the ones worth winning"
         ]
       },
       {
         "h2": "Let Automation Hold the Line for You",
-        "body": "The hardest part of a price war is discipline — it's tempting to drop \"just one more dollar\" to win a sale you can see slipping away. Automation removes the temptation. With Undercut, you set each listing's floor once and the repricer enforces it on every cycle, undercutting competitors down to the floor and never past it, around the clock. On Pro and Scale, AI aggressiveness tuning decides how hard to push within those limits based on the competitive picture. You stop watching competitors obsessively and start trusting a rule that already encodes your worst-acceptable price — which is exactly the discipline a price war demands."
+        "body": "The hardest part of a price war is discipline — it's tempting to drop \"just one more dollar\" to win a sale you can see slipping away. Automation removes the temptation. With Undercut, you set each listing's floor once and the repricer enforces it on every cycle, undercutting competitors down to the floor and never past it, around the clock. On Pro, the per-listing AI aggressiveness setting you choose decides how hard each listing pushes toward its floor within those limits. You stop watching competitors obsessively and start trusting a setting that already encodes your worst-acceptable price — which is exactly the discipline a price war demands."
       }
     ],
     "faq": [
@@ -3402,8 +3402,8 @@ export const guides: PageContent[] = [
         "a": "Not when it's floor-bounded. Undercut only undercuts down to your floor and then stops — it never spirals. It actually ends the emotional part of a price war, because the stop point is decided in advance and enforced automatically."
       },
       {
-        "q": "What plan do I need for per-group aggressiveness?",
-        "a": "Any plan lets you set per-listing floors. Pro and Scale add AI aggressiveness tuning, so you can push hard on contested winnable items while conceding crowded races — useful once you're managing more than a handful of listings."
+        "q": "What plan do I need for per-listing aggressiveness?",
+        "a": "Any plan lets you set per-listing floors. Pro adds AI aggressiveness tuning, so you can push hard on contested winnable items while conceding crowded races — useful once you're managing more than a handful of listings."
       }
     ],
     "cta": {
@@ -3682,13 +3682,13 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Encoding Both Floors as a Hard Floor in Undercut",
-        "body": "Undercut lets you set a per-listing hard floor (and an optional ceiling) on every eBay listing you connect. The hard floor is a strict lower bound — the repricing engine will never set your price below it, regardless of competitor activity. This is the mechanism that protects both your margin and your MAP compliance simultaneously.\n\nTo configure it: in your Undercut dashboard, open any listing and enter the hard floor value in the Floor Price field. Using the example above where the brand MAP is $99.95 and your breakeven floor is $82.99, you enter $99.95. Undercut will then reprice competitively down to $99.95 but stop there. If the lowest competitor drops to $94.99 — below your floor — Undercut holds your price at $99.95 rather than chasing them.\n\nFor sellers on the Pro plan ($79/mo) or Scale plan ($199/mo), Claude AI-powered aggressiveness tuning adjusts how quickly and how deeply Undercut reprices toward the floor on a per-listing basis. A listing with high sell-through rate and healthy inventory might be tuned more aggressively (repricing faster and closer to the floor), while a low-volume collectible might be tuned conservatively to preserve margin. Critically, the AI aggressiveness setting never overrides the hard floor — it only governs the pace and depth of repricing within the floor-to-ceiling range.\n\nIf you have hundreds of listings with MAP restrictions, the most efficient workflow is to prepare a CSV with your listing IDs and corresponding floor prices, then bulk-import via Undercut's bulk editing tools. This is far faster than editing listings one by one.",
+        "body": "Undercut lets you set a per-listing hard floor (and an optional ceiling) on every eBay listing you connect. The hard floor is a strict lower bound — the repricing engine will never set your price below it, regardless of competitor activity. This is the mechanism that protects both your margin and your MAP compliance simultaneously.\n\nTo configure it: in your Undercut dashboard, open any listing and enter the hard floor value in the Floor Price field. Using the example above where the brand MAP is $99.95 and your breakeven floor is $82.99, you enter $99.95. Undercut will then reprice competitively down to $99.95 but stop there. If the lowest competitor drops to $94.99 — below your floor — Undercut holds your price at $99.95 rather than chasing them.\n\nFor sellers on the Pro plan ($79/mo), Claude AI-powered aggressiveness tuning lets you set, per listing, how quickly and how deeply Undercut reprices toward the floor. You might set a listing you want to move more aggressively (repricing faster and closer to the floor), while setting a low-volume collectible conservatively to preserve margin. Critically, the AI aggressiveness setting is one you choose per listing and it never overrides the hard floor — it only governs the pace and depth of repricing within the floor-to-ceiling range.\n\nIf you have hundreds of listings with MAP restrictions, the practical workflow is to calculate the right floor for each in your own spreadsheet, then enter each listing's Floor Price in the dashboard. Keeping the math ready makes setting many listings quick.",
         "bullets": [
           "Enter MAX(breakeven floor, MAP) as the Floor Price on each listing.",
           "The hard floor is never overridden — not by AI tuning, not by competitor activity.",
           "Use the optional ceiling to prevent price from rising above a profitable or MAP-compliant upper bound.",
-          "Bulk CSV import speeds up floor-setting across large catalogs on Pro and Scale plans.",
-          "Re-import floors whenever costs or MAP policies are updated."
+          "Calculate floors in a spreadsheet first to make setting large catalogs quick.",
+          "Update a listing's floor in the dashboard whenever costs or MAP policies change."
         ]
       },
       {
@@ -3720,8 +3720,8 @@ export const guides: PageContent[] = [
         "a": "On the Pro plan ($79/mo), Undercut checks and reprices every 15 minutes. On the Scale plan ($199/mo), the interval drops to every 5 minutes. Both intervals are fast enough to respond to most competitor price changes within a single shopping session, while the hard floor ensures rapid repricing never accidentally breaches your minimum."
       },
       {
-        "q": "Can I set different floors for different listings in bulk?",
-        "a": "Yes. Undercut supports per-listing floors, so every SKU can have its own floor reflecting its unique cost structure and MAP requirement. For large catalogs, you can prepare a CSV file with listing IDs and floor prices and bulk-import them, which is significantly faster than editing each listing individually. This is available on Starter, Pro, and Scale plans."
+        "q": "Can I set a different floor for each of my listings?",
+        "a": "Yes. Undercut supports per-listing floors, so every SKU can have its own floor reflecting its unique cost structure and MAP requirement. For large catalogs, calculate the right floor for each item in your own spreadsheet first, then enter each listing's Floor Price in the dashboard. Per-listing floors are available on every plan, including Free."
       }
     ],
     "cta": {
@@ -3779,7 +3779,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Mapping Seasonal Demand to Your Repricing Ceiling (and Aggressiveness)",
-        "body": "Home and garden is one of eBay's most pronounced seasonal categories. Google Trends and eBay's own sold-listing data show predictable spikes: lawn equipment peaks March–May, pressure washers April–June, leaf blowers September–October, snow blowers November–December, and indoor grow lights October–February. During peak windows, buyer demand outstrips supply and you can often hold — or even raise — your ceiling without losing the sale. In the off-peak trough, you may need to be far more aggressive to move inventory before it ties up warehouse space for another six months.\n\nUndercut's Pro and Scale plans include AI aggressiveness tuning powered by Claude AI. Rather than setting a single static undercut amount (say, always go $0.50 below the lowest competitor), the AI can dial aggressiveness listing-by-listing based on factors like how many competing listings exist and how far above your floor the current market price sits. During a peak spring gardening week when you have a $120 ceiling on a popular raised-bed kit and the lowest competitor is at $108, a conservative undercut of $0.01–$1 is all you need. In late November when the same kit is a slow mover, a larger undercut gets you the visibility.\n\nA practical seasonal ceiling strategy: set your ceiling at the 90th-percentile sold price from the prior peak season, then let Undercut work between floor and ceiling automatically. You capture peak-season margin without manual intervention, and the floor guarantees you never subsidize a slow-season clearance sale.",
+        "body": "Home and garden is one of eBay's most pronounced seasonal categories. Google Trends and eBay's own sold-listing data show predictable spikes: lawn equipment peaks March–May, pressure washers April–June, leaf blowers September–October, snow blowers November–December, and indoor grow lights October–February. During peak windows, buyer demand outstrips supply and you can often hold — or even raise — your ceiling without losing the sale. In the off-peak trough, you may need to be far more aggressive to move inventory before it ties up warehouse space for another six months.\n\nUndercut's Pro plan includes AI aggressiveness tuning powered by Claude AI. Rather than relying on a single static undercut amount everywhere, you set the aggressiveness listing-by-listing, and the AI controls how fast and how far each listing moves toward its floor. During a peak spring gardening week when you have a $120 ceiling on a popular raised-bed kit and the lowest competitor is at $108, a conservative setting that undercuts by $0.01–$1 is all you need. In late November when the same kit is a slow mover, you set a more aggressive posture to get the visibility.\n\nA practical seasonal ceiling strategy: set your ceiling at the 90th-percentile sold price from the prior peak season, then let Undercut work between floor and ceiling automatically. You capture peak-season margin without manual intervention, and the floor guarantees you never subsidize a slow-season clearance sale.",
         "bullets": [
           "Peak seasons by sub-category: lawn care (Mar–May), outdoor power tools (Apr–Jun), snow removal (Nov–Dec), grow lights (Oct–Feb)",
           "Use eBay's 'Sold Listings' filter to find the 90th-percentile recent sale price — that becomes your seasonal ceiling",
@@ -3799,7 +3799,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Avoiding the Race to the Bottom on Commoditized Garden SKUs",
-        "body": "Commoditized home and garden products — generic trowel sets, basic garden hose fittings, standard utility shelving — are especially prone to price wars. Multiple sellers stock identical or near-identical items, and without a hard floor every one of them is one aggressive repricer away from a margin-destroying spiral.\n\nUndercut's hard floor is the mechanical answer: no matter how many competitors undercut each other, your listing will not follow below your defined minimum. But there is also a strategic layer. If you are regularly hitting your floor and not winning the sale, that is data. It may mean your total landed cost is higher than a competitor who negotiates better freight rates or sources cheaper. No repricer can fix a structural cost disadvantage — but Undercut will at least prevent you from selling at a loss while you figure it out.\n\nFor differentiated home and garden listings — a branded power tool with a warranty, a garden kit bundled with a planting guide, a riding mower with included assembly — the ceiling matters as much as the floor. Buyers on eBay do comparison-shop, but unique bundles and strong seller feedback scores command a small premium. In these cases, setting an aggressive undercut amount risks leaving money on the table. On Pro and Scale plans, Claude AI's aggressiveness tuning can automatically be more conservative on differentiated listings and more aggressive on pure commodities within the same account.",
+        "body": "Commoditized home and garden products — generic trowel sets, basic garden hose fittings, standard utility shelving — are especially prone to price wars. Multiple sellers stock identical or near-identical items, and without a hard floor every one of them is one aggressive repricer away from a margin-destroying spiral.\n\nUndercut's hard floor is the mechanical answer: no matter how many competitors undercut each other, your listing will not follow below your defined minimum. But there is also a strategic layer. If you are regularly hitting your floor and not winning the sale, that is data. It may mean your total landed cost is higher than a competitor who negotiates better freight rates or sources cheaper. No repricer can fix a structural cost disadvantage — but Undercut will at least prevent you from selling at a loss while you figure it out.\n\nFor differentiated home and garden listings — a branded power tool with a warranty, a garden kit bundled with a planting guide, a riding mower with included assembly — the ceiling matters as much as the floor. Buyers on eBay do comparison-shop, but unique bundles and strong seller feedback scores command a small premium. In these cases, setting an aggressive undercut amount risks leaving money on the table. On the Pro plan, Claude AI's aggressiveness tuning lets you set a conservative posture on differentiated listings and an aggressive posture on pure commodities within the same account.",
         "bullets": [
           "Generic SKUs with 10+ identical competitors: prioritize floor accuracy and accept you will sometimes be at floor",
           "Bundled or differentiated listings: set a higher ceiling and use lower aggressiveness to capture premium pricing",
