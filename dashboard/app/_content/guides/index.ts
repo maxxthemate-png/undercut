@@ -3638,5 +3638,123 @@ export const guides: PageContent[] = [
     ],
     "lastUpdated": "2026-06-13",
     "leadForm": true
+  },
+  {
+    "slug": "ebay-minimum-advertised-price",
+    "collection": "guides",
+    "template": "guide",
+    "title": "Floors, MAP, and Minimum Pricing on eBay — Undercut",
+    "metaDescription": "Learn how brand MAP policies and your own breakeven floor interact on eBay — and how to encode both as a hard floor. Start a free 14-day trial, no card needed.",
+    "h1": "eBay Minimum Advertised Price: How to Honor MAP and Protect Your Margin at the Same Time",
+    "eyebrow": "Guide",
+    "intro": "Selling branded goods on eBay means juggling two different minimums: the brand's Minimum Advertised Price (MAP) and your own breakeven floor. Get either one wrong and you're either violating an authorized-dealer agreement or selling at a loss. Automated repricing makes this more urgent — a bot set too aggressively can race through both limits in minutes. This guide explains what MAP means in an eBay context, how to calculate your true breakeven floor, which number to use when they differ, and exactly how to encode the result as a hard floor in Undercut so repricing never crosses either line.",
+    "sections": [
+      {
+        "h2": "What MAP Actually Means on eBay (and What It Doesn't)",
+        "body": "Minimum Advertised Price is a unilateral pricing policy set by a brand or manufacturer. It specifies the lowest price at which an authorized reseller may publicly advertise a product. The key word is advertised: MAP governs the price displayed in a listing, not necessarily the price a buyer pays after a private Best Offer negotiation — though many brand agreements have tightened this distinction in recent years, so always read your specific dealer agreement.\n\neBay does not enforce MAP on the platform's behalf. There is no system-level block preventing a listing from going below a brand's MAP figure. Enforcement is entirely contractual: if you violate MAP, the brand can terminate your authorized-dealer status, cut off wholesale supply, or pursue civil remedies. The consequences are real, but they come from the brand, not from eBay.\n\nThis means the burden of compliance falls entirely on you — and on any repricing software you use. A repricer that blindly chases the lowest competitor price will happily list a $200 MAP item at $149 if a grey-market seller goes there first. Your only reliable protection is a hard floor set at or above the MAP figure for every affected listing.",
+        "bullets": [
+          "MAP = minimum advertised price; it governs what appears publicly in your listing.",
+          "eBay does not police MAP — your dealer agreement does.",
+          "Best Offer acceptance may or may not be exempt; check your specific brand policy.",
+          "A hard floor in your repricer is the only automated safeguard."
+        ]
+      },
+      {
+        "h2": "Calculating Your True Breakeven Floor",
+        "body": "Before you can set a sensible floor, you need to know what it actually costs you to sell a unit. Many sellers anchor on their wholesale cost and forget the stack of fees sitting on top.\n\nHere is a worked example. Suppose you source a Bluetooth speaker for $45. The item sells for $89.99 on eBay. eBay's Final Value Fee on most Electronics listings is 13.25% of the total sale amount (item price + shipping), capped at $750 per item — so on $89.99 that is roughly $11.92. Add a $0.30 per-order transaction fee. If you use a promoted listing at 5%, that is another $4.50. Shipping and packaging costs $8.00. Payment processing (included in eBay's managed payments) is already captured in the FVF. Total costs: $45.00 + $11.92 + $0.30 + $4.50 + $8.00 = $69.72. Your breakeven price is $69.72 — sell below that and you lose money on every unit.\n\nMost sellers also want a minimum margin, say 15%. Apply that: $69.72 ÷ (1 − 0.15) = $82.02. That is your margin-protected floor. Round up to $82.99 to keep a clean price point, and that is the number you should never go below — regardless of what competitors do.",
+        "bullets": [
+          "Start with landed COGS: wholesale cost + inbound shipping + customs.",
+          "Add eBay Final Value Fee (category-dependent, commonly 12–13.25%).",
+          "Add shipping, packaging, and any promoted-listing percentage.",
+          "Divide by (1 − desired margin %) to get your margin-protected floor.",
+          "Use the eBay Profit Calculator to run this for each SKU before setting floors."
+        ]
+      },
+      {
+        "h2": "Which Number Wins: MAP or Your Breakeven Floor?",
+        "body": "Once you have both figures, the rule is straightforward: your hard floor must be the higher of the two numbers.\n\nScenario A — MAP is higher than your breakeven floor. Imagine your breakeven floor (with 15% margin) is $82.99, but the brand's MAP is $99.95. Your hard floor is $99.95. If you set it lower, you risk violating your dealer agreement even though you would still be profitable. Undercut's repricing will never push your listing below $99.95, so you stay compliant automatically.\n\nScenario B — Your breakeven floor is higher than MAP. Your breakeven floor is $82.99, but the brand's MAP is $74.99 (perhaps the brand set MAP years ago and wholesale costs have since risen). Your hard floor is $82.99. You cannot profitably honor the old MAP, so you either need to negotiate with the brand, find a cheaper supply source, or accept that this SKU is unviable at current costs. Setting the floor at MAP in this scenario would mean losing money on every repriced sale.\n\nScenario C — No MAP applies. You are selling unbranded goods or secondhand items with no MAP restriction. Your hard floor is simply your margin-protected breakeven. This is the most common situation for general eBay resellers.\n\nA practical way to track this: maintain a simple spreadsheet with columns for SKU, COGS, all-in cost, breakeven floor, brand MAP (if any), and the final hard floor you load into Undercut. Review it whenever your costs or brand agreements change.",
+        "bullets": [
+          "Hard floor = MAX(your margin-protected breakeven, brand MAP).",
+          "Never set your floor at MAP if MAP is below your actual cost.",
+          "Revisit floors whenever wholesale costs, fees, or brand policies change.",
+          "Keep a SKU-level floor spreadsheet as your source of truth."
+        ]
+      },
+      {
+        "h2": "Encoding Both Floors as a Hard Floor in Undercut",
+        "body": "Undercut lets you set a per-listing hard floor (and an optional ceiling) on every eBay listing you connect. The hard floor is a strict lower bound — the repricing engine will never set your price below it, regardless of competitor activity. This is the mechanism that protects both your margin and your MAP compliance simultaneously.\n\nTo configure it: in your Undercut dashboard, open any listing and enter the hard floor value in the Floor Price field. Using the example above where the brand MAP is $99.95 and your breakeven floor is $82.99, you enter $99.95. Undercut will then reprice competitively down to $99.95 but stop there. If the lowest competitor drops to $94.99 — below your floor — Undercut holds your price at $99.95 rather than chasing them.\n\nFor sellers on the Pro plan ($79/mo) or Scale plan ($199/mo), Claude AI-powered aggressiveness tuning adjusts how quickly and how deeply Undercut reprices toward the floor on a per-listing basis. A listing with high sell-through rate and healthy inventory might be tuned more aggressively (repricing faster and closer to the floor), while a low-volume collectible might be tuned conservatively to preserve margin. Critically, the AI aggressiveness setting never overrides the hard floor — it only governs the pace and depth of repricing within the floor-to-ceiling range.\n\nIf you have hundreds of listings with MAP restrictions, the most efficient workflow is to prepare a CSV with your listing IDs and corresponding floor prices, then bulk-import via Undercut's bulk editing tools. This is far faster than editing listings one by one.",
+        "bullets": [
+          "Enter MAX(breakeven floor, MAP) as the Floor Price on each listing.",
+          "The hard floor is never overridden — not by AI tuning, not by competitor activity.",
+          "Use the optional ceiling to prevent price from rising above a profitable or MAP-compliant upper bound.",
+          "Bulk CSV import speeds up floor-setting across large catalogs on Pro and Scale plans.",
+          "Re-import floors whenever costs or MAP policies are updated."
+        ]
+      },
+      {
+        "h2": "Common Mistakes and How to Avoid Them",
+        "body": "The most expensive mistake sellers make is setting a floor based on the item's purchase price alone, forgetting eBay fees, shipping, and promoted listing costs. As the worked example in section two shows, fees alone can add $16–$20 to the cost of a $90 item. A floor set at your wholesale cost will have you selling at a consistent loss.\n\nThe second common mistake is syncing floors once and never updating them. eBay's fee schedule changes periodically. Wholesale costs fluctuate. Brand MAP policies get revised — sometimes upward, sometimes downward. A floor that was accurate six months ago may now be too low. Build a quarterly review into your workflow, or trigger a review whenever you receive a new wholesale invoice or a MAP policy update email from a brand.\n\nA subtler mistake is applying the same floor to identical SKUs bought at different costs. If you have 50 units purchased at $40 and a later batch of 30 units purchased at $52 because of supply chain increases, your blended cost is different from either lot. Decide whether to use average cost, FIFO cost, or worst-case cost as your floor basis — most sellers use worst-case (highest COGS) to be conservative.\n\nFinally, do not confuse eBay's own promotional tools — like Markdown Manager or Promoted Listings — with floor violations. Offering a 10% promotional discount on a $99.95 MAP item could push the displayed price to $89.96, which is below MAP. If you run promotions, check whether your brand agreement permits temporary promotional prices below MAP, and if not, exclude MAP-restricted listings from those campaigns.",
+        "bullets": [
+          "Include all fees (FVF, shipping, promotions) in your floor calculation — not just COGS.",
+          "Review and update floors quarterly and after any wholesale or fee changes.",
+          "Use worst-case COGS when you hold inventory purchased at different prices.",
+          "Exclude MAP-restricted listings from eBay Markdown Manager campaigns unless your dealer agreement explicitly permits promotional pricing below MAP."
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "Does eBay enforce MAP policies on behalf of brands?",
+        "a": "No. eBay does not monitor or enforce brand MAP policies at the platform level. Your listing can go below MAP without eBay intervening. Enforcement comes entirely from the brand — they may audit authorized resellers, send warning notices, or terminate dealer agreements. The only reliable automated safeguard is a hard floor set at or above the MAP figure in your repricing software."
+      },
+      {
+        "q": "Can I honor MAP on the listing price but accept Best Offers below MAP?",
+        "a": "It depends on the specific brand agreement. Some MAP policies cover only the advertised (listed) price and explicitly allow Best Offer negotiations below MAP, while others prohibit final transaction prices below MAP regardless of how the sale originates. Read your dealer agreement carefully. If it is ambiguous, ask your brand rep in writing so you have a clear record."
+      },
+      {
+        "q": "What happens in Undercut if a competitor drops below my hard floor?",
+        "a": "Undercut holds your price at the hard floor and does not reprice further downward. You will not match or undercut a competitor who is selling below your floor — whether they are violating MAP, selling grey-market goods, or simply losing money. Your listing stays at the floor price until that competitor's price rises back above your floor, at which point normal repricing resumes."
+      },
+      {
+        "q": "How often does Undercut check competitor prices on Pro and Scale plans?",
+        "a": "On the Pro plan ($79/mo), Undercut checks and reprices every 15 minutes. On the Scale plan ($199/mo), the interval drops to every 5 minutes. Both intervals are fast enough to respond to most competitor price changes within a single shopping session, while the hard floor ensures rapid repricing never accidentally breaches your minimum."
+      },
+      {
+        "q": "Can I set different floors for different listings in bulk?",
+        "a": "Yes. Undercut supports per-listing floors, so every SKU can have its own floor reflecting its unique cost structure and MAP requirement. For large catalogs, you can prepare a CSV file with listing IDs and floor prices and bulk-import them, which is significantly faster than editing each listing individually. This is available on Starter, Pro, and Scale plans."
+      }
+    ],
+    "cta": {
+      "heading": "Never Reprice Below MAP or Breakeven Again",
+      "sub": "Set a hard floor on every listing and let Undercut handle the rest. 14-day free trial, no credit card required."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to Set an eBay Price Floor"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor? (Glossary)"
+      },
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/ebay-profit-calculator",
+        "label": "eBay Profit Calculator"
+      },
+      {
+        "href": "/glossary/race-to-the-bottom",
+        "label": "Race to the Bottom (Glossary)"
+      }
+    ],
+    "lastUpdated": "2026-06-15",
+    "leadForm": true
   }
 ]
