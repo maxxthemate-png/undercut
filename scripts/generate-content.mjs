@@ -20,6 +20,7 @@
 import { readFileSync, writeFileSync, readdirSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
+import { PRODUCT_FACTS, scanPage } from './content-claims.mjs'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const repo = join(here, '..')
@@ -86,7 +87,16 @@ let topicSlugExpected = null // set per-topic so validate() can pin the slug
 // ---- prompt + Claude call -----------------------------------------------
 function buildPrompt(topic) {
   const routes = [...knownRoutes].sort().join('\n')
-  return `You are writing one SEO landing page for "Undercut", a SaaS that automatically reprices a seller's eBay listings to just beat the lowest competitor, always clamped to a per-listing HARD FLOOR (and optional ceiling) so it never sells below the seller's minimum margin. Claude AI tunes how aggressive each listing is. Real plans: Free (25 listings), Starter $29/mo (100 listings), Pro $79/mo (1,000 listings + 15-min repricing + AI aggressiveness tuning), Scale $199/mo (10,000 listings + 5-min repricing). New signups get a no-card 14-day trial at Starter level. Be accurate, concrete, and helpful — use real numbers and worked examples. Never invent features Undercut does not have. Never disparage competitors unfairly; comparisons must be factual and fair.
+  return `You are writing one SEO landing page for "Undercut", an eBay repricing SaaS. Be accurate, concrete, and helpful — use real numbers and worked examples. Never disparage competitors unfairly; comparisons must be factual and fair.
+
+${PRODUCT_FACTS}
+
+NON-NEGOTIABLE WRITING RULES (a page that breaks any of these is rejected):
+1. Feature fidelity: describe ONLY capabilities in the allowlist above. Do NOT mention or imply bulk/CSV import of floors, a tagging/labels/rules engine, listing groups/cohorts, stored price-history inside Undercut, automatic age/time-based escalation, or AI inputs like demand/sell-through/sales-velocity. If a workflow needs something not in the allowlist, frame it as a manual per-listing action by the seller.
+2. Plan attribution: attribute each feature to the EXACT plan(s) listed. AI aggressiveness tuning is a PRO feature — write "on Pro", never "Pro and Scale" or "Pro or Scale". Do not assume higher tiers inherit lower-tier features. (You MAY name "Pro and Scale" together only when NOT describing AI tuning, e.g. listing-count context.)
+3. The AI feature: say only that Claude AI optionally tunes how aggressively each listing moves toward its already-set floor, per listing, and never overrides the hard floor. Do not invent what it "reads" or "considers".
+4. eBay facts: eBay uses Best Match for search ranking; it has NO Amazon-style formal "Buy Box". (Sales velocity is a legitimate eBay Best-Match ranking factor — you may mention it as an eBay ranking signal, never as an input to Undercut's AI.)
+5. Numbers: every worked example must be arithmetically correct and internally consistent. Recompute each figure (discounts = comp − new price, percentages, fees, time/cost rollups). The body, bullets, and FAQ must state identical numbers for the same calculation.
 
 Write the page for this topic:
 - collection: ${topic.collection}
@@ -116,7 +126,9 @@ interface PageContent {
 ALLOWED internalLinks href values (choose 4-6 relevant ones, do NOT invent any other path):
 ${routes}
 
-Hard requirements (the page is auto-rejected otherwise): metaDescription length 130-165 chars; >=3 sections (write 4-5); >=3 FAQs (write 4-5); >=3 internalLinks all from the allowed list; h1 != title; intro >= 70 words. Output the JSON object only.`
+Hard requirements (the page is auto-rejected otherwise): metaDescription length 130-165 chars; >=3 sections (write 4-5); >=3 FAQs (write 4-5); >=3 internalLinks all from the allowed list; h1 != title; intro >= 70 words.
+
+FINAL SELF-AUDIT before you output: re-read every sentence and list (to yourself) each product capability you asserted and each plan you attached it to. If any capability is outside the allowlist, or any plan attribution differs from the plan list (especially AI tuning shown as "Pro and Scale"), rewrite that sentence. Only then output the JSON object — and output the JSON object only.`
 }
 
 async function callClaude(prompt, repair) {
@@ -137,6 +149,30 @@ async function callClaude(prompt, repair) {
   const end = text.lastIndexOf('}')
   if (start === -1 || end === -1) throw new Error('no JSON object in model response')
   return JSON.parse(text.slice(start, end + 1))
+}
+
+// ---- semantic claims gate: a SECOND model pass that checks the draft against
+// the closed allowlist (catches hallucinated features / plan misattribution /
+// bad arithmetic that the structural validate can't). Returns {ok, violations}.
+async function verifyPage(page) {
+  const text = [page.title, page.h1, page.intro,
+    ...(page.sections || []).flatMap((s) => [s.h2, s.body, ...(s.bullets || [])]),
+    ...(page.faq || []).flatMap((f) => [f.q, f.a]),
+    page.cta ? `${page.cta.heading} ${page.cta.sub}` : ''].join('\n')
+  const flagged = scanPage(page).map((h) => h.excerpt) // deterministic hints (may include false positives)
+  const prompt = `${PRODUCT_FACTS}\n\nBelow is a DRAFT marketing page for Undercut. Audit it ONLY for:\n` +
+    `(a) any product capability claimed about Undercut that is NOT in the allowlist (hallucinated feature);\n` +
+    `(b) any plan misattribution — especially AI aggressiveness tuning shown as available on Scale (it is Pro-only);\n` +
+    `(c) any arithmetic error, or a number that contradicts another number for the same calculation.\n` +
+    `Do NOT flag legitimate mentions of eBay's OWN features or ranking factors (e.g. eBay Best Match using sales velocity).\n` +
+    (flagged.length ? `An automated scan flagged these phrases — judge each as a real violation or a legitimate mention: ${JSON.stringify(flagged)}\n` : '') +
+    `\nReturn ONLY JSON: {"ok": true} if clean, else {"ok": false, "violations": ["short imperative fix", ...]}.\n\nPAGE:\n${text}`
+  try {
+    const v = await callClaude(prompt)
+    return (v && typeof v.ok === 'boolean') ? v : { ok: true }
+  } catch {
+    return { ok: true } // never block generation on a verifier hiccup; CI lint is the backstop
+  }
 }
 
 // ---- splice a new page into a collection's index.ts (minimal diff) -------
@@ -181,15 +217,28 @@ async function main() {
       continue
     } else {
       let lastErr = null
-      for (let attempt = 1; attempt <= 3; attempt++) {
+      for (let attempt = 1; attempt <= 4; attempt++) {
         page = await callClaude(buildPrompt(topic), lastErr)
         const errs = validate(page, topic.collection)
-        if (!errs.length) { lastErr = null; break }
-        lastErr = errs.join('; ')
-        console.log(`  attempt ${attempt} failed: ${lastErr}`)
-        page = null
+        if (errs.length) {
+          lastErr = errs.join('; ')
+          console.log(`  attempt ${attempt} failed structural: ${lastErr}`)
+          page = null
+          continue
+        }
+        if (!process.env.SKIP_VERIFY) {
+          const v = await verifyPage(page)
+          if (v.ok === false && (v.violations || []).length) {
+            lastErr = 'claim/accuracy issues to fix: ' + v.violations.join('; ')
+            console.log(`  attempt ${attempt} failed claims: ${lastErr}`)
+            page = null
+            continue
+          }
+        }
+        lastErr = null
+        break
       }
-      if (!page) throw new Error(`could not produce a valid page for ${topic.slug} after 3 attempts`)
+      if (!page) throw new Error(`could not produce a valid page for ${topic.slug} after 4 attempts`)
     }
 
     if (process.env.FIXTURE) {
