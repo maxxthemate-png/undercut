@@ -222,6 +222,7 @@ class SeedDemoBody(BaseModel):
     plan: str = "free"        # free | starter | pro | scale (sets listing_limit)
     listings: int = 40        # seed > limit to exercise the over-limit upgrade nudge
     reset: bool = True        # wipe this demo account's stores/listings first
+    wipe: bool = False        # delete the demo user + all its data, then stop (no recreate)
 
 
 @router.post("/seed-demo")
@@ -234,20 +235,38 @@ def seed_demo(body: SeedDemoBody, x_admin_key: str | None = Header(default=None)
     email = body.email.strip().lower()
     if not (email.endswith(".test") or "demo" in email):
         raise HTTPException(status_code=400, detail="seed-demo only allows demo emails (must contain 'demo' or end in '.test')")
+
+    def _purge_user_data(u):
+        """Delete a demo user's stores/listings and dependent rows. Returns counts."""
+        store_ids = [s.id for s in db.scalars(select(Store).where(Store.user_id == u.id)).all()]
+        n_listings = 0
+        if store_ids:
+            lids = [l.id for l in db.scalars(select(RepricerListing).where(RepricerListing.store_id.in_(store_ids))).all()]
+            n_listings = len(lids)
+            if lids:
+                db.query(PriceChange).filter(PriceChange.listing_id.in_(lids)).delete(synchronize_session=False)
+                db.query(CompetitorSnapshot).filter(CompetitorSnapshot.listing_id.in_(lids)).delete(synchronize_session=False)
+                db.query(RepricerListing).filter(RepricerListing.id.in_(lids)).delete(synchronize_session=False)
+            db.query(Store).filter(Store.id.in_(store_ids)).delete(synchronize_session=False)
+        return len(store_ids), n_listings
+
+    # Full delete: remove the demo user + all its data, then stop (keeps prod metrics clean).
+    if body.wipe:
+        user = db.scalar(select(User).where(User.email == email))
+        if not user:
+            return {"wiped": True, "email": email, "note": "no such demo user"}
+        stores_deleted, listings_deleted = _purge_user_data(user)
+        db.query(User).filter(User.id == user.id).delete(synchronize_session=False)
+        db.commit()
+        return {"wiped": True, "email": email, "stores_deleted": stores_deleted, "listings_deleted": listings_deleted}
+
     n = max(1, min(int(body.listings), 500))
     plan = body.plan if body.plan in ("free", "starter", "pro", "scale") else "free"
     limit = billing.limit_for_plan(plan)
 
     user = db.scalar(select(User).where(User.email == email))
     if user and body.reset:
-        store_ids = [s.id for s in db.scalars(select(Store).where(Store.user_id == user.id)).all()]
-        if store_ids:
-            lids = [l.id for l in db.scalars(select(RepricerListing).where(RepricerListing.store_id.in_(store_ids))).all()]
-            if lids:
-                db.query(PriceChange).filter(PriceChange.listing_id.in_(lids)).delete(synchronize_session=False)
-                db.query(CompetitorSnapshot).filter(CompetitorSnapshot.listing_id.in_(lids)).delete(synchronize_session=False)
-                db.query(RepricerListing).filter(RepricerListing.id.in_(lids)).delete(synchronize_session=False)
-            db.query(Store).filter(Store.id.in_(store_ids)).delete(synchronize_session=False)
+        _purge_user_data(user)
         db.commit()
 
     if not user:
