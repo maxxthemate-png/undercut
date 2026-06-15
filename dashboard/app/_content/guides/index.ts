@@ -3756,5 +3756,121 @@ export const guides: PageContent[] = [
     ],
     "lastUpdated": "2026-06-15",
     "leadForm": true
+  },
+  {
+    "slug": "ebay-repricing-for-home-and-garden",
+    "collection": "guides",
+    "template": "guide",
+    "title": "eBay Repricing for Home, Garden & Tools — Undercut",
+    "metaDescription": "Freight costs eat margins fast in home & garden. Learn how Undercut's hard floor repricing protects profit. Start a free 14-day trial — no card required.",
+    "h1": "eBay Repricing for Home, Garden & Tools: Win Sales Without Letting Freight Kill Your Margins",
+    "eyebrow": "Guide",
+    "intro": "Home, garden, and tools listings on eBay carry a repricing challenge most categories don't: the item itself might sell for $45, but freight can cost $30. Set your floor too low and you hand every order to a carrier at a loss. Set it too high and you sit unsold through peak season. Automated repricing solves both problems — but only if the software understands that your price floor must bake in actual shipping costs, and that demand swings hard from February seed-starting to October leaf-blower season. This guide shows you exactly how to do that with Undercut.",
+    "sections": [
+      {
+        "h2": "Why Freight Cost Is the Defining Variable in Home & Garden Repricing",
+        "body": "A 50-lb bag of soil conditioner, a 72-inch folding workbench, or a push-reel mower all share one brutal truth: the carrier's dimensional weight pricing can exceed the product's landed cost. Before you touch a repricer, you need an accurate per-listing freight cost baked into your floor — not a rough average across your catalog.\n\nHere is a worked example. Suppose you stock a 40-lb garden hose reel. Your COGS is $28. Ground shipping runs $18 (dimensional weight pricing). eBay's final value fee at a $75 sell price is roughly 13.25%, or about $9.94. That leaves you with $75 − $28 − $18 − $9.94 = $19.06 gross profit — a 25% margin. If a competitor drops to $69 and you blindly match them, your margin collapses to roughly $13. But if you had set a hard floor of $72, Undercut would never go below that number, no matter what competitors do.\n\nUndercut lets you set a per-listing HARD FLOOR in dollars. For every home or garden SKU, calculate: COGS + actual shipping cost + eBay fees at floor price + your minimum acceptable margin. Enter that number as the floor. The repricer will then chase competitors down to that floor and stop — never a penny lower.",
+        "bullets": [
+          "Calculate freight per SKU, not per category average — a 5-lb trowel and a 40-lb hose reel ship very differently",
+          "Use eBay's shipping calculator or your carrier's rate card to pin down dimensional weight costs before setting any floor",
+          "Remember eBay's final value fee applies to the total amount paid including shipping, so factor that in",
+          "Revisit freight costs quarterly — carrier rate increases in January and July can silently erode your floor's accuracy"
+        ]
+      },
+      {
+        "h2": "Mapping Seasonal Demand to Your Repricing Ceiling (and Aggressiveness)",
+        "body": "Home and garden is one of eBay's most pronounced seasonal categories. Google Trends and eBay's own sold-listing data show predictable spikes: lawn equipment peaks March–May, pressure washers April–June, leaf blowers September–October, snow blowers November–December, and indoor grow lights October–February. During peak windows, buyer demand outstrips supply and you can often hold — or even raise — your ceiling without losing the sale. In the off-peak trough, you may need to be far more aggressive to move inventory before it ties up warehouse space for another six months.\n\nUndercut's Pro and Scale plans include AI aggressiveness tuning powered by Claude AI. Rather than setting a single static undercut amount (say, always go $0.50 below the lowest competitor), the AI can dial aggressiveness listing-by-listing based on factors like how many competing listings exist and how far above your floor the current market price sits. During a peak spring gardening week when you have a $120 ceiling on a popular raised-bed kit and the lowest competitor is at $108, a conservative undercut of $0.01–$1 is all you need. In late November when the same kit is a slow mover, a larger undercut gets you the visibility.\n\nA practical seasonal ceiling strategy: set your ceiling at the 90th-percentile sold price from the prior peak season, then let Undercut work between floor and ceiling automatically. You capture peak-season margin without manual intervention, and the floor guarantees you never subsidize a slow-season clearance sale.",
+        "bullets": [
+          "Peak seasons by sub-category: lawn care (Mar–May), outdoor power tools (Apr–Jun), snow removal (Nov–Dec), grow lights (Oct–Feb)",
+          "Use eBay's 'Sold Listings' filter to find the 90th-percentile recent sale price — that becomes your seasonal ceiling",
+          "Pro plan ($79/mo) reprices every 15 minutes, catching flash price drops and spikes faster than daily manual checks",
+          "Scale plan ($199/mo) reprices every 5 minutes — valuable for high-volume seasonal SKUs with dozens of competitors"
+        ]
+      },
+      {
+        "h2": "Setting Up Undercut for a Home & Garden Catalog: Step-by-Step",
+        "body": "Getting Undercut configured correctly for bulky, shipping-heavy inventory takes about 30 minutes of upfront setup and pays dividends all season. Here is how to approach it.\n\nStep 1 — Build your floor spreadsheet before connecting eBay. For each SKU, note: (a) your COGS, (b) your actual outbound shipping cost in dollars, (c) eBay's estimated final value fee percentage for the category, and (d) your minimum acceptable net margin in dollars. Sum those four numbers to get your floor. Example: COGS $22 + shipping $14 + eBay fees at a $60 price point ≈ $7.95 (13.25%) + minimum margin $8 = floor of $51.95. Round up to $52 to give yourself a buffer.\n\nStep 2 — Connect your eBay store to Undercut via the OAuth flow. Undercut imports your active listings automatically. Free plan covers 25 listings; Starter ($29/mo) covers 100; Pro ($79/mo) covers 1,000; Scale ($199/mo) covers 10,000.\n\nStep 3 — Assign floors (and optional ceilings) to each listing. You can do this individually or use Undercut's bulk editing interface. For seasonal SKUs, set a ceiling that reflects the peak-season price you've researched.\n\nStep 4 — Choose your repricing interval. Starter and Free plans reprice at standard intervals. Pro reprices every 15 minutes, Scale every 5 minutes. For home and garden, 15-minute repricing is usually sufficient outside peak promotional events.\n\nStep 5 — Monitor your first week's results. Check that no listing is hitting its floor repeatedly — that signals your floor may be above market and worth investigating. If you're consistently at ceiling, demand is strong and you may have room to raise the ceiling.",
+        "bullets": [
+          "Always use per-listing shipping costs, not a blended average, to protect margin on your heaviest SKUs",
+          "Bulk-assign ceilings by season: set spring/summer ceilings in February, fall/winter ceilings in August",
+          "If a listing hits its floor more than 3 days in a row, consider whether the market has structurally repriced and your floor needs recalculating",
+          "Free plan (25 listings) is ideal for testing Undercut on your top 25 home/garden SKUs before committing"
+        ]
+      },
+      {
+        "h2": "Avoiding the Race to the Bottom on Commoditized Garden SKUs",
+        "body": "Commoditized home and garden products — generic trowel sets, basic garden hose fittings, standard utility shelving — are especially prone to price wars. Multiple sellers stock identical or near-identical items, and without a hard floor every one of them is one aggressive repricer away from a margin-destroying spiral.\n\nUndercut's hard floor is the mechanical answer: no matter how many competitors undercut each other, your listing will not follow below your defined minimum. But there is also a strategic layer. If you are regularly hitting your floor and not winning the sale, that is data. It may mean your total landed cost is higher than a competitor who negotiates better freight rates or sources cheaper. No repricer can fix a structural cost disadvantage — but Undercut will at least prevent you from selling at a loss while you figure it out.\n\nFor differentiated home and garden listings — a branded power tool with a warranty, a garden kit bundled with a planting guide, a riding mower with included assembly — the ceiling matters as much as the floor. Buyers on eBay do comparison-shop, but unique bundles and strong seller feedback scores command a small premium. In these cases, setting an aggressive undercut amount risks leaving money on the table. On Pro and Scale plans, Claude AI's aggressiveness tuning can automatically be more conservative on differentiated listings and more aggressive on pure commodities within the same account.",
+        "bullets": [
+          "Generic SKUs with 10+ identical competitors: prioritize floor accuracy and accept you will sometimes be at floor",
+          "Bundled or differentiated listings: set a higher ceiling and use lower aggressiveness to capture premium pricing",
+          "Review your sold-vs-active ratio monthly — low sell-through at floor price signals a sourcing cost problem, not a repricing problem",
+          "Never set your floor below your true all-in cost just to 'stay competitive' — that is the race to the bottom"
+        ]
+      },
+      {
+        "h2": "Choosing the Right Undercut Plan for Your Home & Garden Volume",
+        "body": "Home and garden sellers vary enormously in catalog size. A hobbyist reselling surplus garden tools might have 20 active listings. A wholesaler of outdoor power equipment might have 3,000. Undercut's plan tiers map cleanly to these different scales.\n\nFree plan (25 listings, $0/mo): Perfect for testing the repricer on your best-selling SKUs, or for a small seller who stocks fewer than 25 active home/garden lines. No card required.\n\nStarter plan (100 listings, $29/mo): Covers a focused home and garden store — say, 80 garden tools and 20 outdoor power accessories. Repricing runs at standard intervals. No AI aggressiveness tuning. Good entry point for sellers doing $2,000–$8,000/mo in home/garden GMV.\n\nPro plan (1,000 listings, $79/mo): The sweet spot for serious home and garden sellers. The 15-minute repricing interval matters here because competitor pricing on seasonal items can shift multiple times a day during peak weeks. Claude AI's aggressiveness tuning means you can run hundreds of listings without manually calibrating each one — the AI handles conservative vs. aggressive posture per listing. This plan is well-suited to sellers doing $10,000–$80,000/mo in GMV.\n\nScale plan (10,000 listings, $199/mo): Built for large-volume sellers or multi-brand home/garden wholesalers. The 5-minute repricing cycle is particularly valuable during promotional events like eBay's seasonal sales, when prices move rapidly. At $199/mo for up to 10,000 listings, the per-listing cost is under $0.02/mo.\n\nAll new signups get a no-card-required 14-day trial at Starter level (100 listings). That is enough to reprice a meaningful slice of a home and garden catalog and measure the impact before any payment.",
+        "bullets": [
+          "Free: 25 listings, $0 — test on your top home/garden SKUs",
+          "Starter: 100 listings, $29/mo — solid for focused stores up to ~100 active lines",
+          "Pro: 1,000 listings, $79/mo — 15-min repricing + Claude AI tuning, best for serious seasonal sellers",
+          "Scale: 10,000 listings, $199/mo — 5-min repricing for large catalogs and high-velocity promotional events"
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "How do I account for high shipping costs when setting my floor on heavy garden items?",
+        "a": "Add your actual per-item outbound shipping cost directly to your floor calculation alongside COGS, eBay fees, and minimum margin. For example, a 40-lb item shipping for $18 needs that $18 baked into the floor before the repricer ever runs. Undercut's hard floor is a dollar amount you set per listing, so you have full control to encode freight cost precisely — there is no blended average forced on you."
+      },
+      {
+        "q": "Will Undercut automatically raise my prices during peak gardening season?",
+        "a": "Undercut will price up to your ceiling if market prices rise above your current price — it always targets just below the lowest competitor, bounded by your floor and ceiling. To capture seasonal peaks, set a ceiling that reflects peak-season sold prices (research eBay's completed listings from the prior year's peak). Undercut will not exceed that ceiling, but it will rise toward it as the market rises."
+      },
+      {
+        "q": "How often does Undercut reprice my home and garden listings?",
+        "a": "Repricing frequency depends on your plan: Free and Starter run at standard intervals, Pro reprices every 15 minutes, and Scale reprices every 5 minutes. For most home and garden sellers, 15-minute repricing (Pro, $79/mo) is sufficient to respond to competitor price changes within the same day, including during fast-moving seasonal promotional events."
+      },
+      {
+        "q": "What happens if all my competitors price below my hard floor?",
+        "a": "Undercut will hold your listing at your floor price and not follow competitors below it. Your listing may not be the lowest price in search results during that period, but you will never sell at a loss. If you are consistently stuck at your floor and not making sales, that is a signal to review your sourcing costs or freight rates — not to lower your floor below your break-even point."
+      },
+      {
+        "q": "Can I use Undercut for both tools and garden categories in the same account?",
+        "a": "Yes. Undercut reprices any active eBay listing in your account regardless of category, and floors and ceilings are set per listing — so your 40-lb mower listing and your lightweight pruning-shears listing can have entirely different floor calculations. You are not locked into a single margin rule for your whole catalog."
+      }
+    ],
+    "cta": {
+      "heading": "Stop Guessing on Heavy-Item Margins — Let Undercut Hold Your Floor",
+      "sub": "Start a free 14-day trial at Starter level (100 listings). No credit card required. Set your freight-inclusive floor today and never sell a bulky item below cost again."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to Set an eBay Price Floor"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/guides/seasonal-repricing",
+        "label": "Seasonal Repricing Strategy for eBay"
+      },
+      {
+        "href": "/glossary/race-to-the-bottom",
+        "label": "What Is a Race to the Bottom?"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "Price Floor — Glossary"
+      },
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      }
+    ],
+    "lastUpdated": "2026-06-15",
+    "leadForm": true
   }
 ]
