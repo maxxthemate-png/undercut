@@ -43,8 +43,14 @@ export default function Checker() {
         setErr(d.detail || 'Something went wrong — try again.')
       } else {
         const data: Result = await r.json()
-        setRes(data)
-        track('demo_use', { mode: listing ? 'listing' : 'keyword', lowest: data.lowest ?? 0, listings: data.count })
+        // A listing that resolved without a title = an eBay variation/group link we
+        // can't read cleanly. Show a friendly nudge instead of a blank result.
+        if (listing && !(data.item && data.item.title)) {
+          setErr("Couldn't read that exact listing — paste the full link (the one with /itm/…), or just search the product name instead.")
+        } else {
+          setRes(data)
+          track('demo_use', { mode: listing ? 'listing' : 'keyword', lowest: data.lowest ?? 0, listings: data.count })
+        }
       }
     } catch {
       setErr('Something went wrong — try again.')
