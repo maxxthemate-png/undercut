@@ -36,7 +36,7 @@ export default function EbayRepricingSoftware() {
         <p className="mt-5 text-lg text-gray-600">Undercut is eBay repricing software that automatically beats the lowest competitor — and <span className="font-semibold text-gray-900">clamps every change to a floor you set</span>, so your margin is always protected. AI-tuned, 1-click setup, free to start.</p>
         <div className="mt-8 flex items-center justify-center gap-3">
           <Link href="/signup" className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free — 14-day trial, no card</Link>
-          <Link href="/ebay-profit-calculator" className="px-6 py-3 rounded-lg border border-gray-200 font-medium hover:bg-gray-50">Profit calculator</Link>
+          <Link href="/ebay-price-checker" className="px-6 py-3 rounded-lg border border-gray-200 font-medium hover:bg-gray-50">See it on your listing →</Link>
         </div>
       </section>
 

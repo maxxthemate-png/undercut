@@ -40,10 +40,25 @@ const APP_LD = {
   },
 }
 
+// Google Ads / gtag tag — only emitted when NEXT_PUBLIC_GADS_ID is set in Vercel
+// env. Until then the site ships with NO tag (deployed dark). Owner pastes the Ads
+// conversion ID when the paid-search campaign goes live; see Docs/GOOGLE_ADS_UNDERCUT.md.
+const GADS_ID = process.env.NEXT_PUBLIC_GADS_ID
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
+        {GADS_ID ? (
+          <>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${GADS_ID}`} />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GADS_ID}');`,
+              }}
+            />
+          </>
+        ) : null}
         {children}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(APP_LD) }} />
       </body>
