@@ -1,4 +1,4 @@
-"""ListingArb — Structured logging setup."""
+"""Undercut — Structured logging setup."""
 
 import structlog
 import logging

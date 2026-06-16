@@ -1,7 +1,7 @@
 """
-ListingArb — Notification Service
-Sends SMS (Twilio) and email (SendGrid) alerts to operator.
-Only fires when human action is needed — not for routine automation.
+Undercut — Notification Service
+Sends SMS (Twilio) and email (SendGrid) alerts to operator, plus customer
+lifecycle email. Only fires when human action is needed — not for routine work.
 """
 
 from ..utils.settings import settings
@@ -99,24 +99,3 @@ def send_customer_email(to: str, subject: str, html: str, reply_to: str = None) 
     except Exception as e:
         logger.error("Customer email failed", error=str(e), to=to)
         return False
-
-
-def notify_seller_interested(listing_title: str, listing_id: str, price: float, upside: float):
-    """High-priority alert — seller is interested."""
-    send_sms_alert(
-        f"LISTINGARB ALERT: Seller interested!\n"
-        f"Item: {listing_title[:50]}\n"
-        f"Ask: ${price:,.0f} | Est. upside: ${upside:,.0f}\n"
-        f"Action needed: http://localhost:3000/deal/{listing_id}"
-    )
-
-
-def notify_buyer_found(listing_title: str, deal_id: str, buyer_price: float, our_fee: float):
-    """Alert when a buyer is ready to transact."""
-    send_sms_alert(
-        f"LISTINGARB: BUYER FOUND!\n"
-        f"Item: {listing_title[:50]}\n"
-        f"Buyer price: ${buyer_price:,.0f}\n"
-        f"Your fee: ${our_fee:,.0f}\n"
-        f"Close deal: http://localhost:3000/deal/{deal_id}"
-    )

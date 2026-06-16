@@ -1,5 +1,5 @@
 """
-ListingArb — Settings
+Undercut — Settings
 Loads all configuration from environment variables.
 """
 
@@ -78,7 +78,7 @@ class Settings(BaseSettings):
     OPERATOR_PHONE: str = ""
     OPERATOR_EMAIL: str = ""
     SENDGRID_API_KEY: Optional[str] = None
-    FROM_EMAIL: str = "alerts@listingarb.com"
+    FROM_EMAIL: str = "alerts@undercut.app"  # fallback only; prod sets FROM_EMAIL at the service level
 
     # eBay
     EBAY_APP_ID: Optional[str] = None
