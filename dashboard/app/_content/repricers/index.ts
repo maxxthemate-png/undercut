@@ -127,7 +127,7 @@ export const repricers: PageContent[] = [
       },
       {
         "h2": "When Undercut Is and Isn't the Right Tool",
-        "body": "Undercut fits booksellers with at least 26 active listings who list the same edition across multiple ISBNs and want hands-off floor protection. If you sell fewer than 25 books at a time, the Free plan (25 listings, hourly reprice, $0) is genuinely sufficient — no upsell needed. If you run a high-volume media operation with 1,000+ SKUs and want per-listing AI aggressiveness tuning that adjusts how fast each listing moves toward its floor, that's the Pro plan. Where Undercut is not a fit: if you need cross-platform repricing (Amazon + eBay simultaneously), or if your catalog is 100% fixed-price rare books where you never want automated price movement. For those cases, manual pricing or a different tool is the honest answer.",
+        "body": "Undercut fits booksellers with at least 26 active listings who list the same edition across multiple ISBNs and want hands-off floor protection. If you sell fewer than 25 books at a time, the Free plan (25 listings, hourly reprice, $0) is genuinely sufficient — no upsell needed. If you run a high-volume media operation with 1,000+ SKUs and want per-listing AI aggressiveness tuning that adjusts how fast each listing moves toward its floor, that's the Pro and Scale plans. Where Undercut is not a fit: if you need cross-platform repricing (Amazon + eBay simultaneously), or if your catalog is 100% fixed-price rare books where you never want automated price movement. For those cases, manual pricing or a different tool is the honest answer.",
         "bullets": [
           "Free plan: 25 listings, hourly — good for casual or testing sellers",
           "Starter $29/mo: 100 listings — right for small dedicated book stores",
@@ -222,7 +222,7 @@ export const repricers: PageContent[] = [
       },
       {
         "h2": "Thin Margins Make the Floor Non-Negotiable",
-        "body": "Electronics margins are notoriously thin. After eBay's ~13.6% final value fee, a $0.30–$0.40 per-order fee, PayPal or managed payments processing, and shipping, a $200 sale might net $20–$30 profit at best. Selling even one unit $15 below your true cost can wipe out the margin on two or three good sales. Undercut's floor-first design means the floor is set before any repricing logic runs — it's not a soft suggestion, it's a hard stop. Free plan covers 25 listings with hourly repricing; Starter ($29/mo) covers 100 listings; Pro ($79/mo) adds 15-minute repricing and AI tuning for up to 1,000 listings. Every account starts with a 14-day Starter trial, no card required."
+        "body": "Electronics margins are notoriously thin. After eBay's ~13.6% final value fee, a $0.30–$0.40 per-order fee, PayPal or managed payments processing, and shipping, a $200 sale might net $20–$30 profit at best. Selling even one unit $15 below your true cost can wipe out the margin on two or three good sales. Undercut's floor-first design means the floor is set before any repricing logic runs — it's not a soft suggestion, it's a hard stop. Free plan covers 25 listings with hourly repricing; Starter ($29/mo) covers 100 listings; Pro ($79/mo) adds 15-minute repricing and AI tuning for up to 1,000 listings, and Scale ($199/mo) carries the same AI tuning up to 10,000 listings. Every account starts with a 14-day Starter trial, no card required."
       },
       {
         "h2": "When Undercut Is and Isn't the Right Fit",
@@ -297,7 +297,7 @@ export const repricers: PageContent[] = [
       },
       {
         "h2": "Sizes Are Separate Markets — Manage Them That Way",
-        "body": "A size 10.5 Air Force 1 and a size 6.5 Air Force 1 in the same colorway are not competing with each other. Supply and demand differ enough that the size 6.5 might sit at $95 while size 10.5 clears at $75. If you list multiple sizes under one static price or one shared floor, you either leave money behind on scarce sizes or reprice rare sizes down unnecessarily. In Undercut, each listing gets its own floor. List your size 6.5 pair with a floor of $88 and your size 10.5 pair with a floor of $68, and both compete independently. Sellers running 20–50 size variants of the same shoe benefit most from Pro ($79/mo), where per-listing AI aggressiveness tuning lets you set how fast each listing moves toward its own floor."
+        "body": "A size 10.5 Air Force 1 and a size 6.5 Air Force 1 in the same colorway are not competing with each other. Supply and demand differ enough that the size 6.5 might sit at $95 while size 10.5 clears at $75. If you list multiple sizes under one static price or one shared floor, you either leave money behind on scarce sizes or reprice rare sizes down unnecessarily. In Undercut, each listing gets its own floor. List your size 6.5 pair with a floor of $88 and your size 10.5 pair with a floor of $68, and both compete independently. Sellers running 20–50 size variants of the same shoe benefit most from Pro and Scale ($79/mo and $199/mo), where per-listing AI aggressiveness tuning lets you set how fast each listing moves toward its own floor."
       },
       {
         "h2": "Building a Real Floor: Cost + Fees + Margin Example",

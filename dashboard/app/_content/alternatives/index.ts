@@ -115,7 +115,7 @@ export const alternatives: PageContent[] = [
         },
         {
           "label": "AI aggressiveness tuning",
-          "undercut": "Available on Pro ($79/mo)",
+          "undercut": "Available on Pro and Scale ($79/mo)",
           "competitor": "Supported"
         }
       ],
@@ -157,7 +157,7 @@ export const alternatives: PageContent[] = [
         "bullets": [
           "No credit card required to start — 25 listings on the Free plan immediately",
           "Each listing gets its own Floor Price, set directly in the dashboard",
-          "Settings are per listing — a hard floor, an undercut amount, and (on Pro) AI aggressiveness — not buried in nested logic trees"
+          "Settings are per listing — a hard floor, an undercut amount, and (on Pro and Scale) AI aggressiveness — not buried in nested logic trees"
         ]
       },
       {
@@ -165,8 +165,8 @@ export const alternatives: PageContent[] = [
         "body": "Repricing speed determines how quickly you capture a price drop or recover when a competitor goes out of stock. Undercut's plan speeds are:\n\n- Free & Starter: Standard cadence\n- Pro ($79/mo, up to 1,000 listings): 15-minute repricing cycles\n- Scale ($199/mo, up to 10,000 listings): 5-minute repricing cycles\n\nFaster cycles matter most in competitive, high-velocity categories like consumer electronics, trading cards, and media. In slower categories like vintage or antiques, standard cadence is usually sufficient and the Free plan handles it fine.\n\nPrice Spectre's repricing frequency varies by plan; check their current pricing page for exact cycle times before making a speed-based decision."
       },
       {
-        "h2": "AI Aggressiveness Tuning (Pro)",
-        "body": "On the Pro plan, Undercut adds AI aggressiveness tuning — a per-listing setting that adjusts how quickly and how far the engine moves toward that listing's floor. A conservative setting makes small, slow moves to avoid triggering a price war. An aggressive setting moves faster toward the floor. It never overrides the floor and never goes below it.\n\nBecause it is set per listing, you can tune each item to match its own competitive dynamics: set a fast-moving electronics listing aggressive, set a collectible conservative, and let each one behave appropriately without manual intervention.",
+        "h2": "AI Aggressiveness Tuning (Pro and Scale)",
+        "body": "On the Pro and Scale plans, Undercut adds AI aggressiveness tuning — a per-listing setting that adjusts how quickly and how far the engine moves toward that listing's floor. A conservative setting makes small, slow moves to avoid triggering a price war. An aggressive setting moves faster toward the floor. It never overrides the floor and never goes below it.\n\nBecause it is set per listing, you can tune each item to match its own competitive dynamics: set a fast-moving electronics listing aggressive, set a collectible conservative, and let each one behave appropriately without manual intervention.",
         "bullets": [
           "Aggressiveness is set per listing, not a single global dial",
           "Conservative mode is the default — you opt into aggression deliberately",
@@ -217,7 +217,7 @@ export const alternatives: PageContent[] = [
         },
         {
           "label": "AI aggressiveness tuning",
-          "undercut": "Yes — Pro ($79) plan",
+          "undercut": "Yes — Pro and Scale ($79) plans",
           "competitor": "Varies"
         },
         {
@@ -427,7 +427,7 @@ export const alternatives: PageContent[] = [
         "bullets": [
           "Per-item floor set in dollars, not as a vague percentage of a moving number",
           "Floor holds even if competitors drop below it — Undercut parks at floor, not below",
-          "The Pro plan adds AI aggressiveness tuning so you control how fast each listing moves toward its floor"
+          "The Pro and Scale plans add AI aggressiveness tuning so you control how fast each listing moves toward its floor"
         ]
       },
       {
@@ -463,7 +463,7 @@ export const alternatives: PageContent[] = [
         "a": "Undercut covers only repricing. Tools like automated feedback requests, order management, or custom store design are not part of Undercut. If you rely on those 3Dsellers features, you would need to keep that subscription or replace those functions separately — factor that into the comparison."
       },
       {
-        "q": "How does Undercut's AI aggressiveness tuning (Pro) work alongside the hard floor?",
+        "q": "How does Undercut's AI aggressiveness tuning (Pro and Scale) work alongside the hard floor?",
         "a": "The AI tuning controls how quickly and how far each listing moves toward its floor as it undercuts the lowest competitor. The hard floor is always the absolute lower bound; the AI operates in the space between your current price and the floor, and never overrides or crosses the floor."
       },
       {
@@ -518,7 +518,7 @@ export const alternatives: PageContent[] = [
         },
         {
           "label": "AI aggressiveness tuning",
-          "undercut": "Included on Pro ($79/mo)",
+          "undercut": "Included on Pro and Scale ($79/mo)",
           "competitor": "Varies"
         },
         {
@@ -657,7 +657,7 @@ export const alternatives: PageContent[] = [
         },
         {
           "label": "AI aggressiveness tuning",
-          "undercut": "Yes — Pro plan",
+          "undercut": "Yes — Pro and Scale plans",
           "competitor": "Supported"
         }
       ]
@@ -698,7 +698,7 @@ export const alternatives: PageContent[] = [
         "body": "For sellers with fewer than 1,000 eBay listings, Undercut's pricing is straightforward. The free plan covers 25 listings indefinitely — useful for testing with real inventory. Paid tiers are: Starter at $29/month (100 listings), Pro at $79/month (1,000 listings, adds AI aggressiveness tuning and 15-minute repricing cycles), and Scale at $199/month (10,000 listings, 5-minute cycles). Repricer.com's published pricing starts higher on entry-level plans and is structured around multi-channel access. If you are an eBay-focused seller who does not need Amazon or Walmart repricing, you are likely paying for capacity you will not use.",
         "bullets": [
           "Free tier: 25 listings, no card required — Undercut only.",
-          "Pro tier adds AI-driven aggressiveness tuning, letting you control how fast and how far each listing moves toward its floor.",
+          "Pro and Scale tiers add AI-driven aggressiveness tuning, letting you control how fast and how far each listing moves toward its floor.",
           "Scale tier's 5-minute repricing cycle is among the fastest available for eBay sellers at this price point."
         ]
       },
@@ -724,7 +724,7 @@ export const alternatives: PageContent[] = [
       },
       {
         "q": "Can I migrate my repricing rules from Repricer.com to Undercut?",
-        "a": "There is no direct rule-import from Repricer.com. However, Undercut's rule structure is simpler by design — the primary input per listing is a hard floor and an aggressiveness setting (on Pro). Most sellers can recreate their core logic in under an hour. The free tier lets you test this without any payment commitment."
+        "a": "There is no direct rule-import from Repricer.com. However, Undercut's rule structure is simpler by design — the primary input per listing is a hard floor and an aggressiveness setting (on Pro and Scale). Most sellers can recreate their core logic in under an hour. The free tier lets you test this without any payment commitment."
       },
       {
         "q": "How does the per-item hard floor work in practice — can I accidentally override it?",
@@ -796,7 +796,7 @@ export const alternatives: PageContent[] = [
         },
         {
           "label": "AI aggressiveness tuning",
-          "undercut": "Available on Pro ($79/month)",
+          "undercut": "Available on Pro and Scale ($79/month)",
           "competitor": "Supported on higher-tier plans"
         }
       ]

@@ -17,19 +17,22 @@
 export const PRODUCT_FACTS = `UNDERCUT — GROUND TRUTH (treat as a CLOSED list; anything beyond it is forbidden):
 WHAT IT DOES: automatically reprices a seller's eBay listings to just beat the lowest comparable live competitor, ALWAYS clamped to a per-listing HARD FLOOR (and an OPTIONAL per-listing ceiling) so it never sells below the seller's minimum.
 THE ONLY FEATURES ARE: (1) automatic repricing to beat the lowest comparable competitor; (2) a per-listing hard floor; (3) an optional per-listing ceiling; (4) a configurable undercut amount (fixed cents OR a percentage); (5) OPTIONAL per-listing Claude AI aggressiveness tuning that only adjusts how fast/how far a listing moves toward its already-set floor and NEVER overrides the floor.
-PLANS (attribute each feature ONLY to the exact plan(s) listed; higher tiers do NOT automatically inherit lower-tier features):
-  - Free: 25 listings, repriced multiple times daily.
-  - Starter $29/mo: 100 listings.
-  - Pro $79/mo: 1,000 listings, 15-minute repricing cycle, AND AI aggressiveness tuning.
-  - Scale $199/mo: 10,000 listings, 5-minute repricing cycle. (Scale's ONLY upgrades over Pro are the higher listing cap and the faster cycle. AI aggressiveness tuning is a PRO feature — describe it as "Pro" only, NEVER "Pro and Scale" / "Pro or Scale".)
+PLANS (match the live pricing page exactly):
+  - Free: 25 listings, hourly repricing, rule-based undercut, hard floor. NO AI.
+  - Starter $29/mo: 100 listings, hourly repricing, rule-based undercut, hard floor. NO AI.
+  - Pro $79/mo: 1,000 listings, 15-minute repricing, AI price optimizer (AI aggressiveness tuning), competitor tracking.
+  - Scale $199/mo: 10,000 listings, 5-minute repricing, AI price optimizer (AI aggressiveness tuning), priority support.
+  - The AI price optimizer / AI aggressiveness tuning is available on BOTH Pro AND Scale (the top two tiers). When attributing it to plans, say "Pro and Scale" — never imply it is Pro-only or that Scale lacks it. Free and Starter are rule-based only (no AI).
   - New signups get a no-card 14-day trial at Starter level.
 eBay FACTS YOU MAY USE: final value fee ~13.25% (varies by category), Best Match search ranking, Best Offer, Promoted Listings, Markdown Manager. eBay uses Best Match, NOT an Amazon-style formal "Buy Box".
 STRICTLY FORBIDDEN (these capabilities DO NOT EXIST — never mention or imply them): bulk CSV import / bulk-import / importing or re-importing floors from a file; a tagging or labels system or rule-by-tag; a rules / segmentation engine; cohorts or "listing groups"; stored competitor price-history or trend charts inside Undercut; automatic age/time tracking of listings or time-based auto-escalation; inventory / sell-through / demand / sales-velocity awareness as AI inputs; multi-marketplace repricing (Amazon/Walmart/etc.); inventory or order management; named dashboard UI widgets you cannot verify. If a workflow would need any of these, describe it as something the SELLER does manually per listing — never as an Undercut feature.`
 
 // High-precision patterns. Each: { id, re, why }. `re` must use the global flag.
 const PATTERNS = [
-  { id: 'ai-tuning-on-scale', why: 'AI aggressiveness tuning is Pro-only, not "Pro and/or Scale"',
-    re: /(pro (and|or) scale[^.]{0,90}(aggressiv|ai tuning|ai aggressiv|ai-powered))|((aggressiv|ai tuning|ai aggressiv|ai-powered)[^.]{0,90}pro (and|or) scale)/gi },
+  // AI price optimizer is a Pro AND Scale feature (matches the live pricing page).
+  // Flag only the inaccurate cases: AI attributed to Free/Starter, or stated as Pro-EXCLUSIVE.
+  { id: 'ai-on-wrong-tier', why: 'AI price optimizer is Pro AND Scale only — not Free/Starter, and not Pro-exclusive',
+    re: /\b(free|starter)\b[^.]{0,60}(ai aggressiv|ai price optimi|ai tuning|ai-powered)|(ai aggressiv|ai price optimi|ai tuning|ai-powered)[^.]{0,60}\b(free|starter)\b|(ai (aggressiv\w*|tuning|price optimi\w*)[^.]{0,40}\b(only on pro|pro only|pro plan only|exclusive to pro)\b)/gi },
   { id: 'bulk-import', why: 'no bulk/CSV import of floors exists', re: /bulk[- ]?import|\bcsv\b|re-import/gi },
   { id: 'tagging-feature', why: 'no tagging / rule-by-tag system exists',
     re: /\b(set rules by tag|rules by tag|by tag\b|tag it by|tag listings|tag parts|tag inventory|tag condition|tag your inventory|tagging your inventory)\b/gi },

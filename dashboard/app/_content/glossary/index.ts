@@ -133,7 +133,7 @@ export const glossary: PageContent[] = [
       },
       {
         "h2": "How Undercut Enforces Your Floor on Every Listing",
-        "body": "When you connect Undercut, you set each listing's Floor Price in the dashboard — either by entering the floor directly, or by entering your cost and letting Undercut calculate it using your stored fee rate and margin target. From that point, the repricer checks the current lowest competitor price and sets your price to one cent below — unless doing so would breach your floor, in which case it holds at the floor.\n\nOn the Pro plan, per-listing AI aggressiveness tuning adjusts how quickly each listing moves toward its floor versus holding at a premium price point. This is useful in categories like electronics and collectibles where demand is inelastic — the lowest price does not always win the sale. The floor still holds regardless of which aggressiveness setting you choose; it is not a target, it is a hard stop.",
+        "body": "When you connect Undercut, you set each listing's Floor Price in the dashboard — either by entering the floor directly, or by entering your cost and letting Undercut calculate it using your stored fee rate and margin target. From that point, the repricer checks the current lowest competitor price and sets your price to one cent below — unless doing so would breach your floor, in which case it holds at the floor.\n\nOn the Pro and Scale plans, per-listing AI aggressiveness tuning adjusts how quickly each listing moves toward its floor versus holding at a premium price point. This is useful in categories like electronics and collectibles where demand is inelastic — the lowest price does not always win the sale. The floor still holds regardless of which aggressiveness setting you choose; it is not a target, it is a hard stop.",
         "bullets": []
       },
       {
@@ -166,7 +166,7 @@ export const glossary: PageContent[] = [
         "a": "Your floor should not change unless your underlying costs change. Promotional pricing is a decision about your target price, not your minimum. If you run a sale, you are choosing to price closer to your floor — but the floor itself stays fixed at the cost-plus-minimum-margin figure."
       },
       {
-        "q": "How does a price floor interact with the AI aggressiveness tuning on the Pro plan?",
+        "q": "How does a price floor interact with the AI aggressiveness tuning on the Pro and Scale plans?",
         "a": "AI aggressiveness controls how quickly each listing moves toward its floor as it chases competitor price drops — but it operates entirely above your floor. A more aggressive setting means the listing closes the gap to the competitor faster; a conservative setting holds at a premium longer. Either way, the floor is a hard stop the algorithm cannot cross."
       }
     ],
@@ -211,7 +211,7 @@ export const glossary: PageContent[] = [
     "sections": [
       {
         "h2": "Dynamic Pricing vs. Rule-Based Repricing: Not the Same Thing",
-        "body": "Rule-based repricing follows a fixed instruction: 'always be $0.10 below the lowest price.' It reacts to a snapshot of the market and applies one formula regardless of context. Dynamic pricing is broader — it can weigh multiple inputs simultaneously, including velocity, time of day, seasonal demand, and competitor behavior patterns, then adjust price along a range rather than by a fixed delta. In practice, most eBay repricers sold today are rule-based engines with a dynamic-sounding name. True dynamic pricing introduces variable aggressiveness: the system may move more steeply toward the floor on some items, or hold closer to a premium price point on others. Undercut's per-listing AI aggressiveness tuning (available on the Pro plan) lets you set, per listing, how fast and how far that listing moves toward its already-set floor.",
+        "body": "Rule-based repricing follows a fixed instruction: 'always be $0.10 below the lowest price.' It reacts to a snapshot of the market and applies one formula regardless of context. Dynamic pricing is broader — it can weigh multiple inputs simultaneously, including velocity, time of day, seasonal demand, and competitor behavior patterns, then adjust price along a range rather than by a fixed delta. In practice, most eBay repricers sold today are rule-based engines with a dynamic-sounding name. True dynamic pricing introduces variable aggressiveness: the system may move more steeply toward the floor on some items, or hold closer to a premium price point on others. Undercut's per-listing AI aggressiveness tuning (available on the Pro and Scale plans) lets you set, per listing, how fast and how far that listing moves toward its already-set floor.",
         "bullets": [
           "Rule-based: one formula, always applied the same way",
           "Dynamic: multiple signals, variable response, range-aware",
@@ -233,7 +233,7 @@ export const glossary: PageContent[] = [
       },
       {
         "h2": "How Dynamic Pricing Behaves Above the Floor",
-        "body": "The floor defines the bottom of the range. Everything above it is where dynamic logic operates. Undercut's default mode targets the lowest active competitor price and undercuts it by the smallest increment needed to be the cheapest visible option — typically $0.01 to $0.05 depending on the category. On the Pro plan, per-listing AI aggressiveness tuning adjusts this behavior on listings you choose: a more aggressive setting moves that listing toward its floor faster, while a conservative setting holds higher in the range longer. You decide the setting per listing — the AI only controls how fast and how far each listing moves toward the floor you already set, never the floor itself. This is the practical difference between a flat undercut and a tunable one as applied to eBay."
+        "body": "The floor defines the bottom of the range. Everything above it is where dynamic logic operates. Undercut's default mode targets the lowest active competitor price and undercuts it by the smallest increment needed to be the cheapest visible option — typically $0.01 to $0.05 depending on the category. On the Pro and Scale plans, per-listing AI aggressiveness tuning adjusts this behavior on listings you choose: a more aggressive setting moves that listing toward its floor faster, while a conservative setting holds higher in the range longer. You decide the setting per listing — the AI only controls how fast and how far each listing moves toward the floor you already set, never the floor itself. This is the practical difference between a flat undercut and a tunable one as applied to eBay."
       },
       {
         "h2": "Dynamic Pricing on eBay: Practical Limits to Know",
@@ -338,7 +338,7 @@ export const glossary: PageContent[] = [
       },
       {
         "h2": "Why Automated Repricing Wins More Buy Boxes Than Manual Pricing",
-        "body": "A competitor can change their price at any hour. Manual repricing — checking listings once a day or once a week — means you spend most of your time out of position. Undercut's Pro plan reprices every 15 minutes; the Scale plan reprices every 5 minutes. For high-competition categories like consumer electronics or media, that frequency is the difference between holding the top spot through a busy weekend or watching a competitor absorb your sales. The per-listing AI aggressiveness tuning on the Pro plan lets you control how quickly each listing closes on a competitor's price versus how much cushion it keeps — so you are not always racing to the exact floor.",
+        "body": "A competitor can change their price at any hour. Manual repricing — checking listings once a day or once a week — means you spend most of your time out of position. Undercut's Pro plan reprices every 15 minutes; the Scale plan reprices every 5 minutes. For high-competition categories like consumer electronics or media, that frequency is the difference between holding the top spot through a busy weekend or watching a competitor absorb your sales. The per-listing AI aggressiveness tuning on the Pro and Scale plans lets you control how quickly each listing closes on a competitor's price versus how much cushion it keeps — so you are not always racing to the exact floor.",
         "bullets": []
       },
       {
