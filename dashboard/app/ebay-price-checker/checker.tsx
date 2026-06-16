@@ -4,11 +4,20 @@ import Link from 'next/link'
 import { api } from '../lib/api'
 import { track } from '../lib/track'
 
-type Item = { title: string; price: number; condition?: string; url?: string }
-type Result = { query: string; lowest: number | null; count: number; items: Item[] }
+type Item = { title?: string; price: number; condition?: string; url?: string }
+type Result = {
+  query?: string
+  item?: Item | null   // present when a specific listing was resolved by URL
+  lowest: number | null
+  count: number
+  items: Item[]
+}
 
 const money = (v: number | null | undefined) =>
   typeof v === 'number' && isFinite(v) ? `$${v.toFixed(2)}` : '—'
+
+// A pasted eBay URL or a bare item id → exact-listing lookup; anything else → keyword search.
+const looksLikeListing = (s: string) => /ebay\.[a-z.]+\/|\/itm\/|^\d{9,15}$/i.test(s.trim())
 
 export default function Checker() {
   const [q, setQ] = useState('')
@@ -20,16 +29,22 @@ export default function Checker() {
 
   async function check(e: React.FormEvent) {
     e.preventDefault()
-    if (q.trim().length < 3 || busy) return
+    const raw = q.trim()
+    if (raw.length < 3 || busy) return
     setBusy(true); setErr(''); setRes(null); setFloor(''); setFloorFired(false)
+    const listing = looksLikeListing(raw)
+    const path = listing
+      ? `/api/tools/listing-check?url=${encodeURIComponent(raw)}`
+      : `/api/tools/price-check?q=${encodeURIComponent(raw)}`
     try {
-      const r = await api(`/api/tools/price-check?q=${encodeURIComponent(q.trim())}`)
-      if (r.status === 429) setErr('Too many checks — give it a minute and try again.')
-      else if (!r.ok) setErr('Something went wrong — try again.')
-      else {
+      const r = await api(path)
+      if (!r.ok) {
+        const d = await r.json().catch(() => ({}))
+        setErr(d.detail || 'Something went wrong — try again.')
+      } else {
         const data: Result = await r.json()
         setRes(data)
-        track('demo_use', { query: data.query, lowest: data.lowest ?? 0, listings: data.count })
+        track('demo_use', { mode: listing ? 'listing' : 'keyword', lowest: data.lowest ?? 0, listings: data.count })
       }
     } catch {
       setErr('Something went wrong — try again.')
@@ -38,18 +53,18 @@ export default function Checker() {
     }
   }
 
+  const item = res?.item ?? null
   const lowest = res?.lowest ?? null
   const pennyUnder = lowest != null ? Math.max(lowest - 0.01, 0) : null
   const floorNum = floor.trim() === '' ? null : Number(floor)
   const floorValid = floorNum != null && isFinite(floorNum) && floorNum > 0
-  // Decision: win the sale above the floor, or hold at the floor and refuse the loss.
   const wins = floorValid && pennyUnder != null && pennyUnder >= (floorNum as number)
   const margin = wins ? (pennyUnder as number) - (floorNum as number) : 0
 
   function onFloorChange(v: string) {
     setFloor(v)
     if (!floorFired && v.trim() !== '') {
-      track('demo_floor', { query: res?.query })
+      track('demo_floor', { mode: item ? 'listing' : 'keyword' })
       setFloorFired(true)
     }
   }
@@ -60,36 +75,56 @@ export default function Checker() {
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder='Try "airpods pro 2" or "lego 75192"'
+          placeholder="Paste your eBay listing URL — or search a product"
           className="flex-1 border border-gray-300 rounded-lg px-4 py-3 text-sm bg-white outline-none focus:border-blue-500"
-          maxLength={80}
+          maxLength={400}
         />
         <button
           type="submit"
           disabled={busy || q.trim().length < 3}
           className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 disabled:opacity-50"
         >
-          {busy ? 'Checking…' : 'Check price'}
+          {busy ? 'Checking…' : 'Check it'}
         </button>
       </form>
+      <p className="text-xs text-gray-500 mt-2">Paste a full listing link (the one with <span className="font-mono">/itm/…</span>) for an exact, like-for-like check. A plain product search works too, but matches loosely.</p>
       {err && <p className="text-sm text-red-600 mt-3">{err}</p>}
 
       {res && (
         <div className="mt-8 space-y-4">
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div className="bg-blue-600 text-white rounded-2xl p-6">
-              <p className="text-sm text-blue-100">Lowest live price right now</p>
-              <p className="text-4xl font-extrabold mt-1">{money(lowest)}</p>
-              <p className="text-sm text-blue-100 mt-2">across {res.count} live listings for &ldquo;{res.query}&rdquo;</p>
-            </div>
+          {/* Your listing (only when resolved by URL) */}
+          {item && (
             <div className="bg-white border border-gray-200 rounded-2xl p-6">
-              <p className="text-sm text-gray-600">To win this sale you&apos;d price at</p>
-              <p className="text-4xl font-extrabold mt-1 text-green-700">{money(pennyUnder)}</p>
-              <p className="text-sm text-gray-600 mt-2">a penny under the lowest competitor.</p>
+              <p className="text-sm text-gray-500">Your listing</p>
+              <p className="font-semibold leading-snug mt-1">
+                {item.url ? <a href={item.url} target="_blank" rel="nofollow noopener noreferrer" className="hover:text-blue-700">{item.title}</a> : item.title}
+                {item.condition ? <span className="text-gray-400 font-normal"> · {item.condition}</span> : null}
+              </p>
+              {item.price != null && <p className="text-sm text-gray-600 mt-1">Your current price: <b>{money(item.price)}</b></p>}
             </div>
-          </div>
+          )}
 
-          {/* Instant demo: show exactly what Undercut would do against the seller's own floor */}
+          {lowest != null ? (
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="bg-blue-600 text-white rounded-2xl p-6">
+                <p className="text-sm text-blue-100">{item ? 'Lowest competitor right now' : 'Lowest live price right now'}</p>
+                <p className="text-4xl font-extrabold mt-1">{money(lowest)}</p>
+                <p className="text-sm text-blue-100 mt-2">across {res.count} {item ? 'competing' : 'live'} listing{res.count === 1 ? '' : 's'}{!item && res.query ? ` for “${res.query}”` : ''}</p>
+              </div>
+              <div className="bg-white border border-gray-200 rounded-2xl p-6">
+                <p className="text-sm text-gray-600">To win this sale you&apos;d price at</p>
+                <p className="text-4xl font-extrabold mt-1 text-green-700">{money(pennyUnder)}</p>
+                <p className="text-sm text-gray-600 mt-2">a penny under the lowest competitor.</p>
+              </div>
+            </div>
+          ) : item ? (
+            <div className="bg-green-50 border border-green-200 rounded-2xl p-6">
+              <p className="text-green-900 font-semibold">No other live listings of this exact item right now.</p>
+              <p className="text-sm text-green-800 mt-1">You set the price. Undercut starts defending your floor the moment a competitor appears — so you never get undercut while you&apos;re not looking.</p>
+            </div>
+          ) : null}
+
+          {/* Instant demo: what Undercut would do against the seller's own floor */}
           {lowest != null && (
             <div className="bg-white border border-gray-200 rounded-2xl p-6">
               <p className="text-sm font-semibold">Now see what Undercut would actually do to your listing</p>
@@ -130,7 +165,7 @@ export default function Checker() {
 
           {res.items.length > 0 && (
             <div className="bg-white border border-gray-200 rounded-2xl p-6">
-              <p className="text-sm font-semibold mb-3">Cheapest live listings</p>
+              <p className="text-sm font-semibold mb-3">Cheapest {item ? 'competing ' : ''}live listings</p>
               <ul className="space-y-2 text-sm">
                 {res.items.map((it, i) => (
                   <li key={i} className="flex items-baseline justify-between gap-4">

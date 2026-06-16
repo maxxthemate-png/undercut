@@ -8,6 +8,7 @@ Honors settings.EBAY_SANDBOX for all endpoints.
 """
 import asyncio
 import base64
+import re
 import xml.etree.ElementTree as ET
 
 import httpx
@@ -24,6 +25,8 @@ _OAUTH = {"prod": "https://api.ebay.com/identity/v1/oauth2/token",
           "sbx": "https://api.sandbox.ebay.com/identity/v1/oauth2/token"}
 _BROWSE = {"prod": "https://api.ebay.com/buy/browse/v1/item_summary/search",
            "sbx": "https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search"}
+_BROWSE_ITEM = {"prod": "https://api.ebay.com/buy/browse/v1/item/get_item_by_legacy_id",
+                "sbx": "https://api.sandbox.ebay.com/buy/browse/v1/item/get_item_by_legacy_id"}
 
 
 class EbayStoreClient:
@@ -161,6 +164,82 @@ class EbayStoreClient:
         except Exception as e:
             logger.warning("price check lookup failed", error=str(e))
             return {"lowest": None, "count": 0, "items": []}
+
+    @staticmethod
+    def parse_item_id(url_or_id: str) -> str | None:
+        """Extract a numeric eBay (legacy) item id from a listing URL or raw id."""
+        s = (url_or_id or "").strip()
+        if not s:
+            return None
+        m = re.search(r"/itm/(?:[^/?#]*/)?(\d{9,15})", s)        # /itm/Title/12345 or /itm/12345
+        if m:
+            return m.group(1)
+        m = re.search(r"[?&](?:item|epid|itm)=(\d{9,15})", s)    # ?item=12345
+        if m:
+            return m.group(1)
+        if re.fullmatch(r"\d{9,15}", s):                          # bare id
+            return s
+        m = re.search(r"(\d{11,15})", s)                          # last resort: long digit run
+        return m.group(1) if m else None
+
+    async def lookup_item_comps(self, legacy_id: str, top: int = 5) -> dict:
+        """Resolve ONE eBay item by legacy id, then find the lowest comparable
+        competitor WITHIN that item's category (so we compare apples to apples,
+        not a $850 set against $1 parts that share a keyword). Powers the demo."""
+        token = await self._app_token()
+        if not token:
+            return {"item": None, "lowest": None, "count": 0, "items": []}
+        headers = {"Authorization": f"Bearer {token}", "X-EBAY-C-MARKETPLACE-ID": "EBAY_US"}
+        try:
+            async with httpx.AsyncClient(timeout=20) as c:
+                ir = await c.get(_BROWSE_ITEM[self._env],
+                                 params={"legacy_item_id": legacy_id}, headers=headers)
+            if ir.status_code != 200:
+                return {"item": None, "lowest": None, "count": 0, "items": [], "error": "item_not_found"}
+            idata = ir.json()
+            iprice = (idata.get("price") or {}).get("value")
+            item = {
+                "title": idata.get("title"),
+                "price": float(iprice) if iprice else None,
+                "condition": idata.get("condition"),
+                "url": idata.get("itemWebUrl"),
+            }
+            cat = idata.get("categoryId")
+            if not cat and idata.get("categoryIdPath"):
+                cat = idata["categoryIdPath"].split("|")[-1]
+            self_id = str(idata.get("legacyItemId") or legacy_id)
+            q = " ".join((idata.get("title") or "").split()[:8])
+
+            async def _search(use_cat: bool) -> dict:
+                params = {"q": q, "sort": "price", "limit": 40}
+                if use_cat and cat:
+                    params["category_ids"] = str(cat)
+                async with httpx.AsyncClient(timeout=20) as c:
+                    sr = await c.get(_BROWSE[self._env], params=params, headers=headers)
+                return sr.json() if sr.status_code == 200 else {}
+
+            sdata = await _search(use_cat=True)
+            summaries = sdata.get("itemSummaries") or []
+            if not summaries:                       # category too narrow / rejected → retry open
+                sdata = await _search(use_cat=False)
+                summaries = sdata.get("itemSummaries") or []
+
+            items, prices = [], []
+            for s in summaries:
+                v = (s.get("price") or {}).get("value")
+                if not v:
+                    continue
+                if str(s.get("legacyItemId") or "") == self_id:   # skip the seller's own listing
+                    continue
+                prices.append(float(v))
+                if len(items) < top:
+                    items.append({"title": s.get("title"), "price": float(v),
+                                  "condition": s.get("condition"), "url": s.get("itemWebUrl")})
+            return {"item": item, "lowest": min(prices) if prices else None,
+                    "count": len(prices), "items": items}
+        except Exception as e:
+            logger.warning("item lookup failed", error=str(e))
+            return {"item": None, "lowest": None, "count": 0, "items": [], "error": "lookup_failed"}
 
     async def get_competitor_low(self, query: str, limit: int = 30) -> dict:
         """Lowest competing price + count for a query via the Buy Browse API."""

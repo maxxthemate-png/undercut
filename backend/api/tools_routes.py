@@ -87,3 +87,31 @@ async def price_check(request: Request, q: str = Query(min_length=3, max_length=
         _CACHE.pop(next(iter(_CACHE)))
     _CACHE[key] = (time.time(), payload)
     return payload
+
+
+@public_router.get("/listing-check")
+async def listing_check(request: Request, url: str = Query(min_length=5, max_length=400)):
+    """Exact-item demo: resolve ONE eBay listing (URL or id) and find the lowest
+    comparable competitor in its own category. Accurate, unlike keyword matching."""
+    if _throttled(_client_ip(request)):
+        raise HTTPException(429, "Too many checks — try again in a minute.")
+
+    item_id = EbayStoreClient.parse_item_id(url)
+    if not item_id:
+        raise HTTPException(400, "Couldn't read an eBay item from that — paste a full listing URL (the one with /itm/...).")
+
+    key = f"listing:{item_id}"
+    hit = _CACHE.get(key)
+    if hit and time.time() - hit[0] < CACHE_TTL:
+        return hit[1]
+
+    result = await EbayStoreClient().lookup_item_comps(item_id)
+    if not result.get("item"):
+        # Don't cache failures; surface a clear message
+        raise HTTPException(404, "Couldn't find that eBay item — check the link is a live listing.")
+
+    payload = {"item_id": item_id, **result}
+    if len(_CACHE) >= _CACHE_MAX:
+        _CACHE.pop(next(iter(_CACHE)))
+    _CACHE[key] = (time.time(), payload)
+    return payload
