@@ -1,4 +1,4 @@
-# ListingArb Backend Dependencies
+# Undercut Backend Dependencies
 
 # Web framework
 fastapi==0.111.0
@@ -12,10 +12,8 @@ asyncpg==0.29.0
 psycopg2-binary==2.9.9
 supabase==2.5.1
 
-# Task queue
-celery==5.4.0
+# Rate limiting (async Redis); scheduling runs via GitHub Actions crons, not Celery
 redis==5.0.7
-flower==2.0.1  # Celery monitoring UI
 
 # AI / LLM
 anthropic==0.30.0

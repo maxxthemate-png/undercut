@@ -1,4 +1,4 @@
-"""Alembic migration environment for ListingArb.
+"""Alembic migration environment for Undercut.
 
 Scaffolded to run the hand-written migrations in alembic/versions/.
 The database URL is loaded from the project's .env (DATABASE_URL), so this
@@ -44,7 +44,8 @@ if config.config_file_name is not None:
 # Only needed for --autogenerate; the shipped migrations are hand-written, so
 # this is best-effort and falls back to None if models can't be imported.
 try:
-    from models.models import Base
+    # Importing repricer_models registers every live table on Base.metadata.
+    from models.repricer_models import Base
     target_metadata = Base.metadata
 except Exception:
     target_metadata = None

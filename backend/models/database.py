@@ -1,10 +1,10 @@
-"""SQLAlchemy engine + session management for ListingArb.
+"""SQLAlchemy engine + session management for Undercut.
 
 Provides the database plumbing the rest of the app imports:
 
   - ``engine``        : synchronous SQLAlchemy Engine built from settings.DATABASE_URL
   - ``SessionLocal``  : configured sessionmaker
-  - ``Base``          : declarative base (re-exported from models.models)
+  - ``Base``          : declarative base (re-exported from models.base)
   - ``get_db()``      : FastAPI dependency — yields a Session, always closes it
   - ``get_db_sync()`` : same generator for use OUTSIDE a request (Celery workers,
                         scripts): ``db = next(get_db_sync())``
@@ -19,7 +19,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
 from ..utils.settings import settings
-from .models import Base  # re-exported: `from models.database import Base`
+from .base import Base  # re-exported: `from models.database import Base`
 
 # This module uses a synchronous engine; coerce any async driver to psycopg2.
 _DB_URL = settings.DATABASE_URL.replace("postgres://", "postgresql://", 1).replace("+asyncpg", "+psycopg2")
