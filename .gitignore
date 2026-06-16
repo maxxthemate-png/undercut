@@ -25,3 +25,6 @@ backend/static/contracts/
 # Local-only operational docs (public repo — keep strategy/ops private)
 CLAUDE.md
 GTM_OUTREACH.md
+
+# Internal working memory (sprint log, project state) — not for the repo
+memory/
