@@ -72,7 +72,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "Is the 14-day trial enough time to see real results for electronics repricing?",
-        "a": "For most sellers, yes. Electronics categories have enough price movement that within 14 days you will see the repricer actively adjusting listings, and you can compare your sales velocity and average selling price before and after. No card is required to start."
+        "a": "For most sellers, yes. Electronics categories have enough price movement that within 14 days you will see the repricer actively adjusting listings, and you can compare how quickly your items sell and your average selling price before and after. No card is required to start."
       }
     ],
     "cta": {
@@ -1423,7 +1423,7 @@ export const guides: PageContent[] = [
         "h2": "How to Combine AI Tuning With a Floor Strategy by Category",
         "body": "Different catalog segments need different postures. For high-competition commodity listings (cables, cases, generic accessories), set aggressive posture with a tight floor calculated on thin margin targets — the goal is velocity. For branded or unique items where you have limited direct competition, set conservative posture with a wider margin target baked into the floor — you do not need to race anyone. For collectibles and vintage, AI tuning has less utility because competitors are sparse and prices are idiosyncratic; moderate posture with a manually set floor based on acquisition cost is the right call. Mixing postures across your catalog is where sellers see the biggest real-world gain: high-velocity SKUs move faster, premium SKUs hold price, and nothing ever sells below cost.",
         "bullets": [
-          "Commodity SKUs: aggressive posture, thin floor, maximize sell-through rate",
+          "Commodity SKUs: aggressive posture, thin floor — move them fast before prices erode",
           "Branded/unique SKUs: conservative posture, fat floor, protect average sale price",
           "Collectibles/vintage: moderate posture, manual floor, reduce active management time",
           "Books: conservative posture with floor set to cover FBA-style cost + shipping + fees"
@@ -2144,7 +2144,7 @@ export const guides: PageContent[] = [
     "sections": [
       {
         "h2": "The Five Documented Best Match Signals",
-        "body": "eBay's own Seller Center acknowledges these inputs to Best Match ranking: (1) Price + shipping total — buyers sort by 'lowest price + shipping' constantly, so eBay weights combined landed cost. (2) Sales velocity and conversion history — how often your listing converts views to purchases over the past 30-90 days. (3) Seller performance tier — Top Rated Plus badges receive a documented ranking boost; Below Standard sellers face suppression. (4) Item specifics completeness — listings missing Brand, MPN, or category-required fields rank lower because eBay cannot match them to buyer search filters. (5) Click-through rate — if buyers repeatedly scroll past your thumbnail, eBay interprets low CTR as a relevance signal and reduces impressions. None of these is publicly weighted, but all five appear in eBay's help documentation or have been confirmed via eBay seller-community communications."
+        "body": "eBay's own Seller Center acknowledges these inputs to Best Match ranking: (1) Price + shipping total — buyers sort by 'lowest price + shipping' constantly, so eBay weights combined landed cost. (2) Recent sales and conversion history — how often your listing converts views to purchases over the past 30-90 days. (3) Seller performance tier — Top Rated Plus badges receive a documented ranking boost; Below Standard sellers face suppression. (4) Item specifics completeness — listings missing Brand, MPN, or category-required fields rank lower because eBay cannot match them to buyer search filters. (5) Click-through rate — if buyers repeatedly scroll past your thumbnail, eBay interprets low CTR as a relevance signal and reduces impressions. None of these is publicly weighted, but all five appear in eBay's help documentation or have been confirmed via eBay seller-community communications."
       },
       {
         "h2": "Why Ending a Listing Is Dangerous for Rank",
@@ -2402,7 +2402,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Bulk Price Edits: Changing Many Prices at Once",
-        "body": "For stores with more than a handful of listings, revising one at a time is impractical. eBay offers two native bulk tools. First, the Seller Hub bulk edit: in Active Listings, check multiple items, click 'Edit,' choose 'Price,' and apply a fixed amount or percentage change across all selected listings. This works for up to a few hundred listings at once. Second, the File Exchange / bulk upload method: download your active listings as a CSV, update the price column, and re-upload. Changes apply without ending the listings. Both approaches still preserve sales history because you're revising, not relisting. The downside is that bulk edits are manual snapshots in time—you do the work, prices go stale, and you repeat the cycle every time a competitor moves."
+        "body": "For stores with more than a handful of listings, revising one at a time is impractical. eBay offers two native bulk tools. First, the Seller Hub bulk edit: in Active Listings, check multiple items, click 'Edit,' choose 'Price,' and apply a fixed amount or percentage change across all selected listings. This works for up to a few hundred listings at once. Second, eBay's File Exchange / bulk upload method: export your active listings to a spreadsheet, update the price column, and re-upload. Changes apply without ending the listings. Both approaches still preserve sales history because you're revising, not relisting. The downside is that bulk edits are manual snapshots in time—you do the work, prices go stale, and you repeat the cycle every time a competitor moves."
       },
       {
         "h2": "Markdown Manager vs. Direct Price Revision",
