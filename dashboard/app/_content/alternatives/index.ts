@@ -806,5 +806,116 @@ export const alternatives: PageContent[] = [
     "template": "comparison",
     "leadForm": true,
     "lastUpdated": "2026-06-09"
+  },
+  {
+    "slug": "channeladvisor-alternative",
+    "collection": "alternatives",
+    "template": "comparison",
+    "title": "ChannelAdvisor Alternative for eBay Repricing — Undercut",
+    "metaDescription": "Skip the enterprise price tag. Undercut auto-reprices your eBay listings with hard price floors from $0/mo. Start a 14-day free trial — no card required.",
+    "h1": "A Focused eBay Repricer for Sellers Who Don't Need ChannelAdvisor's Full Suite",
+    "eyebrow": "Comparison",
+    "intro": "ChannelAdvisor is a powerful multichannel commerce platform built for enterprise retailers managing inventory, feeds, and advertising across dozens of marketplaces. That breadth comes with enterprise-level complexity and cost. If you sell primarily on eBay and need one thing done well — automatic repricing that always protects your margin — Undercut is purpose-built for that job. Plans start free, scale to 10,000 listings, and every tier enforces a hard per-listing price floor so you never accidentally sell below cost.",
+    "sections": [
+      {
+        "h2": "What ChannelAdvisor Does — and What It Costs",
+        "body": "ChannelAdvisor (now part of CommerceHub) is a multichannel platform covering product feed management, marketplace integrations, advertising automation, and repricing across Amazon, eBay, Walmart, Google Shopping, and more. That breadth is genuinely valuable for large retailers running coordinated campaigns across 10+ channels.\n\nThe trade-off is cost and complexity. ChannelAdvisor targets enterprise customers; publicly available information consistently places entry-level contracts in the hundreds of dollars per month, often with onboarding fees, annual commitments, and a significant learning curve. For an eBay seller with a few hundred or a few thousand listings who simply needs competitive prices without selling at a loss, paying for a full multichannel suite is like renting a cargo ship to cross a river.\n\nUndercut's paid plans start at $29/month (Starter, 100 listings) and reach $199/month (Scale, 10,000 listings). There is also a permanently free tier covering 25 listings with hourly repricing and hard floor protection — no credit card ever required to start.",
+        "bullets": [
+          "ChannelAdvisor: enterprise multichannel (feeds, ads, 10+ marketplaces, inventory management)",
+          "Undercut: eBay-only automated repricing with hard price floors — nothing more, nothing less",
+          "Undercut Free tier: 25 listings, hourly repricing, hard floor, $0/month",
+          "Undercut Scale tier: 10,000 listings, 5-minute repricing, $199/month"
+        ]
+      },
+      {
+        "h2": "How Undercut's Repricing Logic Works",
+        "body": "Undercut scans live comparable eBay listings for each of your items and sets your price to just beat the lowest competitor — by a configurable undercut amount that you define as either a fixed number of cents or a percentage of the competitor's price. Every reprice is clamped to your per-listing hard floor, so the price can never drop below the minimum you set, regardless of how low a competitor goes.\n\nHere is a concrete example. Suppose you sell a used graphics card and set a hard floor of $160.00 and a 1% undercut rule. The lowest comparable live listing is $184.00. Undercut calculates 1% of $184.00 = $1.84, subtracts that from the competitor price, and sets your price to $182.16. The next day a competitor drops to $158.00 — below your floor. Undercut does not follow. Your price stays at $160.00, preserving your margin.\n\nYou can also set an optional per-listing ceiling. If your card occasionally spikes in demand and you want to capture upside, set a ceiling of, say, $220.00. Undercut will never push your price above that ceiling even if all competitors disappear from the results.\n\nReprice frequency depends on your plan: hourly on Free and Starter, every 15 minutes on Pro, and every 5 minutes on Scale.",
+        "bullets": [
+          "Configurable undercut amount: fixed cents (e.g. $0.50 less) or percentage (e.g. 1% less)",
+          "Hard floor per listing: price never goes below your minimum — ever",
+          "Optional ceiling per listing: caps upside if you want to control maximum price",
+          "Repricing frequency: hourly (Free/Starter), 15-min (Pro), 5-min (Scale)"
+        ]
+      },
+      {
+        "h2": "Claude AI Aggressiveness Tuning on Pro and Scale",
+        "body": "On the Pro ($79/month) and Scale ($199/month) plans, each listing can optionally have Claude AI aggressiveness tuning enabled. This controls how fast and how far your price moves toward its already-set hard floor — it does not set the floor, change the floor, or override it under any circumstances. Think of it as a dial between cautious (hold price higher, move slowly) and aggressive (close the gap to the floor quickly when competition intensifies).\n\nThis is useful when you have listings where you prefer to hold price for a while before discounting, versus listings where you want to respond immediately. You configure the tuning per listing; there is no bulk automation of this setting. Free and Starter plans are rule-based only — no AI component.\n\nTo be clear about what the AI does not do: it does not read sales velocity, demand signals, or inventory levels as inputs. It tunes movement speed and depth toward the floor you have already defined, within the constraints of that floor and any ceiling you have set.",
+        "bullets": [
+          "Available on Pro and Scale plans only — Free and Starter are rule-based",
+          "Per-listing opt-in: configure aggressiveness individually for each listing",
+          "Adjusts how fast/far price moves toward the hard floor — never overrides the floor",
+          "No AI on Free or Starter plans"
+        ]
+      },
+      {
+        "h2": "Plan-by-Plan Comparison and a Worked ROI Example",
+        "body": "Undercut has five tiers. Free covers 25 listings with hourly repricing and hard floor protection — a genuine no-cost option, not a crippled trial. Starter at $29/month adds up to 100 listings. Pro at $79/month jumps to 1,000 listings, cuts repricing to every 15 minutes, and unlocks Claude AI aggressiveness tuning and competitor tracking. Scale at $199/month handles up to 10,000 listings with 5-minute repricing, AI tuning, and priority support. New accounts receive a 14-day trial at Starter level with no credit card required.\n\nConsider a seller on the Pro plan ($79/month) with 400 active listings averaging $45 each. If faster, more precise repricing improves sell-through by even 5 additional sales per month, that is 5 × $45 = $225 in additional gross revenue. After eBay's final value fee of roughly 13.25% ($225 × 0.1325 = $29.81), the incremental net revenue is approximately $195.19. Against a $79 monthly fee, that is a positive return from fewer than three extra sales — and the hard floor ensures none of those sales happen below cost.\n\nChannelAdvisor's repricing is one module within a much larger platform priced for enterprises running multi-marketplace operations. If eBay is your primary or only channel, you are paying for capabilities you will never use.",
+        "bullets": [
+          "Free: 25 listings, hourly, hard floor — $0/month",
+          "Starter: 100 listings, hourly, hard floor — $29/month",
+          "Pro: 1,000 listings, 15-min, AI tuning, competitor tracking — $79/month",
+          "Scale: 10,000 listings, 5-min, AI tuning, priority support — $199/month",
+          "14-day Starter-level trial, no credit card required"
+        ]
+      },
+      {
+        "h2": "eBay-Specific Advantages: Best Match and Margin Protection",
+        "body": "eBay's search algorithm, Best Match, factors in competitive pricing as a signal that influences how prominently your listings appear. Sellers who keep prices competitive without sacrificing margin are better positioned to earn visibility and sales velocity — and sales velocity is itself a Best Match ranking signal on eBay. Undercut's floor-clamped repricing means you stay competitive on price without the risk of a race to the bottom.\n\neBay does not have an Amazon-style formal Buy Box. Winning visibility on eBay comes from a combination of Best Match signals including price, seller feedback, listing quality, and sales history. Automated repricing addresses the price dimension systematically, freeing you to focus on listing quality, photography, and fulfillment speed.\n\nFor sellers using eBay's Promoted Listings or running a Best Offer strategy alongside repricing, Undercut's ceiling feature is particularly useful: you can set a floor that covers your cost plus fees, and a ceiling that acts as your preferred list price, letting Undercut work the range in between based on live competitor data."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Is Undercut a direct ChannelAdvisor replacement?",
+        "a": "No — and that framing is important. ChannelAdvisor is a full multichannel commerce platform covering product feeds, advertising, and marketplace integrations across many channels. Undercut does one thing: it automatically reprices your eBay listings to beat the lowest comparable competitor while enforcing your hard price floor. If you need multi-marketplace feed management or ad automation, ChannelAdvisor or a similar platform may still be relevant. If you need focused, affordable eBay repricing, Undercut is built for that."
+      },
+      {
+        "q": "How does the hard price floor prevent me from selling at a loss?",
+        "a": "When you create or edit a listing in Undercut, you set a minimum price (the hard floor) for that listing. Every time Undercut recalculates your price, it checks whether the result would fall below that floor and, if so, holds the price at the floor instead of following the competitor down. The floor is absolute — no setting, including the optional AI aggressiveness tuning, can override it."
+      },
+      {
+        "q": "Which plans include the Claude AI aggressiveness tuning?",
+        "a": "AI aggressiveness tuning is available on the Pro ($79/month) and Scale ($199/month) plans. On Free and Starter plans, repricing is rule-based only — you configure a fixed-cent or percentage undercut amount and the engine applies it. The AI tuning on Pro and Scale adds an optional per-listing control over how fast and how far the price moves toward the hard floor, but it never changes or overrides the floor itself."
+      },
+      {
+        "q": "Can I try Undercut before committing to a paid plan?",
+        "a": "Yes. New accounts get a 14-day trial at Starter level (100 listings, hourly repricing, hard floor) with no credit card required. There is also a permanently free tier for up to 25 listings if you want to keep using Undercut at no cost after the trial."
+      },
+      {
+        "q": "What repricing frequency does Undercut offer, and does it matter?",
+        "a": "Free and Starter plans reprice hourly, Pro reprices every 15 minutes, and Scale reprices every 5 minutes. Frequency matters most in fast-moving categories — electronics, sneakers, or trading cards — where competitor prices can shift multiple times per day. In slower categories, hourly repricing is often sufficient. The 5-minute cycle on Scale means your prices reflect the live market as closely as practically possible on eBay."
+      }
+    ],
+    "cta": {
+      "heading": "Start Repricing on eBay Without the Enterprise Price Tag",
+      "sub": "14-day free trial at Starter level — no credit card required. Hard floor protection on every plan."
+    },
+    "internalLinks": [
+      {
+        "href": "/pricing",
+        "label": "Compare All Undercut Plans and Pricing"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "How to Reprice Without Losing Margin"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/ebay-repricing-best-practices",
+        "label": "eBay Repricing Best Practices"
+      },
+      {
+        "href": "/alternatives",
+        "label": "All Repricing Software Alternatives"
+      },
+      {
+        "href": "/guides/ebay-repricing-roi",
+        "label": "How to Calculate Your Repricing ROI"
+      }
+    ],
+    "lastUpdated": "2026-06-18",
+    "leadForm": true
   }
 ]
