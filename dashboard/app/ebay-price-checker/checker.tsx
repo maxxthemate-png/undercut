@@ -98,7 +98,12 @@ export default function Checker() {
         </button>
       </form>
       <p className="text-xs text-gray-500 mt-2">Paste a full listing link (the one with <span className="font-mono">/itm/…</span>) for an exact, like-for-like check. A plain product search works too, but matches loosely.</p>
-      {err && <p className="text-sm text-red-600 mt-3">{err}</p>}
+      {err && (
+        <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4">
+          <p className="text-red-900 font-semibold">⚠️ Couldn&apos;t check that one</p>
+          <p className="text-sm text-red-800 mt-1">{err}</p>
+        </div>
+      )}
 
       {res && (
         <div className="mt-8 space-y-4">

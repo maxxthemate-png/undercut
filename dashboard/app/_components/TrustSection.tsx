@@ -1,4 +1,4 @@
-import { SUPPORT_EMAIL, FOUNDER } from '../_content/shared'
+import { SUPPORT_EMAIL, FOUNDER, TRUST_BADGES } from '../_content/shared'
 
 // Honest trust: a real founder note + factual badges. Live stats render ONLY
 // above thresholds, so nothing inflated ever shows. Fetch must never block the
@@ -42,7 +42,7 @@ export default async function TrustSection() {
       </div>
 
       <div className="mt-6 flex flex-wrap justify-center gap-2 text-xs text-gray-600">
-        {['eBay tokens encrypted at rest', 'Hard-floor guarantee — never below your minimum', 'No card required to start', 'Billing by Stripe — cancel anytime'].map((t) => (
+        {TRUST_BADGES.map((t) => (
           <span key={t} className="px-3 py-1.5 rounded-full border border-gray-200 bg-white">{t}</span>
         ))}
       </div>

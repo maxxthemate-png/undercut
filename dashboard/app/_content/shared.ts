@@ -24,6 +24,15 @@ export const DEFAULT_CTA = {
   sub: '14-day Starter trial, no card. Undercut competitors automatically — never below your minimum.',
 }
 
+// Factual trust badges — single source for the home page TrustSection and the
+// landing-page TrustBadges strip, so the two can't drift. No fake testimonials.
+export const TRUST_BADGES = [
+  'eBay tokens encrypted at rest',
+  'Hard-floor guarantee — never below your minimum',
+  'No card required to start',
+  'Billing by Stripe — cancel anytime',
+]
+
 // Standard metadata for bespoke marketing pages: canonical + OG + twitter in one call.
 export function pageMeta(title: string, description: string, path: string) {
   return {

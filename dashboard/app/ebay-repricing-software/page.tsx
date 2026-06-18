@@ -1,6 +1,7 @@
 /** SEO landing — category intent: "eBay repricing software". First-party, honest. */
 import Link from 'next/link'
 import LeadForm from '../lead-form'
+import TrustBadges from '../_components/TrustBadges'
 import { pageMeta } from '../_content/shared'
 
 export const metadata = pageMeta(
@@ -67,6 +68,7 @@ export default function EbayRepricingSoftware() {
         <div className="max-w-2xl mx-auto px-6 py-14 text-center">
           <h2 className="text-2xl font-bold">Start free — no card</h2>
           <p className="text-gray-600 mt-2 mb-6">14-day Starter trial. Or grab your spot for early access + founding pricing.</p>
+          <div className="mb-6"><TrustBadges /></div>
           <div className="flex justify-center mb-6"><Link href="/signup" className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free</Link></div>
           <LeadForm source="ebay-repricing-software" />
         </div>

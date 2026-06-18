@@ -1,6 +1,7 @@
 /** SEO landing — high commercial intent: "StreetPricer alternative".
  *  Honest, first-party positioning. New file (no collision with edited pages). */
 import Link from 'next/link'
+import TrustBadges from '../_components/TrustBadges'
 import { pageMeta } from '../_content/shared'
 
 export const metadata = pageMeta(
@@ -53,20 +54,20 @@ export default function StreetPricerAlternative() {
 
       <section className="max-w-5xl mx-auto px-6 py-8">
         <div className="overflow-x-auto rounded-2xl border border-gray-200">
-          <table className="w-full border-collapse min-w-[640px]">
+          <table className="w-full border-collapse text-sm">
             <thead>
               <tr className="bg-gray-50 text-left">
-                <th className="px-4 py-3 text-sm font-semibold text-gray-500 w-56"> </th>
-                <th className="px-4 py-3 text-sm font-bold text-blue-700 bg-blue-50">Undercut</th>
-                <th className="px-4 py-3 text-sm font-semibold text-gray-700">StreetPricer</th>
+                <th className="px-2.5 py-2.5 md:px-4 md:py-3 font-semibold text-gray-500 w-24 md:w-56"> </th>
+                <th className="px-2.5 py-2.5 md:px-4 md:py-3 font-bold text-blue-700 bg-blue-50">Undercut</th>
+                <th className="px-2.5 py-2.5 md:px-4 md:py-3 font-semibold text-gray-700">StreetPricer</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {ROWS.map(([label, u, s]) => (
                 <tr key={label}>
-                  <td className="px-4 py-3 text-sm font-medium text-gray-900">{label}</td>
-                  <td className="px-4 py-3 text-sm align-top font-medium text-gray-900 bg-blue-50">{u}</td>
-                  <td className="px-4 py-3 text-sm align-top text-gray-600">{s}</td>
+                  <td className="px-2.5 py-2.5 md:px-4 md:py-3 align-top font-medium text-gray-900">{label}</td>
+                  <td className="px-2.5 py-2.5 md:px-4 md:py-3 align-top font-medium text-gray-900 bg-blue-50">{u}</td>
+                  <td className="px-2.5 py-2.5 md:px-4 md:py-3 align-top text-gray-600">{s}</td>
                 </tr>
               ))}
             </tbody>
@@ -75,6 +76,10 @@ export default function StreetPricerAlternative() {
         <p className="text-xs text-gray-400 mt-3">
           Positioning as of June 2026. Competitor features and pricing change — check their site for current details. StreetPricer is a trademark of its respective owner; Undercut is not affiliated with or endorsed by it.
         </p>
+      </section>
+
+      <section className="max-w-4xl mx-auto px-6 pt-6 pb-2">
+        <TrustBadges />
       </section>
 
       <section className="max-w-4xl mx-auto px-6 py-8">
