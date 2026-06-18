@@ -233,8 +233,11 @@ def seed_demo(body: SeedDemoBody, x_admin_key: str | None = Header(default=None)
     clobber a real customer's data."""
     _require_admin(x_admin_key)
     email = body.email.strip().lower()
-    if not (email.endswith(".test") or "demo" in email):
-        raise HTTPException(status_code=400, detail="seed-demo only allows demo emails (must contain 'demo' or end in '.test')")
+    # SAFETY: only the dedicated demo domain. The `wipe` path hard-deletes the
+    # user + all data, so a permissive guard (e.g. substring "demo") could nuke a
+    # real account like demo.store@gmail.com. Require @undercut.test, full stop.
+    if not email.endswith("@undercut.test"):
+        raise HTTPException(status_code=400, detail="seed-demo only operates on @undercut.test accounts")
 
     def _purge_user_data(u):
         """Delete a demo user's stores/listings and dependent rows. Returns counts."""

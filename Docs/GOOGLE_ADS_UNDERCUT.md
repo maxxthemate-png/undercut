@@ -15,6 +15,11 @@ Everything here is paste-ready. The only things Claude can't do are in **OWNER A
 - **Budget:** **$15/day** to start (~$450/mo cap). Enough for a real read, small enough to be safe pre-revenue.
 - **Bidding:** Start **Maximize clicks** with a **max CPC cap of $2.50** for the first ~2 weeks (until the signup conversion has data), then switch to **Maximize conversions** once ~15-30 signups have fired. (Same playbook as IdeaCoach.)
 - **Ad rotation:** Optimize.
+- **Final URL suffix (campaign-level — IMPORTANT for attribution):** paste this into Campaign settings → Additional settings → Campaign URL options → Final URL suffix:
+  ```
+  utm_source=google&utm_medium=cpc&utm_campaign=undercut_search
+  ```
+  This auto-tags every landing URL. `lead-form.tsx` reads `utm_source` first-touch and persists it, so `/admin`'s source funnel attributes leads → signups → paid to `google`. Without this, `/admin` source attribution stays blank.
 
 ---
 
@@ -144,17 +149,20 @@ Paste these into one RSA per ad group. Google mixes headlines/descriptions; give
 
 ## 5. Conversion tracking — what flips the dark tag live
 
-The site already ships the gtag scaffold + a `sign_up` conversion event on trial signup, **deployed dark**. It does nothing until you give it your Ads conversion ID. Steps:
+The site ships the gtag scaffold **deployed dark** — `track()`/`trackConversion()` are **no-ops until `NEXT_PUBLIC_GADS_ID` is set in Vercel.** Until then the ads run but capture **zero** conversion signal (you'd pay for clicks and learn nothing). So this is a **hard pre-launch step, not optional.** Two conversion actions:
 
 1. **Google Ads → Goals → Conversions → New conversion action → Website.**
-2. Create a conversion named **"Trial signup"**, category **Sign-up**, count **One**, value optional.
-3. Ads shows you a **Conversion ID** (`AW-XXXXXXXXXX`) and a **Conversion label** (`abcdEFGhIJ...`). Copy both.
-4. Send them to Claude (paste in chat), OR add them yourself in **Vercel → undercut project → Settings → Environment Variables**:
+2. Create **"Trial signup"** — category **Sign-up**, count **One**, mark **Primary** (this is what bidding optimizes for). Copy its **Conversion ID** (`AW-XXXXXXXXXX`) + **label** (`abcdEFGhIJ...`).
+3. Create a second action **"Demo use"** — category **Other / Lead**, count **One**, **mark it Secondary (observation only)** so bidding doesn't chase cheap demo clicks instead of signups. Copy its **label**.
+4. Send the ID + both labels to Claude (paste in chat), OR set them yourself in **Vercel → undercut project → Settings → Environment Variables**:
    - `NEXT_PUBLIC_GADS_ID` = `AW-XXXXXXXXXX`
-   - `NEXT_PUBLIC_GADS_SIGNUP_LABEL` = `abcdEFGhIJ...`
-5. Redeploy the frontend (`vercel --prod`) — Claude can do this once the values exist. The tag goes live and every trial signup reports as a conversion.
+   - `NEXT_PUBLIC_GADS_SIGNUP_LABEL` = `<trial-signup label>`
+   - `NEXT_PUBLIC_GADS_DEMO_LABEL` = `<demo-use label>`
+5. Redeploy the frontend (`vercel --prod`) — Claude does this once the values exist. The tag goes live; every demo-use and trial-signup then reports as a conversion.
 
-Until step 4, ads still run and you can read clicks → demo-uses → signups in `/admin`; you just won't get Ads-side conversion optimization yet.
+**Where you read each step of the funnel:**
+- **clicks → demo-use → signup** → in **Google Ads** (the two conversion actions above), by ad group / keyword. *(Demo-use is NOT in `/admin` — the demo is anonymous and persists nothing server-side; it's an Ads/GA signal only.)*
+- **leads → signup → trial → paid, by source, + MRR** → in **`/admin`** (`/api/admin/metrics`: `funnel` + `source_funnel` blocks). Source attribution depends on the Final URL suffix in section 1.
 
 ---
 
@@ -162,8 +170,8 @@ Until step 4, ads still run and you can read clicks → demo-uses → signups in
 
 1. **Add a payment method** to your Google Ads account (you have the IdeaCoach one — you can reuse the account or make a new campaign in it).
 2. **Build the campaign** above: 1 Search campaign, 3 ad groups, paste keywords + negatives + the 3 RSAs, set $15/day + $2.50 max CPC.
-3. **Create the "Trial signup" conversion action** (section 5) and send Claude the `AW-...` ID + label (or set the Vercel env vars yourself).
-4. **Launch.** Then tell Claude — I'll watch the funnel in `/admin` and tune.
+3. **Create BOTH conversion actions** (section 5: "Trial signup" = Primary, "Demo use" = Secondary) and send Claude the `AW-...` ID + both labels (or set the three Vercel env vars yourself). **This is required before spending — the tag is dark without it.**
+4. **Launch.** Then tell Claude — I redeploy the frontend so the tag goes live, then watch `/admin` (signup→trial→paid) + you/me watch Google Ads (clicks→demo→signup) and tune.
 
 ---
 

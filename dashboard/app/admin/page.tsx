@@ -82,8 +82,10 @@ export default function Admin() {
   const planData = Object.keys(u.by_plan || {})
     .sort((a, b) => ['free', 'trial', 'starter', 'pro', 'scale'].indexOf(a) - ['free', 'trial', 'starter', 'pro', 'scale'].indexOf(b))
     .map(p => ({ plan: p, count: u.by_plan[p] }))
-  const sourceData = Object.entries(data?.leads?.by_source || {}).map(([source, count]) => ({ source, count }))
   const series = data?.reprices?.series || []
+  const f = data?.funnel || {}
+  const srcFunnel: any[] = data?.source_funnel || []
+  const pct = (r: number | undefined) => `${Math.round((r || 0) * 1000) / 10}%`
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
@@ -115,6 +117,29 @@ export default function Admin() {
               <Kpi label="Stores" value={String(data.stores ?? 0)} />
               <Kpi label="Reprices" value={String(data.reprices?.total ?? 0)} sub={`+${data.reprices?.last_7d ?? 0} / 7d`} />
             </div>
+
+            {/* Conversion funnel — the campaign read (signup → trial → paid).
+                Demo-use lives in Google Ads, not here (the demo is anonymous). */}
+            <Panel title="Conversion funnel">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div>
+                  <p className="text-2xl font-extrabold text-gray-900">{f.leads ?? 0}</p>
+                  <p className="text-xs text-gray-500 mt-0.5">Leads</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-extrabold text-gray-900">{f.signups ?? 0}</p>
+                  <p className="text-xs text-gray-500 mt-0.5">Signups <span className="text-gray-400">· {f.leads ? pct(f.lead_to_signup_rate) : '—'} of leads</span></p>
+                </div>
+                <div>
+                  <p className="text-2xl font-extrabold text-gray-900">{f.active_trials ?? 0}</p>
+                  <p className="text-xs text-gray-500 mt-0.5">Active trials</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-extrabold text-blue-600">{f.paid ?? 0}</p>
+                  <p className="text-xs text-gray-500 mt-0.5">Paid <span className="text-gray-400">· {((f.paid || 0) + (f.active_trials || 0) + (f.expired_trials || 0)) ? pct(f.trial_to_paid_rate) : '—'} trial→paid</span></p>
+                </div>
+              </div>
+            </Panel>
 
             {/* Charts */}
             <div className="grid lg:grid-cols-2 gap-6">
@@ -155,16 +180,28 @@ export default function Admin() {
 
             {/* Lead sources + recent activity */}
             <div className="grid lg:grid-cols-3 gap-6">
-              <Panel title="Leads by source">
-                {sourceData.length === 0 ? <p className="text-sm text-gray-400">No leads yet.</p> : (
-                  <ul className="space-y-2">
-                    {sourceData.map((s: any) => (
-                      <li key={s.source} className="flex items-center justify-between text-sm">
-                        <span className="text-gray-600">{s.source}</span>
-                        <span className="font-semibold">{s.count}</span>
-                      </li>
-                    ))}
-                  </ul>
+              <Panel title="Funnel by source">
+                {srcFunnel.length === 0 ? <p className="text-sm text-gray-400">No leads yet.</p> : (
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="text-xs text-gray-400 text-left">
+                        <th className="font-medium pb-1">Source</th>
+                        <th className="font-medium pb-1 text-right">Leads</th>
+                        <th className="font-medium pb-1 text-right">Signups</th>
+                        <th className="font-medium pb-1 text-right">Paid</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {srcFunnel.map((s: any) => (
+                        <tr key={s.source} className="border-t border-gray-100">
+                          <td className="py-1.5 text-gray-600">{s.source}</td>
+                          <td className="py-1.5 text-right font-semibold">{s.leads}</td>
+                          <td className="py-1.5 text-right text-gray-700">{s.signups}</td>
+                          <td className="py-1.5 text-right text-blue-600 font-semibold">{s.paid}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 )}
               </Panel>
 

@@ -5,7 +5,7 @@
 | Free | $0 | — | 25 | hourly | hard floor included |
 | Starter | $29 | $290/yr (save $58) | 100 | hourly | |
 | Pro | $79 | $790/yr (save $158) | 1,000 | 15-min | AI tuning |
-| Scale | $199 | $1,990/yr (save $398) | 10,000 | fastest | priority support |
+| Scale | $199 | $1,990/yr (save $398) | 10,000 | fastest | AI tuning, priority support |
 
 - Every account starts with a **14-day Founding trial** (Starter features, no card) → auto-drops to Free.
 - Annual = 10× monthly. Refunds: 30-day window on annual; monthly cancel-anytime (see /refund-policy).

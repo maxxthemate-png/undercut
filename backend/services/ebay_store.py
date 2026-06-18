@@ -162,7 +162,7 @@ class EbayStoreClient:
             return {"lowest": min(prices) if prices else None,
                     "count": len(prices), "items": items}
         except Exception as e:
-            logger.warning("price check lookup failed", error=str(e))
+            logger.warning("price check lookup failed", query=query, error=str(e))
             return {"lowest": None, "count": 0, "items": []}
 
     @staticmethod
@@ -171,7 +171,7 @@ class EbayStoreClient:
         s = (url_or_id or "").strip()
         if not s:
             return None
-        m = re.search(r"/itm/(?:[^/?#]*/)?(\d{9,15})", s)        # /itm/Title/12345 or /itm/12345
+        m = re.search(r"/itm/(?:[^/?#]*/)?(\d{9,15})(?:\D|$)", s)  # /itm/Title/12345 (anchored so a longer digit run isn't truncated mid-id)
         if m:
             return m.group(1)
         m = re.search(r"[?&](?:item|epid|itm)=(\d{9,15})", s)    # ?item=12345
@@ -238,7 +238,7 @@ class EbayStoreClient:
             return {"item": item, "lowest": min(prices) if prices else None,
                     "count": len(prices), "items": items}
         except Exception as e:
-            logger.warning("item lookup failed", error=str(e))
+            logger.warning("item lookup failed", legacy_id=legacy_id, error=str(e))
             return {"item": None, "lowest": None, "count": 0, "items": [], "error": "lookup_failed"}
 
     async def get_competitor_low(self, query: str, limit: int = 30) -> dict:

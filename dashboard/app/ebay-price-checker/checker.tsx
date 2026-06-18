@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { api } from '../lib/api'
-import { track } from '../lib/track'
+import { track, trackConversion } from '../lib/track'
 
 type Item = { title?: string; price: number; condition?: string; url?: string }
 type Result = {
@@ -50,6 +50,10 @@ export default function Checker() {
         } else {
           setRes(data)
           track('demo_use', { mode: listing ? 'listing' : 'keyword', lowest: data.lowest ?? 0, listings: data.count })
+          // Also report demo-use as a (secondary/observation) Ads conversion so the
+          // click → demo-use → signup funnel is readable in Google Ads. Dark until
+          // NEXT_PUBLIC_GADS_DEMO_LABEL is set — same pattern as the signup conversion.
+          trackConversion(process.env.NEXT_PUBLIC_GADS_DEMO_LABEL, { mode: listing ? 'listing' : 'keyword' })
         }
       }
     } catch {

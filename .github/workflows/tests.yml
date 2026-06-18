@@ -1,0 +1,35 @@
+name: tests
+
+# Backend test gate. Runs the pytest suite (demo engine, item-id parsing,
+# admin seed/wipe guard, reprice-enforcement logic) on every backend change.
+on:
+  push:
+    paths:
+      - 'backend/**'
+      - '.github/workflows/tests.yml'
+  pull_request:
+    paths:
+      - 'backend/**'
+  workflow_dispatch:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+          pip install pytest
+      - name: Run tests
+        env:
+          ANTHROPIC_API_KEY: test
+          DATABASE_URL: "sqlite://"
+          ADMIN_KEY: test-admin-key
+          UNDERCUT_API_KEY: test-admin-key
+        run: python -m pytest backend/tests -q

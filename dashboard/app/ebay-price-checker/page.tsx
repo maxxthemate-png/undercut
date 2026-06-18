@@ -70,7 +70,7 @@ export default function Page() {
         <h2 className="text-2xl font-bold">Put this on autopilot.</h2>
         <p className="text-gray-600 mt-2 mb-5">Undercut watches the lowest competitor on every listing and reprices you to win — floor-protected. Start free, no card.</p>
         <div className="flex justify-center mb-8">
-          <Link href="/signup" className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free — no card</Link>
+          <Link href="/signup" className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free — 14-day trial, no card</Link>
         </div>
         <p className="text-sm text-gray-500 mb-3">Not ready? Get early access + founding pricing:</p>
         <LeadForm source="price-checker" />
