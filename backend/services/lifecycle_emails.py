@@ -135,7 +135,8 @@ def run_lifecycle_emails() -> dict:
             if not changes:
                 continue
             listing_ids = {c.listing_id for c in changes}
-            subject, html = T.weekly_digest_email(len(changes), len(listing_ids))
+            margin = sum((c.margin_protected or 0.0) for c in changes)
+            subject, html = T.weekly_digest_email(len(changes), len(listing_ids), margin_protected=margin)
             try:
                 if send_customer_email(u.email, subject, html):
                     u.last_weekly_digest_at = now

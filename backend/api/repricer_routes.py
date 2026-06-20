@@ -186,6 +186,25 @@ def price_changes(limit: int = 50, user: User = Depends(current_user), db: Sessi
                          "at": c.created_at.isoformat() if c.created_at else None} for c in rows]}
 
 
+@router.get("/value-summary")
+def value_summary(days: int = 30, user: User = Depends(current_user), db: Session = Depends(get_db)):
+    """The dollar proof for the dashboard + lifecycle emails: how much margin
+    Undercut has held above the seller's floors, how many sales it won, and how
+    many times it refused to chase the market below the floor — over `days`."""
+    since = datetime.utcnow() - timedelta(days=max(1, min(days, 365)))
+    rows = db.scalars(
+        select(PriceChange)
+        .join(RepricerListing, PriceChange.listing_id == RepricerListing.id)
+        .join(Store, RepricerListing.store_id == Store.id)
+        .where(Store.user_id == user.id, PriceChange.created_at >= since)).all()
+    margin = sum((r.margin_protected or 0.0) for r in rows)
+    wins = sum(1 for r in rows if r.is_win)
+    floored = sum(1 for r in rows if r.floored)
+    listings = len({r.listing_id for r in rows})
+    return {"days": days, "margin_protected": round(float(margin), 2),
+            "reprices": len(rows), "wins": wins, "floored": floored, "listings": listings}
+
+
 @router.get("/oauth/login")
 def oauth_login(user: User = Depends(current_user)):
     if not ebay_oauth.is_configured():

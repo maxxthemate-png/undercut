@@ -144,11 +144,19 @@ def first_reprice_email(old_price: float, new_price: float, competitor_low: floa
     )
 
 
-def weekly_digest_email(reprices: int, listings: int):
+def weekly_digest_email(reprices: int, listings: int, margin_protected: float = 0.0):
     app = _app()
+    money_line = (
+        f"<p style=\"font-size:17px\">Undercut held <b>${margin_protected:,.2f}</b> of margin "
+        f"above your floors this week.</p>" if margin_protected and margin_protected > 0 else ""
+    )
+    subject = (f"Undercut held ${margin_protected:,.0f} above your floors this week"
+               if margin_protected and margin_protected > 0
+               else f"Your Undercut week: {reprices} reprice{'s' if reprices != 1 else ''}")
     return (
-        f"Your Undercut week: {reprices} reprice{'s' if reprices != 1 else ''} on {listings} listing{'s' if listings != 1 else ''}",
+        subject,
         _wrap(
+            money_line +
             f"<p>This week Undercut made <b>{reprices}</b> price update{'s' if reprices != 1 else ''} "
             f"across <b>{listings}</b> of your listings — every one of them at or above your floor.</p>"
             f'<p><a href="{app}/dashboard">See the full log →</a></p>'

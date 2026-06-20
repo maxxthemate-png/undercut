@@ -119,6 +119,11 @@ class PriceChange(Base):
     competitor_low = Column(Float)
     source = Column(String(20))            # rule | ai
     reason = Column(Text)
+    # Value stamp (the dollar proof Undercut never used to show) — computed from the
+    # RepriceDecision already in memory, no extra eBay call.
+    margin_protected = Column(Float)       # $ the new price sits above the listing's floor
+    floored = Column(Boolean, default=False)  # market was below floor → protected from a loss
+    is_win = Column(Boolean, default=False)   # undercut to win the sale while staying above floor
     created_at = Column(DateTime, default=datetime.utcnow, index=True)
 
 

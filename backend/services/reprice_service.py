@@ -80,9 +80,14 @@ async def reprice_listing(client: EbayStoreClient, db, listing: RepricerListing,
 
     res = await client.update_price(listing.ebay_item_id, decision.new_price, sku=listing.sku)
     if res.get("success"):
+        # Value stamp — the dollar proof, from data already in hand (no extra call).
+        margin = round((decision.new_price or 0) - (listing.floor_price or 0), 2)
         db.add(PriceChange(listing_id=listing.id, old_price=listing.current_price,
                            new_price=decision.new_price, competitor_low=low,
-                           source=source, reason=decision.reason))
+                           source=source, reason=decision.reason,
+                           margin_protected=max(margin, 0.0),
+                           floored=bool(decision.floored),
+                           is_win=bool(not decision.floored and low is not None)))
         listing.current_price = decision.new_price
         listing.last_repriced_at = datetime.utcnow()
         listing.consecutive_failures = 0

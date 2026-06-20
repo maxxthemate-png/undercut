@@ -30,6 +30,7 @@ export default function Dashboard() {
   const [stores, setStores] = useState<any[]>([])
   const [listings, setListings] = useState<Listing[]>([])
   const [changes, setChanges] = useState<any[]>([])
+  const [value, setValue] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [busy, setBusy] = useState('')
   const [manualToken, setManualToken] = useState('')
@@ -46,7 +47,7 @@ export default function Dashboard() {
     const meRes = await api('/api/auth/me')
     if (meRes.status === 401) { tok.clear(); router.push('/login'); return }
     setMe(await meRes.json())
-    const [s, l, c] = await Promise.all([api('/api/repricer/stores'), api('/api/repricer/listings'), api('/api/repricer/price-changes')])
+    const [s, l, c, v] = await Promise.all([api('/api/repricer/stores'), api('/api/repricer/listings'), api('/api/repricer/price-changes'), api('/api/repricer/value-summary')])
     if (s.ok) setStores((await s.json()).stores || [])
     if (l.ok) {
       const ls = (await l.json()).listings || []
@@ -55,6 +56,7 @@ export default function Dashboard() {
       setListings(ls)
     }
     if (c.ok) setChanges((await c.json()).changes || [])
+    if (v.ok) setValue(await v.json())   // null/ignored until the endpoint is deployed
     setLoading(false)
   }
 
@@ -123,6 +125,18 @@ export default function Dashboard() {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8 space-y-6">
+        {value && value.margin_protected > 0 && (
+          <div className="bg-green-600 text-white rounded-xl p-5">
+            <p className="text-xs text-green-100 uppercase tracking-wide">Last {value.days} days</p>
+            <p className="text-3xl font-extrabold mt-1">
+              {money(value.margin_protected)} <span className="text-base font-medium text-green-100">of margin held above your floors</span>
+            </p>
+            <p className="text-sm text-green-100 mt-1">
+              {value.reprices} reprice{value.reprices === 1 ? '' : 's'} · won {value.wins} sale{value.wins === 1 ? '' : 's'} by undercutting
+              {value.floored > 0 ? <> · held the floor {value.floored} time{value.floored === 1 ? '' : 's'} instead of racing to the bottom</> : null} — never below your minimum.
+            </p>
+          </div>
+        )}
         {me && me.is_trialing && (() => {
           const d = me.trial_days_left ?? 0
           const urgent = d <= 3
@@ -173,7 +187,7 @@ export default function Dashboard() {
 
         {me && me.plan === 'free' && !limitNudge && (
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center justify-between gap-3 flex-wrap">
-            <p className="text-sm text-blue-900">You're on <b>Free</b> (25 listings). Upgrade for more listings + 15-min AI repricing — your floors and settings are all saved.</p>
+            <p className="text-sm text-blue-900">{value && value.margin_protected > 0 ? <>Undercut held <b>{money(value.margin_protected)}</b> of margin for you on Free — </> : <>You're on <b>Free</b> (25 listings). </>}Upgrade for more listings + 15-min AI repricing — your floors and settings are all saved.</p>
             <div className="flex items-center gap-2">
               <button onClick={() => setBillingInterval(billingInterval === 'year' ? 'month' : 'year')} className="text-xs underline text-gray-500 mr-1 whitespace-nowrap">{billingInterval === 'year' ? 'Annual — 2 months free' : 'Monthly'}</button>
               <button onClick={() => upgrade('starter', billingInterval)} className="px-3 py-1.5 text-sm rounded-lg bg-white border whitespace-nowrap">{planLabel('starter', billingInterval)}</button>
