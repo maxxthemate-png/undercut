@@ -1,5 +1,7 @@
 """Customer lifecycle email copy → (subject, html). Founder voice, plain-ish HTML.
 Links point at settings.PUBLIC_APP_URL. Kept here so routes/services stay thin."""
+import html
+
 from ..utils.settings import settings
 
 
@@ -75,7 +77,7 @@ def demo_followup(note: str | None = None):
     app = _app()
     ctx = (
         f'<p style="background:#f5f7ff;border-left:3px solid #2563eb;padding:10px 14px;'
-        f'border-radius:6px;color:#333">{note}</p>'
+        f'border-radius:6px;color:#333">{html.escape(note)}</p>'
         if note else ""
     )
     return (

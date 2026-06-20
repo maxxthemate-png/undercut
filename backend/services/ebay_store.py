@@ -9,9 +9,17 @@ Honors settings.EBAY_SANDBOX for all endpoints.
 import asyncio
 import base64
 import re
+import statistics
 import xml.etree.ElementTree as ET
+from xml.sax.saxutils import escape as _xml_escape
 
 import httpx
+
+
+def _x(value) -> str:
+    """XML-escape any value before interpolating it into a Trading API request
+    body (token / item id / sku come from seller-controlled data — never trust)."""
+    return _xml_escape("" if value is None else str(value))
 
 from ..utils.settings import settings
 from ..utils.logging import get_logger
@@ -65,7 +73,7 @@ class EbayStoreClient:
     async def get_active_listings(self, limit: int = 200) -> list[dict]:
         body = f"""<?xml version="1.0" encoding="utf-8"?>
 <GetMyeBaySellingRequest xmlns="urn:ebay:apis:eBLBaseComponents">
-  <RequesterCredentials><eBayAuthToken>{self.user_token}</eBayAuthToken></RequesterCredentials>
+  <RequesterCredentials><eBayAuthToken>{_x(self.user_token)}</eBayAuthToken></RequesterCredentials>
   <ActiveList>
     <Include>true</Include>
     <Pagination><EntriesPerPage>{limit}</EntriesPerPage><PageNumber>1</PageNumber></Pagination>
@@ -96,11 +104,11 @@ class EbayStoreClient:
         return out
 
     async def update_price(self, item_id: str, new_price: float, sku: str | None = None) -> dict:
-        sku_xml = f"<SKU>{sku}</SKU>" if sku else ""
+        sku_xml = f"<SKU>{_x(sku)}</SKU>" if sku else ""
         body = f"""<?xml version="1.0" encoding="utf-8"?>
 <ReviseInventoryStatusRequest xmlns="urn:ebay:apis:eBLBaseComponents">
-  <RequesterCredentials><eBayAuthToken>{self.user_token}</eBayAuthToken></RequesterCredentials>
-  <InventoryStatus><ItemID>{item_id}</ItemID>{sku_xml}<StartPrice>{new_price:.2f}</StartPrice></InventoryStatus>
+  <RequesterCredentials><eBayAuthToken>{_x(self.user_token)}</eBayAuthToken></RequesterCredentials>
+  <InventoryStatus><ItemID>{_x(item_id)}</ItemID>{sku_xml}<StartPrice>{new_price:.2f}</StartPrice></InventoryStatus>
 </ReviseInventoryStatusRequest>"""
         txt = await self._trading("ReviseInventoryStatus", body)
         if not txt:
@@ -131,36 +139,61 @@ class EbayStoreClient:
             logger.warning("app token failed", error=str(e))
             return None
 
+    async def _credible_lowest(self, query: str, limit: int, headers: dict,
+                               category_id: str | None = None) -> list[dict]:
+        """Shared competitor-low core. A bare KEYWORD search returns a mix of the
+        real product and cheap accessories that share the words, so: if the caller
+        knows the item's category, constrain to it directly (1 call); otherwise
+        constrain to the dominant category eBay reports for the query (mirroring the
+        exact-item path). Then drop extreme low-price outliers below 20% of the
+        matched-set median — so a $1 screen protector can't pose as the 'lowest
+        price' of a $300 console. Returns credible listings, cheapest first."""
+        async def _search(params: dict) -> dict:
+            async with httpx.AsyncClient(timeout=20) as c:
+                r = await c.get(_BROWSE[self._env], params=params, headers=headers)
+            return r.json() if r.status_code == 200 else {}
+
+        base = {"q": query, "sort": "price", "limit": limit}
+        if category_id:                          # caller knows the category → one call
+            data = await _search({**base, "category_ids": str(category_id)})
+            summaries = data.get("itemSummaries") or []
+        else:
+            data = await _search(base)
+            summaries = data.get("itemSummaries") or []
+            dom = (data.get("refinement") or {}).get("dominantCategoryId")
+            if dom:                              # re-pull within the bulk category
+                cat = await _search({**base, "category_ids": str(dom)})
+                if cat.get("itemSummaries"):
+                    summaries = cat["itemSummaries"]
+
+        rows = []
+        for s in summaries:
+            v = (s.get("price") or {}).get("value")
+            if not v:
+                continue
+            rows.append({"title": s.get("title"), "price": float(v),
+                         "condition": s.get("condition"), "url": s.get("itemWebUrl")})
+        if not rows:
+            return []
+        med = statistics.median([r["price"] for r in rows])
+        floor = med * 0.2
+        credible = [r for r in rows if r["price"] >= floor] or rows
+        credible.sort(key=lambda r: r["price"])
+        return credible
+
     async def search_lowest(self, query: str, limit: int = 30, top: int = 5) -> dict:
-        """Public price-checker variant of get_competitor_low: lowest + count +
-        the cheapest few live listings (title/price/condition/link)."""
+        """Public price-checker (keyword) variant: lowest + count + the cheapest few
+        listings, with accessory-outlier suppression (see _credible_lowest)."""
         token = await self._app_token()
         if not token:
             return {"lowest": None, "count": 0, "items": []}
+        headers = {"Authorization": f"Bearer {token}", "X-EBAY-C-MARKETPLACE-ID": "EBAY_US"}
         try:
-            async with httpx.AsyncClient(timeout=20) as c:
-                r = await c.get(
-                    _BROWSE[self._env],
-                    params={"q": query, "sort": "price", "limit": limit},
-                    headers={"Authorization": f"Bearer {token}",
-                             "X-EBAY-C-MARKETPLACE-ID": "EBAY_US"},
-                )
-            data = r.json()
-            items, prices = [], []
-            for s in data.get("itemSummaries", []) or []:
-                v = (s.get("price") or {}).get("value")
-                if not v:
-                    continue
-                prices.append(float(v))
-                if len(items) < top:
-                    items.append({
-                        "title": s.get("title"),
-                        "price": float(v),
-                        "condition": s.get("condition"),
-                        "url": s.get("itemWebUrl"),
-                    })
-            return {"lowest": min(prices) if prices else None,
-                    "count": len(prices), "items": items}
+            credible = await self._credible_lowest(query, limit, headers)
+            if not credible:
+                return {"lowest": None, "count": 0, "items": []}
+            return {"lowest": credible[0]["price"], "count": len(credible),
+                    "items": credible[:top]}
         except Exception as e:
             logger.warning("price check lookup failed", query=query, error=str(e))
             return {"lowest": None, "count": 0, "items": []}
@@ -241,26 +274,21 @@ class EbayStoreClient:
             logger.warning("item lookup failed", legacy_id=legacy_id, error=str(e))
             return {"item": None, "lowest": None, "count": 0, "items": [], "error": "lookup_failed"}
 
-    async def get_competitor_low(self, query: str, limit: int = 30) -> dict:
-        """Lowest competing price + count for a query via the Buy Browse API."""
+    async def get_competitor_low(self, query: str, limit: int = 30,
+                                 category_id: str | None = None) -> dict:
+        """Lowest competing price + count for a query via the Buy Browse API.
+        Used by the live repricer (pass the listing's category_id for a direct,
+        accurate, single-call lookup) and the price-tracker cron (keyword only →
+        falls back to the dominant-category re-search). Same accessory-outlier
+        suppression as the demo, so a $1 part can't drag a real listing to its
+        floor or post a garbage tracker price."""
         token = await self._app_token()
         if not token:
             return {"lowest": None, "count": 0}
+        headers = {"Authorization": f"Bearer {token}", "X-EBAY-C-MARKETPLACE-ID": "EBAY_US"}
         try:
-            async with httpx.AsyncClient(timeout=20) as c:
-                r = await c.get(
-                    _BROWSE[self._env],
-                    params={"q": query, "sort": "price", "limit": limit},
-                    headers={"Authorization": f"Bearer {token}",
-                             "X-EBAY-C-MARKETPLACE-ID": "EBAY_US"},
-                )
-            data = r.json()
-            prices = []
-            for s in data.get("itemSummaries", []) or []:
-                v = (s.get("price") or {}).get("value")
-                if v:
-                    prices.append(float(v))
-            return {"lowest": min(prices) if prices else None, "count": len(prices)}
+            credible = await self._credible_lowest(query, limit, headers, category_id=category_id)
+            return {"lowest": credible[0]["price"] if credible else None, "count": len(credible)}
         except Exception as e:
             logger.warning("competitor lookup failed", error=str(e))
             return {"lowest": None, "count": 0}

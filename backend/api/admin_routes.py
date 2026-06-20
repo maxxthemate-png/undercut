@@ -14,6 +14,7 @@ from ..models.database import get_db
 from ..models.repricer_models import User, Store, RepricerListing, PriceChange, CompetitorSnapshot, Lead, RepriceRun
 from ..services import auth, billing
 from ..utils.settings import settings
+from ..utils.keys import key_ok
 
 router = APIRouter(prefix="/api/admin", tags=["admin"])
 public_router = APIRouter(prefix="/api/admin", tags=["admin-public"])
@@ -24,9 +25,8 @@ PLAN_PRICE = {pid: p["price"] for pid, p in billing.PLANS.items()}
 
 def _require_admin(x_admin_key: str | None):
     # Accept a dedicated ADMIN_KEY (preferred, single-sourced in the env group) or
-    # fall back to UNDERCUT_API_KEY for backward compatibility.
-    valid = {k for k in (getattr(settings, "ADMIN_KEY", None), settings.UNDERCUT_API_KEY) if k}
-    if not valid or (x_admin_key or "").strip() not in valid:
+    # fall back to UNDERCUT_API_KEY for backward compatibility. Constant-time compare.
+    if not key_ok(x_admin_key, getattr(settings, "ADMIN_KEY", None), settings.UNDERCUT_API_KEY):
         raise HTTPException(status_code=403, detail="invalid admin key")
 
 

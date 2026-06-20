@@ -77,3 +77,12 @@ envVarGroups:
         generateValue: true
       - key: UNDERCUT_API_KEY        # copy this generated value into the dashboard's env too
         generateValue: true
+      # Encrypts seller eBay OAuth tokens (sell.inventory WRITE) at rest. Paste a valid
+      # Fernet key: python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+      # When ENVIRONMENT=production, crypto.py REFUSES to boot without a valid key here.
+      - key: TOKEN_ENC_KEY
+        sync: false
+      # Flip to "production" to activate the fail-fast secret guards + mandatory token
+      # encryption. Set TOKEN_ENC_KEY above FIRST, or the app will (intentionally) not boot.
+      - key: ENVIRONMENT
+        sync: false

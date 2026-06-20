@@ -11,9 +11,24 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 
 from ..utils.logging import get_logger
+from ..utils.settings import settings
 from ..models.database import engine
 
 logger = get_logger(__name__)
+
+# Fail fast in production rather than silently signing tokens with "change-me"
+# or leaving the data/admin API ungated. Dormant outside production (ENVIRONMENT
+# defaults to "development"), so local dev + the test suite are unaffected.
+if (settings.ENVIRONMENT or "").lower() == "production":
+    _bad = []
+    if settings.SECRET_KEY in ("", "change-me", None):
+        _bad.append("SECRET_KEY (signs every JWT / OAuth state / reset / unsubscribe token)")
+    if not settings.UNDERCUT_API_KEY:
+        _bad.append("UNDERCUT_API_KEY (gates admin + cron endpoints)")
+    if _bad:
+        raise RuntimeError(
+            "Refusing to boot in production with default/unset secrets: " + "; ".join(_bad)
+        )
 
 app = FastAPI(
     title="Undercut API",

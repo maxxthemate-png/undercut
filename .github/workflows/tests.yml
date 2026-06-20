@@ -26,6 +26,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r backend/requirements.txt
           pip install pytest
+      - name: Dependency vulnerability audit (pip-audit)
+        continue-on-error: true   # informational — surfaces CVEs without blocking on unrelated advisories
+        run: |
+          pip install pip-audit
+          pip-audit -r backend/requirements.txt
       - name: Run tests
         env:
           ANTHROPIC_API_KEY: test

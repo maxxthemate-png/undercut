@@ -53,6 +53,6 @@ tenacity==8.4.2        # Retry logic
 structlog==24.4.0      # Structured logging
 schedule==1.2.2
 pytz==2024.1
-python-jose[cryptography]==3.3.0
+python-jose[cryptography]==3.4.0   # 3.4.0 fixes CVE-2024-33663 (algorithm confusion) + CVE-2024-33664 (JWE DoS)
 passlib[bcrypt]==1.7.4
 stripe>=11.0

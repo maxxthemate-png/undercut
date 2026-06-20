@@ -50,7 +50,9 @@ async def reprice_listing(client: EbayStoreClient, db, listing: RepricerListing,
     if not listing.floor_price:
         return {"item": listing.ebay_item_id, "changed": False, "error": "no floor set"}
 
-    comp = await client.get_competitor_low(listing.title or "")
+    # Pass the listing's known category so the lookup compares apples to apples
+    # (a $1 accessory sharing keywords can't drag a real listing toward its floor).
+    comp = await client.get_competitor_low(listing.title or "", category_id=listing.category_id)
     low = comp.get("lowest")
     db.add(CompetitorSnapshot(listing_id=listing.id, lowest_price=low,
                               listing_count=comp.get("count", 0)))

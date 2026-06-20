@@ -13,13 +13,28 @@ from cryptography.fernet import Fernet
 from .settings import settings
 
 
+def _is_prod() -> bool:
+    return (settings.ENVIRONMENT or "").lower() == "production"
+
+
 def _fernet():
     key = settings.TOKEN_ENC_KEY
     if not key:
+        # In production, refuse to silently store seller OAuth (sell.inventory WRITE)
+        # tokens in plaintext. Dormant in dev/test (ENVIRONMENT != production).
+        if _is_prod():
+            raise RuntimeError(
+                "TOKEN_ENC_KEY is unset in production — refusing to handle seller "
+                "OAuth tokens without encryption. Set a valid Fernet key at the "
+                "Render service level (python -c \"from cryptography.fernet import "
+                "Fernet; print(Fernet.generate_key().decode())\")."
+            )
         return None
     try:
         return Fernet(key.encode() if isinstance(key, str) else key)
     except Exception:
+        if _is_prod():
+            raise RuntimeError("TOKEN_ENC_KEY is set but is not a valid Fernet key.")
         return None
 
 

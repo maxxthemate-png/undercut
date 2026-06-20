@@ -3,9 +3,106 @@
 Covers parse_item_id parsing, the two demo endpoints (happy / bad-url / not-found
 / throttle / cache), with eBay mocked via the `fake_ebay` fixture in conftest.
 """
+import asyncio
+
 import pytest
 
+import backend.services.ebay_store as es
 from backend.services.ebay_store import EbayStoreClient
+
+
+# ---- search_lowest keyword outlier suppression (real method, httpx mocked) ----
+def _fake_browse(monkeypatch, router):
+    """Replace EbayStoreClient._app_token + httpx.AsyncClient so search_lowest runs
+    its real logic against canned Browse JSON. `router(params)->payload`."""
+    async def _tok(self):
+        return "tok"
+    monkeypatch.setattr(es.EbayStoreClient, "_app_token", _tok)
+
+    class _Resp:
+        status_code = 200
+        def __init__(self, p):
+            self._p = p
+        def json(self):
+            return self._p
+
+    class _Client:
+        def __init__(self, *a, **k):
+            pass
+        async def __aenter__(self):
+            return self
+        async def __aexit__(self, *a):
+            return False
+        async def get(self, url, params=None, headers=None):
+            return _Resp(router(params or {}))
+
+    monkeypatch.setattr(es.httpx, "AsyncClient", _Client)
+
+
+def _summaries(prices):
+    return {"itemSummaries": [{"price": {"value": str(p)}, "title": f"x {p}",
+                               "condition": "Used", "itemWebUrl": "u"} for p in prices]}
+
+
+def test_search_lowest_constrains_to_dominant_category(monkeypatch):
+    # Keyword pulls a $1.27 accessory among $300 consoles + a dominant category;
+    # the category re-search returns consoles only → lowest is a console, not $1.27.
+    def router(params):
+        if params.get("category_ids"):
+            return _summaries([299.0, 305.0, 310.0, 315.0])
+        return {**_summaries([1.27, 299.0, 305.0, 310.0, 315.0]),
+                "refinement": {"dominantCategoryId": "139971"}}
+    _fake_browse(monkeypatch, router)
+    res = asyncio.run(EbayStoreClient().search_lowest("nintendo switch oled console"))
+    assert res["lowest"] == 299.0, res
+    assert all(it["price"] >= 100 for it in res["items"]), res  # accessory not shown
+
+
+def test_search_lowest_outlier_guard_without_category(monkeypatch):
+    # No refinement → no re-search; the median*0.2 guard must still drop the $1.27.
+    def router(params):
+        return _summaries([1.27, 300.0, 305.0, 310.0])
+    _fake_browse(monkeypatch, router)
+    res = asyncio.run(EbayStoreClient().search_lowest("widget thing"))
+    assert res["lowest"] == 300.0, res
+
+
+def test_search_lowest_keeps_genuinely_cheap_commodity(monkeypatch):
+    # A tight cluster of cheap items (no outlier) must NOT be over-filtered.
+    def router(params):
+        return _summaries([4.50, 4.75, 5.00, 5.25])
+    _fake_browse(monkeypatch, router)
+    res = asyncio.run(EbayStoreClient().search_lowest("phone screen protector"))
+    assert res["lowest"] == 4.50, res
+
+
+def test_competitor_low_with_category_is_single_constrained_call(monkeypatch):
+    # The repricer passes the listing's category → one direct constrained call,
+    # no dominant re-search, and the $1.27 accessory (only in the un-constrained
+    # set) never reaches the result.
+    seen = {"category_calls": 0, "base_calls": 0}
+    def router(params):
+        if params.get("category_ids"):
+            seen["category_calls"] += 1
+            return _summaries([299.0, 305.0, 310.0])
+        seen["base_calls"] += 1
+        return _summaries([1.27, 299.0, 305.0, 310.0])
+    _fake_browse(monkeypatch, router)
+    res = asyncio.run(EbayStoreClient().get_competitor_low("nintendo switch", category_id="139971"))
+    assert res["lowest"] == 299.0, res
+    assert seen["category_calls"] == 1 and seen["base_calls"] == 0, seen  # no perf-doubling
+
+
+def test_competitor_low_keyword_suppresses_accessory(monkeypatch):
+    # The tracker cron (keyword only) → dominant-category re-search kills the $0.99
+    # accessory that used to post as "PS5 $0.99" on the public price-tracker pages.
+    def router(params):
+        if params.get("category_ids"):
+            return _summaries([299.0, 305.0])
+        return {**_summaries([0.99, 299.0, 305.0]), "refinement": {"dominantCategoryId": "139971"}}
+    _fake_browse(monkeypatch, router)
+    res = asyncio.run(EbayStoreClient().get_competitor_low("ps5 console"))
+    assert res["lowest"] == 299.0, res
 
 
 # ---- parse_item_id (pure static method, no network) -----------------------
