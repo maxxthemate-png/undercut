@@ -14,13 +14,13 @@ const ROWS: [string, string, string][] = [
   ['Start with no card', '14-day Starter trial, then Free (25 listings) or $29/mo', 'Paid plans'],
   ['Hard per-item floor', 'Core feature — set in seconds', 'Supported'],
   ['Setup', '1-click eBay connect, live in minutes', 'Moderate'],
-  ['AI aggressiveness tuning', 'Yes (Pro) — won’t race to the bottom', 'Rule-based'],
+  ['AI aggressiveness tuning', 'Yes (Pro & Scale) — won’t race to the bottom', 'Rule-based'],
   ['Focus', 'Floor-safe eBay undercutting, kept simple', 'Feature-rich, steeper learning curve'],
 ]
 
 const FAQ: [string, string][] = [
   ['Is Undercut a good StreetPricer alternative?', 'If you want a simpler, floor-first repricer for eBay — yes. Undercut undercuts the lowest competitor automatically but never drops below a per-item minimum you set, and you can start with a 14-day Starter trial (no card).'],
-  ['Can I keep my pricing rules?', 'You set a floor, an optional ceiling, and an undercut amount per listing. On Pro, AI tunes how aggressive to be so you keep margin instead of racing to the bottom.'],
+  ['Can I keep my pricing rules?', 'You set a floor, an optional ceiling, and an undercut amount per listing. On Pro and Scale, AI tunes how aggressive to be so you keep margin instead of racing to the bottom.'],
   ['How do I switch?', 'Connect your eBay account in one click, import your active listings, set floors, and turn repricing on. No long migration.'],
 ]
 
@@ -86,7 +86,7 @@ export default function StreetPricerAlternative() {
         <div className="rounded-2xl bg-blue-600 text-white px-8 py-10 text-center">
           <p className="text-xs font-semibold uppercase tracking-wide text-blue-100">Founding trial</p>
           <h2 className="mt-2 text-2xl md:text-3xl font-extrabold">14 days of Starter, free — no card.</h2>
-          <p className="mt-3 text-blue-100">Connect eBay, set your floors, watch it win the buy box without giving away margin.</p>
+          <p className="mt-3 text-blue-100">Connect eBay, set your floors, watch it win the sale without giving away margin.</p>
           <Link href="/signup" className="inline-block mt-6 px-6 py-3 rounded-lg bg-white text-blue-700 font-semibold hover:bg-blue-50">Start your trial</Link>
         </div>
       </section>

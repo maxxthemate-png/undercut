@@ -27,10 +27,10 @@ export const repricers: PageContent[] = [
       },
       {
         "h2": "Scale Plan: Built for 10,000-Listing Auto Parts Catalogs",
-        "body": "The Scale plan at $199/month supports up to 10,000 active eBay listings with the fastest repricing cycle. For an auto parts seller with 6,000 live SKUs, that's roughly $0.033 per listing per month — a rounding error against eBay's ~13.6% final value fee on every sale. Set a hard floor on each listing (your landed cost + eBay fees + minimum margin), and Undercut handles the rest. Pay annually and get two months free, dropping the effective cost to $166/month. No per-transaction fees, no percentage of revenue taken — a flat subscription regardless of whether you sell $20,000 or $200,000 that month.",
+        "body": "The Scale plan at $199/month supports up to 10,000 active eBay listings — the highest capacity tier, with priority support. For an auto parts seller with 6,000 live SKUs, that's roughly $0.033 per listing per month — a rounding error against eBay's ~13.6% final value fee on every sale. Set a hard floor on each listing (your landed cost + eBay fees + minimum margin), and Undercut handles the rest. Pay annually and get two months free, dropping the effective cost to $166/month. No per-transaction fees, no percentage of revenue taken — a flat subscription regardless of whether you sell $20,000 or $200,000 that month.",
         "bullets": [
           "Up to 10,000 listings on Scale plan at $199/month",
-          "15-minute reprice cycles — catches overnight competitor changes before the morning rush",
+          "Priority support — built for high-SKU operations that can't afford downtime",
           "Set a hard floor per listing so repricing never crosses your minimum",
           "Annual billing saves $398/year vs. monthly"
         ]
@@ -57,7 +57,7 @@ export const repricers: PageContent[] = [
       },
       {
         "q": "I have 8,000 auto parts listings. Which plan do I need?",
-        "a": "The Scale plan at $199/month covers up to 10,000 active listings. At 8,000 SKUs that gives you 2,000 headroom for catalog growth. Scale also includes the shortest reprice interval (5 minutes), which is relevant at high SKU counts where manual oversight isn't practical. Annual billing drops it to roughly $166/month effective."
+        "a": "The Scale plan at $199/month covers up to 10,000 active listings. At 8,000 SKUs that gives you 2,000 headroom for catalog growth. Scale also includes priority support, which matters at high SKU counts where manual oversight isn't practical. (Reprice frequency is 15 minutes — the same as Pro; Scale's advantage is capacity and support, not a faster cycle.) Annual billing drops it to roughly $166/month effective."
       },
       {
         "q": "What happens if a competitor lists a part for less than my cost floor?",

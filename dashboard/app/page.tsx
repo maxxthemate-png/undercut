@@ -7,8 +7,8 @@ import Footer from './_components/Footer'
 const TIERS = [
   { name: 'Free', price: '$0', listings: '25 listings', features: ['Rule-based undercut', 'Hourly repricing', 'Hard price floor'], cta: 'Start free', highlight: false },
   { name: 'Starter', price: '$29', listings: '100 listings', features: ['Rule-based undercut', 'Hourly repricing', 'Hard price floor'], cta: 'Start free', highlight: false },
-  { name: 'Pro', price: '$79', listings: '1,000 listings', features: ['AI price optimizer', '15-min repricing', 'Competitor tracking'], cta: 'Start free', highlight: true },
-  { name: 'Scale', price: '$199', listings: '10,000 listings', features: ['AI price optimizer', '5-min repricing', 'Priority support'], cta: 'Start free', highlight: false },
+  { name: 'Pro', price: '$79', listings: '1,000 listings', features: ['AI price optimizer', '15-min repricing', 'Hard price floor'], cta: 'Start free', highlight: true },
+  { name: 'Scale', price: '$199', listings: '10,000 listings', features: ['AI price optimizer', '15-min repricing', 'Priority support'], cta: 'Start free', highlight: false },
 ]
 
 export default function Landing() {

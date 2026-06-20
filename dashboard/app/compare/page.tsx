@@ -17,16 +17,16 @@ const ROWS: Row[] = [
   { label: 'Price to start', undercut: '14-day trial free (no card) — then Free (25) or $29/mo', street: 'Paid plans', rex: 'Higher-tier, multi-channel', informed: 'Enterprise / custom' },
   { label: 'Per-item hard floor', undercut: 'Core feature — set in seconds', street: 'Supported', rex: 'Supported', informed: 'Supported' },
   { label: 'Setup', undercut: '1-click eBay connect, live in minutes', street: 'Moderate', rex: 'Multi-channel config', informed: 'Onboarding / sales call' },
-  { label: 'AI aggressiveness tuning', undercut: 'Yes (Pro) — won’t race to the bottom', street: 'Rule-based', rex: 'Rule-based', informed: 'Advanced' },
-  { label: 'Repricing speed', undercut: 'Every 15 min (Pro)', street: 'Scheduled', rex: 'Scheduled', informed: 'Fast' },
+  { label: 'AI aggressiveness tuning', undercut: 'Yes (Pro & Scale) — won’t race to the bottom', street: 'Rule-based', rex: 'Rule-based', informed: 'Advanced' },
+  { label: 'Repricing speed', undercut: 'Every 15 min (Pro & Scale)', street: 'Scheduled', rex: 'Scheduled', informed: 'Fast' },
   { label: 'Built for', undercut: 'eBay sellers who want floor-safe undercutting, simply', street: 'eBay power sellers', rex: 'Multi-marketplace sellers', informed: 'Large / Amazon-led sellers' },
 ]
 
 const FAQ: [string, string][] = [
   ['Will it race my prices to the bottom?', 'No — that’s the whole point of the floor. You set a minimum price per item (cost + fees + the smallest margin you’ll accept). Undercut only competes in the band above it and will never list or reprice below your floor.'],
   ['Do I need a credit card to start?', 'No. Every account starts with a 14-day Founding trial — full Starter features (100 listings), no card. After it ends you stay free (25 listings) or upgrade. Paid plans add volume, AI tuning, and faster repricing.'],
-  ['How fast does it reprice?', 'Hourly on Free/Starter, every 15 minutes on Pro, every 5 minutes on Scale.'],
-  ['How does it pick the price?', 'It tracks the lowest competitor on the same item and undercuts to win the sale — then clamps to your floor. On Pro, AI tunes how aggressive to be so you keep margin instead of giving it away.'],
+  ['How fast does it reprice?', 'Hourly on Free/Starter, every 15 minutes on Pro and Scale.'],
+  ['How does it pick the price?', 'It tracks the lowest competitor on the same item and undercuts to win the sale — then clamps to your floor. On Pro and Scale, AI tunes how aggressive to be so you keep margin instead of giving it away.'],
   ['What does it cost as I grow?', 'Free (25), Starter $29 (100), Pro $79 (1,000), Scale $199 (10,000 listings). Cancel anytime.'],
 ]
 
@@ -105,7 +105,7 @@ export default function Compare() {
           {[
             ['Set your floor', 'Pick a minimum price per item — cost + fees + the smallest margin you’ll accept. We will never go below it.'],
             ['Undercut above it', 'We track the lowest competitor and reprice to win the sale, but only in the band above your floor.'],
-            ['AI keeps margin', 'On Pro, AI tunes how aggressive to be — so you win sales without giving away profit.'],
+            ['AI keeps margin', 'On Pro and Scale, AI tunes how aggressive to be — so you win sales without giving away profit.'],
           ].map(([t, d]) => (
             <div key={t} className="bg-gray-50 rounded-xl p-6">
               <p className="font-semibold">{t}</p>

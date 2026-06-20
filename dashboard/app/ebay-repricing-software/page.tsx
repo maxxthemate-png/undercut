@@ -13,7 +13,7 @@ export const metadata = pageMeta(
 const CHECKS = [
   ['A hard per-item floor', 'The #1 thing to demand: software that will never reprice below your minimum. Undercut treats the floor as sacred.'],
   ['Real competitor tracking', 'It should watch the lowest comparable listing and undercut to win — not just follow a fixed rule blindly.'],
-  ['AI that protects margin', 'Good repricing software knows when NOT to chase the price down. Undercut’s AI (Pro) tunes aggressiveness so you keep profit.'],
+  ['AI that protects margin', 'Good repricing software knows when NOT to chase the price down. Undercut’s AI (Pro & Scale) tunes aggressiveness so you keep profit.'],
   ['Fast, simple setup', 'You shouldn’t need a sales call. Connect eBay in one click, import listings, set floors, go.'],
 ]
 
@@ -33,7 +33,7 @@ export default function EbayRepricingSoftware() {
 
       <section className="max-w-3xl mx-auto px-6 pt-20 pb-10 text-center">
         <p className="text-sm font-semibold text-blue-600">eBay repricing software</p>
-        <h1 className="mt-3 text-4xl md:text-5xl font-extrabold tracking-tight">Win the Buy Box without selling at a loss.</h1>
+        <h1 className="mt-3 text-4xl md:text-5xl font-extrabold tracking-tight">Win the sale without selling at a loss.</h1>
         <p className="mt-5 text-lg text-gray-600">Undercut is eBay repricing software that automatically beats the lowest competitor — and <span className="font-semibold text-gray-900">clamps every change to a floor you set</span>, so your margin is always protected. AI-tuned, 1-click setup, free to start.</p>
         <div className="mt-8 flex items-center justify-center gap-3">
           <Link href="/signup" className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free — 14-day trial, no card</Link>

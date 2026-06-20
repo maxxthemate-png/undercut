@@ -139,7 +139,8 @@ class Lead(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     email = Column(String(255), nullable=False, index=True)
-    source = Column(String(50))            # landing | compare | ...
+    source = Column(String(50))            # landing | compare | demo_share | ...
+    note = Column(String(300))             # optional context (e.g. the demo result this lead checked)
     created_at = Column(DateTime, default=datetime.utcnow, index=True)
     nurture_stage = Column(Integer, default=0)   # 0=none,1=day1,2=day3,3=day7,99=converted/done
     last_emailed_at = Column(DateTime)

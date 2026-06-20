@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { api, tok } from '../lib/api'
@@ -11,6 +11,17 @@ export default function Signup() {
   const [pw, setPw] = useState('')
   const [err, setErr] = useState('')
   const [busy, setBusy] = useState(false)
+  // If they arrived from the instant demo, greet them with what they just checked.
+  const [demo, setDemo] = useState<{ q: string; win?: string; floor?: string } | null>(null)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const sp = new URLSearchParams(window.location.search)
+    const q = (sp.get('q') || '').trim()
+    if (sp.get('from') === 'demo' && q) {
+      setDemo({ q, win: sp.get('win') || undefined, floor: sp.get('floor') || undefined })
+    }
+  }, [])
 
   async function submit(e: React.FormEvent) {
     e.preventDefault(); setErr(''); setBusy(true)
@@ -30,6 +41,17 @@ export default function Signup() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <form onSubmit={submit} className="bg-white border border-gray-200 rounded-2xl p-8 w-full max-w-sm space-y-4">
+        {demo && (
+          <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
+            <p className="text-sm font-semibold text-blue-900">You checked “{demo.q.length > 48 ? demo.q.slice(0, 48) + '…' : demo.q}”.</p>
+            <p className="text-sm text-blue-800 mt-1">
+              {demo.win
+                ? <>Undercut would win that sale at <b>${demo.win}</b>{demo.floor ? <> — above your <b>${demo.floor}</b> floor</> : null}. </>
+                : null}
+              Create your account to do this across your <b>whole store</b>, automatically — floor-protected, no card.
+            </p>
+          </div>
+        )}
         <div>
           <h1 className="text-xl font-bold text-gray-900">Start your Founding trial</h1>
           <p className="text-sm text-gray-500">14 days of Starter features (100 listings) free — no credit card.</p>

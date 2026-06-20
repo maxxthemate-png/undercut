@@ -15,7 +15,7 @@ const ROWS: [string, string, string][] = [
   ['Per-item hard floor', 'Core feature — set in seconds', 'Supported'],
   ['Built for', 'eBay sellers who want floor-safe undercutting, simply', 'Multi-marketplace (Amazon-led) sellers'],
   ['Setup', '1-click eBay connect, live in minutes', 'Multi-channel onboarding'],
-  ['AI aggressiveness tuning', 'Yes (Pro) — won’t race to the bottom', 'Rule-based'],
+  ['AI aggressiveness tuning', 'Yes (Pro & Scale) — won’t race to the bottom', 'Rule-based'],
 ]
 
 const FAQ: [string, string][] = [

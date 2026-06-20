@@ -6,8 +6,8 @@ import { PLANS } from '../_content/shared'
 const FEATURES: Record<string, string[]> = {
   free: ['Rule-based undercut', 'Hourly repricing', 'Hard price floor'],
   starter: ['Rule-based undercut', 'Hourly repricing', 'Hard price floor'],
-  pro: ['AI price optimizer', '15-min repricing', 'Competitor tracking'],
-  scale: ['AI price optimizer', 'Fastest repricing', 'Priority support'],
+  pro: ['AI price optimizer', '15-min repricing', 'Hard price floor'],
+  scale: ['AI price optimizer', '15-min repricing', 'Priority support'],
 }
 
 export default function PricingTable() {

@@ -68,6 +68,30 @@ def lead_drip_day7():
     )
 
 
+def demo_followup(note: str | None = None):
+    """First touch for a lead who used the public price-checker demo. Leads with
+    their own checked result (note) when we have it, so it reads like a personal
+    follow-up, not a generic drip."""
+    app = _app()
+    ctx = (
+        f'<p style="background:#f5f7ff;border-left:3px solid #2563eb;padding:10px 14px;'
+        f'border-radius:6px;color:#333">{note}</p>'
+        if note else ""
+    )
+    return (
+        "About that listing you just checked",
+        _wrap(
+            "<p>You just ran a listing through the Undercut price checker. Here’s what it’s really showing you:</p>"
+            + ctx +
+            "<p>That’s <i>one</i> listing. Undercut does this across your whole store, around the clock — it beats "
+            "the lowest competitor automatically, but a hard floor means it can never sell below the minimum you set. "
+            "No more racing to the bottom while you sleep.</p>"
+            f'<p>Put your store on autopilot — 14-day trial, no card: <a href="{app}/signup">{app}/signup</a></p>'
+            "<p>Reply and tell me what you sell — I’ll tell you straight whether it’s a fit.</p>"
+        ),
+    )
+
+
 def trial_ending_email(days_left: int):
     app = _app()
     when = "tomorrow" if (days_left or 0) <= 1 else f"in {days_left} days"

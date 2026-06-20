@@ -30,12 +30,12 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Setting Up Repricing Frequency for Fast-Moving Electronics",
-        "body": "Repricing once a day is fine for books or clothing. For electronics, it is often not enough. A competitor can drop their price, take your sales for 18 hours, and restock before you ever notice. The faster your repricing cycle, the more time your listing spends at or near the top of search results. Undercut's Pro plan reprices every 15 minutes and Scale reprices every 5 minutes. For high-volume electronics sellers — especially those moving phones, tablets, or gaming hardware — the 5-minute cycle is the difference between consistently winning and consistently being one position too high. If you are just starting out, the free plan (25 listings, repriced multiple times daily) is enough to learn the system before committing.",
+        "body": "Repricing once a day is fine for books or clothing. For electronics, it is often not enough. A competitor can drop their price, take your sales for 18 hours, and restock before you ever notice. The faster your repricing cycle, the more time your listing spends at or near the top of search results. Undercut's Pro and Scale plans both reprice every 15 minutes — the difference between them is capacity, not speed. For high-volume electronics sellers — especially those moving phones, tablets, or gaming hardware — Scale's 10,000-listing capacity and priority support keep a large, fast-moving catalog covered at the same 15-minute cadence. If you are just starting out, the free plan (25 listings, repriced multiple times daily) is enough to learn the system before committing.",
         "bullets": [
           "Free plan: up to 25 listings — good for testing a single electronics SKU category",
           "Starter $29/mo: 100 listings, suitable for a focused niche like one brand of refurbished phones",
           "Pro $79/mo: 1,000 listings + 15-min repricing + AI aggressiveness tuning",
-          "Scale $199/mo: 10,000 listings + 5-min repricing — for warehouse-scale electronics operations"
+          "Scale $199/mo: 10,000 listings + 15-min repricing + priority support — for warehouse-scale electronics operations"
         ]
       },
       {
@@ -144,16 +144,16 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Size and Variation Sprawl: Repricing at Scale Without Chaos",
-        "body": "The practical problem with fashion repricing is volume. If you source 50 garments a week and each generates four size-variation listings, you are managing 200 new listings weekly — on top of your existing catalog. Repricing each one by hand before the next batch arrives is impossible without a team.\n\nUndercut connects to your full eBay catalog and reprices against a floor you set on each listing, not at the account level. That means your XS listings compete against XS competitors and your XL listings compete against XL competitors — each with the floor you set for that specific cost basis. The Scale plan (10,000 listings, 5-minute repricing intervals) is built specifically for sellers at this volume.",
+        "body": "The practical problem with fashion repricing is volume. If you source 50 garments a week and each generates four size-variation listings, you are managing 200 new listings weekly — on top of your existing catalog. Repricing each one by hand before the next batch arrives is impossible without a team.\n\nUndercut connects to your full eBay catalog and reprices against a floor you set on each listing, not at the account level. That means your XS listings compete against XS competitors and your XL listings compete against XL competitors — each with the floor you set for that specific cost basis. The Scale plan (10,000 listings, plus priority support) is built specifically for sellers at this volume.",
         "bullets": [
           "Connect your eBay account and set each listing's Floor Price from your existing cost data",
           "Floors apply per listing — a floor mismatch in one size does not affect another",
-          "5-minute repricing on Scale ensures you respond to competitor price drops before buyers see a stale listing"
+          "15-minute repricing ensures you respond to competitor price drops before buyers see a stale listing"
         ]
       },
       {
         "h2": "Choosing the Right Undercut Plan for a Clothing Seller",
-        "body": "The right plan depends on your active listing count and whether you need AI aggressiveness tuning for seasonal mode-switching.\n\nFree (25 listings): test the floor mechanic with a small capsule of your best sellers before committing.\nStarter at $29/month (100 listings): works for a focused boutique reseller with a tight, curated catalog.\nPro at $79/month (1,000 listings, 15-minute repricing): the practical entry point for anyone running seasonal clearance strategies — the AI aggressiveness tuning is what makes the in-season vs. clearance mode switch automatic.\nScale at $199/month (10,000 listings, 5-minute repricing): sourcing at volume, multiple categories, or running a small resale operation with staff.\n\nAll plans start with a 14-day free trial and no credit card required, so you can validate your floors and watch repricing work before paying anything."
+        "body": "The right plan depends on your active listing count and whether you need AI aggressiveness tuning for seasonal mode-switching.\n\nFree (25 listings): test the floor mechanic with a small capsule of your best sellers before committing.\nStarter at $29/month (100 listings): works for a focused boutique reseller with a tight, curated catalog.\nPro at $79/month (1,000 listings, 15-minute repricing): the practical entry point for anyone running seasonal clearance strategies — the AI aggressiveness tuning is what makes the in-season vs. clearance mode switch automatic.\nScale at $199/month (10,000 listings, 15-minute repricing, priority support): sourcing at volume, multiple categories, or running a small resale operation with staff.\n\nAll plans start with a 14-day free trial and no credit card required, so you can validate your floors and watch repricing work before paying anything."
       }
     ],
     "faq": [
@@ -175,7 +175,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "How quickly does repricing react when a competitor drops their price on a trending item during a sale event like Prime Day or a holiday weekend?",
-        "a": "On the Pro plan, repricing checks run every 15 minutes. On Scale, every 5 minutes. During high-traffic sale events when prices shift fast, Scale's 5-minute cadence is a meaningful advantage for fashion sellers with items that can spike or drop in minutes based on competitor activity."
+        "a": "On both the Pro and Scale plans, repricing checks run every 15 minutes. During high-traffic sale events when prices shift fast, that 15-minute cadence keeps fashion sellers responsive to competitor activity, matching or beating a price drop within a single cycle rather than the next time you log in. Scale adds capacity (up to 10,000 listings) and priority support for sellers running large catalogs through those events, not a faster cycle."
       }
     ],
     "cta": {
@@ -237,7 +237,7 @@ export const guides: PageContent[] = [
         "bullets": [
           "Set each listing's Floor Price in the dashboard.",
           "Floors are respected even during rapid market drops — no manual intervention needed.",
-          "Pro plan reprices every 15 minutes; Scale plan every 5 minutes — useful during peak selling hours on popular ISBNs."
+          "Pro and Scale plans both reprice every 15 minutes — useful during peak selling hours on popular ISBNs; Scale adds capacity and priority support, not a faster cycle."
         ]
       },
       {
@@ -272,7 +272,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "How often does Undercut reprice my book listings, and does speed matter for books?",
-        "a": "The Free and Starter plans reprice on a slower cadence suited to most book sellers. The Pro plan reprices every 15 minutes and the Scale plan every 5 minutes. For most book categories, the slower cadence is fine — book prices don't move as fast as electronics. Textbooks during semester rush are an exception where faster repricing can meaningfully affect sell-through."
+        "a": "The Free and Starter plans reprice on a slower cadence suited to most book sellers. The Pro and Scale plans both reprice every 15 minutes. For most book categories, the slower cadence is fine — book prices don't move as fast as electronics. Textbooks during semester rush are an exception where the 15-minute cadence on Pro or Scale can meaningfully affect sell-through."
       },
       {
         "q": "How do I set floors across a large book inventory — do I have to do it one listing at a time?",
@@ -348,10 +348,10 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Choosing the Right Repricing Cadence for Collectibles",
-        "body": "Collectibles markets move more slowly than commodity electronics, but they are not static. A repricing interval of once per day is usually too slow during active periods; once per hour is adequate for most categories. Here is how Undercut's plans map to common collectibles seller profiles:\n\n- Free plan (25 listings): ideal for a seller testing the waters with a small curated inventory of vintage items.\n- Starter at $29/month (100 listings): covers a focused single-category seller — sports cards, vintage toys, or comic books — with a manageable SKU count.\n- Pro at $79/month (1,000 listings, 15-minute repricing + AI tuning): suited to multi-category resellers or box-breakers managing a rotating inventory.\n- Scale at $199/month (10,000 listings, 5-minute repricing): for high-volume liquidators or large trading card shops where speed and breadth both matter.\n\nFor most collectibles sellers, the Pro plan's 15-minute cadence is more than fast enough — the market rarely moves in seconds the way liquidation electronics can.",
+        "body": "Collectibles markets move more slowly than commodity electronics, but they are not static. A repricing interval of once per day is usually too slow during active periods; once per hour is adequate for most categories. Here is how Undercut's plans map to common collectibles seller profiles:\n\n- Free plan (25 listings): ideal for a seller testing the waters with a small curated inventory of vintage items.\n- Starter at $29/month (100 listings): covers a focused single-category seller — sports cards, vintage toys, or comic books — with a manageable SKU count.\n- Pro at $79/month (1,000 listings, 15-minute repricing + AI tuning): suited to multi-category resellers or box-breakers managing a rotating inventory.\n- Scale at $199/month (10,000 listings, 15-minute repricing, priority support): for high-volume liquidators or large trading card shops where breadth and support matter.\n\nFor most collectibles sellers, the 15-minute cadence on Pro or Scale is more than fast enough — the market rarely moves in seconds the way liquidation electronics can.",
         "bullets": [
           "15-minute repricing on Pro is fast enough for 95% of collectibles categories.",
-          "5-minute repricing on Scale matters most when you sell high-demand modern releases where competitor stock sells through rapidly.",
+          "Scale's added capacity (10,000 listings) and priority support matter most when you sell high-demand modern releases at volume where competitor stock sells through rapidly.",
           "AI aggressiveness tuning on Pro and Scale lets you move more defensively toward the floor on rare, slow-moving items and more aggressively on common, liquid ones — without managing two separate tools."
         ]
       },
@@ -554,11 +554,11 @@ export const guides: PageContent[] = [
         ]
       },
       {
-        "h2": "Repricing Speed at Scale: When 5-Minute Cycles Matter",
-        "body": "Repricing speed is only a meaningful lever in fast-moving categories. On a 1,000-listing electronics catalog where competitors sell out and relist within hours, a 15-minute repricing cycle (Undercut Pro) is often sufficient — most buy-box shifts stabilize within one cycle. For categories like trading cards, sneakers, or trending media where inventory moves in minutes, 5-minute cycles (Undercut Scale) prevent extended periods of being undercut. The counterintuitive rule: faster repricing on thin-margin, high-competition listings is where speed pays. On high-margin, low-competition listings, slower cycles cost you nothing and reduce unnecessary price changes that confuse buyers browsing your store.",
+        "h2": "Repricing Cadence at Scale: When 15-Minute Cycles Matter",
+        "body": "Repricing speed is only a meaningful lever in fast-moving categories. On a 1,000-listing electronics catalog where competitors sell out and relist within hours, a 15-minute repricing cycle (Undercut Pro and Scale both run on this cadence) is often sufficient — most buy-box shifts stabilize within one cycle. For categories like trading cards, sneakers, or trending media where inventory moves in minutes, the 15-minute cycle still keeps you from extended periods of being undercut, because the engine matches or beats a competitor's drop within one check rather than the next time you log in. The counterintuitive rule: responsive repricing on thin-margin, high-competition listings is where it pays most. On high-margin, low-competition listings, slower cycles cost you nothing and reduce unnecessary price changes that confuse buyers browsing your store. As your catalog grows, Scale's value is capacity (up to 10,000 listings) and priority support, not a faster cycle.",
         "bullets": [
-          "15-minute cycles (Pro): suits most categories with normal competition velocity",
-          "5-minute cycles (Scale): essential for fast-moving collectibles, electronics, trending items",
+          "15-minute cycles (Pro and Scale): keep you responsive across categories with normal-to-high competition velocity",
+          "Scale: up to 10,000 listings plus priority support — capacity and support, same 15-minute cadence as Pro",
           "Unnecessary repricing churn can suppress listing visibility — don't reprice what doesn't need it",
           "Segment your catalog by velocity; apply faster cycles only where justified"
         ]
@@ -588,8 +588,8 @@ export const guides: PageContent[] = [
         "a": "Set each listing's floor from its own category fee rate — because floors are per-listing, a lower-fee media item can carry a lower floor than an electronics item, and each stays protected. For a fast start, floor everything using your highest-fee category's rate, then revisit the lower-fee listings to recover the margin a blanket number leaves behind."
       },
       {
-        "q": "Does the Scale plan's 5-minute repricing cycle apply to all listings or can I select which listings get faster cycles?",
-        "a": "On the Scale plan, the 5-minute cycle applies across all 10,000 included listings. If you want to limit faster repricing to a subset of your catalog for efficiency, you can structure your account to keep high-velocity listings under Scale and lower-velocity listings under a separate Pro account."
+        "q": "Does the Scale plan reprice faster than Pro, and does the cadence apply to all my listings?",
+        "a": "No — both Pro and Scale reprice on the same 15-minute cycle, and that cycle applies across every listing on your plan. Scale's advantage is capacity (up to 10,000 listings) and priority support, not a faster cycle. Choose Scale when your catalog size exceeds Pro's 1,000-listing limit, not because you expect quicker repricing."
       },
       {
         "q": "Will AI aggressiveness tuning ever override or ignore my floor?",
@@ -663,11 +663,11 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Automating Seasonal Floors with Undercut",
-        "body": "Manually updating floors across hundreds of listings before every seasonal shift is error-prone and time-consuming. Undercut lets you set a hard floor per listing — a number the repricer will never breach regardless of what competitors do. When your peak season arrives, you raise each listing's Floor Price in the dashboard; Undercut then auto-undercuts the new lowest competitor price, but only down to your revised, higher floor, so a higher floor effectively holds your price up during peak demand. On Pro and Scale plans, the 15-minute and 5-minute repricing intervals mean that when a competitor sells through their last unit and prices spike, Undercut responds within minutes — not hours. The AI aggressiveness tuning on Pro and Scale lets you set, per listing, how fast and how far the listing moves down toward that floor, which is particularly valuable in fast-moving seasonal windows where prices can swing $5–$10 in a single afternoon.",
+        "body": "Manually updating floors across hundreds of listings before every seasonal shift is error-prone and time-consuming. Undercut lets you set a hard floor per listing — a number the repricer will never breach regardless of what competitors do. When your peak season arrives, you raise each listing's Floor Price in the dashboard; Undercut then auto-undercuts the new lowest competitor price, but only down to your revised, higher floor, so a higher floor effectively holds your price up during peak demand. On Pro and Scale plans, the 15-minute repricing interval means that when a competitor sells through their last unit and prices spike, Undercut responds within minutes — not hours. The AI aggressiveness tuning on Pro and Scale lets you set, per listing, how fast and how far the listing moves down toward that floor, which is particularly valuable in fast-moving seasonal windows where prices can swing $5–$10 in a single afternoon.",
         "bullets": [
           "Set per-listing hard floors that survive any repricing event",
           "Raise each listing's floor before peak season so a higher floor holds your price up",
-          "Pro/Scale: respond to competitor sell-throughs in 5–15 minutes",
+          "Pro/Scale: respond to competitor sell-throughs within the 15-minute repricing cycle",
           "AI aggressiveness tuning (Pro and Scale) controls how fast and far each listing moves toward its floor"
         ]
       },
@@ -692,7 +692,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "My category has unpredictable spikes — a viral moment or a news event. How does seasonal floor logic apply?",
-        "a": "Event-driven spikes behave like compressed seasonal peaks. The floor logic is identical: raise your floor to reflect elevated demand willingness, let Undercut undercut the new competitor landscape at that higher floor, and hold the floor as the spike subsides rather than chasing the market back down. The 5-minute repricing interval on Scale is particularly useful here."
+        "a": "Event-driven spikes behave like compressed seasonal peaks. The floor logic is identical: raise your floor to reflect elevated demand willingness, let Undercut undercut the new competitor landscape at that higher floor, and hold the floor as the spike subsides rather than chasing the market back down. The 15-minute repricing interval on Pro and Scale is particularly useful here, recapturing position within one cycle as competitors move."
       },
       {
         "q": "Does Undercut automatically detect seasonal patterns and adjust my floors?",
@@ -768,9 +768,9 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Repricing Cadence: How Often Matters",
-        "body": "The buy box is reassigned continuously. A repricer that checks prices once per day is functionally useless for competitive categories. On Undercut's Pro plan, listings reprice every 15 minutes. On Scale, every 5 minutes. For high-velocity categories like consumer electronics, media, or health products where dozens of sellers compete on the same GTIN, 5-minute repricing means you are almost always at the buy box price. For lower-competition niches — vintage items, handmade, or single-SKU listings — even hourly repricing is often sufficient, making the Free or Starter plan adequate. Match your repricing cadence to the actual competition density in your category.",
+        "body": "The buy box is reassigned continuously. A repricer that checks prices once per day is functionally useless for competitive categories. On Undercut's Pro and Scale plans, listings reprice every 15 minutes. For high-velocity categories like consumer electronics, media, or health products where dozens of sellers compete on the same GTIN, 15-minute repricing means you recapture the buy box price within one cycle of any competitor move. For lower-competition niches — vintage items, handmade, or single-SKU listings — even hourly repricing is often sufficient, making the Free or Starter plan adequate. Match your repricing cadence to the actual competition density in your category.",
         "bullets": [
-          "Electronics and media: 5-minute repricing makes a measurable difference in buy box share.",
+          "Electronics and media: 15-minute repricing makes a measurable difference in buy box share.",
           "Clothing, collectibles, vintage: hourly or daily repricing is usually sufficient.",
           "Check your eBay seller dashboard for buy box percentage — that is the metric repricing speed affects most directly."
         ]
@@ -884,12 +884,12 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "How Undercut Enforces Your Floor on Every Reprice Cycle",
-        "body": "Once you calculate a floor using the formula above, you enter it as the Hard Floor for that listing in Undercut. From that point, every reprice cycle — whether running every 5 minutes on Scale or every 15 minutes on Pro — checks the competitor's current lowest price, calculates a target undercut, and then applies one rule before writing a new price: if the result is below your floor, the listing price is held at the floor instead. It does not reprice down. It does not match a competitor who is selling at a loss. It holds and waits for the market to recover.\n\nThis means you can run an aggressive repricing strategy — AI aggressiveness tuning on Pro and Scale, near-real-time cycles on Scale — without the anxiety that speed itself will cause a loss. The floor is not a suggestion; it is a hard constraint the algorithm cannot override.",
+        "body": "Once you calculate a floor using the formula above, you enter it as the Hard Floor for that listing in Undercut. From that point, every reprice cycle — running every 15 minutes on both Pro and Scale — checks the competitor's current lowest price, calculates a target undercut, and then applies one rule before writing a new price: if the result is below your floor, the listing price is held at the floor instead. It does not reprice down. It does not match a competitor who is selling at a loss. It holds and waits for the market to recover.\n\nThis means you can run an aggressive repricing strategy — AI aggressiveness tuning on Pro and Scale — without the anxiety that aggression itself will cause a loss. The floor is not a suggestion; it is a hard constraint the algorithm cannot override.",
         "bullets": [
           "Free plan: set floors on up to 25 listings, hourly repricing",
           "Starter ($29/mo): 100 listings with floor protection on every cycle",
           "Pro ($79/mo): 1,000 listings, AI aggressiveness tuning, 15-minute cycles",
-          "Scale ($199/mo): 10,000 listings, 5-minute cycles, full floor enforcement"
+          "Scale ($199/mo): 10,000 listings, 15-minute cycles, priority support, full floor enforcement"
         ]
       },
       {
@@ -970,10 +970,10 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "What Automated Repricing Actually Wins You",
-        "body": "An automated repricer does not just save time — it captures sales that would otherwise go to a competitor who undercut you by $0.50 while you were offline. eBay's buy box and Best Match algorithm favor competitive pricing, and the window to win a sale can be as short as 15 minutes after a competitor's price changes. Pro and Scale plan subscribers on Undercut reprice every 15 and 5 minutes respectively, meaning a competitor price drop is matched or beaten within one cycle rather than the next time you log in. In electronics — a category where median listing lifespans are under 48 hours and price volatility is high — missing even two repricing windows in a day can mean losing the sale entirely to a same-condition competitor who was $1.20 cheaper at the moment a buyer searched.",
+        "body": "An automated repricer does not just save time — it captures sales that would otherwise go to a competitor who undercut you by $0.50 while you were offline. eBay's buy box and Best Match algorithm favor competitive pricing, and the window to win a sale can be as short as 15 minutes after a competitor's price changes. Pro and Scale plan subscribers on Undercut both reprice every 15 minutes, meaning a competitor price drop is matched or beaten within one cycle rather than the next time you log in. In electronics — a category where median listing lifespans are under 48 hours and price volatility is high — missing even two repricing windows in a day can mean losing the sale entirely to a same-condition competitor who was $1.20 cheaper at the moment a buyer searched.",
         "bullets": [
-          "15-minute repricing (Pro): beat a competitor drop before most buyers even refresh their search",
-          "5-minute repricing (Scale): critical for fast-moving categories like consumer electronics and media",
+          "15-minute repricing (Pro and Scale): beat a competitor drop before most buyers even refresh their search",
+          "Scale adds capacity (10,000 listings) and priority support: critical for high-volume sellers in fast-moving categories like consumer electronics and media",
           "AI aggressiveness tuning (Pro+): set how hard Undercut chases the lowest price based on your margin tolerance"
         ]
       },
@@ -1012,7 +1012,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "Does repricing frequency actually matter, or is once a day enough?",
-        "a": "It depends on your category. For slow-moving niches like antiques or handmade items, daily repricing is often sufficient. For electronics, media, or any category with multiple competitors and high search volume, a price change by a competitor at 2am can cost you the next 50 sales before you wake up. Undercut's Pro plan reprices every 15 minutes and Scale every 5 minutes — the faster cycles matter most in high-velocity categories."
+        "a": "It depends on your category. For slow-moving niches like antiques or handmade items, daily repricing is often sufficient. For electronics, media, or any category with multiple competitors and high search volume, a price change by a competitor at 2am can cost you the next 50 sales before you wake up. Undercut's Pro and Scale plans both reprice every 15 minutes — that 15-minute cadence matters most in high-velocity categories, recapturing position within one cycle of any competitor move."
       },
       {
         "q": "Can I use automated repricing for only some of my listings and keep others manual?",
@@ -1093,7 +1093,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Automating the Strategy Without Losing Control",
-        "body": "A manual pricing strategy works for 10 listings. It does not work for 200. Automation should enforce your framework, not replace your judgment. That means two non-negotiable controls:\n\nFirst, the floor is inviolable. Every automated repricer decision runs through the floor check before executing. If beating the competitor requires breaching the floor, the repricer holds — and you get visibility into which listings are stuck so you can decide to relist, bundle, or liquidate through a different channel.\n\nSecond, repricing speed should match category volatility. Electronics and phone accessories can move significantly in hours; book prices are stable for days. Undercut's Pro plan reprices every 15 minutes and lets you tune aggressiveness on each listing, so fast-moving items stay competitive without over-firing on stable ones. Scale plan drops to 5-minute cycles for highest-volume sellers.",
+        "body": "A manual pricing strategy works for 10 listings. It does not work for 200. Automation should enforce your framework, not replace your judgment. That means two non-negotiable controls:\n\nFirst, the floor is inviolable. Every automated repricer decision runs through the floor check before executing. If beating the competitor requires breaching the floor, the repricer holds — and you get visibility into which listings are stuck so you can decide to relist, bundle, or liquidate through a different channel.\n\nSecond, repricing speed should match category volatility. Electronics and phone accessories can move significantly in hours; book prices are stable for days. Undercut's Pro plan reprices every 15 minutes and lets you tune aggressiveness on each listing, so fast-moving items stay competitive without over-firing on stable ones. The Scale plan runs on the same 15-minute cycle and adds capacity (up to 10,000 listings) plus priority support for highest-volume sellers.",
         "bullets": [
           "Set the floor on each listing from that item's own cost — consistent math across similar items keeps your floors accurate.",
           "Review floor accuracy quarterly as eBay fee structures, shipping costs, and COGS change.",
@@ -1184,12 +1184,12 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "How Undercut Enforces Floors Without Slowing Down Repricing",
-        "body": "Undercut checks the lowest qualified competitor price on a schedule (15 minutes on Pro, 5 minutes on Scale) and sets your price to beat it — subject to two hard limits: your ceiling and your floor. The floor is not a preference or a warning; the repricing engine will not write a price below it regardless of what competitors do. If the lowest competitor drops below your floor, your price stays at your floor. You do not follow them down. You also do not have to monitor the situation manually.\n\nThis matters most in volatile categories like consumer electronics and seasonal goods, where a single liquidating competitor can temporarily crater the visible price on a listing. Without a floor, your tool follows them into unprofitable territory. With Undercut, you hold position and wait for that seller to sell through their stock — then Undercut moves your price back up when the competitive floor rises again.",
+        "body": "Undercut checks the lowest qualified competitor price on a schedule (every 15 minutes on both Pro and Scale) and sets your price to beat it — subject to two hard limits: your ceiling and your floor. The floor is not a preference or a warning; the repricing engine will not write a price below it regardless of what competitors do. If the lowest competitor drops below your floor, your price stays at your floor. You do not follow them down. You also do not have to monitor the situation manually.\n\nThis matters most in volatile categories like consumer electronics and seasonal goods, where a single liquidating competitor can temporarily crater the visible price on a listing. Without a floor, your tool follows them into unprofitable territory. With Undercut, you hold position and wait for that seller to sell through their stock — then Undercut moves your price back up when the competitive floor rises again.",
         "bullets": [
           "Free plan: up to 25 listings, floor enforced on every one",
           "Starter ($29/mo): 100 listings, hourly repricing",
           "Pro ($79/mo): 1,000 listings, 15-minute repricing, AI aggressiveness tuning",
-          "Scale ($199/mo): 10,000 listings, 5-minute repricing"
+          "Scale ($199/mo): 10,000 listings, 15-minute repricing, priority support"
         ]
       },
       {
@@ -1276,11 +1276,11 @@ export const guides: PageContent[] = [
     "sections": [
       {
         "h2": "Why Repricing Cycle Time Directly Affects How Often You Sell",
-        "body": "eBay's Best Match algorithm surfaces recently-priced competitive listings near the top of search. When a competing seller drops below your price, you may slip from position one to position three or four in seconds. If your repricer checks prices once every 24 hours, you can spend an entire day invisible to buyers who sort by price. Repricers that run every 15 minutes return you to the front of the results 96 times a day. At 5-minute cycles you get 288 checks — nearly continuous coverage across every buying window, including lunch breaks, evenings, and weekend traffic peaks when conversion rates are highest.",
+        "body": "eBay's Best Match algorithm surfaces recently-priced competitive listings near the top of search. When a competing seller drops below your price, you may slip from position one to position three or four in seconds. If your repricer checks prices once every 24 hours, you can spend an entire day invisible to buyers who sort by price. Repricers that run every 15 minutes return you to the front of the results 96 times a day — coverage across every buying window, including lunch breaks, evenings, and weekend traffic peaks when conversion rates are highest. Undercut's Pro and Scale plans both run on this 15-minute cycle.",
         "bullets": [
-          "Hourly repricing: up to 59 minutes of lost position per competitor move",
-          "15-minute repricing: maximum 14 minutes of exposure — practical for most categories",
-          "5-minute repricing: near-real-time, critical for electronics and trending items where prices shift hourly"
+          "Daily repricing: up to 24 hours of lost position per competitor move",
+          "Hourly repricing (Free/Starter): up to 59 minutes of lost position per competitor move",
+          "15-minute repricing (Pro and Scale): maximum 14 minutes of exposure — the fastest cadence Undercut runs, and enough for high-velocity categories like electronics and trending items"
         ]
       },
       {
@@ -1293,14 +1293,14 @@ export const guides: PageContent[] = [
         ]
       },
       {
-        "h2": "Where 5-Minute vs. 15-Minute Repricing Actually Matters",
-        "body": "Not every category needs the fastest possible cycle. Matching cycle time to category volatility prevents unnecessary API churn and keeps your repricer focused where speed earns its keep.",
+        "h2": "Where 15-Minute vs. Hourly Repricing Actually Matters",
+        "body": "Not every category needs the fastest possible cycle. Matching cycle time to category volatility keeps your repricer focused where responsiveness earns its keep.",
         "bullets": [
-          "Electronics and video games: prices shift multiple times per hour around new releases or viral deals — 5-minute cycles are justified",
+          "Electronics and video games: prices shift multiple times per hour around new releases or viral deals — 15-minute cycles (Pro and Scale) are justified",
           "Clothing and apparel: price movement is slower; 15-minute cycles are sufficient for most sellers",
           "Books and media: commodity pricing changes infrequently; even hourly repricing outperforms manual adjustment",
           "Collectibles and vintage: floor protection matters more than speed — set a firm floor and let the repricer catch occasional undercuts",
-          "High-volume sellers (1,000+ SKUs): 5-minute repricing at scale requires a tool built for throughput, not one that queues listings for hours"
+          "High-volume sellers (1,000+ SKUs): 15-minute repricing at scale requires a tool built for throughput, not one that queues listings for hours — the Scale plan adds capacity (10,000 listings) and priority support on the same 15-minute cycle"
         ]
       },
       {
@@ -1315,22 +1315,22 @@ export const guides: PageContent[] = [
           "Free (25 listings): test repricing with your top sellers before committing — 14-day trial, no card required",
           "Starter $29/mo (100 listings): suitable for part-time sellers or single-category stores with stable inventory",
           "Pro $79/mo (1,000 listings): 15-minute repricing cycles plus AI aggressiveness tuning — the right tier for full-time eBay businesses",
-          "Scale $199/mo (10,000 listings): 5-minute cycles for high-volume operations where every minute of lost position costs real revenue"
+          "Scale $199/mo (10,000 listings): same 15-minute cycles plus priority support, built for high-volume operations that need the catalog capacity"
         ]
       }
     ],
     "faq": [
       {
         "q": "How often does Undercut actually reprice my listings — and does the cycle time vary by plan?",
-        "a": "Reprice frequency depends on your plan. Pro reprices every 15 minutes; Scale reprices every 5 minutes. Free and Starter plans reprice less frequently. If your category sees rapid intraday price swings — electronics, gaming, trending collectibles — upgrading to Pro or Scale is where faster cycles translate directly into more sales."
+        "a": "Reprice frequency depends on your plan. Pro and Scale both reprice every 15 minutes — the fastest cadence Undercut runs. Free and Starter plans reprice less frequently. If your category sees rapid intraday price swings — electronics, gaming, trending collectibles — upgrading to Pro is where the 15-minute cycle translates directly into more sales; move to Scale when your catalog outgrows Pro's 1,000-listing limit."
       },
       {
         "q": "What stops the repricer from dropping my price below what I paid for the item?",
         "a": "Your hard floor. Before activating repricing on any listing, you set a minimum acceptable price per SKU. Undercut will never submit a price below that floor, regardless of what competitors do. The floor is enforced at the listing level, so different items in your store can have different floors based on their individual cost basis."
       },
       {
-        "q": "Will a 5-minute repricer help me if I only have 50 listings?",
-        "a": "Only if those listings are in genuinely volatile categories where competitors move prices several times an hour. For most small catalogs, 15-minute repricing captures the meaningful competitive moves without the cost of the Scale plan. Start on Free or Starter, monitor how often your listings are being undercut, and upgrade if you see consistent lag."
+        "q": "Will the Scale plan help me if I only have 50 listings?",
+        "a": "No — Scale is about capacity (up to 10,000 listings) and priority support, not faster repricing. Pro and Scale reprice on the same 15-minute cycle, so a 50-listing catalog gains nothing from Scale. For most small catalogs, 15-minute repricing on a lower tier captures the meaningful competitive moves. Start on Free or Starter, monitor how often your listings are being undercut, and upgrade to Pro if you see consistent lag."
       },
       {
         "q": "Can I set different aggressiveness levels for different parts of my catalog?",
@@ -1402,7 +1402,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Setting a Hard Floor: A Worked Example",
-        "body": "The floor is the number below which no algorithm — however aggressive — can reprice your listing. Here is how to calculate one for a typical electronics accessory. Suppose your landed cost is $8.00, you charge $4.00 shipping (or absorb it in free shipping), eBay's final value fee is 13.25% of total sale price, and your minimum acceptable net margin is 15% of sale price. Working backwards: if sale price = X, then X minus 0.1325X minus $8 minus $4 must equal at least 0.15X. Solving: 0.7175X = $12, so X = $16.73. Round up to $17.00 and that is your floor. Enter $17.00 in Undercut and the repricer will never go below it regardless of what competitors do. On Pro and Scale plans, repricing checks happen every 15 and 5 minutes respectively, so your floor is enforced in near real-time.",
+        "body": "The floor is the number below which no algorithm — however aggressive — can reprice your listing. Here is how to calculate one for a typical electronics accessory. Suppose your landed cost is $8.00, you charge $4.00 shipping (or absorb it in free shipping), eBay's final value fee is 13.25% of total sale price, and your minimum acceptable net margin is 15% of sale price. Working backwards: if sale price = X, then X minus 0.1325X minus $8 minus $4 must equal at least 0.15X. Solving: 0.7175X = $12, so X = $16.73. Round up to $17.00 and that is your floor. Enter $17.00 in Undercut and the repricer will never go below it regardless of what competitors do. On Pro and Scale plans, repricing checks happen every 15 minutes, so your floor is enforced on every cycle.",
         "bullets": [
           "Floor formula: (cost + shipping) / (1 - fee% - target margin%) = minimum price",
           "Example result: $8 cost + $4 ship + 13.25% fees + 15% margin = $17.00 floor",
@@ -1411,12 +1411,12 @@ export const guides: PageContent[] = [
         ]
       },
       {
-        "h2": "Repricing Speed: When 5 Minutes vs 15 Minutes Actually Matters",
-        "body": "Pro plan reprices every 15 minutes; Scale plan every 5 minutes. For most categories — clothing, books, collectibles — 15 minutes is ample. A vintage jacket is not going to be undercut and sell in under a quarter hour. Electronics and high-velocity commodity items are different. A popular phone case or cable can see three or four price changes in an hour during peak shopping windows (evenings, weekends, major sale events). At 15-minute intervals, you may miss a window entirely. At 5 minutes, you catch it. The practical rule: if your average time-to-sale is under 48 hours and your category has more than 10 active competitive sellers, Scale's 5-minute cadence will outperform Pro's 15-minute cadence in win rate. For slower categories, Pro's AI tuning without the faster cadence is more than sufficient.",
+        "h2": "Repricing Speed: When 15-Minute Cycles vs Hourly Actually Matters",
+        "body": "Pro and Scale plans both reprice every 15 minutes; Free and Starter run on a slower cadence. For most categories — clothing, books, collectibles — 15 minutes is ample. A vintage jacket is not going to be undercut and sell in under a quarter hour. Electronics and high-velocity commodity items are different. A popular phone case or cable can see three or four price changes in an hour during peak shopping windows (evenings, weekends, major sale events). On an hourly or daily cadence you may miss a window entirely; at 15 minutes you catch it. The practical rule: if your average time-to-sale is under 48 hours and your category has more than 10 active competitive sellers, the 15-minute cadence on Pro or Scale will meaningfully outperform a slower plan in win rate. The choice between Pro and Scale is about catalog size (1,000 vs 10,000 listings) and priority support, not cycle speed.",
         "bullets": [
-          "5-minute repricing is meaningful for electronics, consumables, and commodity accessories",
-          "15-minute repricing is sufficient for clothing, books, collectibles, and most vintage items",
-          "Both speeds are bounded by your floors — faster repricing does not mean more risk"
+          "15-minute repricing (Pro and Scale) is meaningful for electronics, consumables, and commodity accessories",
+          "Hourly repricing (Free/Starter) is sufficient for clothing, books, collectibles, and most vintage items",
+          "Both Pro and Scale run the same 15-minute cycle, bounded by your floors — faster repricing does not mean more risk"
         ]
       },
       {
@@ -1444,8 +1444,8 @@ export const guides: PageContent[] = [
         "a": "Yes. Floors are set at the listing level, but you can apply a category default and then override individual SKUs. For example, set a 20% margin floor as the default for your electronics category, then override specific high-competition SKUs to 12% where you need more price flexibility to compete."
       },
       {
-        "q": "Will the 5-minute repricing on Scale cause prices to swing wildly?",
-        "a": "No. Repricing frequency controls how often the engine checks, not how often it changes price. If nothing meaningful has changed in the competitive landscape, the engine holds price. Rapid oscillation only happens when competitors are themselves repricing frequently — and in that case, responding in 5 minutes rather than 15 means you spend less time underpriced between checks."
+        "q": "Will 15-minute repricing cause prices to swing wildly?",
+        "a": "No. Repricing frequency controls how often the engine checks, not how often it changes price. If nothing meaningful has changed in the competitive landscape, the engine holds price. Rapid oscillation only happens when competitors are themselves repricing frequently — and in that case, checking every 15 minutes means you spend less time underpriced between checks than you would on an hourly or daily cadence. Your hard floor still bounds every move regardless of how often the engine runs."
       },
       {
         "q": "I am on the Free plan. Can I still set hard floors?",
@@ -1498,7 +1498,7 @@ export const guides: PageContent[] = [
           "Free: 25 active listings, no credit card, unlimited floor rules. Enough for a new seller to test repricing on their best SKUs.",
           "Starter ($29/mo): 100 listings. Repricing runs on a standard schedule. Right for part-time sellers with a focused catalog.",
           "Pro ($79/mo): 1,000 listings, 15-minute reprice cycles, and AI aggressiveness tuning — tells the algorithm how hard to chase the lowest price.",
-          "Scale ($199/mo): 10,000 listings, 5-minute cycles. Built for high-volume operations where speed directly translates to buy box wins."
+          "Scale ($199/mo): 10,000 listings, same 15-minute cycles as Pro, plus priority support. Built for high-volume operations that need the catalog capacity."
         ]
       },
       {
@@ -1511,7 +1511,7 @@ export const guides: PageContent[] = [
         "bullets": [
           "Worth paying for: Faster reprice cycles (Pro/Scale) if you sell in competitive categories like electronics or media, where listings turn hourly.",
           "Worth paying for: AI aggressiveness tuning (Pro+) if you have a mixed catalog — some SKUs should chase the floor hard, others shouldn't.",
-          "Not worth paying for at the start: 5-minute cycles if your category moves slowly. Collectibles, vintage, and handmade items rarely need sub-15-minute repricing.",
+          "Not worth paying for at the start: the Scale plan's extra capacity if your category moves slowly or your catalog is small. Collectibles, vintage, and handmade items rarely need the fastest cadence, and Scale costs more for listing headroom you may not use.",
           "Not worth paying for ever: Any tool that doesn't let you set a hard per-item floor. Speed without a floor is how sellers accidentally liquidate inventory at a loss.",
           "Not worth paying for: Per-listing setup fees, 'AI insights' dashboards with no repricer underneath, or tools that charge extra for floor-rule features."
         ]
@@ -1618,7 +1618,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Step 3 — Turn On Repricing and Read the Dashboard",
-        "body": "After floors are set, enable repricing per listing or in bulk. Undercut checks competitor prices and updates yours on its next repricing cycle — every hour on the Free plan, every 15 minutes on Pro, every 5 minutes on Scale. For beginners, hourly is plenty. Most eBay buyers do not refresh pages by the minute.\n\nThe dashboard shows three columns that matter most: your current price, the lowest competitor price, and your floor. When the competitor price falls below your floor, your listing holds at floor price and a small indicator flags the item as floor-locked. That flag is useful — it tells you a competitor may be selling below cost, liquidating, or pricing incorrectly. You can decide whether to reprice manually or simply wait them out.",
+        "body": "After floors are set, enable repricing per listing or in bulk. Undercut checks competitor prices and updates yours on its next repricing cycle — every hour on the Free plan, and every 15 minutes on Pro and Scale. For beginners, hourly is plenty. Most eBay buyers do not refresh pages by the minute.\n\nThe dashboard shows three columns that matter most: your current price, the lowest competitor price, and your floor. When the competitor price falls below your floor, your listing holds at floor price and a small indicator flags the item as floor-locked. That flag is useful — it tells you a competitor may be selling below cost, liquidating, or pricing incorrectly. You can decide whether to reprice manually or simply wait them out.",
         "bullets": [
           "Floor-locked items hold at your minimum — no action required from you.",
           "Watch the floor-locked count over a week; a high count may mean your floor needs recalibrating.",
@@ -1837,7 +1837,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "When and Why to Automate — and What 'Floor-First' Means",
-        "body": "Automation earns its keep at the point where manual checking costs more in time than it saves in margin. For most sellers that threshold is somewhere between 50 and 150 active listings. The critical design question is not speed — it is constraint. A repricer that only chases the lowest price without limits will eventually reach your cost, then go below it, because it has no way to know what your cost is. A floor-first repricer inverts the logic: you set the floor per SKU, and the repricer is only permitted to move the price between that floor and your ceiling. It will always try to beat the lowest competitor, but it physically cannot go below your floor. The result is that you stay competitive on listings where the market supports your margin, and you automatically hold firm on listings where competitors have priced themselves into losses — without you having to watch either situation manually. Undercut's 15-minute repricing interval on the Pro plan means your prices are never more than 15 minutes stale. The 5-minute interval on Scale brings that window down further for high-velocity categories like trading cards, media, and consumer electronics where prices move intraday."
+        "body": "Automation earns its keep at the point where manual checking costs more in time than it saves in margin. For most sellers that threshold is somewhere between 50 and 150 active listings. The critical design question is not speed — it is constraint. A repricer that only chases the lowest price without limits will eventually reach your cost, then go below it, because it has no way to know what your cost is. A floor-first repricer inverts the logic: you set the floor per SKU, and the repricer is only permitted to move the price between that floor and your ceiling. It will always try to beat the lowest competitor, but it physically cannot go below your floor. The result is that you stay competitive on listings where the market supports your margin, and you automatically hold firm on listings where competitors have priced themselves into losses — without you having to watch either situation manually. Undercut's 15-minute repricing interval on the Pro and Scale plans means your prices are never more than 15 minutes stale, which keeps you responsive in high-velocity categories like trading cards, media, and consumer electronics where prices move intraday. Scale adds capacity (up to 10,000 listings) and priority support on that same 15-minute cycle for sellers managing large catalogs in those categories."
       },
       {
         "h2": "Putting It Together: A Simple Repricing Workflow",
@@ -1944,11 +1944,11 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Reprice Frequency and AI Aggressiveness at Scale",
-        "body": "Speed and strategy interact differently across catalog sizes. At small volumes — the Free plan covers 25 listings — hourly repricing is usually fast enough because your competitors are not moving that quickly. As your catalog grows past a few hundred listings, faster cycles matter more because you are competing in more sub-niches simultaneously. Undercut's Pro plan reprices every 15 minutes and adds AI aggressiveness tuning, which you set per listing to control how sharply that listing moves toward its floor as it undercuts the lowest competitor. The Scale plan runs every 5 minutes across up to 10,000 listings and is designed for liquidators and wholesale resellers where margin windows open and close within an hour. In all cases the floor constraint is enforced at every reprice cycle, regardless of how aggressive the AI setting is.",
+        "body": "Speed and strategy interact differently across catalog sizes. At small volumes — the Free plan covers 25 listings — hourly repricing is usually fast enough because your competitors are not moving that quickly. As your catalog grows past a few hundred listings, a faster cycle matters more because you are competing in more sub-niches simultaneously. Undercut's Pro plan reprices every 15 minutes and adds AI aggressiveness tuning, which you set per listing to control how sharply that listing moves toward its floor as it undercuts the lowest competitor. The Scale plan runs on the same 15-minute cycle across up to 10,000 listings, with priority support, and is designed for liquidators and wholesale resellers managing large catalogs. In all cases the floor constraint is enforced at every reprice cycle, regardless of how aggressive the AI setting is.",
         "bullets": [
           "Free and Starter plans: reprice on a standard cycle, suitable for steady-state catalogs.",
           "Pro (15-min cycle + AI tuning): right for active resellers competing in fast-moving categories.",
-          "Scale (5-min cycle, 10,000 listings): built for high-volume and liquidation operations.",
+          "Scale (same 15-min cycle, 10,000 listings, priority support): built for high-volume and liquidation operations.",
           "AI aggressiveness affects how far below the competitor you go — the floor caps the downside."
         ]
       },
@@ -2054,17 +2054,17 @@ export const guides: PageContent[] = [
         "bullets": [
           "Set an outlier threshold: ignore any competitor priced more than 25-35% below the category median",
           "Review repricing logs weekly for any listing that dropped more than 20% in a single repricing cycle",
-          "Use Undercut's 15-minute (Pro) or 5-minute (Scale) cadence to recover quickly once an outlier sells through"
+          "Use Undercut's 15-minute cadence (Pro and Scale) to recover quickly once an outlier sells through"
         ]
       },
       {
         "h2": "Best Practice #4: Match Repricing Cadence to Category Velocity",
-        "body": "Not every category needs to reprice every five minutes. High-velocity categories — consumer electronics, phone accessories, popular media — can see prices shift meaningfully within an hour. Slow-moving categories — vintage, antiques, collectibles, niche books — may not need repricing more than once per day, and repricing too aggressively in slow categories can signal desperation to buyers who are already doing price research.\n\nMatch your cadence to actual category behavior. As a starting framework: electronics and accessories benefit from 15-minute repricing; clothing, shoes, and general merchandise are well-served by hourly; collectibles, vintage, and antiques rarely need better than daily. Over-repricing is not a performance problem — it is a margin problem, because it trains the algorithm to chase noise.",
+        "body": "Not every category needs the fastest available cadence. High-velocity categories — consumer electronics, phone accessories, popular media — can see prices shift meaningfully within an hour. Slow-moving categories — vintage, antiques, collectibles, niche books — may not need repricing more than once per day, and repricing too aggressively in slow categories can signal desperation to buyers who are already doing price research.\n\nMatch your cadence to actual category behavior. As a starting framework: electronics and accessories benefit from 15-minute repricing; clothing, shoes, and general merchandise are well-served by hourly; collectibles, vintage, and antiques rarely need better than daily. Over-repricing is not a performance problem — it is a margin problem, because it trains the algorithm to chase noise.",
         "bullets": [
-          "Electronics / phone accessories: 5–15 minute cadence",
+          "Electronics / phone accessories: 15-minute cadence",
           "Clothing, shoes, home goods: 30–60 minute cadence",
           "Books, media, collectibles: daily or every 12 hours",
-          "Use Undercut Pro (15-min) for most active categories; Scale (5-min) for high-volume electronics operations"
+          "Use Undercut Pro (15-min) for most active categories; Scale runs the same 15-min cycle with more capacity for high-volume electronics operations"
         ]
       },
       {
@@ -2693,7 +2693,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Repricing Frequency for Release-Day Volatility",
-        "body": "On a normal day, repricing once or twice is fine. On a release or restock day, the comp set can move every few minutes, and the seller who is consistently one position too high simply does not get the sale. The faster your repricing cycle, the more time your listing spends at the top of search while the market churns. Undercut's Pro plan reprices every 15 minutes and Scale reprices every 5 minutes — for sellers moving real volume around drops, that cadence is the difference between catching the wave and watching it pass. If you are just starting, the free plan (25 listings, repriced multiple times daily) is enough to learn the floor-first workflow on a single model before you scale up."
+        "body": "On a normal day, repricing once or twice is fine. On a release or restock day, the comp set can move every few minutes, and the seller who is consistently one position too high simply does not get the sale. The faster your repricing cycle, the more time your listing spends at the top of search while the market churns. Undercut's Pro and Scale plans both reprice every 15 minutes — for sellers moving real volume around drops, that cadence is the difference between catching the wave and watching it pass. Scale adds capacity (up to 10,000 listings) and priority support on the same 15-minute cycle for sellers running large catalogs through those drops. If you are just starting, the free plan (25 listings, repriced multiple times daily) is enough to learn the floor-first workflow on a single model before you scale up."
       }
     ],
     "faq": [
@@ -2787,7 +2787,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Repricing Frequency and Aggressiveness for Parts Inventories",
-        "body": "Most parts do not move on a minute-by-minute basis the way hyped sneakers do, so an aggressive 5-minute cycle is rarely necessary on the whole catalog. What matters more is consistent coverage across a large SKU count and the ability to be more aggressive on slow-moving or seasonal stock (think AC parts in fall) while staying conservative on scarce OEM pieces with little competition. On Pro and Scale, AI aggressiveness tuning lets you set that behavior on each listing, so a warehouse of thousands of parts does not get one blunt setting. A high-volume parts seller typically lands on Pro ($79/mo, 1,000 listings, 15-minute repricing) or Scale ($199/mo, 10,000 listings)."
+        "body": "Most parts do not move on a minute-by-minute basis the way hyped sneakers do, so even a tight repricing cycle is rarely the deciding factor on the whole catalog. What matters more is consistent coverage across a large SKU count and the ability to be more aggressive on slow-moving or seasonal stock (think AC parts in fall) while staying conservative on scarce OEM pieces with little competition. On Pro and Scale, AI aggressiveness tuning lets you set that behavior on each listing, so a warehouse of thousands of parts does not get one blunt setting. A high-volume parts seller typically lands on Pro ($79/mo, 1,000 listings, 15-minute repricing) or Scale ($199/mo, 10,000 listings, same 15-minute repricing plus priority support)."
       }
     ],
     "faq": [
@@ -2809,7 +2809,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "How many parts can I reprice on each plan?",
-        "a": "The free plan covers 25 listings, Starter ($29/mo) covers 100, Pro ($79/mo) covers 1,000 with 15-minute repricing, and Scale ($199/mo) covers 10,000 with 5-minute cycles. Most serious parts sellers run Pro or Scale given catalog size."
+        "a": "The free plan covers 25 listings, Starter ($29/mo) covers 100, Pro ($79/mo) covers 1,000 with 15-minute repricing, and Scale ($199/mo) covers 10,000 on the same 15-minute cycle plus priority support. Most serious parts sellers run Pro or Scale given catalog size."
       }
     ],
     "cta": {
@@ -2881,7 +2881,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Repricing Cadence for Spikes and Slabs",
-        "body": "During a spike, minutes matter — the lowest live listing changes fast and the sale goes to whoever is at the front when a buyer with cash shows up. Faster repricing cycles keep you there. Undercut's Pro plan reprices every 15 minutes and Scale every 5 minutes, which suits sellers actively trading hot singles. For a slower long-tail inventory of commons and mid-value slabs, daily repricing on the free or Starter plan is plenty. Many card sellers split the difference: a focused, fast-repriced set of high-value cards plus a larger, lightly-repriced long tail, scaling the plan to the listing count."
+        "body": "During a spike, minutes matter — the lowest live listing changes fast and the sale goes to whoever is at the front when a buyer with cash shows up. A tight repricing cycle keeps you there. Undercut's Pro and Scale plans both reprice every 15 minutes, which suits sellers actively trading hot singles. For a slower long-tail inventory of commons and mid-value slabs, daily repricing on the free or Starter plan is plenty. Many card sellers split the difference: a focused, frequently-repriced set of high-value cards plus a larger, lightly-repriced long tail, scaling the plan to the listing count. Scale's edge over Pro is capacity (10,000 listings) and priority support, not a faster cycle."
       }
     ],
     "faq": [
@@ -2895,7 +2895,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "Can repricing keep up with a card that's spiking?",
-        "a": "Yes, that's where it shines. On Pro (15-minute) or Scale (5-minute) cycles, your listing stays at or near the front of search as the lowest live price moves, so you catch the sale instead of being a day behind with a manual price."
+        "a": "Yes, that's where it shines. On Pro or Scale, both running a 15-minute cycle, your listing stays at or near the front of search as the lowest live price moves, so you catch the sale instead of being a day behind with a manual price."
       },
       {
         "q": "Is it worth automating for a few hundred singles?",
@@ -2903,7 +2903,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "Which plan fits a card inventory?",
-        "a": "Free covers 25 listings, Starter ($29/mo) 100, Pro ($79/mo) 1,000 with 15-minute repricing, and Scale ($199/mo) 10,000 with 5-minute cycles. Card sellers often run Pro for an active inventory or split into a fast high-value set plus a larger long tail."
+        "a": "Free covers 25 listings, Starter ($29/mo) 100, Pro ($79/mo) 1,000 with 15-minute repricing, and Scale ($199/mo) 10,000 on the same 15-minute cycle plus priority support. Card sellers often run Pro for an active inventory or split into a frequently-repriced high-value set plus a larger long tail."
       }
     ],
     "cta": {
@@ -3165,7 +3165,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Break-Even by Plan",
-        "body": "The break-even scales with plan cost and your profit per sale. On Free (25 listings) the cost is zero, so any recovered sale is pure gain — it's the obvious starting point. On Starter ($29/mo) you need roughly two extra sales a month at a $14 average. On Pro ($79/mo, 1,000 listings, 15-minute repricing) the break-even is around six extra sales a month, which a store large enough to need 1,000 listings clears easily — and the faster cycle plus AI aggressiveness tuning typically lifts the recovered-sales number well past that. On Scale ($199/mo, 10,000 listings, 5-minute repricing), the per-listing cost is tiny and the break-even is trivial relative to that inventory size. The rule of thumb: match the plan to your listing count, and the break-even takes care of itself.",
+        "body": "The break-even scales with plan cost and your profit per sale. On Free (25 listings) the cost is zero, so any recovered sale is pure gain — it's the obvious starting point. On Starter ($29/mo) you need roughly two extra sales a month at a $14 average. On Pro ($79/mo, 1,000 listings, 15-minute repricing) the break-even is around six extra sales a month, which a store large enough to need 1,000 listings clears easily — and the faster cycle plus AI aggressiveness tuning typically lifts the recovered-sales number well past that. On Scale ($199/mo, 10,000 listings, same 15-minute repricing plus priority support), the per-listing cost is tiny and the break-even is trivial relative to that inventory size. The rule of thumb: match the plan to your listing count, and the break-even takes care of itself.",
         "bullets": [
           "Free: zero cost, any recovered sale is pure gain — start here",
           "Starter $29: ~2 extra sales/month to break even",
@@ -3481,7 +3481,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Use Both — for What Each Is Good At",
-        "body": "This isn't either/or. Use eBay's bulk editor for what it's best at: the occasional deliberate reset, a scheduled sale, or fixing a category-wide mistake. Then let automated repricing handle the relentless day-to-day of staying competitive without going below your floor. In practice that means you bulk-set sensible starting prices and floors, then hand the ongoing adjustments to Undercut, which reprices on a 15-minute (Pro) or 5-minute (Scale) cycle and stops at every floor. The manual tool sets the stage; the repricer runs the show. You stop choosing between stale-but-free and current-but-manual, because automation gives you current-and-hands-off."
+        "body": "This isn't either/or. Use eBay's bulk editor for what it's best at: the occasional deliberate reset, a scheduled sale, or fixing a category-wide mistake. Then let automated repricing handle the relentless day-to-day of staying competitive without going below your floor. In practice that means you bulk-set sensible starting prices and floors, then hand the ongoing adjustments to Undercut, which reprices on a 15-minute cycle (Pro and Scale alike) and stops at every floor. The manual tool sets the stage; the repricer runs the show. You stop choosing between stale-but-free and current-but-manual, because automation gives you current-and-hands-off."
       }
     ],
     "faq": [
@@ -3503,7 +3503,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "How fast does automated repricing react versus manual edits?",
-        "a": "Undercut reprices on a 15-minute cycle (Pro) or 5-minute cycle (Scale), versus whenever you next sit down to bulk-edit. That difference is how much time your listings spend at the front of the price sort instead of stale and invisible."
+        "a": "Undercut reprices on a 15-minute cycle (Pro and Scale alike), versus whenever you next sit down to bulk-edit. That difference is how much time your listings spend at the front of the price sort instead of stale and invisible."
       }
     ],
     "cta": {
@@ -3581,7 +3581,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "How Undercut Tracks and Reprices Together",
-        "body": "Undercut treats tracking and repricing as one system. It reads the lowest comparable competitor for each listing, records it, and immediately uses it to reprice — undercutting down to the price you set and never below your floor. You see the latest competitor low right next to each listing in the dashboard, so the data that drove the price is visible, not hidden. On Pro the cycle runs every 15 minutes and on Scale every 5, which is how often the tracking-and-decision loop closes. You get the competitor intelligence and the action it implies in the same place, instead of maintaining a tracking spreadsheet on one screen and editing prices on another."
+        "body": "Undercut treats tracking and repricing as one system. It reads the lowest comparable competitor for each listing, records it, and immediately uses it to reprice — undercutting down to the price you set and never below your floor. You see the latest competitor low right next to each listing in the dashboard, so the data that drove the price is visible, not hidden. On both Pro and Scale the cycle runs every 15 minutes, which is how often the tracking-and-decision loop closes. You get the competitor intelligence and the action it implies in the same place, instead of maintaining a tracking spreadsheet on one screen and editing prices on another."
       }
     ],
     "faq": [
@@ -3717,7 +3717,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "How often does Undercut check competitor prices on Pro and Scale plans?",
-        "a": "On the Pro plan ($79/mo), Undercut checks and reprices every 15 minutes. On the Scale plan ($199/mo), the interval drops to every 5 minutes. Both intervals are fast enough to respond to most competitor price changes within a single shopping session, while the hard floor ensures rapid repricing never accidentally breaches your minimum."
+        "a": "On both the Pro plan ($79/mo) and the Scale plan ($199/mo), Undercut checks and reprices every 15 minutes — Scale's difference is capacity (up to 10,000 listings) and priority support, not a faster cycle. The 15-minute interval is fast enough to respond to most competitor price changes within a single shopping session, while the hard floor ensures rapid repricing never accidentally breaches your minimum."
       },
       {
         "q": "Can I set a different floor for each of my listings?",
@@ -3784,12 +3784,12 @@ export const guides: PageContent[] = [
           "Peak seasons by sub-category: lawn care (Mar–May), outdoor power tools (Apr–Jun), snow removal (Nov–Dec), grow lights (Oct–Feb)",
           "Use eBay's 'Sold Listings' filter to find the 90th-percentile recent sale price — that becomes your seasonal ceiling",
           "Pro plan ($79/mo) reprices every 15 minutes, catching flash price drops and spikes faster than daily manual checks",
-          "Scale plan ($199/mo) reprices every 5 minutes — valuable for high-volume seasonal SKUs with dozens of competitors"
+          "Scale plan ($199/mo) reprices on the same 15-minute cycle and adds capacity (10,000 listings) plus priority support — valuable for high-volume seasonal SKUs with dozens of competitors"
         ]
       },
       {
         "h2": "Setting Up Undercut for a Home & Garden Catalog: Step-by-Step",
-        "body": "Getting Undercut configured correctly for bulky, shipping-heavy inventory takes about 30 minutes of upfront setup and pays dividends all season. Here is how to approach it.\n\nStep 1 — Build your floor spreadsheet before connecting eBay. For each SKU, note: (a) your COGS, (b) your actual outbound shipping cost in dollars, (c) eBay's estimated final value fee percentage for the category, and (d) your minimum acceptable net margin in dollars. Sum those four numbers to get your floor. Example: COGS $22 + shipping $14 + eBay fees at a $60 price point ≈ $7.95 (13.25%) + minimum margin $8 = floor of $51.95. Round up to $52 to give yourself a buffer.\n\nStep 2 — Connect your eBay store to Undercut via the OAuth flow. Undercut imports your active listings automatically. Free plan covers 25 listings; Starter ($29/mo) covers 100; Pro ($79/mo) covers 1,000; Scale ($199/mo) covers 10,000.\n\nStep 3 — Assign floors (and optional ceilings) to each listing. You can do this individually or use Undercut's bulk editing interface. For seasonal SKUs, set a ceiling that reflects the peak-season price you've researched.\n\nStep 4 — Choose your repricing interval. Starter and Free plans reprice at standard intervals. Pro reprices every 15 minutes, Scale every 5 minutes. For home and garden, 15-minute repricing is usually sufficient outside peak promotional events.\n\nStep 5 — Monitor your first week's results. Check that no listing is hitting its floor repeatedly — that signals your floor may be above market and worth investigating. If you're consistently at ceiling, demand is strong and you may have room to raise the ceiling.",
+        "body": "Getting Undercut configured correctly for bulky, shipping-heavy inventory takes about 30 minutes of upfront setup and pays dividends all season. Here is how to approach it.\n\nStep 1 — Build your floor spreadsheet before connecting eBay. For each SKU, note: (a) your COGS, (b) your actual outbound shipping cost in dollars, (c) eBay's estimated final value fee percentage for the category, and (d) your minimum acceptable net margin in dollars. Sum those four numbers to get your floor. Example: COGS $22 + shipping $14 + eBay fees at a $60 price point ≈ $7.95 (13.25%) + minimum margin $8 = floor of $51.95. Round up to $52 to give yourself a buffer.\n\nStep 2 — Connect your eBay store to Undercut via the OAuth flow. Undercut imports your active listings automatically. Free plan covers 25 listings; Starter ($29/mo) covers 100; Pro ($79/mo) covers 1,000; Scale ($199/mo) covers 10,000.\n\nStep 3 — Assign floors (and optional ceilings) to each listing. You can do this individually or use Undercut's bulk editing interface. For seasonal SKUs, set a ceiling that reflects the peak-season price you've researched.\n\nStep 4 — Choose your plan. Starter and Free plans reprice at standard intervals. Pro and Scale both reprice every 15 minutes; Scale's difference is capacity (10,000 listings) and priority support, not a faster cycle. For home and garden, 15-minute repricing is usually sufficient outside peak promotional events.\n\nStep 5 — Monitor your first week's results. Check that no listing is hitting its floor repeatedly — that signals your floor may be above market and worth investigating. If you're consistently at ceiling, demand is strong and you may have room to raise the ceiling.",
         "bullets": [
           "Always use per-listing shipping costs, not a blended average, to protect margin on your heaviest SKUs",
           "Bulk-assign ceilings by season: set spring/summer ceilings in February, fall/winter ceilings in August",
@@ -3809,12 +3809,12 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Choosing the Right Undercut Plan for Your Home & Garden Volume",
-        "body": "Home and garden sellers vary enormously in catalog size. A hobbyist reselling surplus garden tools might have 20 active listings. A wholesaler of outdoor power equipment might have 3,000. Undercut's plan tiers map cleanly to these different scales.\n\nFree plan (25 listings, $0/mo): Perfect for testing the repricer on your best-selling SKUs, or for a small seller who stocks fewer than 25 active home/garden lines. No card required.\n\nStarter plan (100 listings, $29/mo): Covers a focused home and garden store — say, 80 garden tools and 20 outdoor power accessories. Repricing runs at standard intervals. No AI aggressiveness tuning. Good entry point for sellers doing $2,000–$8,000/mo in home/garden GMV.\n\nPro plan (1,000 listings, $79/mo): The sweet spot for serious home and garden sellers. The 15-minute repricing interval matters here because competitor pricing on seasonal items can shift multiple times a day during peak weeks. Claude AI's aggressiveness tuning means you can run hundreds of listings without manually calibrating each one — the AI handles conservative vs. aggressive posture per listing. This plan is well-suited to sellers doing $10,000–$80,000/mo in GMV.\n\nScale plan (10,000 listings, $199/mo): Built for large-volume sellers or multi-brand home/garden wholesalers. The 5-minute repricing cycle is particularly valuable during promotional events like eBay's seasonal sales, when prices move rapidly. At $199/mo for up to 10,000 listings, the per-listing cost is under $0.02/mo.\n\nAll new signups get a no-card-required 14-day trial at Starter level (100 listings). That is enough to reprice a meaningful slice of a home and garden catalog and measure the impact before any payment.",
+        "body": "Home and garden sellers vary enormously in catalog size. A hobbyist reselling surplus garden tools might have 20 active listings. A wholesaler of outdoor power equipment might have 3,000. Undercut's plan tiers map cleanly to these different scales.\n\nFree plan (25 listings, $0/mo): Perfect for testing the repricer on your best-selling SKUs, or for a small seller who stocks fewer than 25 active home/garden lines. No card required.\n\nStarter plan (100 listings, $29/mo): Covers a focused home and garden store — say, 80 garden tools and 20 outdoor power accessories. Repricing runs at standard intervals. No AI aggressiveness tuning. Good entry point for sellers doing $2,000–$8,000/mo in home/garden GMV.\n\nPro plan (1,000 listings, $79/mo): The sweet spot for serious home and garden sellers. The 15-minute repricing interval matters here because competitor pricing on seasonal items can shift multiple times a day during peak weeks. Claude AI's aggressiveness tuning means you can run hundreds of listings without manually calibrating each one — the AI handles conservative vs. aggressive posture per listing. This plan is well-suited to sellers doing $10,000–$80,000/mo in GMV.\n\nScale plan (10,000 listings, $199/mo): Built for large-volume sellers or multi-brand home/garden wholesalers. It runs the same 15-minute repricing cycle as Pro and adds priority support, with the headroom to cover a very large catalog during promotional events like eBay's seasonal sales, when prices move rapidly. At $199/mo for up to 10,000 listings, the per-listing cost is under $0.02/mo.\n\nAll new signups get a no-card-required 14-day trial at Starter level (100 listings). That is enough to reprice a meaningful slice of a home and garden catalog and measure the impact before any payment.",
         "bullets": [
           "Free: 25 listings, $0 — test on your top home/garden SKUs",
           "Starter: 100 listings, $29/mo — solid for focused stores up to ~100 active lines",
           "Pro: 1,000 listings, $79/mo — 15-min repricing + Claude AI tuning, best for serious seasonal sellers",
-          "Scale: 10,000 listings, $199/mo — 5-min repricing for large catalogs and high-velocity promotional events"
+          "Scale: 10,000 listings, $199/mo — same 15-min repricing plus priority support, for large catalogs and high-velocity promotional events"
         ]
       }
     ],
@@ -3829,7 +3829,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "How often does Undercut reprice my home and garden listings?",
-        "a": "Repricing frequency depends on your plan: Free and Starter run at standard intervals, Pro reprices every 15 minutes, and Scale reprices every 5 minutes. For most home and garden sellers, 15-minute repricing (Pro, $79/mo) is sufficient to respond to competitor price changes within the same day, including during fast-moving seasonal promotional events."
+        "a": "Repricing frequency depends on your plan: Free and Starter run at standard intervals, while Pro and Scale both reprice every 15 minutes. Scale's difference over Pro is capacity (up to 10,000 listings) and priority support, not a faster cycle. For most home and garden sellers, 15-minute repricing (Pro, $79/mo) is sufficient to respond to competitor price changes within the same day, including during fast-moving seasonal promotional events."
       },
       {
         "q": "What happens if all my competitors price below my hard floor?",

@@ -28,12 +28,12 @@ export const alternatives: PageContent[] = [
       },
       {
         "h2": "Which Plan Fits Your Catalog Size?",
-        "body": "Undercut's four tiers are sized for real eBay seller stages — from someone testing the tool on 25 listings to a high-volume operation repricing 10,000 SKUs every five minutes.",
+        "body": "Undercut's four tiers are sized for real eBay seller stages — from someone testing the tool on 25 listings to a high-volume operation repricing 10,000 SKUs with priority support.",
         "bullets": [
           "Free: up to 25 listings, no card required — enough to validate the floor logic on your fastest-moving items",
           "Starter $29/mo: 100 listings — right for most part-time or side-hustle sellers",
           "Pro $79/mo: 1,000 listings, 15-minute reprice cycles, and AI aggressiveness tuning to control how fast each listing moves toward its floor",
-          "Scale $199/mo: 10,000 listings, 5-minute cycles — designed for power sellers and multi-category stores"
+          "Scale $199/mo: 10,000 listings plus priority support — designed for power sellers and multi-category stores"
         ]
       },
       {
@@ -52,7 +52,7 @@ export const alternatives: PageContent[] = [
       },
       {
         "q": "How often does Undercut reprice compared to Price Guard?",
-        "a": "Undercut reprices every 15 minutes on Pro and every 5 minutes on Scale. Free and Starter plans reprice less frequently. Price Guard's reprice frequency varies by plan. For time-sensitive categories like electronics or media, the 5-minute Scale cycle is worth evaluating directly."
+        "a": "Undercut reprices every 15 minutes on both Pro and Scale. Free and Starter plans reprice hourly. Price Guard's reprice frequency varies by plan. For time-sensitive categories like electronics or media, the 15-minute cycle is worth evaluating directly."
       },
       {
         "q": "What happens when my listing is already the lowest price? Does Undercut keep dropping?",
@@ -105,7 +105,7 @@ export const alternatives: PageContent[] = [
         },
         {
           "label": "Reprice frequency (fastest tier)",
-          "undercut": "5 minutes on Scale ($199/mo)",
+          "undercut": "15 minutes on Pro and Scale",
           "competitor": "Varies by plan"
         },
         {
@@ -162,7 +162,7 @@ export const alternatives: PageContent[] = [
       },
       {
         "h2": "Repricing Speed: When Minutes Matter",
-        "body": "Repricing speed determines how quickly you capture a price drop or recover when a competitor goes out of stock. Undercut's plan speeds are:\n\n- Free & Starter: Standard cadence\n- Pro ($79/mo, up to 1,000 listings): 15-minute repricing cycles\n- Scale ($199/mo, up to 10,000 listings): 5-minute repricing cycles\n\nFaster cycles matter most in competitive, high-velocity categories like consumer electronics, trading cards, and media. In slower categories like vintage or antiques, standard cadence is usually sufficient and the Free plan handles it fine.\n\nPrice Spectre's repricing frequency varies by plan; check their current pricing page for exact cycle times before making a speed-based decision."
+        "body": "Repricing speed determines how quickly you capture a price drop or recover when a competitor goes out of stock. Undercut's plan speeds are:\n\n- Free & Starter: Hourly repricing\n- Pro ($79/mo, up to 1,000 listings): 15-minute repricing cycles\n- Scale ($199/mo, up to 10,000 listings): 15-minute repricing cycles, plus priority support\n\nFaster cycles matter most in competitive, high-velocity categories like consumer electronics, trading cards, and media. In slower categories like vintage or antiques, hourly cadence is usually sufficient and the Free plan handles it fine.\n\nPrice Spectre's repricing frequency varies by plan; check their current pricing page for exact cycle times before making a speed-based decision."
       },
       {
         "h2": "AI Aggressiveness Tuning (Pro and Scale)",
@@ -212,7 +212,7 @@ export const alternatives: PageContent[] = [
         },
         {
           "label": "Repricing speed (fastest plan)",
-          "undercut": "5-minute cycles (Scale plan, $199/mo)",
+          "undercut": "15-minute cycles (Pro and Scale plans)",
           "competitor": "Varies — check current plan details on their site"
         },
         {
@@ -292,12 +292,12 @@ export const alternatives: PageContent[] = [
       },
       {
         "h2": "Plan-by-Plan Comparison: What You Actually Pay",
-        "body": "Undercut offers a free tier with no credit card required at signup — 25 active listings with full floor protection and automated repricing. That is a genuine free tier, not a crippled demo. Paid plans are: Starter at $29/month (100 listings), Pro at $79/month (1,000 listings, adds AI aggressiveness tuning and 15-minute reprice intervals), and Scale at $199/month (10,000 listings, 5-minute intervals).\n\nInformed.co's published plans as of 2026 start above $29/month for comparable listing counts and are structured primarily around Amazon seller accounts. eBay-only sellers often find themselves paying for Amazon-side features they do not use. If your catalog is under 1,000 eBay SKUs, Undercut's Pro plan at $79/month covers you with faster repricing and AI tuning at a price point Informed.co does not match for eBay-specific use.",
+        "body": "Undercut offers a free tier with no credit card required at signup — 25 active listings with full floor protection and automated repricing. That is a genuine free tier, not a crippled demo. Paid plans are: Starter at $29/month (100 listings), Pro at $79/month (1,000 listings, adds AI aggressiveness tuning and 15-minute reprice intervals), and Scale at $199/month (10,000 listings, plus priority support).\n\nInformed.co's published plans as of 2026 start above $29/month for comparable listing counts and are structured primarily around Amazon seller accounts. eBay-only sellers often find themselves paying for Amazon-side features they do not use. If your catalog is under 1,000 eBay SKUs, Undercut's Pro plan at $79/month covers you with faster repricing and AI tuning at a price point Informed.co does not match for eBay-specific use.",
         "bullets": [
           "Free tier: 25 listings, no card required, full floor protection",
           "Starter $29: 100 listings — suits new or small eBay stores",
           "Pro $79: 1,000 listings, 15-min intervals, AI aggressiveness tuning",
-          "Scale $199: 10,000 listings, 5-min intervals — built for high-volume eBay operations"
+          "Scale $199: 10,000 listings plus priority support — built for high-volume eBay operations"
         ]
       },
       {
@@ -414,7 +414,7 @@ export const alternatives: PageContent[] = [
     "sections": [
       {
         "h2": "One Tool vs One Feature Inside a Toolbox",
-        "body": "3Dsellers positions itself as an eBay seller hub. Repricing sits alongside auto-feedback, custom stores, order management, and bulk listing tools. That breadth is genuinely useful if you want every function in a single subscription — but it means repricing development competes with every other feature on the roadmap. Undercut has no roadmap split. The entire product — every setting, every algorithm update, every UI decision — is in service of one outcome: repricing eBay listings competitively without falling below the floor you set. That focus shows up in the speed of the repricer (5-minute cycles on Scale), in the granularity of per-item floor configuration, and in the absence of features that would distract from that goal.",
+        "body": "3Dsellers positions itself as an eBay seller hub. Repricing sits alongside auto-feedback, custom stores, order management, and bulk listing tools. That breadth is genuinely useful if you want every function in a single subscription — but it means repricing development competes with every other feature on the roadmap. Undercut has no roadmap split. The entire product — every setting, every algorithm update, every UI decision — is in service of one outcome: repricing eBay listings competitively without falling below the floor you set. That focus shows up in the capacity of the higher tiers (up to 10,000 listings with priority support on Scale), in the granularity of per-item floor configuration, and in the absence of features that would distract from that goal.",
         "bullets": [
           "3Dsellers: full seller hub (feedback, store, orders, repricing)",
           "Undercut: dedicated repricer — floor-first, nothing else competing for attention",
@@ -432,17 +432,17 @@ export const alternatives: PageContent[] = [
       },
       {
         "h2": "Head-to-Head: Plans and Pricing",
-        "body": "Undercut offers a free entry point with no card required — 25 live listings repriced on the Free plan. That is a meaningful way to validate whether automated repricing works for your catalog before committing money. Paid tiers scale by listing count and repricing speed: Starter at $29/month covers 100 listings, Pro at $79/month covers 1,000 listings with 15-minute cycles and AI aggressiveness tuning, and Scale at $199/month covers 10,000 listings with 5-minute cycles.\n\n3Dsellers pricing bundles all its tools together, so you are paying for feedback automation, store branding, and order management whether you use them or not. If repricing is 80% of your need, a dedicated repricer at a comparable or lower price point is the more efficient spend.",
+        "body": "Undercut offers a free entry point with no card required — 25 live listings repriced on the Free plan. That is a meaningful way to validate whether automated repricing works for your catalog before committing money. Paid tiers scale by listing count and repricing speed: Starter at $29/month covers 100 listings, Pro at $79/month covers 1,000 listings with 15-minute cycles and AI aggressiveness tuning, and Scale at $199/month covers 10,000 listings with priority support.\n\n3Dsellers pricing bundles all its tools together, so you are paying for feedback automation, store branding, and order management whether you use them or not. If repricing is 80% of your need, a dedicated repricer at a comparable or lower price point is the more efficient spend.",
         "bullets": [
           "Undercut Free: 25 listings, no card, no time limit beyond the 14-day full-feature trial",
           "Undercut Pro ($79/mo): 1,000 listings, 15-min repricing, AI tuning",
-          "Undercut Scale ($199/mo): 10,000 listings, 5-min repricing",
+          "Undercut Scale ($199/mo): 10,000 listings, priority support",
           "3Dsellers: bundled pricing — check their site for current rates"
         ]
       },
       {
         "h2": "Repricing Speed and eBay Competitiveness",
-        "body": "On high-velocity eBay categories — electronics, trading cards, media — the gap between a 1-hour reprice cycle and a 5-minute cycle is the difference between winning and losing a sale. A competitor who drops their price at 9:03 AM and you reprice hourly means you are overpriced until 10:00 AM. At 5-minute cycles, you are competitive by 9:08 AM.\n\nUndercut's Scale plan runs at 5-minute intervals. Pro runs at 15 minutes. Both operate with the floor enforced on every cycle — speed does not come at the cost of protection. For sellers in fast-moving categories, this cadence is a meaningful operational advantage over a suite repricer that may prioritize stability over update frequency."
+        "body": "On high-velocity eBay categories — electronics, trading cards, media — the gap between an hourly reprice cycle and a 15-minute cycle is the difference between winning and losing a sale. A competitor who drops their price at 9:03 AM and you reprice hourly means you are overpriced until 10:00 AM. At 15-minute cycles, you are competitive by 9:15 AM.\n\nUndercut's Pro and Scale plans both run at 15-minute intervals — the fastest cadence Undercut offers. Free and Starter reprice hourly. Every plan enforces the floor on every cycle — speed never comes at the cost of protection. For sellers in fast-moving categories, the 15-minute cadence on Pro and Scale is a meaningful operational advantage over a suite repricer that may prioritize stability over update frequency."
       },
       {
         "h2": "When 3Dsellers Is the Right Choice",
@@ -513,7 +513,7 @@ export const alternatives: PageContent[] = [
         },
         {
           "label": "Repricing speed",
-          "undercut": "5-minute cycles (Scale), 15-minute (Pro)",
+          "undercut": "15-minute cycles (Pro and Scale)",
           "competitor": "Varies — check current plan details on 3Dsellers site"
         },
         {
@@ -563,12 +563,12 @@ export const alternatives: PageContent[] = [
       },
       {
         "h2": "Where Undercut Has the Edge for Owned-Inventory Sellers",
-        "body": "If you source your own inventory — wholesale, retail arbitrage, liquidation, or your own manufactured goods — you already know your cost. You do not need supplier monitoring. What you need is a repricer that reacts quickly to competitor price changes, respects your margin floor, and does not require you to learn a platform designed for a different business model. Undercut's Pro plan reprices every 15 minutes and adds AI aggressiveness tuning, which lets you dial in how quickly and how deeply the tool chases a lower competitor. Scale reprices every 5 minutes for sellers running up to 10,000 active listings. The Free plan covers 25 listings with no credit card, so you can verify it works on your actual listings before spending anything.",
+        "body": "If you source your own inventory — wholesale, retail arbitrage, liquidation, or your own manufactured goods — you already know your cost. You do not need supplier monitoring. What you need is a repricer that reacts quickly to competitor price changes, respects your margin floor, and does not require you to learn a platform designed for a different business model. Undercut's Pro plan reprices every 15 minutes and adds AI aggressiveness tuning, which lets you dial in how quickly and how deeply the tool chases a lower competitor. Scale also reprices every 15 minutes and adds priority support for sellers running up to 10,000 active listings. The Free plan covers 25 listings with no credit card, so you can verify it works on your actual listings before spending anything.",
         "bullets": [
           "Free plan: 25 listings, no card required",
           "Starter $29/mo: 100 listings",
           "Pro $79/mo: 1,000 listings, 15-min repricing, AI aggressiveness tuning",
-          "Scale $199/mo: 10,000 listings, 5-min repricing"
+          "Scale $199/mo: 10,000 listings, priority support"
         ]
       },
       {
@@ -652,7 +652,7 @@ export const alternatives: PageContent[] = [
         },
         {
           "label": "Repricing speed",
-          "undercut": "15 min (Pro) / 5 min (Scale)",
+          "undercut": "15 min (Pro and Scale)",
           "competitor": "Varies by plan"
         },
         {
@@ -695,11 +695,11 @@ export const alternatives: PageContent[] = [
       },
       {
         "h2": "Plans and Pricing: Where Undercut Has a Clear Edge",
-        "body": "For sellers with fewer than 1,000 eBay listings, Undercut's pricing is straightforward. The free plan covers 25 listings indefinitely — useful for testing with real inventory. Paid tiers are: Starter at $29/month (100 listings), Pro at $79/month (1,000 listings, adds AI aggressiveness tuning and 15-minute repricing cycles), and Scale at $199/month (10,000 listings, 5-minute cycles). Repricer.com's published pricing starts higher on entry-level plans and is structured around multi-channel access. If you are an eBay-focused seller who does not need Amazon or Walmart repricing, you are likely paying for capacity you will not use.",
+        "body": "For sellers with fewer than 1,000 eBay listings, Undercut's pricing is straightforward. The free plan covers 25 listings indefinitely — useful for testing with real inventory. Paid tiers are: Starter at $29/month (100 listings), Pro at $79/month (1,000 listings, adds AI aggressiveness tuning and 15-minute repricing cycles), and Scale at $199/month (10,000 listings, plus priority support). Repricer.com's published pricing starts higher on entry-level plans and is structured around multi-channel access. If you are an eBay-focused seller who does not need Amazon or Walmart repricing, you are likely paying for capacity you will not use.",
         "bullets": [
           "Free tier: 25 listings, no card required — Undercut only.",
           "Pro and Scale tiers add AI-driven aggressiveness tuning, letting you control how fast and how far each listing moves toward its floor.",
-          "Scale tier's 5-minute repricing cycle is among the fastest available for eBay sellers at this price point."
+          "Scale tier adds capacity for up to 10,000 listings and priority support for high-volume eBay sellers."
         ]
       },
       {
@@ -732,7 +732,7 @@ export const alternatives: PageContent[] = [
       },
       {
         "q": "Is the 15-minute repricing cycle on Repricer.com's entry plan faster or slower than Undercut's?",
-        "a": "Repricer.com's repricing speed varies by plan; check their current plan details for exact cycle times. Undercut's Pro plan ($79/month) runs 15-minute cycles, and the Scale plan ($199/month) runs 5-minute cycles. For most eBay categories, 15-minute cycles are sufficient — 5-minute cycles provide an edge in fast-moving categories like consumer electronics."
+        "a": "Repricer.com's repricing speed varies by plan; check their current plan details for exact cycle times. Undercut's Pro and Scale plans ($79 and $199/month) both run 15-minute cycles — the fastest cadence Undercut offers — while Free and Starter reprice hourly. For most eBay categories, 15-minute cycles are more than sufficient to stay competitive in fast-moving categories like consumer electronics. Scale's added value is capacity (up to 10,000 listings) and priority support, not faster cycles."
       },
       {
         "q": "What happens if a competitor lists below my hard floor — do I lose the sale?",
@@ -791,7 +791,7 @@ export const alternatives: PageContent[] = [
         },
         {
           "label": "Repricing speed",
-          "undercut": "Pro: 15-min cycles; Scale: 5-min cycles",
+          "undercut": "Pro and Scale: 15-min cycles",
           "competitor": "Varies by plan"
         },
         {
@@ -824,17 +824,17 @@ export const alternatives: PageContent[] = [
           "ChannelAdvisor: enterprise multichannel (feeds, ads, 10+ marketplaces, inventory management)",
           "Undercut: eBay-only automated repricing with hard price floors — nothing more, nothing less",
           "Undercut Free tier: 25 listings, hourly repricing, hard floor, $0/month",
-          "Undercut Scale tier: 10,000 listings, 5-minute repricing, $199/month"
+          "Undercut Scale tier: 10,000 listings, priority support, $199/month"
         ]
       },
       {
         "h2": "How Undercut's Repricing Logic Works",
-        "body": "Undercut scans live comparable eBay listings for each of your items and sets your price to just beat the lowest competitor — by a configurable undercut amount that you define as either a fixed number of cents or a percentage of the competitor's price. Every reprice is clamped to your per-listing hard floor, so the price can never drop below the minimum you set, regardless of how low a competitor goes.\n\nHere is a concrete example. Suppose you sell a used graphics card and set a hard floor of $160.00 and a 1% undercut rule. The lowest comparable live listing is $184.00. Undercut calculates 1% of $184.00 = $1.84, subtracts that from the competitor price, and sets your price to $182.16. The next day a competitor drops to $158.00 — below your floor. Undercut does not follow. Your price stays at $160.00, preserving your margin.\n\nYou can also set an optional per-listing ceiling. If your card occasionally spikes in demand and you want to capture upside, set a ceiling of, say, $220.00. Undercut will never push your price above that ceiling even if all competitors disappear from the results.\n\nReprice frequency depends on your plan: hourly on Free and Starter, every 15 minutes on Pro, and every 5 minutes on Scale.",
+        "body": "Undercut scans live comparable eBay listings for each of your items and sets your price to just beat the lowest competitor — by a configurable undercut amount that you define as either a fixed number of cents or a percentage of the competitor's price. Every reprice is clamped to your per-listing hard floor, so the price can never drop below the minimum you set, regardless of how low a competitor goes.\n\nHere is a concrete example. Suppose you sell a used graphics card and set a hard floor of $160.00 and a 1% undercut rule. The lowest comparable live listing is $184.00. Undercut calculates 1% of $184.00 = $1.84, subtracts that from the competitor price, and sets your price to $182.16. The next day a competitor drops to $158.00 — below your floor. Undercut does not follow. Your price stays at $160.00, preserving your margin.\n\nYou can also set an optional per-listing ceiling. If your card occasionally spikes in demand and you want to capture upside, set a ceiling of, say, $220.00. Undercut will never push your price above that ceiling even if all competitors disappear from the results.\n\nReprice frequency depends on your plan: hourly on Free and Starter, and every 15 minutes on Pro and Scale.",
         "bullets": [
           "Configurable undercut amount: fixed cents (e.g. $0.50 less) or percentage (e.g. 1% less)",
           "Hard floor per listing: price never goes below your minimum — ever",
           "Optional ceiling per listing: caps upside if you want to control maximum price",
-          "Repricing frequency: hourly (Free/Starter), 15-min (Pro), 5-min (Scale)"
+          "Repricing frequency: hourly (Free/Starter), 15-min (Pro and Scale)"
         ]
       },
       {
@@ -849,12 +849,12 @@ export const alternatives: PageContent[] = [
       },
       {
         "h2": "Plan-by-Plan Comparison and a Worked ROI Example",
-        "body": "Undercut has five tiers. Free covers 25 listings with hourly repricing and hard floor protection — a genuine no-cost option, not a crippled trial. Starter at $29/month adds up to 100 listings. Pro at $79/month jumps to 1,000 listings, cuts repricing to every 15 minutes, and unlocks Claude AI aggressiveness tuning and competitor tracking. Scale at $199/month handles up to 10,000 listings with 5-minute repricing, AI tuning, and priority support. New accounts receive a 14-day trial at Starter level with no credit card required.\n\nConsider a seller on the Pro plan ($79/month) with 400 active listings averaging $45 each. If faster, more precise repricing improves sell-through by even 5 additional sales per month, that is 5 × $45 = $225 in additional gross revenue. After eBay's final value fee of roughly 13.25% ($225 × 0.1325 = $29.81), the incremental net revenue is approximately $195.19. Against a $79 monthly fee, that is a positive return from fewer than three extra sales — and the hard floor ensures none of those sales happen below cost.\n\nChannelAdvisor's repricing is one module within a much larger platform priced for enterprises running multi-marketplace operations. If eBay is your primary or only channel, you are paying for capabilities you will never use.",
+        "body": "Undercut has five tiers. Free covers 25 listings with hourly repricing and hard floor protection — a genuine no-cost option, not a crippled trial. Starter at $29/month adds up to 100 listings. Pro at $79/month jumps to 1,000 listings, cuts repricing to every 15 minutes, and unlocks Claude AI aggressiveness tuning. Scale at $199/month handles up to 10,000 listings with the same 15-minute repricing, AI tuning, and priority support. New accounts receive a 14-day trial at Starter level with no credit card required.\n\nConsider a seller on the Pro plan ($79/month) with 400 active listings averaging $45 each. If faster, more precise repricing improves sell-through by even 5 additional sales per month, that is 5 × $45 = $225 in additional gross revenue. After eBay's final value fee of roughly 13.25% ($225 × 0.1325 = $29.81), the incremental net revenue is approximately $195.19. Against a $79 monthly fee, that is a positive return from fewer than three extra sales — and the hard floor ensures none of those sales happen below cost.\n\nChannelAdvisor's repricing is one module within a much larger platform priced for enterprises running multi-marketplace operations. If eBay is your primary or only channel, you are paying for capabilities you will never use.",
         "bullets": [
           "Free: 25 listings, hourly, hard floor — $0/month",
           "Starter: 100 listings, hourly, hard floor — $29/month",
-          "Pro: 1,000 listings, 15-min, AI tuning, competitor tracking — $79/month",
-          "Scale: 10,000 listings, 5-min, AI tuning, priority support — $199/month",
+          "Pro: 1,000 listings, 15-min, AI tuning — $79/month",
+          "Scale: 10,000 listings, 15-min, AI tuning, priority support — $199/month",
           "14-day Starter-level trial, no credit card required"
         ]
       },
@@ -882,7 +882,7 @@ export const alternatives: PageContent[] = [
       },
       {
         "q": "What repricing frequency does Undercut offer, and does it matter?",
-        "a": "Free and Starter plans reprice hourly, Pro reprices every 15 minutes, and Scale reprices every 5 minutes. Frequency matters most in fast-moving categories — electronics, sneakers, or trading cards — where competitor prices can shift multiple times per day. In slower categories, hourly repricing is often sufficient. The 5-minute cycle on Scale means your prices reflect the live market as closely as practically possible on eBay."
+        "a": "Free and Starter plans reprice hourly, while Pro and Scale both reprice every 15 minutes — the fastest cadence Undercut offers. Frequency matters most in fast-moving categories — electronics, sneakers, or trading cards — where competitor prices can shift multiple times per day. In slower categories, hourly repricing is often sufficient. The 15-minute cycle on Pro and Scale means your prices reflect the live market closely; Scale's added value over Pro is capacity (up to 10,000 listings) and priority support, not faster cycles."
       }
     ],
     "cta": {

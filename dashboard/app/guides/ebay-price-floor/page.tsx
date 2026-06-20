@@ -82,7 +82,7 @@ export default function PriceFloorGuide() {
         <H2>Putting it on autopilot</H2>
         <p className="text-gray-700">
           Doing this by hand across dozens or hundreds of listings is the real problem. <Link href="/" className="text-blue-600 hover:text-blue-700">Undercut</Link>{' '}
-          tracks the lowest competitor on each item and reprices to win — then clamps to the floor you set. On Pro, AI tunes how
+          tracks the lowest competitor on each item and reprices to win — then clamps to the floor you set. On Pro and Scale, AI tunes how
           aggressive to be so you keep margin instead of giving it away. You set the floor once; it enforces it forever.
         </p>
 

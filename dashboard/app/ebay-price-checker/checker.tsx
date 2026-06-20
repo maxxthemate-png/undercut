@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { api } from '../lib/api'
 import { track, trackConversion } from '../lib/track'
@@ -21,17 +21,21 @@ const looksLikeListing = (s: string) => /ebay\.[a-z.]+\/|\/itm\/|^\d{9,15}$/i.te
 
 export default function Checker() {
   const [q, setQ] = useState('')
+  const [submittedQ, setSubmittedQ] = useState('')   // the query that produced the current result
+  const [wasListing, setWasListing] = useState(false) // was the current result an exact /itm/ lookup?
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState('')
   const [res, setRes] = useState<Result | null>(null)
   const [floor, setFloor] = useState<string>('')
   const [floorFired, setFloorFired] = useState(false)
+  // demo-share email capture
+  const [shareEmail, setShareEmail] = useState('')
+  const [shareBusy, setShareBusy] = useState(false)
+  const [shareDone, setShareDone] = useState(false)
 
-  async function check(e: React.FormEvent) {
-    e.preventDefault()
-    const raw = q.trim()
+  async function runCheck(raw: string) {
     if (raw.length < 3 || busy) return
-    setBusy(true); setErr(''); setRes(null); setFloor(''); setFloorFired(false)
+    setBusy(true); setErr(''); setRes(null); setShareDone(false)
     const listing = looksLikeListing(raw)
     const path = listing
       ? `/api/tools/listing-check?url=${encodeURIComponent(raw)}`
@@ -49,6 +53,8 @@ export default function Checker() {
           setErr("Couldn't read that exact listing — paste the full link (the one with /itm/…), or just search the product name instead.")
         } else {
           setRes(data)
+          setSubmittedQ(raw)
+          setWasListing(listing)
           track('demo_use', { mode: listing ? 'listing' : 'keyword', lowest: data.lowest ?? 0, listings: data.count })
           // Also report demo-use as a (secondary/observation) Ads conversion so the
           // click → demo-use → signup funnel is readable in Google Ads. Dark until
@@ -63,6 +69,31 @@ export default function Checker() {
     }
   }
 
+  function check(e: React.FormEvent) {
+    e.preventDefault()
+    runCheck(q.trim())
+  }
+
+  // Auto-run from a shared/deep link (?q=…&floor=…) so a shared result reconstructs itself.
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const sp = new URLSearchParams(window.location.search)
+    const qp = (sp.get('q') || '').trim()
+    const fp = sp.get('floor')
+    if (fp) setFloor(fp)
+    if (qp.length >= 3) { setQ(qp); runCheck(qp) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Keep the URL in sync with the current result + floor → every result is a shareable permalink.
+  useEffect(() => {
+    if (typeof window === 'undefined' || !res || !submittedQ) return
+    const sp = new URLSearchParams()
+    sp.set('q', submittedQ)
+    if (floor.trim() !== '') sp.set('floor', floor.trim())
+    window.history.replaceState(null, '', '?' + sp.toString())
+  }, [res, submittedQ, floor])
+
   const item = res?.item ?? null
   const lowest = res?.lowest ?? null
   const pennyUnder = lowest != null ? Math.max(lowest - 0.01, 0) : null
@@ -70,6 +101,8 @@ export default function Checker() {
   const floorValid = floorNum != null && isFinite(floorNum) && floorNum > 0
   const wins = floorValid && pennyUnder != null && pennyUnder >= (floorNum as number)
   const margin = wins ? (pennyUnder as number) - (floorNum as number) : 0
+  // keyword (non-URL) results match loosely — never present them as a confident exact answer.
+  const looseMatch = res != null && !wasListing
 
   function onFloorChange(v: string) {
     setFloor(v)
@@ -79,13 +112,41 @@ export default function Checker() {
     }
   }
 
+  // Carry the just-computed result into signup so the account-creation step opens with context.
+  const signupHref = res
+    ? `/signup?from=demo&q=${encodeURIComponent(submittedQ)}` +
+      (pennyUnder != null ? `&win=${pennyUnder.toFixed(2)}` : '') +
+      (floorValid ? `&floor=${(floorNum as number).toFixed(2)}` : '')
+    : '/signup'
+
+  async function shareByEmail(e: React.FormEvent) {
+    e.preventDefault()
+    const email = shareEmail.trim()
+    if (!email || shareBusy) return
+    setShareBusy(true)
+    const label = (item?.title || submittedQ || 'a listing').slice(0, 120)
+    const note =
+      `Checked: ${label} · lowest ${money(lowest)}` +
+      (pennyUnder != null ? ` · Undercut would price at ${money(pennyUnder)}` : '') +
+      (floorValid ? ` (floor ${money(floorNum)})` : '')
+    try {
+      await api('/api/leads', { method: 'POST', body: JSON.stringify({ email, source: 'demo_share', note }) })
+      track('demo_share', { mode: wasListing ? 'listing' : 'keyword' })
+      setShareDone(true)
+    } catch {
+      setShareDone(true) // capture is best-effort; never block the user on it
+    } finally {
+      setShareBusy(false)
+    }
+  }
+
   return (
     <div className="max-w-3xl mx-auto">
       <form onSubmit={check} className="flex gap-2">
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Paste your eBay listing URL — or search a product"
+          placeholder="Paste your eBay listing link (the /itm/… URL) for an exact check"
           className="flex-1 border border-gray-300 rounded-lg px-4 py-3 text-sm bg-white outline-none focus:border-blue-500"
           maxLength={400}
         />
@@ -97,7 +158,7 @@ export default function Checker() {
           {busy ? 'Checking…' : 'Check it'}
         </button>
       </form>
-      <p className="text-xs text-gray-500 mt-2">Paste a full listing link (the one with <span className="font-mono">/itm/…</span>) for an exact, like-for-like check. A plain product search works too, but matches loosely.</p>
+      <p className="text-xs text-gray-500 mt-2">Paste a full listing link (the one with <span className="font-mono">/itm/…</span>) for an exact, like-for-like check. A plain product search also works, but matches loosely — see the note on those results.</p>
       {err && (
         <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4">
           <p className="text-red-900 font-semibold">⚠️ Couldn&apos;t check that one</p>
@@ -107,6 +168,17 @@ export default function Checker() {
 
       {res && (
         <div className="mt-8 space-y-4">
+          {/* Loose-match guard: keyword searches can include accessories/variants — never present
+              the number as a confident exact answer. Steer to the /itm/ URL for a real check. */}
+          {looseMatch && (
+            <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
+              <p className="text-amber-900 font-semibold">Keyword search — approximate match</p>
+              <p className="text-sm text-amber-800 mt-1">
+                This searched eBay by keyword, so it can include accessories, parts, or different variants — the number below is a rough guide, not an exact like-for-like price. <b>For the real number on your item, paste its listing link (the <span className="font-mono">/itm/…</span> URL) above.</b>
+              </p>
+            </div>
+          )}
+
           {/* Your listing (only when resolved by URL) */}
           {item && (
             <div className="bg-white border border-gray-200 rounded-2xl p-6">
@@ -121,15 +193,15 @@ export default function Checker() {
 
           {lowest != null ? (
             <div className="grid sm:grid-cols-2 gap-4">
-              <div className="bg-blue-600 text-white rounded-2xl p-6">
-                <p className="text-sm text-blue-100">{item ? 'Lowest competitor right now' : 'Lowest live price right now'}</p>
+              <div className={`${looseMatch ? 'bg-gray-700' : 'bg-blue-600'} text-white rounded-2xl p-6`}>
+                <p className={`text-sm ${looseMatch ? 'text-gray-300' : 'text-blue-100'}`}>{item ? 'Lowest competitor right now' : looseMatch ? 'Lowest of matching listings (approx.)' : 'Lowest live price right now'}</p>
                 <p className="text-4xl font-extrabold mt-1">{money(lowest)}</p>
-                <p className="text-sm text-blue-100 mt-2">across {res.count} {item ? 'competing' : 'live'} listing{res.count === 1 ? '' : 's'}{!item && res.query ? ` for “${res.query}”` : ''}</p>
+                <p className={`text-sm mt-2 ${looseMatch ? 'text-gray-300' : 'text-blue-100'}`}>across {res.count} {item ? 'competing' : 'matching'} listing{res.count === 1 ? '' : 's'}{!item && res.query ? ` for “${res.query}”` : ''}</p>
               </div>
               <div className="bg-white border border-gray-200 rounded-2xl p-6">
                 <p className="text-sm text-gray-600">To win this sale you&apos;d price at</p>
                 <p className="text-4xl font-extrabold mt-1 text-green-700">{money(pennyUnder)}</p>
-                <p className="text-sm text-gray-600 mt-2">a penny under the lowest competitor.</p>
+                <p className="text-sm text-gray-600 mt-2">a penny under the lowest{looseMatch ? ' matching' : ' competitor'}.</p>
               </div>
             </div>
           ) : item ? (
@@ -197,10 +269,39 @@ export default function Checker() {
             </div>
           )}
 
+          {/* Capture the wow-moment: email the result to themselves → drops into the live nurture engine. */}
+          {lowest != null && (
+            shareDone ? (
+              <div className="rounded-2xl border border-green-200 bg-green-50 p-5 text-center">
+                <p className="text-green-900 font-semibold">Sent — check your inbox. 📬</p>
+                <p className="text-sm text-green-800 mt-1">We&apos;ll show you how to put your whole store on autopilot. No card needed.</p>
+              </div>
+            ) : (
+              <form onSubmit={shareByEmail} className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
+                <p className="text-sm font-semibold text-gray-900">Want this on every listing in your store, automatically?</p>
+                <p className="text-sm text-gray-600 mt-1 mb-3">Email yourself this result and I&apos;ll show you how — no card.</p>
+                <div className="flex gap-2 max-w-md">
+                  <input
+                    type="email"
+                    value={shareEmail}
+                    onChange={(e) => setShareEmail(e.target.value)}
+                    placeholder="you@yourstore.com"
+                    className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500"
+                    required
+                  />
+                  <button type="submit" disabled={shareBusy} className="px-4 py-2 rounded-lg bg-gray-900 text-white text-sm font-medium hover:bg-gray-800 disabled:opacity-50 whitespace-nowrap">
+                    {shareBusy ? 'Sending…' : 'Email me this'}
+                  </button>
+                </div>
+              </form>
+            )
+          )}
+
           <div className="bg-gray-900 text-white rounded-2xl p-6 text-center">
             <p className="font-semibold">That&apos;s one listing. Undercut does this for your whole store.</p>
             <p className="text-sm text-gray-300 mt-1 mb-4">It watches the lowest competitor on every listing, reprices you to win 24/7, and never crosses the floor you set. Set it and forget it.</p>
-            <Link href="/signup" className="inline-block px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-500">Start free — 14-day trial, no card</Link>
+            <Link href={signupHref} className="inline-block px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-500">Start free — 14-day trial, no card</Link>
+            <p className="text-xs text-gray-400 mt-3">Connecting only imports your listings — nothing reprices until you set a floor and turn it on, one listing at a time.</p>
           </div>
         </div>
       )}

@@ -41,7 +41,7 @@ export const glossary: PageContent[] = [
       },
       {
         "h2": "What Automated Repricing Does (and Doesn't Do)",
-        "body": "An automated repricer watches competitor prices continuously and adjusts your listings according to rules you define. It does not invent strategy — it executes yours faster than you can manually. What good automation adds is speed (repricing in 5 to 15 minutes rather than hours or days), consistency (the same logic applied to every listing every time), and a safety net (the floor). What it doesn't do: it won't rescue a bad sourcing decision, it won't compensate for a floor you set too low, and it won't tell you whether to be in a category at all. Automation amplifies your pricing strategy; it doesn't replace judgment about which items belong in your catalog.",
+        "body": "An automated repricer watches competitor prices continuously and adjusts your listings according to rules you define. It does not invent strategy — it executes yours faster than you can manually. What good automation adds is speed (repricing in minutes rather than hours or days), consistency (the same logic applied to every listing every time), and a safety net (the floor). What it doesn't do: it won't rescue a bad sourcing decision, it won't compensate for a floor you set too low, and it won't tell you whether to be in a category at all. Automation amplifies your pricing strategy; it doesn't replace judgment about which items belong in your catalog.",
         "bullets": []
       }
     ],
@@ -60,7 +60,7 @@ export const glossary: PageContent[] = [
       },
       {
         "q": "How often does an eBay repricer need to check competitor prices?",
-        "a": "For slow-moving or unique items, once or twice a day is fine. For high-velocity categories like electronics or trading cards, 15-minute or 5-minute cycles make a measurable difference in won sales. Undercut's Pro plan reprices every 15 minutes; Scale reprices every 5 minutes."
+        "a": "For slow-moving or unique items, once or twice a day is fine. For high-velocity categories like electronics or trading cards, 15-minute cycles make a measurable difference in won sales. Undercut's Pro and Scale plans both reprice every 15 minutes; Scale adds capacity for up to 10,000 listings plus priority support."
       },
       {
         "q": "Can I start repricing without giving a credit card?",
@@ -261,7 +261,7 @@ export const glossary: PageContent[] = [
       },
       {
         "q": "How fast does Undercut reprice, and does speed matter for dynamic pricing?",
-        "a": "Free and Starter plans reprice on a longer cycle. Pro reprices every 15 minutes and Scale every 5 minutes. Speed matters most in high-velocity, price-sensitive categories where multiple sellers are automated — if your repricer is slow, a competitor's faster engine will undercut you and hold the position. In slower categories, repricing frequency is less critical than floor accuracy."
+        "a": "Free and Starter plans reprice hourly. Pro and Scale both reprice every 15 minutes — the fastest cadence Undercut runs; Scale's difference is capacity (up to 10,000 listings) and priority support, not speed. Fast repricing matters most in high-velocity, price-sensitive categories where multiple sellers are automated — if your repricer is slow, a competitor's faster engine will undercut you and hold the position. In slower categories, repricing frequency is less critical than floor accuracy."
       },
       {
         "q": "Can I use different floors for different listings, or is the floor account-wide?",
@@ -338,7 +338,7 @@ export const glossary: PageContent[] = [
       },
       {
         "h2": "Why Automated Repricing Wins More Buy Boxes Than Manual Pricing",
-        "body": "A competitor can change their price at any hour. Manual repricing — checking listings once a day or once a week — means you spend most of your time out of position. Undercut's Pro plan reprices every 15 minutes; the Scale plan reprices every 5 minutes. For high-competition categories like consumer electronics or media, that frequency is the difference between holding the top spot through a busy weekend or watching a competitor absorb your sales. The per-listing AI aggressiveness tuning on the Pro and Scale plans lets you control how quickly each listing closes on a competitor's price versus how much cushion it keeps — so you are not always racing to the exact floor.",
+        "body": "A competitor can change their price at any hour. Manual repricing — checking listings once a day or once a week — means you spend most of your time out of position. Undercut's Pro and Scale plans both reprice every 15 minutes (Scale adds capacity for up to 10,000 listings plus priority support, not faster repricing). For high-competition categories like consumer electronics or media, that frequency is the difference between holding the top spot through a busy weekend or watching a competitor absorb your sales. The per-listing AI aggressiveness tuning on the Pro and Scale plans lets you control how quickly each listing closes on a competitor's price versus how much cushion it keeps — so you are not always racing to the exact floor.",
         "bullets": []
       },
       {
@@ -366,7 +366,7 @@ export const glossary: PageContent[] = [
       },
       {
         "q": "How often does eBay Best Match re-rank listings?",
-        "a": "eBay re-evaluates Best Match rankings continuously as buyer searches happen, but the impact of a price change propagates within minutes to a few hours. Undercut's Pro plan reprices every 15 minutes and the Scale plan every 5 minutes, which is fast enough to respond to competitor moves before you lose meaningful traffic."
+        "a": "eBay re-evaluates Best Match rankings continuously as buyer searches happen, but the impact of a price change propagates within minutes to a few hours. Undercut's Pro and Scale plans both reprice every 15 minutes, which is fast enough to respond to competitor moves before you lose meaningful traffic."
       },
       {
         "q": "Can I use a single floor for all my eBay listings?",
@@ -732,7 +732,7 @@ export const glossary: PageContent[] = [
       },
       {
         "h2": "Automated Undercutting With a Floor: How Undercut Does It",
-        "body": "Undercut reprices every listing to beat the current lowest competitor automatically, 24/7—but the floor is hardcoded per listing and the repricer will not cross it. If the market drops below your floor, your listing simply holds at floor price and stops competing on price alone. This is the structural difference from a race to the bottom: the floor acts as a circuit breaker. On the Free plan ($0), 25 listings reprice hourly. Starter ($29/mo) covers 100 listings at hourly cadence. Pro ($79/mo) covers 1,000 listings with 15-minute repricing and per-listing AI aggressiveness tuning that lets you set, per listing, how fast and how far it moves toward its floor. Scale ($199/mo) handles 10,000 listings with 5-minute repricing. Every account starts with a 14-day Starter trial—no card required—so you can set floors, watch the repricer run, and verify margin before committing. Annual plans include two months free.",
+        "body": "Undercut reprices every listing to beat the current lowest competitor automatically, 24/7—but the floor is hardcoded per listing and the repricer will not cross it. If the market drops below your floor, your listing simply holds at floor price and stops competing on price alone. This is the structural difference from a race to the bottom: the floor acts as a circuit breaker. On the Free plan ($0), 25 listings reprice hourly. Starter ($29/mo) covers 100 listings at hourly cadence. Pro ($79/mo) covers 1,000 listings with 15-minute repricing and per-listing AI aggressiveness tuning that lets you set, per listing, how fast and how far it moves toward its floor. Scale ($199/mo) handles 10,000 listings with 15-minute repricing and priority support. Every account starts with a 14-day Starter trial—no card required—so you can set floors, watch the repricer run, and verify margin before committing. Annual plans include two months free.",
         "bullets": [
           "Free plan: 25 listings, hourly repricing, floor protection included",
           "Pro plan ($79/mo): 1,000 listings, 15-min cadence, per-listing AI aggressiveness tuning toward your set floor",

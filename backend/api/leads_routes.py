@@ -18,6 +18,7 @@ _lead_throttle = IPThrottle(5, 60)
 class LeadIn(BaseModel):
     email: str
     source: str | None = None
+    note: str | None = None   # optional context, e.g. the demo result the visitor checked
 
 
 def _valid(email: str) -> bool:
@@ -32,17 +33,22 @@ def capture_lead(body: LeadIn, request: Request, db: Session = Depends(get_db)):
     if not _valid(email):
         raise HTTPException(status_code=400, detail="valid email required")
     src = (body.source or "landing")[:50]
+    note = (body.note or "").strip()[:300] or None
     existing = db.scalar(select(Lead).where(Lead.email == email))
     if existing:
         if existing.email_unsubscribed:   # re-submitting the form = explicit re-consent
             existing.email_unsubscribed = False
-            db.commit()
+        if note and not existing.note:    # keep the first context we captured; don't clobber
+            existing.note = note
+        db.commit()
     else:
-        db.add(Lead(email=email, source=src))
+        db.add(Lead(email=email, source=src, note=note))
         db.commit()
         try:  # best-effort operator alert (speed-to-lead) — never blocks capture
             send_email_alert(subject=f"New Undercut lead: {email}",
-                             body=f"New waitlist lead\n\nEmail: {email}\nSource: {src}\n\nFollow up fast — speed-to-lead wins.")
+                             body=f"New waitlist lead\n\nEmail: {email}\nSource: {src}"
+                                  + (f"\nContext: {note}" if note else "")
+                                  + "\n\nFollow up fast — speed-to-lead wins.")
         except Exception:
             pass
     return {"ok": True, "count": db.scalar(select(func.count()).select_from(Lead)) or 0}

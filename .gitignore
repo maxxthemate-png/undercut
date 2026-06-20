@@ -28,3 +28,10 @@ GTM_OUTREACH.md
 
 # Internal working memory (sprint log, project state) — not for the repo
 memory/
+.gstack/
+
+# Internal strategy / agent working dirs — NEVER publish to the public repo
+.claude/
+Docs/
+GROWTH.md
+SELL.md

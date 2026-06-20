@@ -41,13 +41,19 @@ def run_lifecycle_emails() -> dict:
                 continue
             if lead.last_emailed_at and (now - lead.last_emailed_at) < timedelta(hours=20):
                 continue
-            age_days = (now - (lead.created_at or now)).total_seconds() / 86400.0
-            step = next(((s, fn) for (s, min_age, fn) in DRIP_STEPS
-                         if s > (lead.nurture_stage or 0) and age_days >= min_age), None)
-            if not step:
-                continue
-            stage, fn = step
-            subject, html = fn()
+            # Demo-share leads get a personalized first touch (their own checked result),
+            # then slot into the normal day3/day7 drip.
+            if lead.source == "demo_share" and (lead.nurture_stage or 0) == 0:
+                stage = 1
+                subject, html = T.demo_followup(getattr(lead, "note", None))
+            else:
+                age_days = (now - (lead.created_at or now)).total_seconds() / 86400.0
+                step = next(((s, fn) for (s, min_age, fn) in DRIP_STEPS
+                             if s > (lead.nurture_stage or 0) and age_days >= min_age), None)
+                if not step:
+                    continue
+                stage, fn = step
+                subject, html = fn()
             try:
                 if send_customer_email(lead.email, subject, html):
                     lead.nurture_stage = stage

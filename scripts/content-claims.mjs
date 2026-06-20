@@ -20,9 +20,11 @@ THE ONLY FEATURES ARE: (1) automatic repricing to beat the lowest comparable com
 PLANS (match the live pricing page exactly):
   - Free: 25 listings, hourly repricing, rule-based undercut, hard floor. NO AI.
   - Starter $29/mo: 100 listings, hourly repricing, rule-based undercut, hard floor. NO AI.
-  - Pro $79/mo: 1,000 listings, 15-minute repricing, AI price optimizer (AI aggressiveness tuning), competitor tracking.
-  - Scale $199/mo: 10,000 listings, 5-minute repricing, AI price optimizer (AI aggressiveness tuning), priority support.
+  - Pro $79/mo: 1,000 listings, 15-minute repricing, AI price optimizer (AI aggressiveness tuning).
+  - Scale $199/mo: 10,000 listings, 15-minute repricing, AI price optimizer (AI aggressiveness tuning), priority support.
   - The AI price optimizer / AI aggressiveness tuning is available on BOTH Pro AND Scale (the top two tiers). When attributing it to plans, say "Pro and Scale" — never imply it is Pro-only or that Scale lacks it. Free and Starter are rule-based only (no AI).
+  - REPRICING FREQUENCY: the fastest cadence is EVERY 15 MINUTES, on Pro AND Scale equally — Scale is NOT faster than Pro. Free and Starter reprice hourly. NEVER claim 5-minute, 10-minute, "real-time", or any sub-15-minute repricing, and never sell Scale on repricing SPEED — it does not exist. Scale's only advantages over Pro are capacity (10,000 listings) and priority support.
+  - COMPETITOR PRICE TRACKING runs on EVERY plan (it is core to how repricing works). NEVER present it as a Pro-only or Scale-only feature, or as something a tier "unlocks".
   - New signups get a no-card 14-day trial at Starter level.
 eBay FACTS YOU MAY USE: final value fee ~13.25% (varies by category), Best Match search ranking, Best Offer, Promoted Listings, Markdown Manager. eBay uses Best Match, NOT an Amazon-style formal "Buy Box".
 STRICTLY FORBIDDEN (these capabilities DO NOT EXIST — never mention or imply them): bulk CSV import / bulk-import / importing or re-importing floors from a file; a tagging or labels system or rule-by-tag; a rules / segmentation engine; cohorts or "listing groups"; stored competitor price-history or trend charts inside Undercut; automatic age/time tracking of listings or time-based auto-escalation; inventory / sell-through / demand / sales-velocity awareness as AI inputs; multi-marketplace repricing (Amazon/Walmart/etc.); inventory or order management; named dashboard UI widgets you cannot verify. If a workflow would need any of these, describe it as something the SELLER does manually per listing — never as an Undercut feature.`
@@ -31,17 +33,35 @@ STRICTLY FORBIDDEN (these capabilities DO NOT EXIST — never mention or imply t
 const PATTERNS = [
   // AI price optimizer is a Pro AND Scale feature (matches the live pricing page).
   // Flag only the inaccurate cases: AI attributed to Free/Starter, or stated as Pro-EXCLUSIVE.
+  // Only flag AI attributed TO free/starter (same clause — gap excludes clause separators
+  // ) $ ; — so a frequency ladder like "(Free/Starter), 15-min (Pro and Scale) ... AI" no
+  // longer matches across the paren), or AI stated as Pro-EXCLUSIVE.
   { id: 'ai-on-wrong-tier', why: 'AI price optimizer is Pro AND Scale only — not Free/Starter, and not Pro-exclusive',
-    re: /\b(free|starter)\b[^.]{0,60}(ai aggressiv|ai price optimi|ai tuning|ai-powered)|(ai aggressiv|ai price optimi|ai tuning|ai-powered)[^.]{0,60}\b(free|starter)\b|(ai (aggressiv\w*|tuning|price optimi\w*)[^.]{0,40}\b(only on pro|pro only|pro plan only|exclusive to pro)\b)/gi },
-  { id: 'bulk-import', why: 'no bulk/CSV import of floors exists', re: /bulk[- ]?import|\bcsv\b|re-import/gi },
+    re: /\b(free|starter)\b[^.)$;—]{0,50}(ai aggressiv|ai price optimi|ai tuning|ai-powered)|(ai aggressiv|ai price optimi|ai tuning|ai-powered)[^.)$;—]{0,50}\b(free|starter)\b|(ai (aggressiv\w*|tuning|price optimi\w*)[^.]{0,40}\b(only on pro|pro only|pro plan only|exclusive to pro)\b)/gi },
+  // Flags the FEATURE claim only (bulk import; csv paired with import/upload/export;
+  // re-import paired with floors) — a manual "export, edit a spreadsheet, re-import"
+  // workflow (which PRODUCT_FACTS allows describing) no longer trips it.
+  { id: 'bulk-import', why: 'no bulk/CSV import of floors exists (manual seller spreadsheet workflows are allowed)',
+    re: /bulk[- ]?import|\b(import|upload|export)\b[^.]{0,30}\bcsv\b|\bcsv\b[^.]{0,30}\b(import|upload|export)\b|re-?import\w*[^.]{0,25}\bfloors?\b|\bfloors?\b[^.]{0,25}re-?import/gi },
   { id: 'tagging-feature', why: 'no tagging / rule-by-tag system exists',
     re: /\b(set rules by tag|rules by tag|by tag\b|tag it by|tag listings|tag parts|tag inventory|tag condition|tag your inventory|tagging your inventory)\b/gi },
   { id: 'rules-engine', why: 'no rules/segmentation engine exists', re: /rules do the rest|rules engine|segmentation engine/gi },
   { id: 'listing-groups', why: 'no listing-group / cohort segmentation exists', re: /per listing group|listing group|by listing group/gi },
-  { id: 'invented-ai-inputs', why: 'AI tuning does not read demand/velocity/sell-through/pattern signals',
-    re: /(reads? competitor pricing patterns|pricing patterns)|demand signals|sales velocity|(aggressiv[^.]{0,60}(sell-through|sales velocity|demand|inventory level))/gi },
+  // Fires only when Undercut's AI/optimizer is said to READ/USE one of these as an INPUT.
+  // The negation guard (?!not|never|…) exempts honest disclaimers ("the AI does NOT read
+  // sales velocity"); the AI-subject requirement exempts eBay-algorithm / market mentions
+  // ("eBay looks at sales velocity", "demand problem", "whether sales velocity improves").
+  { id: 'invented-ai-inputs', why: 'Undercut AI does not read demand/velocity/sell-through/inventory as inputs (mentioning them as eBay/market factors, or disclaiming them, is fine)',
+    re: /\b(reads? competitor pricing patterns|competitor pricing patterns)\b|\b(ai|a\.i\.|optimi[sz]er|ai tuning|repricer|repricing engine|algorithm)\b(?:(?!\b(?:not|never|no|cannot|doesn|don|without)\b)[^.]){0,45}\b(reads?|uses?|factors?|considers?|analy[sz]es?|incorporates?|ingests?|monitors?|tracks?|looks? at|aware of|responds? to|driven by|based on|takes? into account)\b[^.]{0,25}\b(sell-?through|sales velocit\w+|demand|inventory)\b/gi },
   { id: 'default-floor-feature', why: 'no account/catalog/site-wide default floor or per-item floor override exists — floors are per-listing (the only account-level default is the undercut amount)',
     re: /default floor|per-item (floor )?override|per-listing override|two-layer system/gi },
+  // 15 minutes is the hard ceiling (Pro and Scale alike). No 5/10-minute, sub-15-minute,
+  // or "real-time" repricing exists, and Scale is NOT faster than Pro.
+  { id: 'sub-15min-frequency', why: '15 minutes is the fastest reprice cadence (Pro and Scale equally) — no 5/10-minute, sub-15-minute, or real-time repricing exists; never sell Scale on speed',
+    re: /\b(five|ten|[1-9]|1[0-4])[- ]?minute(s)?\b[^.]{0,25}(repric|cycle|interval|cadence)|\bevery\s+(five|ten|[1-9]|1[0-4])\s+minutes?\b|\breal[- ]?time\s+repric/gi },
+  // Competitor price tracking runs on every plan — never a Pro/Scale-only unlock.
+  { id: 'competitor-tracking-gated', why: 'competitor price tracking runs on every plan — never a Pro/Scale-only unlock',
+    re: /\b(unlocks?|pro plan|scale plan|pro[- ]only|upgrade to (pro|scale)|only on (pro|scale))\b[^.]{0,40}competitor tracking|competitor tracking[^.]{0,40}\b(only|unlock|pro plan|scale plan|upgrade)\b/gi },
 ]
 
 export function scanText(text) {

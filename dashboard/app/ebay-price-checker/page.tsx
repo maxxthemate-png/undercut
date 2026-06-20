@@ -46,7 +46,7 @@ export default function Page() {
 
       <section className="max-w-3xl mx-auto px-6 pt-16 pb-8 text-center">
         <p className="text-sm font-semibold text-blue-600 uppercase tracking-wide">Free tool — live eBay data, no signup</p>
-        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mt-2">eBay Price Checker</h1>
+        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mt-2">Check any eBay item&apos;s lowest price — and the price that wins you the sale.</h1>
         <p className="mt-4 text-gray-600">Paste your <b>eBay listing URL</b> and see the lowest competitor on that exact item — plus what Undercut would price it at to win the sale, without ever dropping below your floor.</p>
       </section>
 
