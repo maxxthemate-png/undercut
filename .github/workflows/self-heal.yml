@@ -1,0 +1,77 @@
+name: Self-Heal
+
+# Unattended nightly maintenance for Undercut. Runs in GitHub's cloud (your Mac
+# can be OFF). It runs the real backend + frontend checks, fixes failures at root
+# cause, and opens a PR you review. It NEVER touches main, deploys, spends, or
+# reads secrets. Self-heal only — never publish.
+#
+# One-time owner prereqs (see ⚡ YOUR ACTIONS in chat):
+#   1. Install the Claude GitHub App: https://github.com/apps/claude
+#   2. Add ANTHROPIC_API_KEY as a repo Actions secret
+#   3. Protect `main` (require a PR review) so nothing merges unreviewed
+on:
+  schedule:
+    - cron: "0 7 * * *"     # ~02:00 America/Chicago, daily
+  workflow_dispatch: {}      # also run on demand
+permissions:
+  contents: write            # commit to a claude/* branch only
+  pull-requests: write       # open the review PR
+jobs:
+  heal:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Backend env (mirrors .github/workflows/tests.yml)
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install backend deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+          pip install pytest
+
+      # Frontend env
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install frontend deps
+        working-directory: dashboard
+        run: npm ci || npm install
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            You are Undercut's unattended nightly maintenance agent. Goal: keep the
+            repo green at root cause, never publish.
+
+            RUN THESE CHECKS (the project's real commands):
+              - Backend tests:  python -m pytest backend/tests -q
+                  env: DATABASE_URL="sqlite://"  ANTHROPIC_API_KEY=test
+                       ADMIN_KEY=test-admin-key  UNDERCUT_API_KEY=test-admin-key
+              - Frontend types: cd dashboard && npx tsc --noEmit
+              - Frontend build: cd dashboard && npm run build
+              - Content-claims lint: node scripts/content-claims.mjs dashboard/app/_content/*/index.ts
+
+            IF ANYTHING FAILS: find the ROOT CAUSE and apply the MINIMAL code fix.
+            Never weaken, skip, xfail, or delete a test to make it pass. Never relax
+            the content-claims linter to silence it — fix the copy to be true instead
+            (15-min is the repricing ceiling; competitor tracking is all-tier; no
+            bulk-CSV/tagging/rules-engine claims). Commit the fix to a NEW branch
+            named claude/self-heal-<date> and open a PR describing what broke and
+            what you fixed. If everything is green, do nothing (no empty PR).
+
+            HARD RULES (absolute):
+              - NEVER push to main; only a claude/* branch via a PR.
+              - NEVER deploy, publish, release, run vercel, or trigger Render.
+              - NEVER spend money, buy, trade, or un-pause ad campaigns.
+              - NEVER read, print, or modify secrets / env / .env / Render or
+                Vercel config.
+              - NEVER commit anything under Docs/, .claude/, .gstack/, GROWTH.md,
+                SELL.md, GTM_OUTREACH.md (internal, gitignored).
+              - If a fix would touch more than ~5 files, or you're unsure, open an
+                ISSUE describing it instead of changing code.
+              - Touch ONLY this repo (Undercut). Ignore any other project.
