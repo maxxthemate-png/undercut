@@ -16,6 +16,7 @@ on:
 permissions:
   contents: write            # commit to a claude/* branch only
   pull-requests: write       # open the review PR
+  id-token: write            # OIDC token — claude-code-action authenticates with this
 jobs:
   heal:
     runs-on: ubuntu-latest
