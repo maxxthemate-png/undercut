@@ -23,44 +23,44 @@ const FAQ: [string, string][] = [
 
 export default function FreeEbayRepricer() {
   return (
-    <div className="min-h-screen bg-white text-gray-900">
-      <nav className="border-b border-gray-100">
+    <div className="min-h-screen bg-paper text-ink">
+      <nav className="border-b border-line bg-paper/90 backdrop-blur">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 font-bold text-lg"><img src="/logo-mark.svg" alt="" className="h-7 w-7" />under<span className="text-[#EE2B1C]">cut</span></Link>
+          <Link href="/" className="flex items-center gap-2 font-bold text-lg"><img src="/logo-mark.svg" alt="" className="h-7 w-7" />under<span className="text-cut">cut</span></Link>
           <div className="flex items-center gap-4 text-sm">
-            <Link href="/compare" className="text-gray-600 hover:text-gray-900">Compare</Link>
-            <Link href="/login" className="text-gray-600 hover:text-gray-900">Log in</Link>
-            <Link href="/signup" className="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free</Link>
+            <Link href="/compare" className="text-muted hover:text-ink transition">Compare</Link>
+            <Link href="/login" className="text-muted hover:text-ink transition">Log in</Link>
+            <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded bg-cut-strong text-white font-medium px-4 py-2 transition hover:opacity-90">Start free</Link>
           </div>
         </div>
       </nav>
 
       <section className="max-w-3xl mx-auto px-6 pt-20 pb-12 text-center">
-        <p className="text-sm font-semibold text-blue-600">Free eBay Repricer</p>
+        <p className="text-sm font-semibold text-cut">Free eBay Repricer</p>
         <h1 className="mt-3 text-4xl md:text-5xl font-extrabold tracking-tight">A free eBay repricer that protects your margin.</h1>
-        <p className="mt-5 text-lg text-gray-600">
-          Undercut the lowest competitor automatically — with a <span className="font-semibold text-gray-900">hard floor</span> so
+        <p className="mt-5 text-lg text-muted">
+          Undercut the lowest competitor automatically — with a <span className="font-semibold text-ink">hard floor</span> so
           you never sell below your minimum. Start with a 14-day Starter trial, then stay free for 25 listings. No card.
         </p>
         <div className="mt-8">
-          <Link href="/signup" className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free — no card</Link>
+          <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded bg-cut-strong text-white font-medium px-5 py-2.5 transition hover:opacity-90">Start free — no card</Link>
         </div>
       </section>
 
       <section className="max-w-5xl mx-auto px-6 py-8 grid md:grid-cols-3 gap-6">
         {STEPS.map(([t, d]) => (
-          <div key={t} className="bg-gray-50 rounded-xl p-6">
+          <div key={t} className="bg-wash rounded-lg p-6">
             <p className="font-semibold">{t}</p>
-            <p className="text-sm text-gray-600 mt-2">{d}</p>
+            <p className="text-sm text-muted mt-2">{d}</p>
           </div>
         ))}
       </section>
 
       <section className="max-w-4xl mx-auto px-6 py-8">
-        <div className="rounded-2xl bg-blue-600 text-white px-8 py-10 text-center">
+        <div className="rounded-lg bg-ink text-white px-8 py-10 text-center">
           <h2 className="text-2xl md:text-3xl font-extrabold">Start repricing free in minutes.</h2>
-          <p className="mt-3 text-blue-100">14-day Starter trial, no card. Keep the free plan after, or upgrade when you grow.</p>
-          <Link href="/signup" className="inline-block mt-6 px-6 py-3 rounded-lg bg-white text-blue-700 font-semibold hover:bg-blue-50">Create your free account</Link>
+          <p className="mt-3 text-white/75">14-day Starter trial, no card. Keep the free plan after, or upgrade when you grow.</p>
+          <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded bg-cut-strong text-white font-medium px-5 py-2.5 transition hover:opacity-90 mt-6">Create your free account</Link>
         </div>
       </section>
 
@@ -70,20 +70,20 @@ export default function FreeEbayRepricer() {
           {FAQ.map(([q, a]) => (
             <div key={q}>
               <p className="font-semibold">{q}</p>
-              <p className="text-sm text-gray-600 mt-1">{a}</p>
+              <p className="text-sm text-muted mt-1">{a}</p>
             </div>
           ))}
         </div>
         <div className="text-center mt-10">
-          <Link href="/compare" className="text-blue-600 font-medium hover:text-blue-700">Compare Undercut to other repricers →</Link>
+          <Link href="/compare" className="text-cut font-medium hover:opacity-90 transition">Compare Undercut to other repricers →</Link>
         </div>
       </section>
 
-      <footer className="border-t border-gray-100 py-8 text-center text-sm text-gray-400">
+      <footer className="border-t border-line py-8 text-center text-sm text-muted">
         <div className="flex items-center justify-center gap-4 mb-2">
-          <Link href="/" className="hover:text-gray-600">Home</Link>
-          <Link href="/compare" className="hover:text-gray-600">Compare</Link>
-          <Link href="/signup" className="hover:text-gray-600">Start free</Link>
+          <Link href="/" className="hover:text-ink transition">Home</Link>
+          <Link href="/compare" className="hover:text-ink transition">Compare</Link>
+          <Link href="/signup" className="hover:text-ink transition">Start free</Link>
         </div>
         © Undercut — automated eBay repricing.
       </footer>

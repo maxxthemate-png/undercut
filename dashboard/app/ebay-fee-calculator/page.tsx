@@ -36,22 +36,22 @@ const FAQ = [
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
-      <nav className="border-b border-gray-100 bg-white">
+    <div className="min-h-screen bg-paper text-ink">
+      <nav className="border-b border-line bg-paper/90 backdrop-blur">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 font-bold text-lg"><img src="/logo-mark.svg" alt="" className="h-7 w-7" />under<span className="text-[#EE2B1C]">cut</span></Link>
+          <Link href="/" className="flex items-center gap-2 font-bold text-lg"><img src="/logo-mark.svg" alt="" className="h-7 w-7" />under<span className="text-cut">cut</span></Link>
           <div className="flex items-center gap-4 text-sm">
-            <Link href="/ebay-profit-calculator" className="text-gray-600 hover:text-gray-900">Profit calculator</Link>
-            <Link href="/compare" className="text-gray-600 hover:text-gray-900">Compare</Link>
-            <Link href="/signup" className="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free</Link>
+            <Link href="/ebay-profit-calculator" className="text-muted hover:text-ink transition">Profit calculator</Link>
+            <Link href="/compare" className="text-muted hover:text-ink transition">Compare</Link>
+            <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded bg-cut-strong text-white font-medium px-4 py-2 transition hover:opacity-90">Start free</Link>
           </div>
         </div>
       </nav>
 
       <section className="max-w-3xl mx-auto px-6 pt-16 pb-8 text-center">
-        <p className="text-sm font-semibold text-blue-600 uppercase tracking-wide">Free tool — no signup</p>
+        <p className="text-sm font-semibold text-cut uppercase tracking-wide">Free tool — no signup</p>
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mt-2">eBay Fee Calculator</h1>
-        <p className="mt-4 text-gray-600">See exactly what eBay takes from a sale — final value fee, per-order fee, and Promoted Listings — and what you actually keep. Then find the <b>break-even floor</b> you should never price below.</p>
+        <p className="mt-4 text-muted">See exactly what eBay takes from a sale — final value fee, per-order fee, and Promoted Listings — and what you actually keep. Then find the <b>break-even floor</b> you should never price below.</p>
       </section>
 
       <section className="max-w-5xl mx-auto px-6 pb-12">
@@ -60,7 +60,7 @@ export default function Page() {
 
       <section className="max-w-3xl mx-auto px-6 py-10">
         <h2 className="text-2xl font-bold mb-4">How eBay fees work in 2026</h2>
-        <div className="space-y-4 text-gray-700 text-[15px] leading-relaxed">
+        <div className="space-y-4 text-muted text-[15px] leading-relaxed">
           <p>
             When your item sells, eBay charges a <b>final value fee</b>: a percentage of the <i>total</i> amount the buyer pays — item price, shipping, and sales tax combined. For most categories the standard rate is around <b>13.6%</b>, but it ranges from about 3% (select business &amp; industrial) to 15.3% (books, movies &amp; music). On top of that, every order carries a fixed <b>per-order fee</b> of $0.30 (orders ≤ $10) or $0.40 (orders over $10).
           </p>
@@ -68,18 +68,18 @@ export default function Page() {
             If you use <b>Promoted Listings</b>, your chosen ad rate is charged on the sale as well, and international sales add roughly 1.65%. A &ldquo;13.6% fee&rdquo; listing can easily cost 16–18% all-in — which is why sellers who price by gut feel often make less than they think, and why undercutting a competitor by too much can silently push a sale <i>below break-even</i>.
           </p>
           <p>
-            The blue box above computes that break-even — your <b>price floor</b>. It is the single most important number in repricing: compete as hard as you want above it, never cross it. That is exactly how <Link href="/" className="text-blue-600 hover:text-blue-700 font-medium">Undercut</Link> reprices: it beats the lowest competitor automatically, 24/7, and stops dead at the floor you set per item. Read the full method in our <Link href="/guides/ebay-price-floor" className="text-blue-600 hover:text-blue-700 font-medium">price-floor guide</Link>, or work a full deal end-to-end in the <Link href="/ebay-profit-calculator" className="text-blue-600 hover:text-blue-700 font-medium">repricing profit calculator</Link>.
+            The calculator above computes that break-even — your <b>price floor</b>. It is the single most important number in repricing: compete as hard as you want above it, never cross it. That is exactly how <Link href="/" className="text-cut hover:opacity-90 font-medium">Undercut</Link> reprices: it beats the lowest competitor automatically, 24/7, and stops dead at the floor you set per item. Read the full method in our <Link href="/guides/ebay-price-floor" className="text-cut hover:opacity-90 font-medium">price-floor guide</Link>, or work a full deal end-to-end in the <Link href="/ebay-profit-calculator" className="text-cut hover:opacity-90 font-medium">repricing profit calculator</Link>.
           </p>
         </div>
       </section>
 
       <section className="max-w-2xl mx-auto px-6 py-12 text-center">
         <h2 className="text-2xl font-bold">Stop doing this math by hand.</h2>
-        <p className="text-gray-600 mt-2 mb-5">Undercut reprices every listing to beat the lowest competitor and never crosses your break-even floor. Start free — 14-day trial, no card.</p>
+        <p className="text-muted mt-2 mb-5">Undercut reprices every listing to beat the lowest competitor and never crosses your break-even floor. Start free — 14-day trial, no card.</p>
         <div className="flex justify-center mb-8">
-          <Link href="/signup" className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free — no card</Link>
+          <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded bg-cut-strong text-white font-medium px-5 py-2.5 transition hover:opacity-90">Start free — no card</Link>
         </div>
-        <p className="text-sm text-gray-500 mb-3">Not ready? Get early access + founding pricing:</p>
+        <p className="text-sm text-muted mb-3">Not ready? Get early access + founding pricing:</p>
         <LeadForm source="fee-calculator" />
       </section>
 

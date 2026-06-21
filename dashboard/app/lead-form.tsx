@@ -55,7 +55,7 @@ export default function LeadForm({ source = 'landing' }: { source?: string }) {
   }
 
   if (done) {
-    return <p className="text-green-700 font-medium">✅ You're on the list — we'll email you early access + founding pricing.</p>
+    return <p className="text-floor font-medium">✅ You're on the list — we'll email you early access + founding pricing.</p>
   }
 
   return (
@@ -63,12 +63,12 @@ export default function LeadForm({ source = 'landing' }: { source?: string }) {
       <input
         type="email" required value={email} onChange={e => setEmail(e.target.value)}
         placeholder="you@yourstore.com"
-        className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm" />
+        className="flex-1 rounded border border-line bg-surface px-3 py-2.5 text-ink placeholder:text-muted focus:border-cut transition" />
       <button disabled={busy}
-        className="px-5 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 disabled:opacity-50 whitespace-nowrap">
+        className="inline-flex items-center justify-center gap-2 rounded bg-cut-strong text-white font-medium px-5 py-2.5 transition hover:opacity-90 disabled:opacity-50 whitespace-nowrap">
         {busy ? 'Adding…' : 'Get early access'}
       </button>
-      {err && <span className="text-sm text-red-600 sm:hidden">{err}</span>}
+      {err && <span className="text-sm text-cut sm:hidden">{err}</span>}
     </form>
   )
 }

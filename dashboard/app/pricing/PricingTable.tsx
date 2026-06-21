@@ -17,15 +17,15 @@ export default function PricingTable() {
       <div className="flex items-center justify-center gap-3 mb-8">
         <button
           onClick={() => setAnnual(false)}
-          className={`px-4 py-2 rounded-lg text-sm font-medium border ${!annual ? 'bg-gray-900 text-white border-gray-900' : 'border-gray-200 text-gray-600 hover:bg-gray-50'}`}
+          className={`px-4 py-2 rounded text-sm font-medium border transition ${!annual ? 'bg-ink text-white border-ink' : 'border-line text-muted hover:bg-wash'}`}
         >
           Monthly
         </button>
         <button
           onClick={() => setAnnual(true)}
-          className={`px-4 py-2 rounded-lg text-sm font-medium border ${annual ? 'bg-gray-900 text-white border-gray-900' : 'border-gray-200 text-gray-600 hover:bg-gray-50'}`}
+          className={`px-4 py-2 rounded text-sm font-medium border transition ${annual ? 'bg-ink text-white border-ink' : 'border-line text-muted hover:bg-wash'}`}
         >
-          Annual <span className={annual ? 'text-green-300' : 'text-green-600'}>· 2 months free</span>
+          Annual <span className={annual ? 'text-floor-tint' : 'text-floor'}>· 2 months free</span>
         </button>
       </div>
 
@@ -33,27 +33,27 @@ export default function PricingTable() {
         {PLANS.map((p) => {
           const highlight = p.key === 'pro'
           return (
-            <div key={p.key} className={`rounded-2xl border p-6 flex flex-col ${highlight ? 'border-blue-600 ring-1 ring-blue-600' : 'border-gray-200'}`}>
-              {highlight && <span className="text-xs font-semibold text-blue-600 mb-2">MOST POPULAR</span>}
-              <p className="font-semibold">{p.name}</p>
+            <div key={p.key} className={`rounded-lg border p-6 flex flex-col bg-surface ${highlight ? 'border-cut ring-1 ring-cut' : 'border-line'}`}>
+              {highlight && <span className="text-xs font-semibold text-cut mb-2">MOST POPULAR</span>}
+              <p className="font-semibold text-ink">{p.name}</p>
               {annual && p.annual > 0 ? (
                 <>
-                  <p className="text-3xl font-extrabold mt-1">${p.annual.toLocaleString()}<span className="text-sm font-normal text-gray-400">/yr</span></p>
-                  <p className="text-xs text-green-700 mt-1 font-medium">= ${Math.round(p.annual / 12)}/mo · save ${p.save}</p>
+                  <p className="text-3xl font-extrabold mt-1 text-ink"><span className="tabular">${p.annual.toLocaleString()}</span><span className="text-sm font-normal text-muted">/yr</span></p>
+                  <p className="text-xs text-floor mt-1 font-medium">= <span className="tabular">${Math.round(p.annual / 12)}</span>/mo · save <span className="tabular">${p.save}</span></p>
                 </>
               ) : (
                 <>
-                  <p className="text-3xl font-extrabold mt-1">${p.monthly}<span className="text-sm font-normal text-gray-400">/mo</span></p>
-                  {p.monthly > 0 && <p className="text-xs text-gray-400 mt-1">or ${p.annual.toLocaleString()}/yr (2 months free)</p>}
+                  <p className="text-3xl font-extrabold mt-1 text-ink"><span className="tabular">${p.monthly}</span><span className="text-sm font-normal text-muted">/mo</span></p>
+                  {p.monthly > 0 && <p className="text-xs text-muted mt-1">or <span className="tabular">${p.annual.toLocaleString()}</span>/yr (2 months free)</p>}
                 </>
               )}
-              <p className="text-sm text-gray-500 mt-1">{p.listings}</p>
-              <ul className="mt-4 space-y-2 text-sm text-gray-600 flex-1">
+              <p className="text-sm text-muted mt-1">{p.listings}</p>
+              <ul className="mt-4 space-y-2 text-sm text-muted flex-1">
                 {(FEATURES[p.key] || []).map((f) => <li key={f}>• {f}</li>)}
               </ul>
               <Link
                 href="/signup"
-                className={`mt-6 text-center px-4 py-2 rounded-lg text-sm font-medium ${highlight ? 'bg-blue-600 text-white hover:bg-blue-700' : 'border border-gray-200 hover:bg-gray-50'}`}
+                className={`mt-6 inline-flex items-center justify-center rounded text-sm font-medium px-4 py-2.5 transition ${highlight ? 'bg-cut-strong text-white hover:opacity-90' : 'border border-line text-ink hover:border-muted'}`}
               >
                 Start free
               </Link>

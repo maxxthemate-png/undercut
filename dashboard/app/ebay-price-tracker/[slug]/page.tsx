@@ -62,11 +62,11 @@ function Sparkline({ history }: { history: { date: string; lowest: number | null
   const y = (v: number) => h - pad - ((v - min) / span) * (h - pad * 2)
   const d = pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${x(i).toFixed(1)},${y(p.lowest).toFixed(1)}`).join(' ')
   return (
-    <div className="bg-white border border-gray-200 rounded-2xl p-5">
+    <div className="bg-surface border border-line rounded-lg p-5">
       <p className="text-sm font-semibold mb-1">Lowest-price history ({pts.length} days)</p>
-      <p className="text-xs text-gray-400 mb-3">range ${min.toFixed(2)} – ${max.toFixed(2)}</p>
-      <svg viewBox={`0 0 ${w} ${h}`} className="w-full h-auto">
-        <path d={d} fill="none" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      <p className="text-xs text-muted mb-3 tabular">range ${min.toFixed(2)} – ${max.toFixed(2)}</p>
+      <svg viewBox={`0 0 ${w} ${h}`} className="w-full h-auto text-cut">
+        <path d={d} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </div>
   )
@@ -79,45 +79,45 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const siblings = TRACKED_PRODUCTS.filter((p) => p.category === product.category && p.slug !== product.slug).slice(0, 6)
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
+    <div className="min-h-screen bg-paper text-ink">
       <Nav />
       <section className="max-w-3xl mx-auto px-6 pt-14 pb-8 text-center">
-        <p className="text-sm font-semibold text-blue-600 uppercase tracking-wide">Live eBay price tracker · updated daily</p>
+        <p className="text-sm font-semibold text-cut uppercase tracking-wide">Live eBay price tracker · updated daily</p>
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mt-2">{product.name}: lowest price on eBay</h1>
       </section>
 
       <section className="max-w-3xl mx-auto px-6 pb-10 space-y-4">
         <div className="grid sm:grid-cols-2 gap-4">
-          <div className="bg-blue-600 text-white rounded-2xl p-6">
-            <p className="text-sm text-blue-100">Lowest live price right now</p>
-            <p className="text-4xl font-extrabold mt-1">
+          <div className="bg-ink text-white rounded-lg p-6">
+            <p className="text-sm text-white/75">Lowest live price right now</p>
+            <p className="text-4xl font-extrabold mt-1 tabular">
               {live?.lowest != null ? `$${Number(live.lowest).toFixed(2)}` : 'checking…'}
             </p>
-            <p className="text-sm text-blue-100 mt-2">
+            <p className="text-sm text-white/75 mt-2">
               {live?.count ? `across ${live.count} live listings` : 'live data refreshes every few hours'}
             </p>
           </div>
-          <div className="bg-white border border-gray-200 rounded-2xl p-6">
-            <p className="text-sm text-gray-600">Selling one? To win the sale you&apos;d price at</p>
-            <p className="text-3xl font-extrabold mt-1 text-green-700">
+          <div className="bg-surface border border-line rounded-lg p-6">
+            <p className="text-sm text-muted">Selling one? To win the sale you&apos;d price at</p>
+            <p className="text-3xl font-extrabold mt-1 text-floor tabular">
               {live?.lowest != null ? `$${Math.max(Number(live.lowest) - 0.01, 0).toFixed(2)}` : '—'}
             </p>
-            <p className="text-sm text-gray-600 mt-2">
-              a penny under — <i>if</i> that clears your <Link href="/ebay-fee-calculator" className="text-blue-600">break-even floor</Link>.
+            <p className="text-sm text-muted mt-2">
+              a penny under — <i>if</i> that clears your <Link href="/ebay-fee-calculator" className="text-cut">break-even floor</Link>.
             </p>
           </div>
         </div>
         <Sparkline history={history} />
         {live?.items?.length > 0 && (
-          <div className="bg-white border border-gray-200 rounded-2xl p-5">
+          <div className="bg-surface border border-line rounded-lg p-5">
             <p className="text-sm font-semibold mb-2">Cheapest live listings</p>
             <ul className="space-y-1.5 text-sm">
               {live.items.slice(0, 5).map((it: any, i: number) => (
                 <li key={i} className="flex justify-between gap-3">
-                  <span className="truncate text-gray-700">
-                    {it.url ? <a href={it.url} target="_blank" rel="nofollow noopener noreferrer" className="hover:text-blue-700">{it.title}</a> : it.title}
+                  <span className="truncate text-muted">
+                    {it.url ? <a href={it.url} target="_blank" rel="nofollow noopener noreferrer" className="hover:text-cut transition">{it.title}</a> : it.title}
                   </span>
-                  <b className="whitespace-nowrap">${Number(it.price).toFixed(2)}</b>
+                  <b className="whitespace-nowrap tabular">${Number(it.price).toFixed(2)}</b>
                 </li>
               ))}
             </ul>
@@ -125,8 +125,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
         )}
       </section>
 
-      <section className="max-w-3xl mx-auto px-6 py-8 border-t border-gray-100">
-        <div className="space-y-4 text-gray-700 text-[15px] leading-relaxed">
+      <section className="max-w-3xl mx-auto px-6 py-8 border-t border-line">
+        <div className="space-y-4 text-muted text-[15px] leading-relaxed">
           <p>
             This page tracks the lowest live eBay price for <b>{product.name}</b> (search: &ldquo;{product.query}&rdquo;) using
             eBay&apos;s public Browse API, with a snapshot saved every day. Sellers use this number two ways:
@@ -134,19 +134,19 @@ export default async function Page({ params }: { params: { slug: string } }) {
             the lowest credible price wins most of the sales.
           </p>
           <p>
-            If you <b>sell</b> {product.category}, this exact lookup is what <Link href="/" className="text-blue-600 font-medium">Undercut</Link> runs
+            If you <b>sell</b> {product.category}, this exact lookup is what <Link href="/" className="text-cut font-medium">Undercut</Link> runs
             on every one of your listings around the clock: it reprices you a penny under the lowest competitor and
-            never below the <Link href="/guides/ebay-price-floor" className="text-blue-600 font-medium">floor you set</Link>. Check any other product
-            with the <Link href="/ebay-price-checker" className="text-blue-600 font-medium">price checker</Link>.
+            never below the <Link href="/guides/ebay-price-floor" className="text-cut font-medium">floor you set</Link>. Check any other product
+            with the <Link href="/ebay-price-checker" className="text-cut font-medium">price checker</Link>.
           </p>
         </div>
       </section>
 
       <section className="max-w-2xl mx-auto px-6 py-10 text-center">
         <h2 className="text-2xl font-bold">Sell {product.category} on eBay?</h2>
-        <p className="text-gray-600 mt-2 mb-5">Undercut watches this number for every listing you have and reprices you to win — floor-protected. Free for 25 listings, no card.</p>
-        <Link href="/signup" className="inline-block px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free — no card</Link>
-        <p className="text-sm text-gray-500 mt-8 mb-3">Or get early access + founding pricing by email:</p>
+        <p className="text-muted mt-2 mb-5">Undercut watches this number for every listing you have and reprices you to win — floor-protected. Free for 25 listings, no card.</p>
+        <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded bg-cut-strong text-white font-medium px-5 py-2.5 transition hover:opacity-90">Start free — no card</Link>
+        <p className="text-sm text-muted mt-8 mb-3">Or get early access + founding pricing by email:</p>
         <LeadForm source={`tracker-${product.slug}`} />
       </section>
 
@@ -156,11 +156,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <ul className="grid sm:grid-cols-2 gap-2 text-sm">
             {siblings.map((s) => (
               <li key={s.slug}>
-                <Link href={`/ebay-price-tracker/${s.slug}`} className="text-blue-600 hover:text-blue-700">{s.name} price tracker</Link>
+                <Link href={`/ebay-price-tracker/${s.slug}`} className="text-cut hover:opacity-90 transition">{s.name} price tracker</Link>
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-sm"><Link href="/ebay-price-tracker" className="text-gray-500 hover:text-gray-700">← All tracked products</Link></p>
+          <p className="mt-4 text-sm"><Link href="/ebay-price-tracker" className="text-muted hover:text-ink transition">← All tracked products</Link></p>
         </section>
       )}
       <Footer />

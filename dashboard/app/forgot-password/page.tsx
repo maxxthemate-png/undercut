@@ -22,27 +22,27 @@ export default function ForgotPassword() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-      <form onSubmit={submit} className="bg-white border border-gray-200 rounded-2xl p-8 w-full max-w-sm space-y-4">
+    <div className="min-h-screen bg-paper flex items-center justify-center px-4">
+      <form onSubmit={submit} className="bg-surface border border-line rounded-lg p-8 w-full max-w-sm space-y-4">
         <div>
-          <h1 className="text-xl font-bold text-gray-900">Reset your password</h1>
-          <p className="text-sm text-gray-500">Enter your account email and we&apos;ll send a reset link.</p>
+          <h1 className="text-xl font-bold text-ink">Reset your password</h1>
+          <p className="text-sm text-muted">Enter your account email and we&apos;ll send a reset link.</p>
         </div>
         {done ? (
-          <p className="text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg p-3">
+          <p className="text-sm text-floor bg-floor-tint border border-floor rounded-lg p-3">
             If an account exists for that address, we&apos;ve emailed a reset link. Check your inbox (and spam).
           </p>
         ) : (
           <>
-            <input className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" type="email" placeholder="Email"
+            <input className="w-full rounded border border-line bg-surface px-3 py-2.5 text-ink placeholder:text-muted focus:border-cut transition" type="email" placeholder="Email"
                    value={email} onChange={e => setEmail(e.target.value)} required />
-            {err && <p className="text-sm text-red-600">{err}</p>}
-            <button disabled={busy} className="w-full bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700 disabled:opacity-50">
+            {err && <p className="text-sm text-cut">{err}</p>}
+            <button disabled={busy} className="inline-flex items-center justify-center gap-2 w-full rounded bg-cut-strong text-white font-medium px-5 py-2.5 transition hover:opacity-90 disabled:opacity-50">
               {busy ? 'Sending…' : 'Send reset link'}
             </button>
           </>
         )}
-        <p className="text-xs text-gray-500 text-center"><Link href="/login" className="text-blue-600">Back to log in</Link></p>
+        <p className="text-xs text-muted text-center"><Link href="/login" className="text-cut">Back to log in</Link></p>
       </form>
     </div>
   )

@@ -27,7 +27,7 @@ export default function PageView({ page }: { page: PageContent }) {
     ],
   }
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen bg-paper text-ink">
       <Nav />
       <Hero eyebrow={page.eyebrow} h1={page.h1} intro={page.intro} />
       {page.comparison && (
@@ -40,10 +40,10 @@ export default function PageView({ page }: { page: PageContent }) {
       <Prose sections={page.sections} />
       <CtaBanner heading={cta.heading} sub={cta.sub} />
       {page.leadForm !== false && (
-        <section className="bg-gray-50 border-t border-gray-100">
+        <section className="bg-wash border-t border-line">
           <div className="max-w-2xl mx-auto px-6 py-14 text-center">
             <h2 className="text-2xl font-bold">Not ready to connect your store yet?</h2>
-            <p className="text-gray-600 mt-2 mb-6">Drop your email — we&apos;ll send early access and founding pricing.</p>
+            <p className="text-muted mt-2 mb-6">Drop your email — we&apos;ll send early access and founding pricing.</p>
             <LeadForm source={page.slug} />
           </div>
         </section>
@@ -54,7 +54,7 @@ export default function PageView({ page }: { page: PageContent }) {
         <ul className="flex flex-wrap gap-2 text-sm">
           {[['Fee calculator', '/ebay-fee-calculator'], ['Price checker', '/ebay-price-checker'], ['Profit calculator', '/ebay-profit-calculator']].map(([label, href]) => (
             <li key={href}>
-              <Link href={href} className="inline-block px-3 py-1.5 rounded-full border border-gray-200 text-blue-600 hover:bg-gray-50">{label}</Link>
+              <Link href={href} className="inline-block px-3 py-1.5 rounded-full border border-line text-cut hover:bg-wash transition">{label}</Link>
             </li>
           ))}
         </ul>
@@ -66,7 +66,7 @@ export default function PageView({ page }: { page: PageContent }) {
           <ul className="grid sm:grid-cols-2 gap-2 text-sm">
             {siblings.map((s) => (
               <li key={s.slug}>
-                <Link href={`/${s.collection}/${s.slug}`} className="text-blue-600 hover:text-blue-700">{s.h1}</Link>
+                <Link href={`/${s.collection}/${s.slug}`} className="text-cut hover:opacity-90 transition">{s.h1}</Link>
               </li>
             ))}
           </ul>

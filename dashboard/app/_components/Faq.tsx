@@ -19,7 +19,7 @@ export default function Faq({ items }: { items: FaqItem[] }) {
         {items.map((it, i) => (
           <div key={i}>
             <p className="font-semibold">{it.q}</p>
-            <p className="text-sm text-gray-600 mt-1">{it.a}</p>
+            <p className="text-sm text-muted mt-1">{it.a}</p>
           </div>
         ))}
       </div>

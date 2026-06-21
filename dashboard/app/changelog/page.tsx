@@ -12,18 +12,18 @@ export const metadata = pageMeta(
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen bg-paper text-ink">
       <Nav />
       <section className="max-w-2xl mx-auto px-6 pt-16 pb-10">
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-center">Changelog</h1>
-        <p className="mt-4 text-gray-600 text-center">Built in the open. Everything user-visible lands here.</p>
-        <ol className="mt-10 space-y-6 border-l-2 border-gray-100 pl-6">
+        <p className="mt-4 text-muted text-center">Built in the open. Everything user-visible lands here.</p>
+        <ol className="mt-10 space-y-6 border-l-2 border-line pl-6">
           {changelog.map((e, i) => (
             <li key={i} className="relative">
-              <span className="absolute -left-[31px] top-1.5 w-2.5 h-2.5 rounded-full bg-blue-600" />
-              <p className="text-xs text-gray-400">{e.date}</p>
+              <span className="absolute -left-[31px] top-1.5 w-2.5 h-2.5 rounded-full bg-cut" />
+              <p className="text-xs text-muted">{e.date}</p>
               <p className="font-semibold">{e.title}</p>
-              <p className="text-sm text-gray-600 mt-1">{e.blurb}</p>
+              <p className="text-sm text-muted mt-1">{e.blurb}</p>
             </li>
           ))}
         </ol>

@@ -12,10 +12,10 @@ export default function Prose({ sections }: { sections: ContentSection[] }) {
         <div key={i} className="mt-10 first:mt-0">
           <h2 className="text-2xl font-bold mb-3">{s.h2}</h2>
           {paragraphs(s.body).map((p, j) => (
-            <p key={j} className="text-gray-700 mt-3 leading-relaxed">{p}</p>
+            <p key={j} className="text-muted mt-3 leading-relaxed">{p}</p>
           ))}
           {s.bullets && s.bullets.length > 0 && (
-            <ul className="list-disc pl-6 mt-3 space-y-1 text-gray-700">
+            <ul className="list-disc pl-6 mt-3 space-y-1 text-muted">
               {s.bullets.map((b, k) => (
                 <li key={k}>{b}</li>
               ))}

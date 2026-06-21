@@ -36,19 +36,19 @@ const FAQ = [
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen bg-paper text-ink">
       <Nav />
       <section className="max-w-3xl mx-auto px-6 pt-16 pb-10 text-center">
-        <p className="text-sm font-semibold text-blue-600 uppercase tracking-wide">Pricing</p>
+        <p className="text-sm font-semibold text-cut uppercase tracking-wide">Pricing</p>
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mt-2">Simple, volume-based pricing</h1>
-        <p className="mt-4 text-gray-600">
+        <p className="mt-4 text-muted">
           Pay for the listings you manage — every plan includes the hard price floor. Start with 14
           days of Starter free, no card, then stay on Free or upgrade.
         </p>
       </section>
       <section className="max-w-6xl mx-auto px-6 pb-14">
         <PricingTable />
-        <p className="text-center text-xs text-gray-400 mt-6">
+        <p className="text-center text-xs text-muted mt-6">
           Prices in USD. Cancel anytime. Annual plans: 30-day full-refund window.
         </p>
       </section>

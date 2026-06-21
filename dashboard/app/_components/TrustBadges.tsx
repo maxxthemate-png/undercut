@@ -6,9 +6,9 @@ import { TRUST_BADGES } from '../_content/shared'
 
 export default function TrustBadges() {
   return (
-    <div className="flex flex-wrap justify-center gap-2 text-xs text-gray-600">
+    <div className="flex flex-wrap justify-center gap-2 text-xs text-muted">
       {TRUST_BADGES.map((t) => (
-        <span key={t} className="px-3 py-1.5 rounded-full border border-gray-200 bg-white">{t}</span>
+        <span key={t} className="px-3 py-1.5 rounded-full border border-line bg-surface">{t}</span>
       ))}
     </div>
   )

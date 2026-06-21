@@ -15,10 +15,10 @@ function ResetForm() {
 
   if (!token) {
     return (
-      <div className="bg-white border border-gray-200 rounded-2xl p-8 w-full max-w-sm space-y-3 text-center">
-        <h1 className="text-xl font-bold text-gray-900">Invalid reset link</h1>
-        <p className="text-sm text-gray-500">This link is missing or expired.</p>
-        <Link href="/forgot-password" className="text-sm text-blue-600">Request a new one</Link>
+      <div className="bg-surface border border-line rounded-lg p-8 w-full max-w-sm space-y-3 text-center">
+        <h1 className="text-xl font-bold text-ink">Invalid reset link</h1>
+        <p className="text-sm text-muted">This link is missing or expired.</p>
+        <Link href="/forgot-password" className="text-sm text-cut">Request a new one</Link>
       </div>
     )
   }
@@ -43,18 +43,18 @@ function ResetForm() {
   }
 
   return (
-    <form onSubmit={submit} className="bg-white border border-gray-200 rounded-2xl p-8 w-full max-w-sm space-y-4">
-      <h1 className="text-xl font-bold text-gray-900">Choose a new password</h1>
+    <form onSubmit={submit} className="bg-surface border border-line rounded-lg p-8 w-full max-w-sm space-y-4">
+      <h1 className="text-xl font-bold text-ink">Choose a new password</h1>
       {done ? (
-        <p className="text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg p-3">Password updated — taking you in…</p>
+        <p className="text-sm text-floor bg-floor-tint border border-floor rounded-lg p-3">Password updated — taking you in…</p>
       ) : (
         <>
-          <input className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" type="password" placeholder="New password (8+ chars)"
+          <input className="w-full rounded border border-line bg-surface px-3 py-2.5 text-ink placeholder:text-muted focus:border-cut transition" type="password" placeholder="New password (8+ chars)"
                  value={pw} onChange={e => setPw(e.target.value)} required minLength={8} />
-          <input className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" type="password" placeholder="Confirm new password"
+          <input className="w-full rounded border border-line bg-surface px-3 py-2.5 text-ink placeholder:text-muted focus:border-cut transition" type="password" placeholder="Confirm new password"
                  value={pw2} onChange={e => setPw2(e.target.value)} required minLength={8} />
-          {err && <p className="text-sm text-red-600">{err}</p>}
-          <button disabled={busy} className="w-full bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700 disabled:opacity-50">
+          {err && <p className="text-sm text-cut">{err}</p>}
+          <button disabled={busy} className="inline-flex items-center justify-center gap-2 w-full rounded bg-cut-strong text-white font-medium px-5 py-2.5 transition hover:opacity-90 disabled:opacity-50">
             {busy ? 'Saving…' : 'Set new password'}
           </button>
         </>
@@ -65,8 +65,8 @@ function ResetForm() {
 
 export default function ResetPassword() {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-      <Suspense fallback={<p className="text-sm text-gray-400">Loading…</p>}>
+    <div className="min-h-screen bg-paper flex items-center justify-center px-4">
+      <Suspense fallback={<p className="text-sm text-muted">Loading…</p>}>
         <ResetForm />
       </Suspense>
     </div>

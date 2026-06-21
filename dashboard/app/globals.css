@@ -1,3 +1,70 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ── Undercut design tokens — single source of truth ──────────────────────── */
+:root {
+  /* color — kills generic-SaaS blue; the brand red is the name ("undercut") made visual */
+  --paper: #FBFAF7;       /* page ground — clean warm-cool off-white, a precision-tool surface */
+  --surface: #FFFFFF;     /* cards / raised */
+  --ink: #17130F;         /* text + structure — warm near-black "ink" */
+  --muted: #6B6459;       /* secondary text */
+  --cut: #E22D1A;         /* THE brand/action color — the undercut */
+  --cut-strong: #B9261A;  /* white-on-red AA where the bright red is too light */
+  --floor: #1C7A55;       /* the protective floor / win / margin kept */
+  --guard: #B7791F;       /* "at the floor / hold" caution (demo protect state) */
+  --line: #E8E3D9;        /* hairline borders on paper */
+  --wash: #F3F0E9;        /* grouped section background — a step under paper */
+  --cut-tint: #FCEBE8;    /* faint red wash (badges, accents) */
+  --floor-tint: #EAF5EF;  /* faint green wash — the "win / margin kept" box */
+  --guard-tint: #FAF2DF;  /* faint amber wash — the "hold at floor" box */
+
+  /* radius */
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+
+  /* motion — fast + sharp for a precision tool */
+  --dur: 160ms;
+  --ease: cubic-bezier(.2, .6, .2, 1);
+
+  /* elevation */
+  --shadow-sm: 0 1px 2px rgba(23, 19, 15, .06);
+  --shadow: 0 6px 24px -8px rgba(23, 19, 15, .18);
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body), system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display), system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
+  /* visible, on-brand keyboard focus everywhere (was missing) */
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid var(--cut);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+}
+
+@layer utilities {
+  /* prices, floors, margins render in mono — the trading-terminal precision signature */
+  .tabular { font-family: var(--font-mono), ui-monospace, monospace; font-feature-settings: "tnum" 1; }
+  /* "The Floor Line" — the red cut rule used under active nav / eyebrows / the wordmark */
+  .cut-rule { position: relative; }
+  .cut-rule::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px;
+    background: var(--cut); border-radius: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

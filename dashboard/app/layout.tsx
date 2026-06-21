@@ -1,4 +1,11 @@
 import './globals.css'
+import { Space_Grotesk, Hanken_Grotesk, Space_Mono } from 'next/font/google'
+
+// Display: distinctive grotesque with ticker-like digits. Body: warm, readable,
+// not Inter/Geist. Mono: prices/floors/margins render here — the precision signature.
+const display = Space_Grotesk({ subsets: ['latin'], weight: ['500', '700'], variable: '--font-display', display: 'swap' })
+const body = Hanken_Grotesk({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-body', display: 'swap' })
+const mono = Space_Mono({ subsets: ['latin'], weight: ['400', '700'], variable: '--font-mono', display: 'swap' })
 
 export const metadata = {
   metadataBase: new URL('https://undercut-nu.vercel.app'),
@@ -47,7 +54,7 @@ const GADS_ID = process.env.NEXT_PUBLIC_GADS_ID
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body>
         {GADS_ID ? (
           <>

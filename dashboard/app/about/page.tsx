@@ -11,11 +11,11 @@ export const metadata = pageMeta(
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen bg-paper text-ink">
       <Nav />
       <article className="max-w-2xl mx-auto px-6 py-14">
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">About Undercut</h1>
-        <div className="mt-8 space-y-5 text-[15px] leading-relaxed text-gray-700">
+        <div className="mt-8 space-y-5 text-[15px] leading-relaxed text-muted">
           <p>
             Undercut is built and run by a solo founder, in the open, in 2026. It exists because of a
             pattern in every conversation with eBay sellers: the tools that automate pricing are
@@ -37,7 +37,7 @@ export default function Page() {
         </div>
 
         <h2 className="text-xl font-bold mt-10 mb-3">Principles</h2>
-        <ul className="list-disc pl-5 space-y-2 text-[15px] text-gray-700">
+        <ul className="list-disc pl-5 space-y-2 text-[15px] text-muted">
           <li>No fake testimonials, no inflated numbers — the product earns trust or it doesn&apos;t.</li>
           <li>No credit card to try it. The trial is real and the Free plan is real.</li>
           <li>Cancel anytime; your data is never sold.</li>
@@ -45,10 +45,10 @@ export default function Page() {
         </ul>
 
         <div className="mt-10 flex items-center gap-3">
-          <Link href="/signup" className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">
+          <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded bg-cut-strong text-white font-medium px-5 py-2.5 transition hover:opacity-90">
             Start free — 14-day trial, no card
           </Link>
-          <a href={`mailto:${SUPPORT_EMAIL}`} className="px-6 py-3 rounded-lg border border-gray-200 font-medium hover:bg-gray-50">
+          <a href={`mailto:${SUPPORT_EMAIL}`} className="inline-flex items-center justify-center gap-2 rounded border border-line text-ink font-medium px-5 py-2.5 transition hover:border-muted">
             Email the founder
           </a>
         </div>

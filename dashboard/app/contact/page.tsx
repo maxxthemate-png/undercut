@@ -12,38 +12,38 @@ export const metadata = pageMeta(
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen bg-paper text-ink">
       <Nav />
       <section className="max-w-2xl mx-auto px-6 pt-16 pb-10 text-center">
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">Contact</h1>
-        <p className="mt-4 text-gray-600">
+        <p className="mt-4 text-muted">
           Undercut is founder-run — your email goes straight to the person who built it. Replies
           usually within one business day.
         </p>
         <a
           href={`mailto:${SUPPORT_EMAIL}`}
-          className="inline-block mt-8 px-8 py-4 rounded-2xl border border-gray-200 bg-gray-50 hover:bg-gray-100"
+          className="inline-block mt-8 px-8 py-4 rounded-lg border border-line bg-wash hover:border-muted transition"
         >
-          <span className="block text-sm text-gray-500">Email support</span>
-          <span className="block text-xl font-bold text-blue-600">{SUPPORT_EMAIL}</span>
+          <span className="block text-sm text-muted">Email support</span>
+          <span className="block text-xl font-bold text-cut">{SUPPORT_EMAIL}</span>
         </a>
-        <p className="mt-6 text-sm text-gray-500">
+        <p className="mt-6 text-sm text-muted">
           For account issues, include your account email. For listing issues, include the eBay item ID.
         </p>
       </section>
 
-      <section className="max-w-2xl mx-auto px-6 py-8 border-t border-gray-100">
+      <section className="max-w-2xl mx-auto px-6 py-8 border-t border-line">
         <h2 className="text-lg font-bold mb-3 text-center">Faster answers</h2>
         <ul className="grid sm:grid-cols-2 gap-2 text-sm text-center">
-          <li><Link href="/pricing" className="text-blue-600 hover:text-blue-700">Pricing &amp; what happens after the trial</Link></li>
-          <li><Link href="/guides/ebay-price-floor" className="text-blue-600 hover:text-blue-700">How to set your price floor</Link></li>
-          <li><Link href="/ebay-fee-calculator" className="text-blue-600 hover:text-blue-700">Fee calculator</Link></li>
-          <li><Link href="/refund-policy" className="text-blue-600 hover:text-blue-700">Refund policy</Link></li>
+          <li><Link href="/pricing" className="text-cut hover:opacity-90">Pricing &amp; what happens after the trial</Link></li>
+          <li><Link href="/guides/ebay-price-floor" className="text-cut hover:opacity-90">How to set your price floor</Link></li>
+          <li><Link href="/ebay-fee-calculator" className="text-cut hover:opacity-90">Fee calculator</Link></li>
+          <li><Link href="/refund-policy" className="text-cut hover:opacity-90">Refund policy</Link></li>
         </ul>
       </section>
 
-      <section className="max-w-2xl mx-auto px-6 py-12 text-center border-t border-gray-100">
-        <p className="text-sm text-gray-500 mb-3">Not a customer yet? Get early access + founding pricing:</p>
+      <section className="max-w-2xl mx-auto px-6 py-12 text-center border-t border-line">
+        <p className="text-sm text-muted mb-3">Not a customer yet? Get early access + founding pricing:</p>
         <LeadForm source="contact" />
       </section>
       <Footer />

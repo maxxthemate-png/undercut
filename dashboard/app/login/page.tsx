@@ -21,19 +21,19 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-      <form onSubmit={submit} className="bg-white border border-gray-200 rounded-2xl p-8 w-full max-w-sm space-y-4">
-        <h1 className="text-xl font-bold text-gray-900">Log in to Undercut</h1>
-        <input className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" type="email" placeholder="Email"
+    <div className="min-h-screen bg-paper flex items-center justify-center px-4">
+      <form onSubmit={submit} className="bg-surface border border-line rounded-lg p-8 w-full max-w-sm space-y-4">
+        <h1 className="text-xl font-bold text-ink">Log in to Undercut</h1>
+        <input className="w-full rounded border border-line bg-surface px-3 py-2.5 text-ink placeholder:text-muted focus:border-cut transition" type="email" placeholder="Email"
                value={email} onChange={e => setEmail(e.target.value)} required />
-        <input className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" type="password" placeholder="Password"
+        <input className="w-full rounded border border-line bg-surface px-3 py-2.5 text-ink placeholder:text-muted focus:border-cut transition" type="password" placeholder="Password"
                value={pw} onChange={e => setPw(e.target.value)} required />
-        <p className="text-right -mt-2"><Link href="/forgot-password" className="text-xs text-blue-600 hover:text-blue-700">Forgot password?</Link></p>
-        {err && <p className="text-sm text-red-600">{err}</p>}
-        <button disabled={busy} className="w-full bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700 disabled:opacity-50">
+        <p className="text-right -mt-2"><Link href="/forgot-password" className="text-xs text-cut hover:opacity-90">Forgot password?</Link></p>
+        {err && <p className="text-sm text-cut">{err}</p>}
+        <button disabled={busy} className="inline-flex items-center justify-center gap-2 w-full rounded bg-cut-strong text-white font-medium px-5 py-2.5 transition hover:opacity-90 disabled:opacity-50">
           {busy ? 'Logging in…' : 'Log in'}
         </button>
-        <p className="text-xs text-gray-500 text-center">No account? <Link href="/signup" className="text-blue-600">Sign up</Link></p>
+        <p className="text-xs text-muted text-center">No account? <Link href="/signup" className="text-cut">Sign up</Link></p>
       </form>
     </div>
   )

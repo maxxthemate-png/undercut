@@ -11,12 +11,12 @@ export default function LegalPage({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen bg-paper text-ink">
       <Nav />
       <article className="max-w-2xl mx-auto px-6 py-14">
         <h1 className="text-3xl font-extrabold tracking-tight">{title}</h1>
-        <p className="text-sm text-gray-400 mt-2 mb-8">Last updated: {updated}</p>
-        <div className="space-y-6 text-[15px] leading-relaxed text-gray-700 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-gray-900 [&_h2]:mt-8 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_a]:text-blue-600">
+        <p className="text-sm text-muted mt-2 mb-8">Last updated: {updated}</p>
+        <div className="space-y-6 text-[15px] leading-relaxed text-muted [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-ink [&_h2]:mt-8 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_a]:text-cut">
           {children}
         </div>
       </article>

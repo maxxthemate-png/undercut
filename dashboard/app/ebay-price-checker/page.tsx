@@ -32,47 +32,47 @@ const FAQ = [
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
-      <nav className="border-b border-gray-100 bg-white">
+    <div className="min-h-screen bg-paper text-ink">
+      <nav className="border-b border-line bg-paper/90 backdrop-blur">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 font-bold text-lg"><img src="/logo-mark.svg" alt="" className="h-7 w-7" />under<span className="text-[#EE2B1C]">cut</span></Link>
+          <Link href="/" className="flex items-center gap-2 font-bold text-lg"><img src="/logo-mark.svg" alt="" className="h-7 w-7" />under<span className="text-cut">cut</span></Link>
           <div className="flex items-center gap-4 text-sm">
-            <Link href="/ebay-fee-calculator" className="text-gray-600 hover:text-gray-900">Fee calculator</Link>
-            <Link href="/compare" className="text-gray-600 hover:text-gray-900">Compare</Link>
-            <Link href="/signup" className="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free</Link>
+            <Link href="/ebay-fee-calculator" className="text-muted hover:text-ink transition">Fee calculator</Link>
+            <Link href="/compare" className="text-muted hover:text-ink transition">Compare</Link>
+            <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded bg-cut-strong text-white font-medium px-4 py-2 transition hover:opacity-90">Start free</Link>
           </div>
         </div>
       </nav>
 
       <section className="max-w-3xl mx-auto px-6 pt-16 pb-8 text-center">
-        <p className="text-sm font-semibold text-blue-600 uppercase tracking-wide">Free tool — live eBay data, no signup</p>
+        <p className="text-sm font-semibold text-cut uppercase tracking-wide">Free tool — live eBay data, no signup</p>
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mt-2">Check any eBay item&apos;s lowest price — and the price that wins you the sale.</h1>
-        <p className="mt-4 text-gray-600">Paste your <b>eBay listing URL</b> and see the lowest competitor on that exact item — plus what Undercut would price it at to win the sale, without ever dropping below your floor.</p>
+        <p className="mt-4 text-muted">Paste your <b>eBay listing URL</b> and see the lowest competitor on that exact item — plus what Undercut would price it at to win the sale, without ever dropping below your floor.</p>
       </section>
 
       <section className="px-6 pb-12">
         <Checker />
       </section>
 
-      <section className="max-w-3xl mx-auto px-6 py-10 border-t border-gray-100">
+      <section className="max-w-3xl mx-auto px-6 py-10 border-t border-line">
         <h2 className="text-2xl font-bold mb-4">Checking prices by hand doesn&apos;t scale</h2>
-        <div className="space-y-4 text-gray-700 text-[15px] leading-relaxed">
+        <div className="space-y-4 text-muted text-[15px] leading-relaxed">
           <p>
             Every search above is a snapshot: the lowest price on eBay changes constantly as competitors undercut each other, run sales, or sell out. If you sell anything with competition, the listing that wins this morning can be overpriced by tonight. Sellers either babysit their listings, or they automate it.
           </p>
           <p>
-            <Link href="/" className="text-blue-600 hover:text-blue-700 font-medium">Undercut</Link> runs this exact lookup for every listing you have, around the clock, and reprices you a penny under the lowest competitor — but never below the per-item <Link href="/guides/ebay-price-floor" className="text-blue-600 hover:text-blue-700 font-medium">price floor</Link> you set. Work out that floor with the <Link href="/ebay-fee-calculator" className="text-blue-600 hover:text-blue-700 font-medium">fee calculator</Link>, connect your store in one click, and stop checking prices by hand.
+            <Link href="/" className="text-cut hover:opacity-90 font-medium transition">Undercut</Link> runs this exact lookup for every listing you have, around the clock, and reprices you a penny under the lowest competitor — but never below the per-item <Link href="/guides/ebay-price-floor" className="text-cut hover:opacity-90 font-medium transition">price floor</Link> you set. Work out that floor with the <Link href="/ebay-fee-calculator" className="text-cut hover:opacity-90 font-medium transition">fee calculator</Link>, connect your store in one click, and stop checking prices by hand.
           </p>
         </div>
       </section>
 
       <section className="max-w-2xl mx-auto px-6 py-12 text-center">
         <h2 className="text-2xl font-bold">Put this on autopilot.</h2>
-        <p className="text-gray-600 mt-2 mb-5">Undercut watches the lowest competitor on every listing and reprices you to win — floor-protected. Start free, no card.</p>
+        <p className="text-muted mt-2 mb-5">Undercut watches the lowest competitor on every listing and reprices you to win — floor-protected. Start free, no card.</p>
         <div className="flex justify-center mb-8">
-          <Link href="/signup" className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free — 14-day trial, no card</Link>
+          <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded bg-cut-strong text-white font-medium px-6 py-3 transition hover:opacity-90">Start free — 14-day trial, no card</Link>
         </div>
-        <p className="text-sm text-gray-500 mb-3">Not ready? Get early access + founding pricing:</p>
+        <p className="text-sm text-muted mb-3">Not ready? Get early access + founding pricing:</p>
         <LeadForm source="price-checker" />
       </section>
 

@@ -29,21 +29,21 @@ export default async function TrustSection() {
 
   return (
     <section className="max-w-3xl mx-auto px-6 py-14">
-      <div className="border border-gray-200 rounded-2xl p-6 bg-gray-50">
-        <p className="text-[15px] leading-relaxed text-gray-700">
+      <div className="rounded-lg border border-line bg-wash p-6">
+        <p className="text-[15px] leading-relaxed text-muted">
           &ldquo;I&apos;m building Undercut in the open, as a solo founder. Every seller who signs up
           right now is a <b>founding user</b>: you get my email, your feedback shapes the roadmap, and
           your founding pricing is locked in. No fake testimonials on this page — the product earns
           your trust or it doesn&apos;t.&rdquo;
         </p>
-        <p className="mt-3 text-sm font-semibold text-gray-900">
-          — {FOUNDER}, founder · <a href={`mailto:${SUPPORT_EMAIL}`} className="text-blue-600 font-medium">{SUPPORT_EMAIL}</a>
+        <p className="mt-3 text-sm font-semibold text-ink">
+          — {FOUNDER}, founder · <a href={`mailto:${SUPPORT_EMAIL}`} className="text-cut font-medium">{SUPPORT_EMAIL}</a>
         </p>
       </div>
 
-      <div className="mt-6 flex flex-wrap justify-center gap-2 text-xs text-gray-600">
+      <div className="mt-6 flex flex-wrap justify-center gap-2 text-xs text-muted">
         {TRUST_BADGES.map((t) => (
-          <span key={t} className="px-3 py-1.5 rounded-full border border-gray-200 bg-white">{t}</span>
+          <span key={t} className="px-3 py-1.5 rounded-full border border-line bg-surface">{t}</span>
         ))}
       </div>
 
@@ -52,7 +52,7 @@ export default async function TrustSection() {
           {statItems.map(([n, label]) => (
             <div key={label}>
               <p className="text-2xl font-extrabold">{n}</p>
-              <p className="text-xs text-gray-500">{label}</p>
+              <p className="text-xs text-muted">{label}</p>
             </div>
           ))}
         </div>

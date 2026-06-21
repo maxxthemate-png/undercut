@@ -33,32 +33,32 @@ const FAQ = [
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
+    <div className="min-h-screen bg-paper text-ink">
       <Nav />
       <section className="max-w-3xl mx-auto px-6 pt-16 pb-8 text-center">
-        <p className="text-sm font-semibold text-blue-600 uppercase tracking-wide">Free tool — no signup</p>
+        <p className="text-sm font-semibold text-cut uppercase tracking-wide">Free tool — no signup</p>
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mt-2">eBay Sell-Through Rate Calculator</h1>
-        <p className="mt-4 text-gray-600">Find out whether your inventory is actually moving — and what to do when it isn&apos;t.</p>
+        <p className="mt-4 text-muted">Find out whether your inventory is actually moving — and what to do when it isn&apos;t.</p>
       </section>
       <section className="px-6 pb-12"><Calculator /></section>
-      <section className="max-w-3xl mx-auto px-6 py-10 border-t border-gray-100">
+      <section className="max-w-3xl mx-auto px-6 py-10 border-t border-line">
         <h2 className="text-2xl font-bold mb-4">Low sell-through is usually a price problem</h2>
-        <div className="space-y-4 text-gray-700 text-[15px] leading-relaxed">
+        <div className="space-y-4 text-muted text-[15px] leading-relaxed">
           <p>
             When listings stop selling, sellers blame the algorithm, the season, or the economy. Sometimes that&apos;s right. But for anything with competition, the boring explanation wins most often: <b>someone listed it cheaper, and buyers found them first</b>. Your listing didn&apos;t get worse — your price stopped being the winning price.
           </p>
           <p>
-            The fix isn&apos;t panic-slashing. Work out your <Link href="/ebay-fee-calculator" className="text-blue-600 font-medium">break-even floor</Link>, check the <Link href="/ebay-price-checker" className="text-blue-600 font-medium">lowest live competitor</Link>, and price to win <i>above</i> the floor. <Link href="/" className="text-blue-600 font-medium">Undercut</Link> does that loop automatically on every listing, 24/7 — read <Link href="/guides/ebay-price-floor" className="text-blue-600 font-medium">how the floor works</Link>.
+            The fix isn&apos;t panic-slashing. Work out your <Link href="/ebay-fee-calculator" className="text-cut font-medium">break-even floor</Link>, check the <Link href="/ebay-price-checker" className="text-cut font-medium">lowest live competitor</Link>, and price to win <i>above</i> the floor. <Link href="/" className="text-cut font-medium">Undercut</Link> does that loop automatically on every listing, 24/7 — read <Link href="/guides/ebay-price-floor" className="text-cut font-medium">how the floor works</Link>.
           </p>
         </div>
       </section>
       <section className="max-w-2xl mx-auto px-6 py-12 text-center">
         <h2 className="text-2xl font-bold">Fix slow listings automatically.</h2>
-        <p className="text-gray-600 mt-2 mb-5">Undercut reprices to beat the lowest competitor — never below your floor. Start free, no card.</p>
+        <p className="text-muted mt-2 mb-5">Undercut reprices to beat the lowest competitor — never below your floor. Start free, no card.</p>
         <div className="flex justify-center mb-8">
-          <Link href="/signup" className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">Start free — no card</Link>
+          <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded bg-cut-strong text-white font-medium px-5 py-2.5 transition hover:opacity-90">Start free — no card</Link>
         </div>
-        <p className="text-sm text-gray-500 mb-3">Not ready? Get early access + founding pricing:</p>
+        <p className="text-sm text-muted mb-3">Not ready? Get early access + founding pricing:</p>
         <LeadForm source="str-calculator" />
       </section>
       <Faq items={FAQ} />
