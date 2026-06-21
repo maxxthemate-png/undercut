@@ -11,7 +11,7 @@ name: Self-Heal
 #   3. Protect `main` (require a PR review) so nothing merges unreviewed
 on:
   schedule:
-    - cron: "0 7 * * *"     # ~02:00 America/Chicago, daily
+    - cron: "0 7 * * 1"     # ~02:00 America/Chicago, weekly (Monday) — stable pre-revenue repo
   workflow_dispatch: {}      # also run on demand
 permissions:
   contents: write            # commit to a claude/* branch only
