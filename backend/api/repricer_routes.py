@@ -12,12 +12,15 @@ from sqlalchemy.orm import Session
 
 from ..models.database import get_db
 from ..models.repricer_models import Store, RepricerListing, PriceChange, User
-from ..services.ebay_store import EbayStoreClient
+from ..services.ebay_store import EbayStoreClient, EbayApiError
 from ..services import ebay_oauth
 from ..services.auth import current_user, make_oauth_state, verify_oauth_state
 from ..services import billing
 from ..utils.crypto import encrypt_token, decrypt_token
+from ..utils.notifications import send_email_alert
+from ..utils.logging import get_logger
 
+logger = get_logger(__name__)
 router = APIRouter(prefix="/api/repricer", tags=["repricer"])
 # Public: only the eBay OAuth callback (eBay redirects here; can't send our auth header).
 public_router = APIRouter(prefix="/api/repricer", tags=["repricer-public"])
@@ -58,7 +61,28 @@ def _listing_count(db: Session, user: User) -> int:
 async def _sync_store_listings(db: Session, store: Store, remaining: int) -> dict:
     """Import a store's eBay listings, creating up to `remaining` new ones (plan cap)."""
     client = EbayStoreClient(user_token=decrypt_token(store.oauth_access_token) or None)
-    items = await client.get_active_listings()
+    try:
+        items = await client.get_active_listings()
+    except EbayApiError as e:
+        # A connected seller whose listings can't be read is launch-critical (e.g.
+        # broken Trading-API auth). Alert LOUDLY instead of silently importing zero
+        # and looking like the seller simply has no inventory.
+        logger.error("ebay import failed", store_id=str(store.id), error=str(e))
+        try:
+            send_email_alert(
+                subject="[Undercut] eBay import FAILED for a connected seller",
+                body=(f"Store {store.id} ({store.name}) — get_active_listings raised:\n\n{e}\n\n"
+                      f"A seller connected but their listings could NOT be read. Check the eBay "
+                      f"Trading API auth (X-EBAY-API-IAF-TOKEN) + keyset immediately — this is the "
+                      f"first-cold-seller failure signal."),
+            )
+        except Exception:
+            logger.warning("import-failure alert send failed", store_id=str(store.id))
+        raise HTTPException(status_code=502, detail=(
+            "We couldn't read your eBay listings just now — we've been alerted and are on it. "
+            "Please try importing again in a few minutes."))
+    if not items:
+        logger.warning("ebay import returned zero listings (Ack Success)", store_id=str(store.id))
     created = updated = skipped = 0
     for it in items:
         existing = db.scalar(select(RepricerListing).where(

@@ -37,6 +37,13 @@ _BROWSE_ITEM = {"prod": "https://api.ebay.com/buy/browse/v1/item/get_item_by_leg
                 "sbx": "https://api.sandbox.ebay.com/buy/browse/v1/item/get_item_by_legacy_id"}
 
 
+class EbayApiError(Exception):
+    """Raised when a seller Trading call fails (no response, unparseable, or
+    Ack=Failure) so the caller can ALERT instead of silently treating it as
+    'this seller has no listings' — the failure mode that would hide a broken
+    auth/keyset behind an empty import."""
+
+
 class EbayStoreClient:
     def __init__(self, user_token: str | None = None):
         self.user_token = user_token or settings.EBAY_USER_TOKEN
@@ -101,13 +108,17 @@ class EbayStoreClient:
   </ActiveList>
 </GetMyeBaySellingRequest>"""
         txt = await self._trading("GetMyeBaySelling", body)
-        out: list[dict] = []
         if not txt:
-            return out
+            raise EbayApiError("eBay returned no response (network error or rejected credentials)")
         try:
             root = ET.fromstring(txt)
-        except Exception:
-            return out
+        except Exception as e:
+            raise EbayApiError(f"unparseable eBay response: {e}")
+        ack = root.find(".//e:Ack", NS)
+        if ack is not None and ack.text == "Failure":
+            errs = [m.text for m in root.findall(".//e:Errors/e:LongMessage", NS) if m.text]
+            raise EbayApiError("; ".join(errs) or "eBay rejected the GetMyeBaySelling request")
+        out: list[dict] = []
         for it in root.findall(".//e:ActiveList/e:ItemArray/e:Item", NS):
             def g(path):
                 el = it.find(path, NS)
