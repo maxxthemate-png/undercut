@@ -45,8 +45,13 @@ class EbayStoreClient:
         self.dev_id = settings.EBAY_DEV_ID
         self._env = "sbx" if settings.EBAY_SANDBOX else "prod"
 
+    def _is_oauth_token(self) -> bool:
+        """eBay OAuth user tokens have the form 'v^1.1#...'. Legacy Auth'n'Auth
+        tokens do not. The two require DIFFERENT transport (see _headers)."""
+        return bool(self.user_token) and str(self.user_token).startswith("v^")
+
     def _headers(self, call: str) -> dict:
-        return {
+        h = {
             "X-EBAY-API-SITEID": "0",
             "X-EBAY-API-COMPATIBILITY-LEVEL": "967",
             "X-EBAY-API-CALL-NAME": call,
@@ -55,6 +60,22 @@ class EbayStoreClient:
             "X-EBAY-API-DEV-NAME": self.dev_id,
             "Content-Type": "text/xml",
         }
+        # An OAuth token MUST be sent in the IAF header — NOT in the
+        # <eBayAuthToken> XML element (that slot is for legacy Auth'n'Auth tokens
+        # only). The one-click connect flow yields OAuth tokens, so without this
+        # header eBay rejects every seller Trading call (import + price write).
+        if self._is_oauth_token():
+            h["X-EBAY-API-IAF-TOKEN"] = self.user_token
+        return h
+
+    def _requester_credentials(self) -> str:
+        """The <RequesterCredentials> block for a Trading body. Populated ONLY for
+        a legacy Auth'n'Auth token; for an OAuth token it must be omitted (the
+        token rides in the IAF header instead) or eBay rejects the request."""
+        if self.user_token and not self._is_oauth_token():
+            return (f"<RequesterCredentials><eBayAuthToken>"
+                    f"{_x(self.user_token)}</eBayAuthToken></RequesterCredentials>")
+        return ""
 
     async def _trading(self, call: str, body: str, retries: int = 3) -> str:
         """POST to Trading API; retry transient non-XML edge errors."""
@@ -73,7 +94,7 @@ class EbayStoreClient:
     async def get_active_listings(self, limit: int = 200) -> list[dict]:
         body = f"""<?xml version="1.0" encoding="utf-8"?>
 <GetMyeBaySellingRequest xmlns="urn:ebay:apis:eBLBaseComponents">
-  <RequesterCredentials><eBayAuthToken>{_x(self.user_token)}</eBayAuthToken></RequesterCredentials>
+  {self._requester_credentials()}
   <ActiveList>
     <Include>true</Include>
     <Pagination><EntriesPerPage>{limit}</EntriesPerPage><PageNumber>1</PageNumber></Pagination>
@@ -107,7 +128,7 @@ class EbayStoreClient:
         sku_xml = f"<SKU>{_x(sku)}</SKU>" if sku else ""
         body = f"""<?xml version="1.0" encoding="utf-8"?>
 <ReviseInventoryStatusRequest xmlns="urn:ebay:apis:eBLBaseComponents">
-  <RequesterCredentials><eBayAuthToken>{_x(self.user_token)}</eBayAuthToken></RequesterCredentials>
+  {self._requester_credentials()}
   <InventoryStatus><ItemID>{_x(item_id)}</ItemID>{sku_xml}<StartPrice>{new_price:.2f}</StartPrice></InventoryStatus>
 </ReviseInventoryStatusRequest>"""
         txt = await self._trading("ReviseInventoryStatus", body)
