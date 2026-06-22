@@ -144,6 +144,46 @@ class EbayStoreClient:
         except Exception as e:
             return {"success": False, "error": str(e)}
 
+    async def trading_selftest(self) -> dict:
+        """App-credential smoke test of the Trading API via GeteBayOfficialTime
+        (no seller token needed). Confirms whether the configured keyset can reach
+        and is authorized for the Trading API, and whether we're pointed at prod or
+        sandbox — the two things we cannot otherwise verify without a real seller.
+        Read the error codes: a missing/invalid-token error means the keyset is
+        recognized (Trading access OK, just no user token); an app/credential error
+        means the keyset itself is not authorized for Trading."""
+        body = ('<?xml version="1.0" encoding="utf-8"?>'
+                '<GeteBayOfficialTimeRequest xmlns="urn:ebay:apis:eBLBaseComponents">'
+                f'{self._requester_credentials()}'
+                '</GeteBayOfficialTimeRequest>')
+        txt = await self._trading("GeteBayOfficialTime", body)
+        out = {
+            "env": self._env,
+            "endpoint": _TRADING[self._env],
+            "app_id_set": bool(self.app_id),
+            "cert_id_set": bool(self.cert_id),
+            "dev_id_set": bool(self.dev_id),
+            "ru_name_set": bool(settings.EBAY_RU_NAME and "..." not in (settings.EBAY_RU_NAME or "")),
+            "reached_ebay": bool(txt),
+        }
+        if not txt:
+            out["verdict"] = "NO XML RESPONSE — endpoint unreachable or credentials rejected before a parseable reply."
+            return out
+        try:
+            root = ET.fromstring(txt)
+            ack = root.find(".//e:Ack", NS)
+            ts = root.find(".//e:Timestamp", NS)
+            out["ack"] = ack.text if ack is not None else None
+            out["timestamp"] = ts.text if ts is not None else None
+            out["errors"] = [
+                {"code": (e.find("e:ErrorCode", NS).text if e.find("e:ErrorCode", NS) is not None else None),
+                 "msg": (e.find("e:LongMessage", NS).text if e.find("e:LongMessage", NS) is not None else None)}
+                for e in root.findall(".//e:Errors", NS)
+            ]
+        except Exception as ex:
+            out["parse_error"] = str(ex)
+        return out
+
     async def _app_token(self) -> str | None:
         cred = base64.b64encode(f"{self.app_id}:{self.cert_id}".encode()).decode()
         try:

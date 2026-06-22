@@ -37,6 +37,15 @@ def _mask(email: str | None) -> str:
     return (user[:2] + "***") + "@" + domain
 
 
+@router.get("/ebay-selftest")
+async def ebay_selftest(x_admin_key: str | None = Header(default=None)):
+    """Diagnostic: does the configured eBay keyset reach + have access to the
+    Trading API, and are we on prod or sandbox? No seller token required."""
+    _require_admin(x_admin_key)
+    from ..services.ebay_store import EbayStoreClient
+    return await EbayStoreClient().trading_selftest()
+
+
 @router.get("/metrics")
 def metrics(x_admin_key: str | None = Header(default=None), db: Session = Depends(get_db)):
     _require_admin(x_admin_key)
