@@ -75,5 +75,7 @@ async def health_check():
             conn.execute(text("SELECT 1"))
     except Exception:
         db_ok = False
+    from ..utils.crypto import encryption_selfcheck
     return {"status": "ok", "database": "up" if db_ok else "down",
+            "token_encryption": encryption_selfcheck(),
             "timestamp": datetime.utcnow().isoformat()}

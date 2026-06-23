@@ -60,3 +60,28 @@ def decrypt_token(value):
         return f.decrypt(value.encode()).decode()
     except Exception:
         return value
+
+
+def encryption_selfcheck() -> str:
+    """Prove the configured key actually works by round-tripping a probe through
+    encrypt→decrypt. NEVER raises and exposes NO key material — safe for a public
+    health endpoint. Returns:
+      'active'     — encryption on; the key encrypts AND decrypts correctly
+      'disabled'   — no-op path (not production, or no key configured)
+      'error: <X>' — key is set but broken (invalid Fernet key, or round-trip fails)
+    A real seller's connect calls encrypt_token, so 'error' here predicts a 500
+    on first connect — catch it before a real seller does."""
+    probe = "undercut-enc-selfcheck"
+    try:
+        f = _fernet()
+    except Exception as e:
+        return "error: " + type(e).__name__   # prod + unset/invalid key (raises)
+    if f is None:
+        return "disabled"                      # dev/no-key no-op path
+    try:
+        enc = f.encrypt(probe.encode()).decode()
+        if enc == probe:
+            return "error: not-encrypted"
+        return "active" if f.decrypt(enc.encode()).decode() == probe else "error: roundtrip-mismatch"
+    except Exception as e:
+        return "error: " + type(e).__name__
