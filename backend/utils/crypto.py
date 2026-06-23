@@ -75,7 +75,12 @@ def encryption_selfcheck() -> str:
     try:
         f = _fernet()
     except Exception as e:
-        return "error: " + type(e).__name__   # prod + unset/invalid key (raises)
+        msg = str(e).lower()                   # generic messages — no key material
+        if "unset" in msg:
+            return "error: key-unset"          # TOKEN_ENC_KEY missing/empty in prod
+        if "not a valid" in msg or "invalid" in msg:
+            return "error: key-invalid"        # set, but not a valid Fernet key
+        return "error: " + type(e).__name__
     if f is None:
         return "disabled"                      # dev/no-key no-op path
     try:
