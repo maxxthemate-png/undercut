@@ -39,6 +39,8 @@ jobs:
           CRON_KEY: ${{ secrets.CRON_KEY }}
       - name: Sync Lead Funnel → Airtable
         # Clean no-op until the AIRTABLE_PAT repo secret is set (see scripts/sync-airtable-funnel.mjs).
+        # continue-on-error: a bad/expired PAT returns 401 and should not fail the whole job.
+        continue-on-error: true
         run: node scripts/sync-airtable-funnel.mjs
         env:
           AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
