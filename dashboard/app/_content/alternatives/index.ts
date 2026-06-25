@@ -917,5 +917,126 @@ export const alternatives: PageContent[] = [
     ],
     "lastUpdated": "2026-06-18",
     "leadForm": true
+  },
+  {
+    "slug": "sellbrite-alternative",
+    "collection": "alternatives",
+    "template": "comparison",
+    "title": "Sellbrite Alternative for eBay Repricing — Undercut",
+    "metaDescription": "Sellbrite manages listings but won't reprice them. Undercut adds floor-protected eBay repricing in minutes. Try free for 14 days — no credit card required.",
+    "h1": "Sellbrite Doesn't Reprice — Here's the Floor-Protected Layer That Does",
+    "eyebrow": "Comparison",
+    "intro": "Sellbrite is a solid multichannel listing and inventory management tool. What it doesn't do is automatically reprice your eBay listings to stay competitive, and it has no concept of a hard floor to stop you selling below cost. Undercut fills that gap precisely: it watches live competitors, moves your price to just beat the lowest comparable one, and never crosses the per-listing minimum you set. The two tools solve different problems, and for many sellers they can work side by side.",
+    "sections": [
+      {
+        "h2": "What Sellbrite Actually Does (and Where It Stops)",
+        "body": "Sellbrite centralises listing creation, inventory syncing, and order routing across eBay, Amazon, Walmart, and other channels. It is genuinely good at that job. When stock sells on one channel, Sellbrite decrements the quantity everywhere else. When you want to publish a new SKU to multiple marketplaces at once, Sellbrite handles the template and attribute mapping.\n\nWhat Sellbrite does not include is a repricing engine. There is no mechanism inside Sellbrite that monitors what competitors are charging on eBay today and automatically lowers — or raises — your price to respond. Pricing is either static (whatever you set when you listed) or changed manually by editing the listing. For a seller on a fast-moving category like electronics or trading cards, that static price can be wrong within hours of going live.\n\nThis is not a criticism of Sellbrite; repricing is simply outside its scope. The question for eBay sellers is what to do about the gap.",
+        "bullets": [
+          "Sellbrite strength: multichannel inventory sync and listing creation",
+          "Sellbrite strength: order consolidation and routing",
+          "Sellbrite gap: no automatic repricing engine",
+          "Sellbrite gap: no per-listing price floor to prevent below-cost sales",
+          "Sellbrite gap: no competitor price monitoring that triggers price changes"
+        ]
+      },
+      {
+        "h2": "How Undercut's Repricing Engine Works",
+        "body": "Undercut connects to your eBay account and, for each active listing, finds the lowest price among comparable live competitors. It then sets your price to beat that competitor by a configurable undercut amount — either a fixed number of cents or a percentage of their price. Crucially, your price never falls below the hard floor you set for that listing, no matter how far competitors drop.\n\nHere is a concrete example. Suppose you sell a specific Bluetooth speaker. Your hard floor is $38.00 — that is the minimum you will accept after eBay's ~13.25% final value fee and your cost of goods. You set an undercut amount of $0.50. A competitor lists the same speaker at $43.00. Undercut sets your price to $42.50 ($43.00 − $0.50). Later that day a second competitor drops to $39.00. Undercut reprices you to $38.50. A third competitor then lists at $36.00 — below your floor. Undercut leaves your price at $38.00, your hard floor, and does not follow the race to the bottom.\n\nOn the Free plan you can protect up to 25 listings this way, with repricing running every hour. Starter ($29/month) extends that to 100 listings, also hourly. Pro ($79/month) covers 1,000 listings and moves to 15-minute repricing. Scale ($199/month) handles up to 10,000 listings with 15-minute repricing and priority support. Every plan — including Free — tracks competitor prices as the core mechanism that drives each reprice.",
+        "bullets": [
+          "Undercut amount: fixed cents (e.g. $0.50) or a percentage (e.g. 1%)",
+          "Hard floor: per listing, never overridden — your absolute sell-no-lower price",
+          "Optional ceiling: per listing, caps how high the price can rise",
+          "Repricing cadence: hourly on Free and Starter; every 15 minutes on Pro and Scale",
+          "Competitor tracking: active on every plan, not a paid upgrade"
+        ]
+      },
+      {
+        "h2": "Using Undercut Alongside Sellbrite (and When to Use It Instead)",
+        "body": "If you already use Sellbrite for inventory sync and multichannel order management, you do not necessarily need to replace it. Undercut operates on your live eBay listings directly, so you can continue using Sellbrite to manage stock counts and push new listings, while Undercut handles the ongoing price competition on eBay. The two tools run independently; there is no integration required between them.\n\nA practical workflow looks like this: you create or update a listing via Sellbrite, which syncs it to eBay. You then open that listing inside Undercut, set its hard floor — say $38.00 — and optionally set a ceiling. From that point Undercut reprices it automatically every hour (Free/Starter) or every 15 minutes (Pro/Scale) without any further action from you.\n\nIf you sell exclusively on eBay and do not need multichannel inventory management, Sellbrite may be unnecessary overhead. In that case Undercut alone is a lighter, cheaper stack. A seller with 80 eBay-only listings could run Undercut's Starter plan at $29/month and have full floor-protected repricing without paying for Sellbrite's multichannel features they will never use.",
+        "bullets": [
+          "Parallel use: Sellbrite manages inventory, Undercut manages eBay pricing",
+          "No technical integration needed — Undercut reads your live eBay listings directly",
+          "Set the floor per listing manually in Undercut after Sellbrite pushes it to eBay",
+          "eBay-only sellers: Undercut alone may be all you need",
+          "Multichannel sellers: keep Sellbrite for inventory, add Undercut for eBay price defence"
+        ]
+      },
+      {
+        "h2": "AI Aggressiveness Tuning on Pro and Scale — and Why It Isn't Repricing Magic",
+        "body": "Pro ($79/month) and Scale ($199/month) include an optional Claude AI aggressiveness tuning feature. It is important to be precise about what this does, because the term 'AI repricing' is frequently oversold in this industry.\n\nThe AI does not set a new floor, override your floor, or pull in external demand signals. What it does is adjust, per listing, how quickly and how far your price moves toward the hard floor you have already defined. A listing you flag as aggressive will drop toward the floor faster when competition tightens. A listing you tune conservatively will move more slowly, preserving margin when the competitive pressure is modest. The floor itself is always the boundary — the AI operates within it, not instead of it.\n\nFor a seller with hundreds of listings across different margin profiles, this per-listing tuning is the practical benefit. A clearance item with a floor of $12.00 might be set aggressive — you want it gone. A collectible with a floor of $85.00 might be set conservative — you are patient. You configure this per listing inside Undercut; it is not a bulk rule or a category-wide setting. The AI tuning is available on both Pro and Scale equally.",
+        "bullets": [
+          "AI tuning: available on Pro and Scale plans only",
+          "AI adjusts pace of movement toward the floor — it does not change the floor",
+          "Aggressive tuning: price moves to the floor quickly when competitors drop",
+          "Conservative tuning: price moves slowly, prioritising margin over speed",
+          "Floor is always respected — AI aggressiveness tuning never overrides it"
+        ]
+      },
+      {
+        "h2": "Worked Example: The Margin Cost of No Repricing vs. Floor-Protected Repricing",
+        "body": "Consider a seller with 100 eBay listings averaging $55 each. Without any repricing, prices are set at launch and reviewed manually once a week. On a typical week, 15 of those listings are undercut by competitors and sit unsold. At an average price of $55, those 15 listings represent $825 in potential gross revenue lost to inactivity each week — buyers found a cheaper option and moved on.\n\nNow add Undercut at Starter ($29/month). The repricing engine checks competitors every hour and adjusts prices automatically. Assume those 15 previously stagnant listings each sell once per week at an average repriced price of $52.50 (the floor was $48.00, so there was room to compete). Revenue recovered: 15 × $52.50 = $787.50 per week. After eBay's ~13.25% final value fee, net proceeds on each sale: $52.50 × (1 − 0.1325) = $52.50 × 0.8675 = $45.54. Across 15 sales: 15 × $45.54 = $683.10 in net weekly proceeds that were previously zero.\n\nThe Starter plan costs $29/month, or roughly $6.70/week. The recovered margin in this example is $683.10/week — a ratio that makes the tool's cost trivial. And because the hard floor was $48.00, not a single one of those sales happened below your minimum. That is the core promise: compete on price without gambling on margin.",
+        "bullets": [
+          "15 unsold listings × $52.50 repriced price = $787.50 gross recovered per week",
+          "Net per sale after ~13.25% eBay FVF: $52.50 × 0.8675 = $45.54",
+          "15 sales × $45.54 = $683.10 net weekly proceeds recovered",
+          "Starter plan cost: $29/month ≈ $6.70/week",
+          "Hard floor of $48.00 ensures every recovered sale is above your minimum"
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "Can Undercut replace Sellbrite entirely?",
+        "a": "It depends on your business. Undercut is a dedicated eBay repricing tool — it does not manage inventory levels, sync stock across multiple marketplaces, or handle order routing. If you sell on eBay only and do not need those features, Undercut alone is sufficient. If you sell across Amazon, Walmart, or other channels and rely on Sellbrite's inventory sync, you would keep Sellbrite and add Undercut specifically for eBay pricing."
+      },
+      {
+        "q": "Does Undercut work with listings I created through Sellbrite?",
+        "a": "Yes. Once Sellbrite pushes a listing live to eBay, it exists as a standard eBay listing. Undercut reads your live eBay listings directly, so listings created through any third-party tool — including Sellbrite — are eligible for repricing. You set the hard floor and any other per-listing settings inside Undercut after the listing is live on eBay."
+      },
+      {
+        "q": "What stops Undercut from dropping my price below cost?",
+        "a": "Every listing has a hard floor — a minimum price you define per listing. Undercut will never set a price below that floor, regardless of how low competitors go. Even if a competitor lists at $10 and your floor is $38.00, your price stays at $38.00. The floor is non-negotiable and is not overridden by any other feature, including the optional AI aggressiveness tuning on Pro and Scale."
+      },
+      {
+        "q": "Which plan should a seller with around 100 listings use?",
+        "a": "The Starter plan ($29/month) covers exactly 100 listings with hourly repricing and a hard floor per listing — no AI features, but everything you need to compete automatically. If you want 15-minute repricing cadence and optional per-listing AI aggressiveness tuning, Pro ($79/month) supports up to 1,000 listings. You can also start on the free 14-day trial (no credit card) at Starter level to test the tool before committing."
+      },
+      {
+        "q": "Is the AI repricing feature available on Scale as well as Pro?",
+        "a": "Yes. The optional Claude AI aggressiveness tuning is included on both Pro ($79/month) and Scale ($199/month). It allows you to tune, per listing, how quickly and how far a listing's price moves toward its already-set hard floor. Scale's additional advantages over Pro are a higher listing capacity (10,000 versus 1,000) and priority support — not faster repricing or additional AI capabilities."
+      }
+    ],
+    "cta": {
+      "heading": "Add Floor-Protected Repricing to Your eBay Listings Today",
+      "sub": "Start a free 14-day trial at Starter level — no credit card required. Set your first hard floor in minutes and let Undercut compete while you focus on sourcing."
+    },
+    "internalLinks": [
+      {
+        "href": "/free-ebay-repricer",
+        "label": "Free eBay Repricer"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to Set an eBay Price Floor"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/guides/ebay-competitor-price-tracking",
+        "label": "eBay Competitor Price Tracking Guide"
+      },
+      {
+        "href": "/glossary/race-to-the-bottom",
+        "label": "What Is a Race to the Bottom?"
+      },
+      {
+        "href": "/pricing",
+        "label": "Undercut Pricing Plans"
+      }
+    ],
+    "lastUpdated": "2026-06-25",
+    "leadForm": true
   }
 ]
