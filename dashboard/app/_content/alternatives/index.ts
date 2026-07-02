@@ -1038,5 +1038,126 @@ export const alternatives: PageContent[] = [
     ],
     "lastUpdated": "2026-06-25",
     "leadForm": true
+  },
+  {
+    "slug": "streetpricer-vs-undercut",
+    "collection": "alternatives",
+    "template": "comparison",
+    "title": "StreetPricer vs. Undercut: eBay Repricing Compared — Undercut",
+    "metaDescription": "StreetPricer vs. Undercut: compare pricing, hard-floor protection, and AI tuning for eBay sellers. Start a 14-day free trial — no credit card required.",
+    "h1": "StreetPricer vs. Undercut: A Factual Head-to-Head for eBay Sellers",
+    "eyebrow": "Comparison",
+    "intro": "Both StreetPricer and Undercut automate eBay repricing, but they take meaningfully different approaches to floor protection, AI tuning, and plan pricing. This page puts the two side by side on the factors that matter most to eBay sellers: how floors are enforced, how the AI works (and what it cannot override), how frequently prices update, and what each plan actually costs. Every comparison is factual and fair — where Undercut has a genuine advantage we'll show the numbers, and where it doesn't we'll say so plainly.",
+    "sections": [
+      {
+        "h2": "Plan Pricing and Listing Limits: What You Pay at Each Tier",
+        "body": "StreetPricer publishes tiered plans typically starting around $30–$50 per month for entry-level access, scaling upward for larger catalogues. Undercut's entry point is lower: a permanent Free plan covers 25 listings with hourly repricing and a hard floor at no cost, making it viable for casual or part-time sellers before spending a dollar.\n\nPaid plans then step up as follows — Starter at $29/mo (100 listings, hourly repricing), Pro at $79/mo (1,000 listings, 15-minute repricing plus AI aggressiveness tuning), and Scale at $199/mo (10,000 listings, 15-minute repricing, AI aggressiveness tuning, and priority support). New accounts receive a 14-day no-card trial at Starter level, so you can test real repricing on up to 100 live listings before entering payment details.\n\nFor a seller with 800 listings, the relevant Undercut tier is Pro at $79/mo. If that seller's average selling price is $25 and they move 200 units a month, a single pricing mistake — selling just $1 below cost across 200 transactions — costs $200, more than two months of the repricing subscription. That's the concrete case for enforced floors regardless of which tool you choose.",
+        "bullets": [
+          "Free plan: 25 listings, hourly repricing, hard floor — $0",
+          "Starter: 100 listings, hourly repricing, hard floor — $29/mo",
+          "Pro: 1,000 listings, 15-minute repricing, AI aggressiveness tuning — $79/mo",
+          "Scale: 10,000 listings, 15-minute repricing, AI aggressiveness tuning, priority support — $199/mo",
+          "14-day no-card trial at Starter level for all new signups"
+        ]
+      },
+      {
+        "h2": "Hard-Floor Protection: How Undercut Prevents Below-Cost Sales",
+        "body": "Undercut's single most important safety mechanism is the per-listing hard floor. Every listing carries its own minimum price, and the repricing engine is clamped to it — if the lowest comparable competitor drops to $8.00 and your floor is $12.00, Undercut sets your price to $12.00 and stops. It will not chase the competitor below your cost.\n\nTo see why this matters, run the maths on a typical eBay transaction. Suppose your item cost you $9.00 landed (purchase price plus inbound shipping). eBay's final value fee averages roughly 13.25% of the sale price. If you sell at $12.00, the fee is $1.59, leaving $10.41 before your outbound postage. Set your floor at $12.00 and you know the worst-case net before postage is always $10.41 — you can then judge whether that covers costs. Sell accidentally at $9.50 and the fee is $1.26, leaving $8.24 — a loss before postage even enters the picture.\n\nThe floor is per-listing and must be set manually by you for each listing; Undercut does not calculate costs automatically. But once set, the floor is non-negotiable: no repricing rule, no AI tuning, and no competitor price movement can push your price below it. This is the core architectural difference from tools that treat floors as a soft preference or a global percentage buffer.",
+        "bullets": [
+          "Floor is per-listing and hard — the engine cannot breach it under any condition",
+          "Competitor drops below your floor → Undercut holds your price at the floor, not below it",
+          "You set the floor manually per listing based on your own cost calculations",
+          "Optional per-listing ceiling prevents over-pricing in thin-supply moments",
+          "Floor applies on every plan, including Free"
+        ]
+      },
+      {
+        "h2": "AI Aggressiveness Tuning: What It Does and What It Cannot Do",
+        "body": "On Pro and Scale plans, Undercut offers optional per-listing AI aggressiveness tuning powered by Claude. It is important to understand precisely what this feature does — and what it explicitly cannot do — because AI repricing tools are frequently oversold.\n\nWhat the AI does: for each listing where you enable it, the AI adjusts how fast and how far your price moves toward your already-set floor. A more aggressive setting might close the gap to the competitor price quickly; a conservative setting might hold closer to your ceiling while still undercutting the lowest rival. The floor remains absolutely fixed regardless of the aggressiveness setting — the AI tunes the journey, not the destination minimum.\n\nWhat the AI does not do: it does not read your sales velocity, it does not track demand signals, it does not have access to stored historical price trends inside Undercut, and it does not override or renegotiate your hard floor. The configuration is per-listing and optional — you can run the same listing on pure rule-based repricing and switch on AI tuning at any time. Free and Starter plans are rule-based only; AI aggressiveness tuning is available on Pro and Scale.",
+        "bullets": [
+          "AI tuning available on Pro ($79/mo) and Scale ($199/mo) — not on Free or Starter",
+          "Tuning controls speed and depth of movement toward the floor, per listing",
+          "Hard floor is never overridden by AI tuning under any circumstances",
+          "AI is optional — each listing can be rule-based or AI-tuned independently",
+          "Powered by Claude; does not ingest sales-velocity or demand data"
+        ]
+      },
+      {
+        "h2": "Repricing Frequency and Competitor Tracking: Speed Across Plans",
+        "body": "Repricing frequency determines how quickly your prices respond when a competitor changes theirs. Undercut offers two cadences: hourly on Free and Starter, and every 15 minutes on Pro and Scale. The 15-minute cycle is the fastest available — there is no 5-minute or real-time mode.\n\nTo put frequency in practical terms: if a competitor drops their price at 2:00 pm, a 15-minute repricing cycle means your listing could respond by 2:15 pm. An hourly cycle means the gap could be up to 60 minutes. For high-velocity categories like trading cards, electronics, or collectibles where Best Match ranking is sensitive to price competitiveness, that 45-minute difference can meaningfully affect how many buyers see your listing first.\n\nCompetitor price tracking runs on every plan — Free, Starter, Pro, and Scale alike. It is the foundation of how repricing works, not a premium add-on. Undercut scans the lowest comparable live competitor for each listing and uses that price as the repricing anchor, then applies your configured undercut amount (a fixed number of cents or a percentage) before checking against your floor and ceiling.\n\nNote on Scale vs. Pro: Scale's advantages over Pro are listing capacity (10,000 vs. 1,000) and priority support. Repricing speed is identical at 15 minutes on both plans — Scale is not faster than Pro.",
+        "bullets": [
+          "Free and Starter: hourly repricing",
+          "Pro and Scale: every 15 minutes — the fastest cadence available",
+          "Competitor price tracking is included on all plans, including Free",
+          "Undercut amount is configurable as fixed cents or a percentage, per listing",
+          "Scale vs. Pro: same 15-minute speed; Scale adds capacity and priority support"
+        ]
+      },
+      {
+        "h2": "Which Tool Fits Which Seller? An Honest Assessment",
+        "body": "StreetPricer is a mature repricing platform with a longer track record and, for some seller profiles, a richer feature surface. If you are already embedded in StreetPricer's workflow and it is working for you, switching purely for price is only justified if the savings are meaningful relative to your time cost.\n\nUndercut is the better fit if your primary concerns are: (a) a genuinely enforced per-listing hard floor so you structurally cannot sell below cost, (b) optional per-listing AI tuning that operates within your floor rather than bypassing it, (c) a lower entry price — Free plan at $0, Starter at $29/mo — or (d) a 14-day no-card trial before any commitment.\n\nFor sellers scaling past 1,000 listings, the Pro-to-Scale step ($79 to $199/mo) is a tenfold increase in listing capacity. At $199/mo and 10,000 listings, that works out to under $0.02 per listing per month. If your catalogue generates even modest margin improvement from tighter repricing — say an average of $0.10 more per sale across 500 monthly transactions — that's $50 in recovered margin against a $199 subscription, and the floor guarantee means you are not giving back margin on the downside.\n\nThe honest answer: evaluate both tools on a free or trial basis against your actual catalogue. Undercut's 14-day no-card trial at Starter level costs nothing to test.",
+        "bullets": [
+          "Best for part-time or new sellers: Free plan (25 listings, $0) or Starter ($29/mo)",
+          "Best for growing catalogues needing AI tuning: Pro at $79/mo, up to 1,000 listings",
+          "Best for high-volume sellers: Scale at $199/mo, up to 10,000 listings with priority support",
+          "Hard floor is non-negotiable on every Undercut plan — structural, not advisory",
+          "14-day no-card trial lets you verify repricing behaviour on live listings before committing"
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "Does Undercut's hard floor work the same way on every plan?",
+        "a": "Yes. The per-listing hard floor is enforced on Free, Starter, Pro, and Scale equally — it is not a premium feature. Once you set a floor for a listing, no repricing rule and no AI tuning can push the price below it, regardless of how low a competitor's price drops."
+      },
+      {
+        "q": "Can I use AI aggressiveness tuning on the Starter plan?",
+        "a": "No. AI aggressiveness tuning is available on Pro ($79/mo) and Scale ($199/mo) only. Free and Starter plans use rule-based repricing exclusively. You can upgrade to Pro at any time to enable per-listing AI tuning."
+      },
+      {
+        "q": "Is Scale's repricing faster than Pro's?",
+        "a": "No. Both Pro and Scale reprice every 15 minutes — that is the fastest cadence Undercut offers. Scale's advantages over Pro are a higher listing limit (10,000 vs. 1,000) and priority support, not repricing speed."
+      },
+      {
+        "q": "Does Undercut track competitor prices on the Free plan?",
+        "a": "Yes. Competitor price tracking is core to how repricing works and is included on every plan, including Free. All plans scan the lowest comparable live competitor and use that price as the repricing anchor."
+      },
+      {
+        "q": "What happens during the 14-day trial, and do I need a credit card?",
+        "a": "New accounts receive a 14-day trial at Starter level — 100 listings, hourly repricing, and hard-floor protection — with no credit card required to start. At the end of the trial you can choose any plan or remain on the Free plan (25 listings) at no cost."
+      }
+    ],
+    "cta": {
+      "heading": "Try Undercut Free for 14 Days — No Card Required",
+      "sub": "Add your listings, set your floors, and let Undercut reprice competitively while protecting every margin line. Upgrade, downgrade, or stay free — your call."
+    },
+    "internalLinks": [
+      {
+        "href": "/pricing",
+        "label": "See All Undercut Plans and Pricing"
+      },
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/guides/ebay-repricing-best-practices",
+        "label": "eBay Repricing Best Practices"
+      },
+      {
+        "href": "/alternatives",
+        "label": "Compare All eBay Repricing Alternatives"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      }
+    ],
+    "lastUpdated": "2026-07-02",
+    "leadForm": true
   }
 ]
