@@ -1,0 +1,104 @@
+# Read-only drift detector for the manual-Vercel-deploy gap.
+#
+# Deploys here are NOT git-auto-deploy: the frontend is pushed to Vercel by
+# hand (`cd dashboard && vercel deploy --prod ...`, see DEPLOY.md). That means
+# `main` can silently drift ahead of what's actually live — a commit merges,
+# health-check.yml keeps passing (the OLD build is still up and healthy), and
+# nobody notices the new code was never shipped. This workflow does not fix
+# that; it just tells you when it's happened. It never deploys, pushes, or
+# spends anything — read (curl / Vercel API) only.
+#
+# Backend (Render) is NOT checked here: render.yaml auto-deploys on push to
+# main, so repo-vs-live drift isn't structurally possible there the way it is
+# for the hand-deployed frontend.
+#
+# Needs one repo secret: VERCEL_TOKEN (a Vercel personal token, read-only
+# scope is enough: https://vercel.com/account/tokens). Until it's set, this
+# workflow reports that it's unconfigured and exits clean (no false alarms).
+name: deploy-drift-check
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"  # every 6 hours — cheap, read-only
+  workflow_dispatch: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Compare latest deployed Vercel commit vs latest merged commit
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -e
+
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "::warning::VERCEL_TOKEN is not set — skipping drift check. Add a read-only Vercel token as a repo secret (Settings > Secrets > Actions) to enable it. See DEPLOY.md."
+            exit 0
+          fi
+
+          PROJECT_ID="prj_C4SdJQsQxNmal55HNqemQcwxNcS2"
+          TEAM_ID="team_PqNwcN0aoZVHZONfusUKK6sU"
+
+          # Latest commit that actually touched the deployed app (frontend
+          # code, not unrelated repo changes like backend/docs/workflows).
+          LATEST_COMMIT=$(git log -1 --format=%H -- dashboard/)
+          LATEST_COMMIT_DATE=$(git log -1 --format=%cI -- dashboard/)
+          echo "Latest dashboard/ commit on main: $LATEST_COMMIT ($LATEST_COMMIT_DATE)"
+
+          # Most recent READY production deployment on Vercel.
+          RESPONSE=$(curl -fsS --max-time 30 \
+            "https://api.vercel.com/v6/deployments?projectId=${PROJECT_ID}&teamId=${TEAM_ID}&target=production&state=READY&limit=1" \
+            -H "Authorization: Bearer ${VERCEL_TOKEN}")
+
+          DEPLOYED_SHA=$(echo "$RESPONSE" | node -e "
+            let d='';
+            process.stdin.on('data', c => d += c);
+            process.stdin.on('end', () => {
+              try {
+                const j = JSON.parse(d);
+                const dep = j.deployments && j.deployments[0];
+                const sha = dep && dep.meta && (dep.meta.githubCommitSha || dep.meta.gitCommitSha);
+                console.log(sha || '');
+              } catch (e) { console.log(''); }
+            });
+          ")
+          DEPLOYED_AT=$(echo "$RESPONSE" | node -e "
+            let d='';
+            process.stdin.on('data', c => d += c);
+            process.stdin.on('end', () => {
+              try {
+                const j = JSON.parse(d);
+                const dep = j.deployments && j.deployments[0];
+                console.log(dep ? new Date(dep.createdAt).toISOString() : '');
+              } catch (e) { console.log(''); }
+            });
+          ")
+
+          if [ -z "$DEPLOYED_SHA" ]; then
+            echo "::warning::Could not read a deployed commit SHA from the Vercel API response. Skipping (not failing) — check VERCEL_TOKEN scope/expiry. Raw response follows:"
+            echo "$RESPONSE"
+            exit 0
+          fi
+
+          echo "Latest READY production deployment on Vercel: $DEPLOYED_SHA (deployed $DEPLOYED_AT)"
+
+          if [ "$DEPLOYED_SHA" = "$LATEST_COMMIT" ]; then
+            echo "OK: live Vercel build matches the latest dashboard/ commit on main. No drift."
+            exit 0
+          fi
+
+          # The deployed SHA is stale relative to main IF it is an ancestor of
+          # the latest dashboard/ commit (i.e. main has moved on since that
+          # deploy). If Vercel's SHA isn't even in this repo's history, still
+          # flag it — something is mismatched either way.
+          if git merge-base --is-ancestor "$DEPLOYED_SHA" "$LATEST_COMMIT" 2>/dev/null; then
+            echo "::warning::DEPLOY DRIFT — main has commits to dashboard/ that are NOT live on Vercel yet. Live deploy is stuck at $DEPLOYED_SHA, but main's latest dashboard/ commit is $LATEST_COMMIT ($LATEST_COMMIT_DATE). Deploys here are manual — someone needs to run: cd dashboard && vercel deploy --prod --yes --scope maxxthemate-8931s-projects -b API_URL=https://undercut-api.onrender.com  (see DEPLOY.md)."
+          else
+            echo "::warning::DEPLOY DRIFT (unrecognized SHA) — the live Vercel deployment's commit ($DEPLOYED_SHA) was not found as an ancestor of main's latest dashboard/ commit ($LATEST_COMMIT). Verify manually that the correct build is live."
+          fi
