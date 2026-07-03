@@ -2,7 +2,7 @@
 
 **Automated eBay repricer with a hard price floor.** Beats the lowest competitor on every
 listing, 24/7 — but never reprices below the per-item floor the seller sets
-(cost + fees + minimum margin). Live at **https://undercut-nu.vercel.app**.
+(cost + fees + minimum margin). Live at **https://undercutpricer.com**.
 
 ## Architecture
 

@@ -20,4 +20,4 @@
 
 ## Verifying a deploy
 `curl https://undercut-api.onrender.com/health` → `{"status":"ok","database":"up"}` ·
-new pages 200 on undercut-nu.vercel.app · `gh run list` all green.
+new pages 200 on undercutpricer.com · `gh run list` all green.

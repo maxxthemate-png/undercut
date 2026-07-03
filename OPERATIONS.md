@@ -1,7 +1,7 @@
 # Undercut — Operations Runbook
 
 ## Live endpoints
-- App: https://undercut-nu.vercel.app · API: https://undercut-api.onrender.com (`/health`)
+- App: https://undercutpricer.com · API: https://undercut-api.onrender.com (`/health`)
 - Founder metrics: `/admin` (needs `ADMIN_KEY`) · `GET /api/admin/metrics`, `/api/admin/gating-preview`
 
 ## Automated jobs (GitHub Actions; repo secrets in parentheses)

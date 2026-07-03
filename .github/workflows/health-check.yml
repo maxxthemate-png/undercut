@@ -21,7 +21,7 @@ jobs:
           BODY=$(curl -fsS --max-time 30 --retry 2 --retry-delay 5 "${{ secrets.API_URL }}/health" || echo "FETCH_FAILED")
           echo "$BODY" | grep -q '"database":\s*"up"' || FAILS="$FAILS api-health"
           # 2. Frontend canary
-          curl -fsS -o /dev/null --max-time 30 --retry 2 --retry-delay 5 "https://undercut-nu.vercel.app/" || FAILS="$FAILS frontend"
+          curl -fsS -o /dev/null --max-time 30 --retry 2 --retry-delay 5 "https://undercutpricer.com/" || FAILS="$FAILS frontend"
           # 3. Public revenue-path canary
           curl -fsS -o /dev/null --max-time 30 --retry 2 --retry-delay 5 "${{ secrets.API_URL }}/api/billing/plans" || FAILS="$FAILS billing-plans"
           if [ -n "$FAILS" ]; then

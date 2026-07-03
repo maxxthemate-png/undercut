@@ -10,7 +10,7 @@
  *
  *   node scripts/indexnow-ping.mjs
  */
-const HOST = 'undercut-nu.vercel.app'
+const HOST = 'undercutpricer.com'
 const KEY = 'e871924520ea02388d53ceb6a08ac377'
 const SITEMAP = `https://${HOST}/sitemap.xml`
 

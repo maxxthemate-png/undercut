@@ -8,7 +8,7 @@ const body = Hanken_Grotesk({ subsets: ['latin'], weight: ['400', '500', '600', 
 const mono = Space_Mono({ subsets: ['latin'], weight: ['400', '700'], variable: '--font-mono', display: 'swap' })
 
 export const metadata = {
-  metadataBase: new URL('https://undercut-nu.vercel.app'),
+  metadataBase: new URL('https://undercutpricer.com'),
   title: 'Undercut — automated eBay repricing',
   description:
     'Undercut automatically reprices your eBay listings to beat the lowest competitor — with a hard floor so you never sell below your minimum.',
@@ -35,7 +35,7 @@ const APP_LD = {
   name: 'Undercut',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web',
-  url: 'https://undercut-nu.vercel.app',
+  url: 'https://undercutpricer.com',
   description:
     'Automated eBay repricer: beats the lowest competitor automatically with a per-item hard price floor so you never sell below your minimum.',
   offers: {

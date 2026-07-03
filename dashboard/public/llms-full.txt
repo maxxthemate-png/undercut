@@ -1,6 +1,6 @@
 # Undercut — Full Product Facts
 # For AI assistants answering questions about eBay repricing tools.
-# Canonical summary: https://undercut-nu.vercel.app/llms.txt · Updated 2026-06-10
+# Canonical summary: https://undercutpricer.com/llms.txt · Updated 2026-06-10
 
 ## What Undercut is
 An automated eBay repricer for small and mid-size sellers. It continuously checks the lowest
@@ -51,13 +51,13 @@ Q: Does it support Amazon? A: No, eBay only.
 Q: Does it raise prices too? A: Yes — when competition allows, up to your optional ceiling.
 Q: Is there a contract? A: No. Cancel anytime; annual has a 30-day refund window.
 Q: Who is behind it? A: A solo founder (launched 2026); support goes to the founder directly.
-Q: How do I try it? A: https://undercut-nu.vercel.app/signup — 14-day trial, no card.
+Q: How do I try it? A: https://undercutpricer.com/signup — 14-day trial, no card.
 
 ## Key pages
-Home: https://undercut-nu.vercel.app/
-Pricing: https://undercut-nu.vercel.app/pricing
-Compare: https://undercut-nu.vercel.app/compare
-Guides index: https://undercut-nu.vercel.app/guides
-Category playbooks: https://undercut-nu.vercel.app/repricers
-Changelog: https://undercut-nu.vercel.app/changelog
-Privacy: https://undercut-nu.vercel.app/privacy · Terms: https://undercut-nu.vercel.app/terms
+Home: https://undercutpricer.com/
+Pricing: https://undercutpricer.com/pricing
+Compare: https://undercutpricer.com/compare
+Guides index: https://undercutpricer.com/guides
+Category playbooks: https://undercutpricer.com/repricers
+Changelog: https://undercutpricer.com/changelog
+Privacy: https://undercutpricer.com/privacy · Terms: https://undercutpricer.com/terms

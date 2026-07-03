@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import { allPages } from './_content/registry'
 import { TRACKED_PRODUCTS } from './_content/tracked-products'
 
-const BASE = 'https://undercut-nu.vercel.app'
+const BASE = 'https://undercutpricer.com'
 
 // Public, indexable routes. Keep in sync as new marketing pages ship.
 export default function sitemap(): MetadataRoute.Sitemap {

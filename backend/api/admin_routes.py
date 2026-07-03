@@ -313,5 +313,5 @@ def seed_demo(body: SeedDemoBody, x_admin_key: str | None = Header(default=None)
         "email": email, "password": body.password, "plan": plan,
         "listing_limit": limit, "listings_created": n, "overflow": max(0, n - limit),
         "token": auth.make_token(user.id),
-        "login_url": "https://undercut-nu.vercel.app/login",
+        "login_url": "https://undercutpricer.com/login",
     }

@@ -6,7 +6,7 @@ from ..utils.settings import settings
 
 
 def _app() -> str:
-    return (getattr(settings, "PUBLIC_APP_URL", None) or "https://undercut-nu.vercel.app").rstrip("/")
+    return (getattr(settings, "PUBLIC_APP_URL", None) or "https://undercutpricer.com").rstrip("/")
 
 
 def _wrap(inner: str) -> str:

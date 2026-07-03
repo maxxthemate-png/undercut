@@ -9,7 +9,7 @@ Quick reference for shipping a change to production. Read this before you deploy
 | | Trigger | Command |
 |---|---|---|
 | **Backend** (Render, `undercut-api`) | Auto-deploys on every push to `main` | Just `git push` — nothing else to run |
-| **Frontend** (Vercel, `undercut-nu.vercel.app`) | Git auto-deploy is **OFF** (intentionally, unreliable) | You must run the deploy command by hand, every time |
+| **Frontend** (Vercel, `undercutpricer.com`) | Git auto-deploy is **OFF** (intentionally, unreliable) | You must run the deploy command by hand, every time |
 
 If you merge a frontend change and walk away, **it is not live.** `main` will silently drift ahead of what's actually deployed until someone runs the Vercel command below. This has bitten this repo before — the `deploy-drift-check.yml` GitHub Action (added alongside this doc) exists specifically to catch that silent drift; see below.
 
@@ -38,7 +38,7 @@ Run this after merging any change under `dashboard/`. Nothing else does it for y
 
 2. **Frontend is actually live** (after running `vercel deploy --prod`):
    ```bash
-   curl -sI https://undercut-nu.vercel.app/ | head -5
+   curl -sI https://undercutpricer.com/ | head -5
    ```
    Confirm `HTTP/2 200` and check `x-vercel-id` / `age` headers reset (a fresh deploy resets `age`). There's no commit-SHA endpoint on the frontend, so the real check is the automated one below.
 
@@ -72,6 +72,6 @@ Run this after merging any change under `dashboard/`. Nothing else does it for y
 ## Reference
 
 - Backend: `https://undercut-api.onrender.com` (Render service `srv-d8h4mgcvikkc73es12og`)
-- Frontend: `https://undercut-nu.vercel.app` (Vercel project `undercut`, `prj_C4SdJQsQxNmal55HNqemQcwxNcS2`)
+- Frontend: `https://undercutpricer.com` (Vercel project `undercut`, `prj_C4SdJQsQxNmal55HNqemQcwxNcS2`)
 - Repo: `github.com/maxxthemate-png/undercut` (`main`)
 - Scheduled jobs (GitHub Actions, not Celery): `reprice.yml` (*/15 min), `lifecycle-emails.yml` (daily), `health-check.yml` (*/10 min), `db-backup.yml` (weekly), `indexnow.yml` (on `dashboard/**` push + weekly), `auto-content.yml` (weekly), `self-heal.yml` (weekly, opens PRs only, never deploys), `deploy-drift-check.yml` (every 6h, read-only).

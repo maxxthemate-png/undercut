@@ -76,7 +76,7 @@ def request_password_reset(body: ResetRequest, request: Request, db: Session = D
             from ..utils.settings import settings
             from ..utils.email_templates import password_reset_email
             from ..utils.notifications import send_customer_email
-            app = (settings.PUBLIC_APP_URL or "https://undercut-nu.vercel.app").rstrip("/")
+            app = (settings.PUBLIC_APP_URL or "https://undercutpricer.com").rstrip("/")
             link = f"{app}/reset-password?token={auth.make_reset_token(u)}"
             subject, html = password_reset_email(link)
             send_customer_email(u.email, subject, html)

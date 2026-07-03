@@ -2,7 +2,7 @@
 // generated page, so the offer copy is changed in ONE place.
 
 export const BRAND = 'Undercut'
-export const BASE_URL = 'https://undercut-nu.vercel.app'
+export const BASE_URL = 'https://undercutpricer.com'
 export const SUPPORT_EMAIL = 'nuvent66@gmail.com'
 export const FOUNDER = 'Maxx'
 

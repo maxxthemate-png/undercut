@@ -30,5 +30,5 @@ def unsubscribe(e: str, t: str, db: Session = Depends(get_db)):
         l.email_unsubscribed = True
     db.commit()
     logger.info("unsubscribed", email=email)
-    app_url = (getattr(settings, "PUBLIC_APP_URL", None) or "https://undercut-nu.vercel.app").rstrip("/")
+    app_url = (getattr(settings, "PUBLIC_APP_URL", None) or "https://undercutpricer.com").rstrip("/")
     return RedirectResponse(f"{app_url}/unsubscribed", status_code=302)

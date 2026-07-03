@@ -12,7 +12,7 @@ export default function Page() {
     <LegalPage title="Privacy Policy" updated="June 10, 2026">
       <h2>Who we are</h2>
       <p>
-        Undercut (undercut-nu.vercel.app) is an automated eBay repricing service operated by a solo
+        Undercut (undercutpricer.com) is an automated eBay repricing service operated by a solo
         founder. Questions about this policy: <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
       </p>
 
