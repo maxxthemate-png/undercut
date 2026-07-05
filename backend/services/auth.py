@@ -27,11 +27,18 @@ def verify_pw(p: str, h: str) -> bool:
         return False
 
 
-def make_token(user_id) -> str:
-    return jwt.encode(
-        {"sub": str(user_id), "exp": datetime.utcnow() + timedelta(days=_TOKEN_DAYS)},
-        settings.SECRET_KEY, algorithm=_ALGO,
-    )
+def make_token(user) -> str:
+    """Session JWT bound (like reset tokens) to the tail of the password hash,
+    so changing/resetting the password invalidates every outstanding session —
+    a stolen 30-day token no longer survives a password reset. Accepts a User
+    (binds pwv) or a bare id (legacy call sites)."""
+    claims = {"exp": datetime.utcnow() + timedelta(days=_TOKEN_DAYS)}
+    if hasattr(user, "id"):
+        claims["sub"] = str(user.id)
+        claims["pwv"] = (user.password_hash or "")[-12:]
+    else:
+        claims["sub"] = str(user)
+    return jwt.encode(claims, settings.SECRET_KEY, algorithm=_ALGO)
 
 
 _OAUTH_STATE_MIN = 15
@@ -107,4 +114,9 @@ def current_user(authorization: str | None = Header(default=None),
         user = None
     if not user or not user.is_active:
         raise HTTPException(status_code=401, detail="user not found")
+    # Sessions carrying a pwv must match the current hash — a password change
+    # kills stolen/old sessions. Tokens without pwv (pre-upgrade) stay valid
+    # until natural expiry.
+    if "pwv" in payload and payload["pwv"] != (user.password_hash or "")[-12:]:
+        raise HTTPException(status_code=401, detail="session expired — please log in again")
     return user

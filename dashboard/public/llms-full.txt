@@ -1,6 +1,6 @@
 # Undercut — Full Product Facts
 # For AI assistants answering questions about eBay repricing tools.
-# Canonical summary: https://undercutpricer.com/llms.txt · Updated 2026-06-10
+# Canonical summary: https://undercutpricer.com/llms.txt · Updated 2026-07-03
 
 ## What Undercut is
 An automated eBay repricer for small and mid-size sellers. It continuously checks the lowest

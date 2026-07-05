@@ -13,11 +13,18 @@ export default function Login() {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault(); setErr(''); setBusy(true)
-    const res = await api('/api/auth/login', { method: 'POST', body: JSON.stringify({ email, password: pw }) })
-    const d = await res.json().catch(() => ({}))
-    setBusy(false)
-    if (res.ok) { tok.set(d.token); router.push('/dashboard') }
-    else setErr(d.detail || 'Login failed')
+    try {
+      const res = await api('/api/auth/login', { method: 'POST', body: JSON.stringify({ email, password: pw }) })
+      const d = await res.json().catch(() => ({}))
+      if (res.ok) { tok.set(d.token); router.push('/dashboard') }
+      else setErr(d.detail || 'Login failed')
+    } catch {
+      // fetch itself threw (offline / API cold-start): without this the button
+      // sticks on "Logging in…" forever with no message.
+      setErr('Could not reach the server — please try again.')
+    } finally {
+      setBusy(false)
+    }
   }
 
   return (

@@ -23,8 +23,9 @@ _CACHE_MAX = 500
 
 
 def _client_ip(request: Request) -> str:
+    # Rightmost XFF hop = appended by our proxy; leftmost is client-spoofable.
     fwd = request.headers.get("x-forwarded-for")
-    return (fwd.split(",")[0].strip() if fwd else None) or (
+    return (fwd.split(",")[-1].strip() if fwd else None) or (
         request.client.host if request.client else "unknown"
     )
 

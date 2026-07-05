@@ -81,10 +81,13 @@ def run_lifecycle_emails() -> dict:
                 errors.append(f"ending {u.email}: {e}")
         db.commit()
 
-        # --- Trial expired (ended, not yet notified) ---
+        # --- Trial expired (ended in the last week, not yet notified) ---
+        # Match plan "free" too: logging in normalizes an expired trial -> free
+        # BEFORE this cron runs, which previously made returning users skip this
+        # email entirely. The 7-day window stops ancient accounts from matching.
         for u in db.scalars(select(User).where(
-                User.plan == billing.TRIAL_PLAN, User.trial_ends_at.isnot(None),
-                User.trial_ends_at <= now,
+                User.plan.in_((billing.TRIAL_PLAN, "free")), User.trial_ends_at.isnot(None),
+                User.trial_ends_at <= now, User.trial_ends_at > now - timedelta(days=7),
                 User.email_unsubscribed.is_(False))).all():
             if u.last_lifecycle_stage == "trial_expired":
                 continue
@@ -171,8 +174,10 @@ def run_lifecycle_emails() -> dict:
 
         # --- Win-back (30 days after trial expiry/churn, inactive, one-shot) ---
         month_ago = now - timedelta(days=30)
+        # Include plan "trial" too: a user who never logged back in is never
+        # normalized to "free", so plan=="free" alone could never win them back.
         for u in db.scalars(select(User).where(
-                User.plan == "free",
+                User.plan.in_(("free", billing.TRIAL_PLAN)),
                 User.winback_emailed_at.is_(None),
                 User.email_unsubscribed.is_(False))).all():
             churned_paid = u.stripe_customer_id is not None and u.stripe_subscription_id is None

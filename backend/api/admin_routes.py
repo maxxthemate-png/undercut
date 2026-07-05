@@ -43,7 +43,7 @@ async def ebay_selftest(x_admin_key: str | None = Header(default=None)):
     Trading API, and are we on prod or sandbox? No seller token required."""
     _require_admin(x_admin_key)
     from ..services.ebay_store import EbayStoreClient
-    return await EbayStoreClient().trading_selftest()
+    return await EbayStoreClient(use_operator_token=True).trading_selftest()
 
 
 @router.get("/metrics")
@@ -304,7 +304,10 @@ def seed_demo(body: SeedDemoBody, x_admin_key: str | None = Header(default=None)
             current_price=round(base + 9.99, 2), quantity=1,
             floor_price=round(base * 0.9 + 2, 2),
             undercut_value=0.01, undercut_type="amount",
-            ai_enabled=True, repricing_enabled=True,
+            # repricing OFF: demo item ids are fake — if seeded in prod with it on,
+            # the 15-min cron would burn real Browse quota + doomed Revise calls
+            # on them forever and skew /public-stats.
+            ai_enabled=True, repricing_enabled=False,
             last_competitor_low=round(base + 4.99, 2),
         ))
     db.commit()
@@ -312,6 +315,6 @@ def seed_demo(body: SeedDemoBody, x_admin_key: str | None = Header(default=None)
     return {
         "email": email, "password": body.password, "plan": plan,
         "listing_limit": limit, "listings_created": n, "overflow": max(0, n - limit),
-        "token": auth.make_token(user.id),
+        "token": auth.make_token(user),
         "login_url": "https://undercutpricer.com/login",
     }

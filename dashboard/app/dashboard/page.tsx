@@ -44,20 +44,26 @@ export default function Dashboard() {
   }, [])
 
   async function fetchAll() {
-    const meRes = await api('/api/auth/me')
-    if (meRes.status === 401) { tok.clear(); router.push('/login'); return }
-    setMe(await meRes.json())
-    const [s, l, c, v] = await Promise.all([api('/api/repricer/stores'), api('/api/repricer/listings'), api('/api/repricer/price-changes'), api('/api/repricer/value-summary')])
-    if (s.ok) setStores((await s.json()).stores || [])
-    if (l.ok) {
-      const ls = (await l.json()).listings || []
-      if (prevCount.current === 0 && ls.length > 0) setJustImported(ls.length)
-      prevCount.current = ls.length
-      setListings(ls)
+    try {
+      const meRes = await api('/api/auth/me')
+      if (meRes.status === 401) { tok.clear(); router.push('/login'); return }
+      setMe(await meRes.json())
+      const [s, l, c, v] = await Promise.all([api('/api/repricer/stores'), api('/api/repricer/listings'), api('/api/repricer/price-changes'), api('/api/repricer/value-summary')])
+      if (s.ok) setStores((await s.json()).stores || [])
+      if (l.ok) {
+        const ls = (await l.json()).listings || []
+        if (prevCount.current === 0 && ls.length > 0) setJustImported(ls.length)
+        prevCount.current = ls.length
+        setListings(ls)
+      }
+      if (c.ok) setChanges((await c.json()).changes || [])
+      if (v.ok) setValue(await v.json())   // null/ignored until the endpoint is deployed
+    } catch {
+      // Transient network failure (the 30s poll also lands here) — keep the
+      // last good data instead of an eternal "Loading…" on first mount.
+    } finally {
+      setLoading(false)
     }
-    if (c.ok) setChanges((await c.json()).changes || [])
-    if (v.ok) setValue(await v.json())   // null/ignored until the endpoint is deployed
-    setLoading(false)
   }
 
   async function importListings() {
@@ -81,8 +87,26 @@ export default function Dashboard() {
     if (id) await api(`/api/repricer/stores/${id}/import`, { method: 'POST' })
     setManualToken(''); setBusy(''); fetchAll()
   }
-  async function saveRule(id: string, patch: any) { await api(`/api/repricer/listings/${id}/rule`, { method: 'PUT', body: JSON.stringify(patch) }); fetchAll() }
-  async function runReprice() { setBusy('run'); await api('/api/repricer/run', { method: 'POST' }); setBusy(''); fetchAll() }
+  async function saveRule(id: string, patch: any) {
+    try {
+      const res = await api(`/api/repricer/listings/${id}/rule`, { method: 'PUT', body: JSON.stringify(patch) })
+      if (!res.ok) {
+        // Surface validation errors (e.g. "ceiling cannot be below floor") —
+        // silently reverting the edit on the next poll looked like data loss.
+        const d = await res.json().catch(() => ({} as any))
+        alert(d.detail || 'Could not save that rule.')
+      }
+    } catch { alert('Could not reach the server — rule not saved.') }
+    fetchAll()
+  }
+  async function runReprice() {
+    setBusy('run')
+    try {
+      const res = await api('/api/repricer/run', { method: 'POST' })
+      if (res.status === 429) { const d = await res.json().catch(() => ({} as any)); alert(d.detail || 'Repricing just ran — try again in a minute.') }
+    } catch { /* transient — the poll will refresh */ }
+    setBusy(''); fetchAll()
+  }
   async function upgrade(plan: string, interval: 'month' | 'year' = 'month') {
     const d = await (await api('/api/billing/checkout', { method: 'POST', body: JSON.stringify({ plan, interval }) })).json()
     if (d.url) window.location.href = d.url; else alert(d.detail || 'Billing not configured yet.')

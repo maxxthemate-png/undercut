@@ -44,9 +44,17 @@ class EbayApiError(Exception):
     auth/keyset behind an empty import."""
 
 
+# App (client-credentials) token cache: minting one per Browse call added a
+# ~300ms OAuth round-trip per listing per run. eBay app tokens live ~2h.
+_APP_TOKEN_CACHE: dict = {}
+
+
 class EbayStoreClient:
-    def __init__(self, user_token: str | None = None):
-        self.user_token = user_token or settings.EBAY_USER_TOKEN
+    def __init__(self, user_token: str | None = None, use_operator_token: bool = False):
+        # NEVER silently fall back to the operator's token for per-store clients —
+        # a store with a missing/unreadable token would read AND write the
+        # OPERATOR's eBay account (cross-tenant). Only the admin selftest opts in.
+        self.user_token = user_token or (settings.EBAY_USER_TOKEN if use_operator_token else None)
         self.app_id = settings.EBAY_APP_ID
         self.cert_id = settings.EBAY_CERT_ID
         self.dev_id = settings.EBAY_DEV_ID
@@ -98,41 +106,49 @@ class EbayStoreClient:
         logger.error("trading call failed", call=call)
         return ""
 
-    async def get_active_listings(self, limit: int = 200) -> list[dict]:
-        body = f"""<?xml version="1.0" encoding="utf-8"?>
+    async def get_active_listings(self, limit: int = 200, max_pages: int = 50) -> list[dict]:
+        """All active listings, paginated — page 1 only would silently drop
+        everything past 200 items (a Scale seller has up to 10,000)."""
+        out: list[dict] = []
+        for page in range(1, max_pages + 1):
+            body = f"""<?xml version="1.0" encoding="utf-8"?>
 <GetMyeBaySellingRequest xmlns="urn:ebay:apis:eBLBaseComponents">
   {self._requester_credentials()}
   <ActiveList>
     <Include>true</Include>
-    <Pagination><EntriesPerPage>{limit}</EntriesPerPage><PageNumber>1</PageNumber></Pagination>
+    <Pagination><EntriesPerPage>{limit}</EntriesPerPage><PageNumber>{page}</PageNumber></Pagination>
   </ActiveList>
 </GetMyeBaySellingRequest>"""
-        txt = await self._trading("GetMyeBaySelling", body)
-        if not txt:
-            raise EbayApiError("eBay returned no response (network error or rejected credentials)")
-        try:
-            root = ET.fromstring(txt)
-        except Exception as e:
-            raise EbayApiError(f"unparseable eBay response: {e}")
-        ack = root.find(".//e:Ack", NS)
-        if ack is not None and ack.text == "Failure":
-            errs = [m.text for m in root.findall(".//e:Errors/e:LongMessage", NS) if m.text]
-            raise EbayApiError("; ".join(errs) or "eBay rejected the GetMyeBaySelling request")
-        out: list[dict] = []
-        for it in root.findall(".//e:ActiveList/e:ItemArray/e:Item", NS):
-            def g(path):
-                el = it.find(path, NS)
-                return el.text if el is not None else None
-            price = (g(".//e:SellingStatus/e:CurrentPrice") or g(".//e:BuyItNowPrice")
-                     or g(".//e:StartPrice"))
-            out.append({
-                "ebay_item_id": g("e:ItemID"),
-                "title": g("e:Title"),
-                "sku": g("e:SKU"),
-                "category_id": g(".//e:PrimaryCategory/e:CategoryID"),
-                "price": float(price) if price else None,
-                "quantity": int(g(".//e:Quantity") or 0),
-            })
+            txt = await self._trading("GetMyeBaySelling", body)
+            if not txt:
+                raise EbayApiError("eBay returned no response (network error or rejected credentials)")
+            try:
+                root = ET.fromstring(txt)
+            except Exception as e:
+                raise EbayApiError(f"unparseable eBay response: {e}")
+            ack = root.find(".//e:Ack", NS)
+            if ack is not None and ack.text == "Failure":
+                errs = [m.text for m in root.findall(".//e:Errors/e:LongMessage", NS) if m.text]
+                raise EbayApiError("; ".join(errs) or "eBay rejected the GetMyeBaySelling request")
+            items = root.findall(".//e:ActiveList/e:ItemArray/e:Item", NS)
+            for it in items:
+                def g(path):
+                    el = it.find(path, NS)
+                    return el.text if el is not None else None
+                price = (g(".//e:SellingStatus/e:CurrentPrice") or g(".//e:BuyItNowPrice")
+                         or g(".//e:StartPrice"))
+                out.append({
+                    "ebay_item_id": g("e:ItemID"),
+                    "title": g("e:Title"),
+                    "sku": g("e:SKU"),
+                    "category_id": g(".//e:PrimaryCategory/e:CategoryID"),
+                    "price": float(price) if price else None,
+                    "quantity": int(g(".//e:Quantity") or 0),
+                })
+            more = root.find(".//e:ActiveList/e:PaginationResult/e:TotalNumberOfPages", NS)
+            total_pages = int(more.text) if more is not None and more.text else 1
+            if page >= total_pages or not items:
+                break
         return out
 
     async def update_price(self, item_id: str, new_price: float, sku: str | None = None) -> dict:
@@ -196,6 +212,10 @@ class EbayStoreClient:
         return out
 
     async def _app_token(self) -> str | None:
+        import time as _t
+        cached = _APP_TOKEN_CACHE.get(self._env)
+        if cached and _t.time() < cached["exp"]:
+            return cached["token"]
         cred = base64.b64encode(f"{self.app_id}:{self.cert_id}".encode()).decode()
         try:
             async with httpx.AsyncClient(timeout=20) as c:
@@ -206,13 +226,19 @@ class EbayStoreClient:
                     data={"grant_type": "client_credentials",
                           "scope": "https://api.ebay.com/oauth/api_scope"},
                 )
-            return r.json().get("access_token")
+            data = r.json()
+            token = data.get("access_token")
+            if token:  # cache until 60s before expiry
+                _APP_TOKEN_CACHE[self._env] = {
+                    "token": token, "exp": _t.time() + int(data.get("expires_in", 7200)) - 60}
+            return token
         except Exception as e:
             logger.warning("app token failed", error=str(e))
             return None
 
     async def _credible_lowest(self, query: str, limit: int, headers: dict,
-                               category_id: str | None = None) -> list[dict]:
+                               category_id: str | None = None,
+                               exclude_item_id: str | None = None) -> list[dict]:
         """Shared competitor-low core. A bare KEYWORD search returns a mix of the
         real product and cheap accessories that share the words, so: if the caller
         knows the item's category, constrain to it directly (1 call); otherwise
@@ -242,6 +268,11 @@ class EbayStoreClient:
         for s in summaries:
             v = (s.get("price") or {}).get("value")
             if not v:
+                continue
+            # Exclude the seller's OWN listing — without this, a seller who is
+            # already the cheapest sees themselves as "the competitor" and
+            # ratchets down a cent per run until they hit their floor.
+            if exclude_item_id and str(s.get("legacyItemId") or "") == str(exclude_item_id):
                 continue
             rows.append({"title": s.get("title"), "price": float(v),
                          "condition": s.get("condition"), "url": s.get("itemWebUrl")})
@@ -347,7 +378,8 @@ class EbayStoreClient:
             return {"item": None, "lowest": None, "count": 0, "items": [], "error": "lookup_failed"}
 
     async def get_competitor_low(self, query: str, limit: int = 30,
-                                 category_id: str | None = None) -> dict:
+                                 category_id: str | None = None,
+                                 exclude_item_id: str | None = None) -> dict:
         """Lowest competing price + count for a query via the Buy Browse API.
         Used by the live repricer (pass the listing's category_id for a direct,
         accurate, single-call lookup) and the price-tracker cron (keyword only →
@@ -359,7 +391,8 @@ class EbayStoreClient:
             return {"lowest": None, "count": 0}
         headers = {"Authorization": f"Bearer {token}", "X-EBAY-C-MARKETPLACE-ID": "EBAY_US"}
         try:
-            credible = await self._credible_lowest(query, limit, headers, category_id=category_id)
+            credible = await self._credible_lowest(query, limit, headers, category_id=category_id,
+                                                   exclude_item_id=exclude_item_id)
             return {"lowest": credible[0]["price"] if credible else None, "count": len(credible)}
         except Exception as e:
             logger.warning("competitor lookup failed", error=str(e))

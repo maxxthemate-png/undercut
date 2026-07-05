@@ -2,10 +2,12 @@
 logged-in user (JWT). The eBay OAuth callback ties the connected store to the
 user who started the flow (via the `state` param). Plan listing-limit enforced.
 """
+import time as _time
 import uuid
 from datetime import datetime, timedelta
 
 from fastapi import APIRouter, Depends, HTTPException, Header
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from sqlalchemy import select, desc, func
 from sqlalchemy.orm import Session
@@ -17,7 +19,9 @@ from ..services import ebay_oauth
 from ..services.auth import current_user, make_oauth_state, verify_oauth_state
 from ..services import billing
 from ..utils.crypto import encrypt_token, decrypt_token
+from ..utils.keys import key_ok
 from ..utils.notifications import send_email_alert
+from ..utils.settings import settings
 from ..utils.logging import get_logger
 
 logger = get_logger(__name__)
@@ -60,7 +64,13 @@ def _listing_count(db: Session, user: User) -> int:
 
 async def _sync_store_listings(db: Session, store: Store, remaining: int) -> dict:
     """Import a store's eBay listings, creating up to `remaining` new ones (plan cap)."""
-    client = EbayStoreClient(user_token=decrypt_token(store.oauth_access_token) or None)
+    token = decrypt_token(store.oauth_access_token) if store.oauth_access_token else None
+    if not token:
+        # No usable seller token — the client must never fall back to anyone
+        # else's credentials. Tell the seller to (re)connect.
+        raise HTTPException(status_code=400, detail=(
+            "This store has no usable eBay connection — please reconnect your eBay account."))
+    client = EbayStoreClient(user_token=token)
     try:
         items = await client.get_active_listings()
     except EbayApiError as e:
@@ -154,13 +164,15 @@ def list_listings(store_id: str | None = None, user: User = Depends(current_user
 
 def _validate_rule(l: RepricerListing, body: RuleIn) -> str | None:
     """Validate the MERGED rule state (PATCH semantics: incoming value if set,
-    else current DB value) so a partial update can't create a broken rule."""
-    floor = body.floor_price if body.floor_price is not None else l.floor_price
-    ceiling = body.ceiling_price if body.ceiling_price is not None else l.ceiling_price
-    if body.floor_price is not None and body.floor_price < 0.01:
-        return "floor_price must be at least $0.01"
-    if body.ceiling_price is not None and body.ceiling_price <= 0:
-        return "ceiling_price must be positive"
+    else current DB value) so a partial update can't create a broken rule.
+    A value of exactly 0 means CLEAR (there is otherwise no way to remove a
+    ceiling/floor once set — None is 'not provided' in PATCH semantics)."""
+    floor = l.floor_price if body.floor_price is None else (body.floor_price or None)
+    ceiling = l.ceiling_price if body.ceiling_price is None else (body.ceiling_price or None)
+    if body.floor_price is not None and 0 < body.floor_price < 0.01:
+        return "floor_price must be at least $0.01 (or 0 to clear)"
+    if body.ceiling_price is not None and body.ceiling_price < 0:
+        return "ceiling_price must be positive (or 0 to clear)"
     if floor is not None and ceiling is not None and ceiling < floor:
         return "ceiling_price cannot be below floor_price"
     if body.undercut_value is not None and body.undercut_value < 0:
@@ -183,13 +195,28 @@ def set_rule(listing_id: str, body: RuleIn, user: User = Depends(current_user), 
                   "ai_enabled", "repricing_enabled"):
         v = getattr(body, field)
         if v is not None:
+            # 0 clears a price rail (see _validate_rule); other fields set as-is.
+            if field in ("floor_price", "ceiling_price") and v == 0:
+                v = None
             setattr(l, field, v)
     db.commit()
     return _listing_dict(l)
 
 
+# "Reprice now" cooldown: each manual run fans out to eBay Browse + (on AI
+# listings) one Claude call per listing — without a cooldown any user can loop
+# it and burn API cost/quota (in-process; single instance).
+_RUN_COOLDOWN_S = 60
+_last_manual_run: dict = {}
+
+
 @router.post("/run")
 async def run_reprice(user: User = Depends(current_user), db: Session = Depends(get_db)):
+    now = _time.time()
+    if now - _last_manual_run.get(user.id, 0) < _RUN_COOLDOWN_S:
+        raise HTTPException(status_code=429,
+                            detail="Repricing just ran — try again in a minute.")
+    _last_manual_run[user.id] = now
     store_ids = [s.id for s in db.scalars(select(Store).where(Store.user_id == user.id)).all()]
     if not store_ids:
         return {"checked": 0, "repriced": 0, "results": []}
@@ -216,17 +243,23 @@ def value_summary(days: int = 30, user: User = Depends(current_user), db: Sessio
     Undercut has held above the seller's floors, how many sales it won, and how
     many times it refused to chase the market below the floor — over `days`."""
     since = datetime.utcnow() - timedelta(days=max(1, min(days, 365)))
-    rows = db.scalars(
-        select(PriceChange)
+    # One SQL aggregate — this endpoint is polled every 30s by the dashboard and
+    # previously hydrated every PriceChange row (10^5+/month at one Pro seller).
+    from sqlalchemy import cast, Integer
+    row = db.execute(
+        select(func.coalesce(func.sum(PriceChange.margin_protected), 0.0),
+               func.count(),
+               func.coalesce(func.sum(cast(PriceChange.is_win, Integer)), 0),
+               func.coalesce(func.sum(cast(PriceChange.floored, Integer)), 0),
+               func.count(func.distinct(PriceChange.listing_id)))
+        .select_from(PriceChange)
         .join(RepricerListing, PriceChange.listing_id == RepricerListing.id)
         .join(Store, RepricerListing.store_id == Store.id)
-        .where(Store.user_id == user.id, PriceChange.created_at >= since)).all()
-    margin = sum((r.margin_protected or 0.0) for r in rows)
-    wins = sum(1 for r in rows if r.is_win)
-    floored = sum(1 for r in rows if r.floored)
-    listings = len({r.listing_id for r in rows})
-    return {"days": days, "margin_protected": round(float(margin), 2),
-            "reprices": len(rows), "wins": wins, "floored": floored, "listings": listings}
+        .where(Store.user_id == user.id, PriceChange.created_at >= since)).one()
+    margin, total, wins, floored, listings = row
+    return {"days": days, "margin_protected": round(float(margin or 0), 2),
+            "reprices": int(total or 0), "wins": int(wins or 0),
+            "floored": int(floored or 0), "listings": int(listings or 0)}
 
 
 @router.get("/oauth/login")
@@ -247,24 +280,40 @@ async def oauth_callback(code: str, state: str | None = None, db: Session = Depe
     user = db.get(User, _uuid(uid))
     if not user:
         raise HTTPException(status_code=400, detail="unknown user for OAuth state")
+    app_url = (settings.PUBLIC_APP_URL or "https://undercutpricer.com").rstrip("/")
     tok = await ebay_oauth.exchange_code(code)
     if "access_token" not in tok:
-        raise HTTPException(status_code=400, detail=f"token exchange failed: {tok}")
-    s = Store(name="eBay Store", user_id=user.id,
-              oauth_access_token=encrypt_token(tok["access_token"]), oauth_refresh_token=encrypt_token(tok.get("refresh_token")),
-              token_expires_at=datetime.utcnow() + timedelta(seconds=int(tok.get("expires_in", 7200))))
-    db.add(s); db.commit(); db.refresh(s)
+        logger.error("eBay token exchange failed", detail=str(tok)[:300])
+        return RedirectResponse(f"{app_url}/dashboard?connect_error=1", status_code=302)
+    # UPSERT the OAuth-connected store: re-connecting must refresh tokens on the
+    # existing store, not create a duplicate (which double-imports every listing,
+    # double-counts the plan limit, and double-reprices).
+    s = db.scalar(select(Store).where(Store.user_id == user.id, Store.name == "eBay Store"))
+    if not s:
+        s = Store(name="eBay Store", user_id=user.id)
+        db.add(s)
+    s.oauth_access_token = encrypt_token(tok["access_token"])
+    s.oauth_refresh_token = encrypt_token(tok.get("refresh_token"))
+    s.token_expires_at = datetime.utcnow() + timedelta(seconds=int(tok.get("expires_in", 7200)))
+    db.commit(); db.refresh(s)
     remaining = max(0, user.listing_limit - _listing_count(db, user))
-    imp = await _sync_store_listings(db, s, remaining)
-    return {"connected": True, "store_id": str(s.id), **imp}
+    try:
+        imp = await _sync_store_listings(db, s, remaining)
+        logger.info("oauth connect + import", store=str(s.id), **{k: v for k, v in imp.items() if k != "total"})
+    except HTTPException:
+        # Import failed (already alerted inside) — the store IS connected; land
+        # the seller on the dashboard where they can retry import, not on raw JSON.
+        return RedirectResponse(f"{app_url}/dashboard?connected=1&import_error=1", status_code=302)
+    # The seller must land back in the product — not on raw JSON on the API domain.
+    return RedirectResponse(f"{app_url}/dashboard?connected=1&imported={imp.get('imported', 0)}",
+                            status_code=302)
 
 
 @public_router.post("/cron/reprice-all")
 async def cron_reprice_all(x_cron_key: str | None = Header(default=None)):
     """Service-key-protected global repricer. Called every 15 min by the scheduled
     GitHub Action (free-tier alternative to a Celery beat worker) — reprices every store."""
-    from ..utils.settings import settings
-    if not settings.UNDERCUT_API_KEY or x_cron_key != settings.UNDERCUT_API_KEY:
+    if not key_ok(x_cron_key, settings.UNDERCUT_API_KEY):
         raise HTTPException(status_code=403, detail="invalid cron key")
     from ..services.reprice_service import reprice_all
     result = await reprice_all()

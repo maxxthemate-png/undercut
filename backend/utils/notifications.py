@@ -1,35 +1,13 @@
 """
 Undercut — Notification Service
-Sends SMS (Twilio) and email (SendGrid) alerts to operator, plus customer
-lifecycle email. Only fires when human action is needed — not for routine work.
+Sends email (SendGrid) alerts to the operator, plus customer lifecycle email.
+Only fires when human action is needed — not for routine work.
 """
 
 from ..utils.settings import settings
 from ..utils.logging import get_logger
 
 logger = get_logger(__name__)
-
-
-def send_sms_alert(message: str) -> bool:
-    """Send SMS to operator phone via Twilio."""
-    if not all([settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN,
-                settings.TWILIO_FROM_NUMBER, settings.OPERATOR_PHONE]):
-        logger.warning("Twilio not configured — SMS skipped", message=message[:100])
-        return False
-
-    try:
-        from twilio.rest import Client
-        client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
-        client.messages.create(
-            body=message[:1600],  # SMS limit
-            from_=settings.TWILIO_FROM_NUMBER,
-            to=settings.OPERATOR_PHONE,
-        )
-        logger.info("SMS sent", chars=len(message))
-        return True
-    except Exception as e:
-        logger.error("SMS send failed", error=str(e))
-        return False
 
 
 def send_email_alert(subject: str, body: str, html_body: str = None) -> bool:
@@ -42,12 +20,16 @@ def send_email_alert(subject: str, body: str, html_body: str = None) -> bool:
         import sendgrid
         from sendgrid.helpers.mail import Mail
 
+        import html as _html
         message = Mail(
             from_email=settings.FROM_EMAIL,
             to_emails=settings.OPERATOR_EMAIL,
             subject=f"[Undercut] {subject}",
             plain_text_content=body,
-            html_content=html_body or f"<pre>{body}</pre>",
+            # Escape: alert bodies interpolate user-supplied text (lead notes,
+            # eBay errors) — raw HTML here is an injection vector into the
+            # operator's inbox.
+            html_content=html_body or f"<pre>{_html.escape(body)}</pre>",
         )
         sg = sendgrid.SendGridAPIClient(settings.SENDGRID_API_KEY)
         sg.send(message)

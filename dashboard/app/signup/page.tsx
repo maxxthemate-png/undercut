@@ -25,17 +25,24 @@ export default function Signup() {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault(); setErr(''); setBusy(true)
-    const res = await api('/api/auth/signup', { method: 'POST', body: JSON.stringify({ email, password: pw }) })
-    const d = await res.json().catch(() => ({}))
-    setBusy(false)
-    if (res.ok) {
-      tok.set(d.token)
-      // Fire the Ads conversion + a generic sign_up event (both no-op until the
-      // Ads tag is configured). This is the trial-start the paid campaign optimizes for.
-      track('sign_up', { method: 'email' })
-      trackConversion(process.env.NEXT_PUBLIC_GADS_SIGNUP_LABEL)
-      router.push('/dashboard')
-    } else setErr(d.detail || 'Signup failed')
+    try {
+      const res = await api('/api/auth/signup', { method: 'POST', body: JSON.stringify({ email, password: pw }) })
+      const d = await res.json().catch(() => ({}))
+      if (res.ok) {
+        tok.set(d.token)
+        // Fire the Ads conversion + a generic sign_up event (both no-op until the
+        // Ads tag is configured). This is the trial-start the paid campaign optimizes for.
+        track('sign_up', { method: 'email' })
+        trackConversion(process.env.NEXT_PUBLIC_GADS_SIGNUP_LABEL)
+        router.push('/dashboard')
+      } else setErr(d.detail || 'Signup failed')
+    } catch {
+      // fetch threw (offline / cold-start): don't leave the button stuck on
+      // "Creating…" with no message — this is the paid-traffic landing action.
+      setErr('Could not reach the server — please try again.')
+    } finally {
+      setBusy(false)
+    }
   }
 
   return (

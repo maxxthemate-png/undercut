@@ -10,8 +10,11 @@ from fastapi import Request
 
 
 def client_ip(request: Request) -> str:
+    # Rightmost X-Forwarded-For hop: the one appended by OUR proxy (Render).
+    # The leftmost entries are client-supplied and spoofable — trusting them
+    # let a single attacker rotate fake IPs and bypass every throttle.
     fwd = request.headers.get("x-forwarded-for")
-    return (fwd.split(",")[0].strip() if fwd else None) or (
+    return (fwd.split(",")[-1].strip() if fwd else None) or (
         request.client.host if request.client else "unknown"
     )
 
@@ -31,4 +34,7 @@ class IPThrottle:
         if len(dq) >= self.limit:
             return True
         dq.append(now)
+        if len(self._hits) > 10_000:  # bound memory: drop idle IPs' empty windows
+            for k in [k for k, v in self._hits.items() if not v][:5_000]:
+                self._hits.pop(k, None)
         return False

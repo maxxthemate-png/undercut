@@ -2,6 +2,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from ..models.database import get_db
@@ -32,7 +33,14 @@ def signup(body: Creds, request: Request, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="email already registered")
     u = User(email=email, password_hash=auth.hash_pw(body.password))
     billing.start_trial(u)          # new sellers get a no-card 14-day Founding trial (Starter-level)
-    db.add(u); db.commit(); db.refresh(u)
+    try:
+        db.add(u); db.commit()
+    except IntegrityError:
+        # Concurrent signup race: the SELECT above passed for both requests —
+        # the unique constraint is the real guard; return the friendly 400.
+        db.rollback()
+        raise HTTPException(status_code=400, detail="email already registered")
+    db.refresh(u)
     try:                            # best-effort welcome email — never block signup
         from ..utils.email_templates import welcome_email
         from ..utils.notifications import send_customer_email
@@ -40,7 +48,7 @@ def signup(body: Creds, request: Request, db: Session = Depends(get_db)):
         send_customer_email(u.email, subject, html)
     except Exception:
         pass
-    return {"token": auth.make_token(u.id), "email": u.email, **billing.access_summary(u)}
+    return {"token": auth.make_token(u), "email": u.email, **billing.access_summary(u)}
 
 
 @router.post("/login")
@@ -52,7 +60,7 @@ def login(body: Creds, request: Request, db: Session = Depends(get_db)):
         raise HTTPException(status_code=401, detail="invalid credentials")
     if billing.normalize_access(u):   # expire a finished trial -> free, on login
         db.commit()
-    return {"token": auth.make_token(u.id), "email": u.email, **billing.access_summary(u)}
+    return {"token": auth.make_token(u), "email": u.email, **billing.access_summary(u)}
 
 
 class ResetRequest(BaseModel):
@@ -94,7 +102,7 @@ def reset_password(body: ResetConfirm, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Password must be at least 8 characters.")
     u.password_hash = auth.hash_pw(body.password)
     db.commit()
-    return {"token": auth.make_token(u.id), "email": u.email, **billing.access_summary(u)}
+    return {"token": auth.make_token(u), "email": u.email, **billing.access_summary(u)}
 
 
 @router.get("/me")

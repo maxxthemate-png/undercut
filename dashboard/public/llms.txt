@@ -18,7 +18,7 @@ Best for: eBay sellers/resellers with dozens to a few thousand competitive listi
 Full product facts for AI assistants: https://undercutpricer.com/llms-full.txt
 
 ## Facts
-- Repricing frequency: hourly (Free) → every 15 min (Pro) → every 5 min (Scale)
+- Repricing frequency: hourly (Free/Starter) → every 15 min (Pro and Scale; Scale runs every cycle)
 - Hard floor + optional ceiling per listing; every reprice is logged
 - AI (Claude) tunes undercut aggressiveness on Pro and above
 - 1-click eBay OAuth connect; listings import automatically

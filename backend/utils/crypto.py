@@ -50,7 +50,10 @@ def encrypt_token(value):
 
 def decrypt_token(value):
     """Decrypt a stored token. Returns the value unchanged if it isn't valid
-    ciphertext (legacy plaintext) or no key is configured."""
+    ciphertext (legacy plaintext) or no key is configured. If the value LOOKS
+    like Fernet ciphertext but fails to decrypt (wrong/rotated key), returns
+    None — shipping undecryptable gibberish to eBay as a token would fail
+    silently, and callers alert on a falsy token instead."""
     if not value:
         return value
     f = _fernet()
@@ -59,6 +62,9 @@ def decrypt_token(value):
     try:
         return f.decrypt(value.encode()).decode()
     except Exception:
+        # Fernet tokens are base64 starting with version byte 0x80 -> "gAAAA".
+        if str(value).startswith("gAAAA"):
+            return None
         return value
 
 

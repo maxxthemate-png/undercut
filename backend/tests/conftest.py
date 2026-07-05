@@ -27,6 +27,34 @@ from backend.api.main import app  # noqa: E402
 from backend.api import tools_routes  # noqa: E402
 from backend.services.ebay_store import EbayStoreClient  # noqa: E402
 
+# --- test database: in-memory sqlite, swapped in for the app's Postgres engine.
+# settings loads the project .env with override=True, so the env var set above
+# can be clobbered by a real local DATABASE_URL — rebind the engine explicitly.
+from sqlalchemy import create_engine  # noqa: E402
+from sqlalchemy.orm import sessionmaker  # noqa: E402
+from sqlalchemy.pool import StaticPool  # noqa: E402
+from backend.models import database as _dbmod  # noqa: E402
+from backend.models.base import Base  # noqa: E402
+
+_test_engine = create_engine("sqlite://", connect_args={"check_same_thread": False},
+                             poolclass=StaticPool, future=True)
+Base.metadata.create_all(_test_engine)
+_TestSession = sessionmaker(bind=_test_engine, autocommit=False, autoflush=False,
+                            expire_on_commit=False)
+
+
+def _test_get_db():
+    db = _TestSession()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+_dbmod.engine = _test_engine
+_dbmod.SessionLocal = _TestSession
+app.dependency_overrides[_dbmod.get_db] = _test_get_db
+
 ADMIN_KEY = "test-admin-key"
 ADMIN_HEADERS = {"X-Admin-Key": ADMIN_KEY}
 
@@ -38,13 +66,21 @@ def client():
 
 @pytest.fixture(autouse=True)
 def _reset_tools_state():
-    """Clear the per-process cache + per-IP throttle so tests don't bleed into
-    each other (both are module-level dicts in tools_routes)."""
-    tools_routes._CACHE.clear()
-    tools_routes._HITS.clear()
+    """Clear the per-process caches + per-IP throttles so tests don't bleed into
+    each other (module-level dicts in tools_routes + the auth-route throttles —
+    every TestClient request shares one 'IP', so signups exhaust 5/min fast)."""
+    from backend.api import auth_routes as _auth_routes
+
+    def _clear():
+        tools_routes._CACHE.clear()
+        tools_routes._HITS.clear()
+        _auth_routes._signup_throttle._hits.clear()
+        _auth_routes._login_throttle._hits.clear()
+        _auth_routes._reset_throttle._hits.clear()
+
+    _clear()
     yield
-    tools_routes._CACHE.clear()
-    tools_routes._HITS.clear()
+    _clear()
 
 
 @pytest.fixture

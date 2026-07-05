@@ -12,7 +12,9 @@ from ..utils.logging import get_logger
 from ..utils.llm import extract_json
 
 logger = get_logger(__name__)
-client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
+# Async client with a hard timeout: the sync client inside the async reprice
+# loop blocked the single uvicorn event loop 1-3s per listing (whole API froze).
+client = anthropic.AsyncAnthropic(api_key=settings.ANTHROPIC_API_KEY, timeout=30.0)
 
 SYSTEM = """You are a pricing strategist for an eBay repricing tool ("Undercut").
 Recommend the optimal LISTING PRICE to maximize the seller's profit AND sell-through.
@@ -45,7 +47,7 @@ Respond JSON:
   "confidence": "<low|medium|high>",
   "reasoning": "<1-2 sentences>"}}"""
     try:
-        resp = client.messages.create(
+        resp = await client.messages.create(
             model="claude-sonnet-4-20250514", max_tokens=300,
             system=SYSTEM, messages=[{"role": "user", "content": prompt}],
         )

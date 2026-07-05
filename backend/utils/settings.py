@@ -1,6 +1,9 @@
 """
 Undercut — Settings
 Loads all configuration from environment variables.
+(Dead ListingArb-era fields — FB creds, proxies, deal params, Twilio, Supabase,
+Redis, OpenAI — removed 2026-07-03; Config.extra="ignore" means leftover env
+vars for them are harmless.)
 """
 
 import os
@@ -20,7 +23,6 @@ load_dotenv(
 
 class Settings(BaseSettings):
     # System
-    AUTONOMY_LEVEL: int = 1
     ENVIRONMENT: str = "development"
     SECRET_KEY: str = "change-me"
     TOKEN_ENC_KEY: Optional[str] = None   # Fernet key — encrypts seller OAuth tokens at rest
@@ -28,26 +30,9 @@ class Settings(BaseSettings):
 
     # Database
     DATABASE_URL: str
-    SUPABASE_URL: Optional[str] = None
-    SUPABASE_ANON_KEY: Optional[str] = None
-
-    # Redis
-    REDIS_URL: str = "redis://localhost:6379/0"
 
     # AI
     ANTHROPIC_API_KEY: str
-    OPENAI_API_KEY: Optional[str] = None
-
-    # Facebook
-    FB_EMAIL: Optional[str] = None      # legacy (FB arbitrage) — not used by the repricer
-    FB_PASSWORD: Optional[str] = None   # legacy — Optional so UNDERCUT boots without FB creds
-    FB_DAILY_DM_LIMIT: int = 15
-    FB_ACCOUNT_2_EMAIL: Optional[str] = None
-    FB_ACCOUNT_2_PASSWORD: Optional[str] = None
-
-    # Legacy FB->eBay arbitrage pipeline — OFF by default. A deployed repricer must
-    # never run the old Facebook scraping/DM jobs. Flip true only to run legacy.
-    ENABLE_LEGACY_ARBITRAGE: bool = False
 
     # Gates the /api/repricer admin+data routes. Set in prod; unset locally = open.
     UNDERCUT_API_KEY: Optional[str] = None
@@ -63,22 +48,14 @@ class Settings(BaseSettings):
     STRIPE_PRICE_SCALE_ANNUAL: Optional[str] = None
     PUBLIC_APP_URL: Optional[str] = None
     PUBLIC_API_URL: Optional[str] = None   # backend base URL (unsubscribe links)
-    REPRICER_ENFORCE_PLAN_LIMITS: bool = False   # gate reprice volume by plan (dark until verified)
-    REPRICER_TIER_FREQUENCY: bool = False        # plan-based reprice interval (dark until verified)
+    REPRICER_ENFORCE_PLAN_LIMITS: bool = False   # gate reprice volume by plan (ON in prod)
+    REPRICER_TIER_FREQUENCY: bool = False        # plan-based reprice interval (ON in prod)
     DUNNING_GRACE_DAYS: int = 7                  # days past_due before access drops to free
 
-    # Proxy
-    PROXY_URL: Optional[str] = None
-    PROXY_ENABLED: bool = False
-
     # Notifications
-    TWILIO_ACCOUNT_SID: Optional[str] = None
-    TWILIO_AUTH_TOKEN: Optional[str] = None
-    TWILIO_FROM_NUMBER: Optional[str] = None
-    OPERATOR_PHONE: str = ""
     OPERATOR_EMAIL: str = ""
     SENDGRID_API_KEY: Optional[str] = None
-    FROM_EMAIL: str = "alerts@undercut.app"  # fallback only; prod sets FROM_EMAIL at the service level
+    FROM_EMAIL: str = "hello@undercutpricer.com"  # fallback only; prod sets FROM_EMAIL at the service level
 
     # eBay
     EBAY_APP_ID: Optional[str] = None
@@ -86,27 +63,17 @@ class Settings(BaseSettings):
     EBAY_DEV_ID: Optional[str] = None
     EBAY_USER_TOKEN: Optional[str] = None
     EBAY_SANDBOX: bool = True          # use sandbox endpoint until you flip to production
-    EBAY_ITEM_ZIP: str = "53202"       # item-location ZIP for listings (eBay requires a valid one)
     EBAY_RU_NAME: Optional[str] = None       # eBay OAuth Redirect URL name (RuName)
     EBAY_OAUTH_SCOPES: str = "https://api.ebay.com/oauth/api_scope https://api.ebay.com/oauth/api_scope/sell.inventory"
 
-    # Deal parameters
-    MIN_LISTING_PRICE: float = 10000
-    TARGET_LOCATIONS: str = "Milwaukee,WI"
-    TARGET_CATEGORIES: str = "RV,boat,trailer,classic car,heavy equipment"
-
-    # Rate limiting
-    DM_COOLDOWN_HOURS: int = 24
-    MAX_ACTIVE_DEALS: int = 50
-
-    # Contract
+    # CAN-SPAM footer in customer emails
     OPERATOR_LEGAL_NAME: str = "Your Company LLC"
     OPERATOR_ADDRESS: str = "Your Address"
 
     class Config:
         env_file = ".env"
         case_sensitive = True
-        extra = "ignore"  # tolerate undeclared keys present in .env (e.g. DOCUSIGN_*)
+        extra = "ignore"  # tolerate undeclared keys present in .env (e.g. legacy vars)
 
 
 settings = Settings()

@@ -59,13 +59,19 @@ async def exchange_code(code: str) -> dict:
 
 
 async def refresh(refresh_token: str) -> dict:
-    """Renew an access token from a refresh token."""
-    async with httpx.AsyncClient(timeout=20) as c:
-        r = await c.post(
-            _TOKEN[_env()],
-            headers={"Authorization": f"Basic {_basic_auth()}",
-                     "Content-Type": "application/x-www-form-urlencoded"},
-            data={"grant_type": "refresh_token", "refresh_token": refresh_token,
-                  "scope": settings.EBAY_OAUTH_SCOPES},
-        )
-    return r.json()
+    """Renew an access token from a refresh token. Never raises — returns {}
+    on network/parse failure so one store's flaky refresh can't abort a whole
+    multi-store reprice run."""
+    try:
+        async with httpx.AsyncClient(timeout=20) as c:
+            r = await c.post(
+                _TOKEN[_env()],
+                headers={"Authorization": f"Basic {_basic_auth()}",
+                         "Content-Type": "application/x-www-form-urlencoded"},
+                data={"grant_type": "refresh_token", "refresh_token": refresh_token,
+                      "scope": settings.EBAY_OAUTH_SCOPES},
+            )
+        return r.json()
+    except Exception as e:
+        logger.warning("eBay token refresh failed", error=str(e))
+        return {}

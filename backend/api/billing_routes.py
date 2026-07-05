@@ -24,7 +24,7 @@ public_router = APIRouter(prefix="/api/billing", tags=["billing-public"])
 
 
 def _app_url() -> str:
-    return getattr(settings, "PUBLIC_APP_URL", None) or "http://localhost:3000"
+    return getattr(settings, "PUBLIC_APP_URL", None) or "https://undercutpricer.com"
 
 
 def _uuid(v):
@@ -49,13 +49,19 @@ def plans():
 def checkout(body: CheckoutIn, user: User = Depends(current_user), db: Session = Depends(get_db)):
     if not settings.STRIPE_SECRET_KEY:
         raise HTTPException(status_code=503, detail="billing not configured")
+    if user.stripe_subscription_id:
+        # Already subscribed — a second checkout would double-bill; changes go
+        # through the Stripe portal instead.
+        raise HTTPException(status_code=400,
+                            detail="You already have an active subscription — use Manage billing to change plans.")
     base = _app_url()
     try:
         url, customer = billing.create_checkout_session(
             user, body.plan, f"{base}/?upgraded=1", f"{base}/billing",
             interval=("year" if body.interval == "year" else "month"))
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        logger.error("checkout session failed", user=str(user.id), error=str(e))
+        raise HTTPException(status_code=400, detail="Could not start checkout — please try again or contact support.")
     if customer and not user.stripe_customer_id:
         user.stripe_customer_id = customer
         db.commit()
@@ -91,9 +97,13 @@ async def webhook(request: Request, db: Session = Depends(get_db)):
         customer, sub_id = obj.get("customer"), obj.get("id")
         user = db.scalar(select(User).where(User.stripe_customer_id == customer))
         items = (obj.get("items") or {}).get("data") or []
-        plan = billing.plan_from_price(items[0]["price"]["id"] if items else None)
+        price_id = ((items[0] or {}).get("price") or {}).get("id") if items else None
+        status = obj.get("status")
+        # Grant/sync the paid plan ONLY for statuses that mean access: Stripe does
+        # not guarantee event ordering, so a retried 'updated' arriving after
+        # 'deleted' must not re-grant a canceled subscriber.
+        plan = billing.plan_from_price(price_id) if status in ("active", "trialing", "past_due") else None
         if user:  # keep dunning state in sync with the subscription status
-            status = obj.get("status")
             if status in ("past_due", "unpaid") and user.payment_status != "past_due":
                 user.payment_status = "past_due"
                 user.payment_failed_at = user.payment_failed_at or _utcnow()

@@ -5,6 +5,7 @@
 
 Multi-tenant: each Store reprices with its own OAuth token.
 """
+import asyncio
 import time as _time
 import uuid as _uuid
 from datetime import datetime, timedelta
@@ -27,6 +28,10 @@ logger = get_logger(__name__)
 # Operator-alert cooldown so a bad run can't spam the inbox (in-process; single instance).
 _ALERT_COOLDOWN_S = 6 * 3600
 _last_alert_at = 0.0
+
+# Overlap guard: a big account can outrun the 15-min cron cadence; without this,
+# runs stack — double eBay writes, double snapshots (in-process; single instance).
+_RUN_LOCK = asyncio.Lock()
 
 
 def _alert_ok() -> bool:
@@ -51,8 +56,11 @@ async def reprice_listing(client: EbayStoreClient, db, listing: RepricerListing,
         return {"item": listing.ebay_item_id, "changed": False, "error": "no floor set"}
 
     # Pass the listing's known category so the lookup compares apples to apples
-    # (a $1 accessory sharing keywords can't drag a real listing toward its floor).
-    comp = await client.get_competitor_low(listing.title or "", category_id=listing.category_id)
+    # (a $1 accessory sharing keywords can't drag a real listing toward its floor),
+    # and exclude the seller's OWN item id — otherwise a seller who is already
+    # cheapest "competes with themselves" down a cent per run to the floor.
+    comp = await client.get_competitor_low(listing.title or "", category_id=listing.category_id,
+                                           exclude_item_id=listing.ebay_item_id)
     low = comp.get("lowest")
     db.add(CompetitorSnapshot(listing_id=listing.id, lowest_price=low,
                               listing_count=comp.get("count", 0)))
@@ -123,6 +131,15 @@ async def reprice_all(store_ids: list | None = None) -> dict:
     flipping a flag off restores exactly the previous behavior.
     """
     is_scheduled = store_ids is None
+    if _RUN_LOCK.locked():
+        logger.warning("reprice run skipped — previous run still in progress")
+        return {"checked": 0, "repriced": 0, "errors": 0, "skipped_over_limit": 0,
+                "skipped_frequency": 0, "results": [], "skipped_run_in_progress": True}
+    async with _RUN_LOCK:
+        return await _reprice_all_inner(store_ids, is_scheduled)
+
+
+async def _reprice_all_inner(store_ids: list | None, is_scheduled: bool) -> dict:
     db = SessionLocal()
     try:
         q = select(RepricerListing).where(RepricerListing.repricing_enabled.is_(True))
@@ -173,16 +190,25 @@ async def reprice_all(store_ids: list | None = None) -> dict:
                                                              l.last_repriced_at or datetime.min))[:take]
                     user_budget[user.id] = budget - take
 
-            # Backfill the run stamp even with flags off, so flipping
-            # REPRICER_TIER_FREQUENCY on later is safe immediately.
-            store.last_reprice_run_at = now
-            db.commit()
-
-            await _ensure_fresh_token(db, store)
+            # Isolate per-store failures: one flaky token refresh must not
+            # abort the run for every other customer's store.
+            try:
+                await _ensure_fresh_token(db, store)
+            except Exception as e:
+                logger.error("token refresh failed — skipping store", store=str(store.id), error=str(e))
+                results.append({"item": f"store:{store.id}", "changed": False,
+                                "error": f"token refresh failed: {e}"})
+                continue
             token = decrypt_token(store.oauth_access_token) if store.oauth_access_token else None
-            if store.oauth_access_token and not token and _alert_ok():
-                _operator_alert("Store token unreadable",
-                                f"Store {store.id} has a token that won't decrypt — repricing is dead for it.")
+            if not token:
+                # No usable seller token: never fall through (the client must not
+                # touch anyone else's account) — skip and alert so it gets fixed.
+                if store.oauth_access_token and _alert_ok():
+                    _operator_alert("Store token unreadable",
+                                    f"Store {store.id} has a token that won't decrypt — repricing is dead for it.")
+                results.append({"item": f"store:{store.id}", "changed": False,
+                                "error": "no usable eBay token — seller must reconnect"})
+                continue
             client = EbayStoreClient(user_token=token)
             ai_enabled = store.ai_enabled if store else True
             for l in group:
@@ -192,6 +218,12 @@ async def reprice_all(store_ids: list | None = None) -> dict:
                     logger.error("reprice failed", item=l.ebay_item_id, error=str(e))
                     _record_failure(db, l, str(e))
                     results.append({"item": l.ebay_item_id, "changed": False, "error": str(e)})
+
+            # Stamp AFTER processing (backfilled even with flags off, so flipping
+            # REPRICER_TIER_FREQUENCY on later is safe) — stamping before meant a
+            # crashed store counted as "done" and waited a full tier interval to retry.
+            store.last_reprice_run_at = now
+            db.commit()
 
         errors = [r for r in results if r.get("error") and r["error"] != "no floor set"]
         if len(results) >= 10 and len(errors) / len(results) >= 0.3 and _alert_ok():

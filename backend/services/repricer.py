@@ -49,16 +49,19 @@ def compute_price(inp: PricingInputs) -> RepriceDecision:
         target = inp.current_price
         reason = "no competitor data — holding current"
 
-    # Enforce rails — the floor is a hard guarantee (never lose money).
-    floored = target < floor
-    target = max(target, floor)
+    # Enforce rails — ceiling first, floor LAST, so the floor is the hard
+    # guarantee even if a bad rule state has ceiling < floor (never lose money).
     if ceiling is not None:
         target = min(target, ceiling)
+    floored = target < floor
+    target = max(target, floor)
     target = round(target, 2)
     if floored:
         reason += f"; clamped UP to floor ${floor:.2f}"
 
-    changed = abs(target - round(inp.current_price, 2)) >= inp.min_change
+    # Compare in integer cents — float epsilon (|10.01-10.00| < 0.01 in IEEE754)
+    # would otherwise skip the most common move: exactly one cent.
+    changed = round(abs(target - round(inp.current_price, 2)) * 100) >= round(inp.min_change * 100)
     return RepriceDecision(
         new_price=target, changed=changed, reason=reason,
         competitor_low=inp.competitor_low, floored=floored,

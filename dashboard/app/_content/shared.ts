@@ -3,7 +3,9 @@
 
 export const BRAND = 'Undercut'
 export const BASE_URL = 'https://undercutpricer.com'
-export const SUPPORT_EMAIL = 'nuvent66@gmail.com'
+// Branded address: SendGrid-authenticated for sending; inbound forwards to the
+// operator's Gmail via forwardemail.net MX records (verified end-to-end 2026-07-03).
+export const SUPPORT_EMAIL = 'hello@undercutpricer.com'
 export const FOUNDER = 'Maxx'
 
 export const OFFER = 'Start free — 14-day trial, no card'

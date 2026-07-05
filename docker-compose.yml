@@ -1,5 +1,5 @@
 services:
-  # Redis — task queue + rate limit state
+  # Redis — local rate-limit/cache experiments only (prod throttling is in-memory)
   redis:
     image: redis:7-alpine
     restart: unless-stopped
@@ -9,7 +9,7 @@ services:
       - "6379:6379"
     command: redis-server --appendonly yes
 
-  # Postgres — application database (local dev; production uses Supabase)
+  # Postgres — application database (local dev; production uses Render Postgres)
   postgres:
     image: postgres:16-alpine
     restart: unless-stopped
@@ -33,55 +33,14 @@ services:
     env_file:
       - .env
     depends_on:
-      - redis
+      - postgres
     volumes:
       - ./backend:/app
-      - /tmp:/tmp  # For contract PDF generation
     command: uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
 
-  # Celery worker — runs background tasks
-  worker:
-    build:
-      context: ./backend
-      dockerfile: ../docker/Dockerfile.backend
-    restart: unless-stopped
-    env_file:
-      - .env
-    depends_on:
-      - redis
-    volumes:
-      - ./backend:/app
-    command: celery -A tasks.worker worker --loglevel=info --concurrency=2
-
-  # Celery beat — cron scheduler
-  scheduler:
-    build:
-      context: ./backend
-      dockerfile: ../docker/Dockerfile.backend
-    restart: unless-stopped
-    env_file:
-      - .env
-    depends_on:
-      - redis
-      - worker
-    volumes:
-      - ./backend:/app
-    command: celery -A tasks.worker beat --loglevel=info
-
-  # Flower — Celery monitoring UI (optional)
-  flower:
-    build:
-      context: ./backend
-      dockerfile: ../docker/Dockerfile.backend
-    restart: unless-stopped
-    ports:
-      - "5555:5555"
-    env_file:
-      - .env
-    depends_on:
-      - redis
-      - worker
-    command: celery -A tasks.worker flower --port=5555
+  # (Celery worker/beat/flower services removed 2026-07-03: backend/tasks/ was
+  # deleted in the ListingArb purge — they crash-looped on a missing module.
+  # Prod scheduling = GitHub Actions crons hitting key-protected endpoints.)
 
   # Next.js dashboard
   dashboard:
