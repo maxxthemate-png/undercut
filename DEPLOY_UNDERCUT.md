@@ -1,4 +1,6 @@
 # Deploying Undercut
+> **NOTE:** `DEPLOY.md` is the canonical deploy runbook (newer, includes the drift-check + env gotchas). This file survives for the first-time-setup checklist + verify-live.sh reference only.
+
 
 ## Production topology
 - **Render** (Blueprint `render.yaml`): `undercut-api` (web) + `undercut-db` (Postgres) + `undercut-redis`.
