@@ -99,6 +99,38 @@ def verify_reset_token(token: str, db: Session) -> User | None:
     return user
 
 
+_LOGIN_MIN = 30
+
+
+def make_login_token(user: User) -> str:
+    """Signed, 30-min passwordless magic-login link token. Bound to the password-
+    hash tail so a later password reset invalidates any outstanding login links."""
+    return jwt.encode(
+        {"sub": str(user.id), "purpose": "magic_login", "pwv": (user.password_hash or "")[-12:],
+         "exp": datetime.utcnow() + timedelta(minutes=_LOGIN_MIN)},
+        settings.SECRET_KEY, algorithm=_ALGO,
+    )
+
+
+def verify_login_token(token: str, db: Session) -> User | None:
+    """Return the User for a valid, unexpired magic-login token, else None."""
+    try:
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[_ALGO])
+    except JWTError:
+        return None
+    if payload.get("purpose") != "magic_login":
+        return None
+    try:
+        user = db.get(User, _uuid.UUID(str(payload.get("sub"))))
+    except (ValueError, TypeError):
+        return None
+    if not user or not user.is_active:
+        return None
+    if payload.get("pwv") != (user.password_hash or "")[-12:]:
+        return None
+    return user
+
+
 def current_user(authorization: str | None = Header(default=None),
                  db: Session = Depends(get_db)) -> User:
     if not authorization or not authorization.lower().startswith("bearer "):

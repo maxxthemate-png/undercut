@@ -118,6 +118,18 @@ def trial_expired_email():
     )
 
 
+def magic_login_email(link: str):
+    return (
+        "Your Undercut sign-in link",
+        _wrap(
+            "<p>Here’s your one-click sign-in link for Undercut:</p>"
+            f'<p><a href="{link}">Sign in to Undercut →</a></p>'
+            "<p>The link works for 30 minutes and signs in only this account. "
+            "If you didn’t ask for it, you can ignore this email.</p>"
+        ),
+    )
+
+
 def password_reset_email(link: str):
     return (
         "Reset your Undercut password",

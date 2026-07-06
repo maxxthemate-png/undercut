@@ -72,3 +72,46 @@ def test_client_ip_uses_rightmost_xff_hop():
     assert client_ip(req) == "203.0.113.9"
     req_none = SimpleNamespace(headers={}, client=SimpleNamespace(host="10.0.0.1"))
     assert client_ip(req_none) == "10.0.0.1"
+
+
+# --- passwordless (magic-link) flow ---
+
+def test_signup_email_only_logs_in_instantly(client):
+    email = f"pw-{uuid.uuid4().hex[:8]}@example.com"
+    r = client.post("/api/auth/signup", json={"email": email})  # no password field
+    assert r.status_code == 200, r.text
+    d = r.json()
+    assert d.get("token")               # brand-new account → instant session
+    # and the session works
+    assert client.get("/api/auth/me", headers={"Authorization": f"Bearer {d['token']}"}).status_code == 200
+
+
+def test_signup_existing_email_does_not_hand_out_access(client):
+    """Signing up with an email that already exists must NOT return a token
+    (that would be account takeover) — it emails a sign-in link instead."""
+    email = f"dup-{uuid.uuid4().hex[:8]}@example.com"
+    first = client.post("/api/auth/signup", json={"email": email})
+    assert first.json().get("token")
+    second = client.post("/api/auth/signup", json={"email": email})
+    assert second.status_code == 200, second.text
+    d = second.json()
+    assert d.get("token") is None
+    assert d.get("check_email") is True
+
+
+def test_request_login_link_never_enumerates(client):
+    # unknown email still returns ok (no account enumeration)
+    r = client.post("/api/auth/request-login-link", json={"email": f"nobody-{uuid.uuid4().hex[:6]}@example.com"})
+    assert r.status_code == 200 and r.json().get("ok") is True
+
+
+def test_login_with_token_roundtrip(client):
+    email = f"ml-{uuid.uuid4().hex[:8]}@example.com"
+    _signup(client, email)
+    token = auth.make_login_token(_user(email))
+    r = client.post("/api/auth/login-with-token", json={"token": token})
+    assert r.status_code == 200, r.text
+    assert r.json().get("token")        # exchanged for a real session
+    # a reset token must NOT be accepted as a login token (purpose check)
+    wrong = auth.make_reset_token(_user(email))
+    assert client.post("/api/auth/login-with-token", json={"token": wrong}).status_code == 400

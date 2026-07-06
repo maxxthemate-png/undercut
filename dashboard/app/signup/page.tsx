@@ -8,8 +8,8 @@ import { track, trackConversion } from '../lib/track'
 export default function Signup() {
   const router = useRouter()
   const [email, setEmail] = useState('')
-  const [pw, setPw] = useState('')
   const [err, setErr] = useState('')
+  const [notice, setNotice] = useState('')
   const [busy, setBusy] = useState(false)
   // If they arrived from the instant demo, greet them with what they just checked.
   const [demo, setDemo] = useState<{ q: string; win?: string; floor?: string } | null>(null)
@@ -24,17 +24,21 @@ export default function Signup() {
   }, [])
 
   async function submit(e: React.FormEvent) {
-    e.preventDefault(); setErr(''); setBusy(true)
+    e.preventDefault(); setErr(''); setNotice(''); setBusy(true)
     try {
-      const res = await api('/api/auth/signup', { method: 'POST', body: JSON.stringify({ email, password: pw }) })
+      const res = await api('/api/auth/signup', { method: 'POST', body: JSON.stringify({ email }) })
       const d = await res.json().catch(() => ({}))
-      if (res.ok) {
+      if (res.ok && d.token) {
         tok.set(d.token)
         // Fire the Ads conversion + a generic sign_up event (both no-op until the
         // Ads tag is configured). This is the trial-start the paid campaign optimizes for.
         track('sign_up', { method: 'email' })
         trackConversion(process.env.NEXT_PUBLIC_GADS_SIGNUP_LABEL)
         router.push('/dashboard')
+      } else if (res.ok && d.check_email) {
+        // Email already has an account — we don't hand out access without proof of
+        // ownership, so a sign-in link was emailed instead.
+        setNotice('You already have an account — we just emailed you a sign-in link. Check your inbox.')
       } else setErr(d.detail || 'Signup failed')
     } catch {
       // fetch threw (offline / cold-start): don't leave the button stuck on
@@ -61,17 +65,16 @@ export default function Signup() {
         )}
         <div>
           <h1 className="text-xl font-bold text-ink">Start your Founding trial</h1>
-          <p className="text-sm text-muted">14 days of Starter features (100 listings) free — no credit card.</p>
+          <p className="text-sm text-muted">14 days of Starter features (100 listings) free — no credit card, no password.</p>
         </div>
         <input className="w-full rounded border border-line bg-surface px-3 py-2.5 text-ink placeholder:text-muted focus:border-cut transition" type="email" placeholder="Email"
                value={email} onChange={e => setEmail(e.target.value)} required />
-        <input className="w-full rounded border border-line bg-surface px-3 py-2.5 text-ink placeholder:text-muted focus:border-cut transition" type="password" placeholder="Password (8+ chars)"
-               value={pw} onChange={e => setPw(e.target.value)} required minLength={8} />
         {err && <p className="text-sm text-cut">{err}</p>}
+        {notice && <p className="text-sm text-ink bg-cut-tint border border-cut rounded p-3">{notice}</p>}
         <button disabled={busy} className="inline-flex items-center justify-center gap-2 w-full rounded bg-cut-strong text-white font-medium px-5 py-2.5 transition hover:opacity-90 disabled:opacity-50">
           {busy ? 'Creating…' : 'Start free — no card'}
         </button>
-        <p className="text-xs text-muted text-center">Already have an account? <Link href="/login" className="text-cut">Log in</Link></p>
+        <p className="text-xs text-muted text-center">Already have an account? <Link href="/login" className="text-cut">Sign in</Link></p>
       </form>
     </div>
   )
