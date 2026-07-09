@@ -1159,5 +1159,91 @@ export const alternatives: PageContent[] = [
     ],
     "lastUpdated": "2026-07-02",
     "leadForm": true
+  },
+  {
+    "slug": "ecomdash-alternative",
+    "collection": "alternatives",
+    "template": "comparison",
+    "title": "Ecomdash Alternative for eBay Sellers — Undercut",
+    "metaDescription": "Ecomdash winding down? Undercut reprices your eBay listings every 15 minutes with a hard price floor. Start a 14-day free trial — no card required.",
+    "h1": "Looking for an Ecomdash Alternative? Here's a Purpose-Built eBay Repricer",
+    "eyebrow": "Comparison",
+    "intro": "Ecomdash built its reputation as a multi-channel inventory and order-management platform, but its repricing capabilities were always a secondary feature rather than a core focus — and with the platform's wind-down, eBay sellers need a dedicated replacement. Undercut is built exclusively for eBay repricing: it monitors live competitor listings, automatically drops your price just enough to be the lowest comparable offer, and never lets a listing fall below the hard floor you set per listing. There are no inventory modules or order routing to navigate — just precise, automated repricing on eBay.",
+    "sections": [
+      {
+        "h2": "What Ecomdash Offered and Where It Left Gaps for eBay Repricing",
+        "body": "Ecomdash was primarily an inventory and order-management tool that supported multiple sales channels. Its repricing functionality existed, but it was bundled inside a broader platform designed to synchronise stock counts and route orders across marketplaces. For sellers who only needed tight eBay price competition, that meant paying for a lot of infrastructure that had nothing to do with winning the next sale.\n\nEcomdash also did not offer per-listing price floors as a first-class, always-enforced safeguard. Sellers who needed a guaranteed minimum — say, cost of goods plus eBay's ~13.25% final value fee plus a target margin — had to manage that risk manually or through workarounds. When you are selling hundreds of listings, that is a real exposure: a single misconfigured rule can reprice a $40 item down to $12 before you notice.\n\nUndercut was designed around the opposite philosophy. Every feature exists to serve one job: keep your eBay prices competitive without ever crossing into a loss. The hard floor is not optional and it cannot be overridden."
+      },
+      {
+        "h2": "How Undercut's Core Repricing Logic Works — With a Real Example",
+        "body": "Undercut scans live eBay listings to find the lowest-priced comparable competitor for each of your listings. It then sets your price to that competitor price minus your configured undercut amount — either a fixed number of cents or a percentage — subject to two constraints: your hard floor (always enforced) and your optional ceiling (if set).\n\nHere is a concrete example. Suppose you are selling a used graphics card. You set a hard floor of $180.00 and a fixed undercut of $0.50. Undercut finds the lowest comparable live listing at $197.00. Your new price becomes $197.00 − $0.50 = $196.50. Later, a competitor drops to $183.00; your price moves to $182.50. A race-to-the-bottom pushes the lowest competitor to $179.00 — but because your floor is $180.00, Undercut holds your price at $180.00 and stops there. Your floor is never breached.\n\nOn Free and Starter plans this scan happens every hour. On Pro and Scale plans it happens every 15 minutes, so a competitor price change at 9:00 AM is reflected in your listing by 9:15 AM at the latest. That cadence matters on eBay because Best Match — eBay's search-ranking algorithm — rewards recent sales velocity, and a price that is even marginally uncompetitive for an hour can cost you clicks and conversions during peak browsing windows."
+      },
+      {
+        "h2": "Plan-by-Plan Breakdown: Finding the Right Tier After Ecomdash",
+        "body": "Undercut offers four paid tiers plus a free tier, so sellers migrating from Ecomdash can match capacity without overpaying.\n\nThe Free plan covers 25 listings with hourly repricing, rule-based undercutting, and a hard floor — a solid starting point if you are testing the migration with a subset of SKUs. The Starter plan ($29/month) extends that to 100 listings under the same hourly, rule-based model, and is the level you get automatically on the 14-day no-card trial.\n\nThe Pro plan ($79/month) adds two meaningful upgrades: 1,000 listings and 15-minute repricing cadence. It also includes the optional Claude AI aggressiveness tuning feature, which lets you configure, on a per-listing basis, how quickly and how far each listing moves toward its hard floor. Importantly, the AI never overrides the floor — it only adjusts pacing within the range you have already defined. The Scale plan ($199/month) raises capacity to 10,000 listings with the same 15-minute repricing as Pro, adds the same AI aggressiveness tuning, and includes priority support — the right choice for high-volume operations managing thousands of concurrent listings.\n\nTo illustrate the fee math: if you move from a $200/month all-in-one platform to Undercut Pro at $79/month, you save $121/month — $1,452/year — and get a tool that does one thing exceptionally well rather than ten things adequately."
+      },
+      {
+        "h2": "The Hard Floor: Your Non-Negotiable Profit Safeguard",
+        "body": "The most important thing to understand about Undercut's hard floor is that it is enforced at the infrastructure level, not at the rule level. There is no scenario in which repricing logic — including the optional AI aggressiveness tuning on Pro and Scale — can push a listing below the floor you set for that listing.\n\nSetting a sensible floor requires knowing your true cost per unit. A useful formula: Floor = Cost of goods + (Listing price × 13.25% FVF) + Shipping cost + Target margin. Because the FVF is a percentage of the final sale price, the calculation is slightly circular, but you can simplify by working backward. If your cost-plus-fees total is $35.00 and you want a $5.00 margin buffer, set your floor at $40.00. Undercut will never list that item below $40.00, regardless of what competitors do.\n\nSellers migrating from Ecomdash should set floors per listing before activating repricing — this is a manual step you complete inside Undercut's listing settings for each SKU. There is no bulk-import of floors from a spreadsheet; each floor is set individually so you are forced to review each item's economics deliberately. This is by design: it prevents copy-paste errors from costing you margin at scale."
+      },
+      {
+        "h2": "Migrating from Ecomdash: A Practical Checklist",
+        "body": "Moving your eBay repricing workflow from Ecomdash to Undercut is straightforward because Undercut connects directly to your eBay seller account — no CSV gymnastics required for the repricing layer itself.\n\nStep 1: Sign up for the 14-day free trial (Starter level, no card required) and authorise Undercut to access your eBay listings. Your live listings will be visible inside Undercut immediately.\n\nStep 2: For each listing you want to reprice, open it in Undercut and set three values: your hard floor (required), your optional ceiling, and your undercut amount (cents or percentage). Work through your highest-volume or highest-margin items first.\n\nStep 3: Activate repricing and monitor results over the first 48 hours. On the Starter plan you get hourly repricing; if you need 15-minute cadence and AI aggressiveness tuning, upgrade to Pro once you have validated your floor settings.\n\nStep 4: For any listing-level strategy decisions — such as how aggressively to chase the floor on slow-moving inventory — you can optionally enable the Claude AI aggressiveness tuning on Pro and Scale and configure it per listing. This tunes pacing only; the floor remains fixed.\n\nEcomdash sellers who relied on that platform's inventory sync or order routing will need to replace those functions with separate tools, since Undercut handles repricing only. But for the repricing layer specifically, Undercut covers and exceeds what Ecomdash offered for eBay."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Is Undercut a full replacement for Ecomdash?",
+        "a": "No — and it is honest about that. Undercut replaces only the eBay repricing part of what Ecomdash did. It does not offer inventory synchronisation, order management, or multi-channel selling across other marketplaces. If you need those functions, you will need a separate tool; Undercut is purpose-built for eBay repricing alone."
+      },
+      {
+        "q": "How does the hard floor work if I have a lot of listings?",
+        "a": "Every listing gets its own floor, set individually inside Undercut. There is no way to bulk-import floors from a CSV — you configure each listing's floor manually, which means you review each item's cost and margin before repricing goes live. The floor is enforced at the infrastructure level on every plan, including Free, and no repricing logic can breach it."
+      },
+      {
+        "q": "What is the AI aggressiveness tuning feature and which plans include it?",
+        "a": "Available on Pro ($79/month) and Scale ($199/month), the optional Claude AI aggressiveness tuning lets you configure, per listing, how quickly and how far Undercut moves a listing's price toward its hard floor. It does not override the floor, and it does not receive inputs like sales velocity or inventory levels — it only adjusts the pacing of movement within the range you have already defined. Free and Starter plans use rule-based repricing only."
+      },
+      {
+        "q": "How fast does Undercut reprice my eBay listings?",
+        "a": "Free and Starter plans reprice every hour. Pro and Scale plans reprice every 15 minutes — that is the fastest cadence Undercut offers. Scale does not reprice faster than Pro; both run on the same 15-minute cycle. Scale's advantages over Pro are higher listing capacity (10,000 vs. 1,000) and priority support."
+      },
+      {
+        "q": "Can I try Undercut before committing?",
+        "a": "Yes. New signups get a 14-day free trial at the Starter level — 100 listings, hourly repricing, rule-based undercut, and hard floor — with no credit card required. You can connect your eBay account, set floors, and see live repricing in action before you decide whether to stay or upgrade."
+      }
+    ],
+    "cta": {
+      "heading": "Start Repricing on eBay in Minutes — No Card Required",
+      "sub": "Try Undercut free for 14 days at the Starter level. Set your floors, activate repricing, and see how much margin you recover before you pay a cent."
+    },
+    "internalLinks": [
+      {
+        "href": "/pricing",
+        "label": "See All Undercut Plans and Pricing"
+      },
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor? — Glossary"
+      },
+      {
+        "href": "/guides/ebay-repricing-best-practices",
+        "label": "eBay Repricing Best Practices"
+      },
+      {
+        "href": "/alternatives/sellbrite-alternative",
+        "label": "Sellbrite Alternative for eBay Sellers"
+      },
+      {
+        "href": "/free-ebay-repricer",
+        "label": "Try the Free eBay Repricer"
+      }
+    ],
+    "lastUpdated": "2026-07-09",
+    "leadForm": true
   }
 ]
