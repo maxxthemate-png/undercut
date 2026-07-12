@@ -72,6 +72,9 @@ export default function RepricerExpressAlternative() {
         <div className="space-y-6">
           {FAQ.map(([q, a]) => (<div key={q}><p className="font-semibold">{q}</p><p className="text-sm text-muted mt-1">{a}</p></div>))}
         </div>
+        <div className="text-center mt-10">
+          <Link href="/inkfrog-alternative" className="text-cut font-medium hover:opacity-90 transition">Switching off inkFrog instead? See the inkFrog alternative →</Link>
+        </div>
       </section>
 
       <section className="bg-wash border-t border-line">

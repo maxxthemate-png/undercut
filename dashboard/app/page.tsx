@@ -38,6 +38,7 @@ export default function Landing() {
           <Link href="/login" className="inline-flex items-center justify-center gap-2 rounded border border-line text-ink font-medium px-5 py-2.5 transition hover:border-muted">Log in</Link>
         </div>
         <p className="mt-4 text-sm text-muted"><Link href="/ebay-profit-calculator" className="text-cut hover:underline">Try the free eBay profit calculator →</Link></p>
+        <p className="mt-2 text-sm text-muted">Migrating off inkFrog? <Link href="/inkfrog-alternative" className="text-cut hover:underline">See how Undercut picks up the pricing job →</Link></p>
       </section>
 
       <section className="max-w-5xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-6">
