@@ -787,5 +787,91 @@ export const glossary: PageContent[] = [
     ],
     "lastUpdated": "2026-06-10",
     "leadForm": true
+  },
+  {
+    "slug": "repricing-frequency",
+    "collection": "glossary",
+    "template": "glossary",
+    "title": "Repricing Frequency Explained for eBay Sellers — Undercut",
+    "metaDescription": "Learn how repricing frequency affects your eBay search rank and sales. See why 15-minute cycles beat daily. Try Undercut free for 14 days, no card needed.",
+    "h1": "Repricing Frequency: Why Your Update Interval Makes or Breaks eBay Sales",
+    "eyebrow": "Glossary",
+    "intro": "Repricing frequency is how often your repricing software checks competitor prices and updates your listing price. On eBay, where dozens of sellers can list the same item and prices shift throughout the day, a slow update cycle means you spend hours overpriced while rivals capture your buyers. The interval between updates — whether that's once a day, once an hour, or every 15 minutes — directly shapes how long your listing sits at a competitive price and, by extension, how often it appears near the top of Best Match search results.",
+    "sections": [
+      {
+        "h2": "What Repricing Frequency Actually Means",
+        "body": "Repricing frequency is the maximum elapsed time between the moment a competitor changes their price and the moment your own listing reflects a response. If your repricer runs every 24 hours, a competitor who drops their price at 9 a.m. captures all buyer traffic until your next cycle fires — potentially a full day later. If your repricer runs every 15 minutes, that same competitor move costs you at most a 15-minute window.\n\nThe frequency is always a ceiling, not a guarantee. A repricer set to 15-minute cycles will update your listing within 15 minutes of detecting a change; it will not always update exactly on the minute. What matters practically is the worst-case lag — the longest you can be out of position before the software corrects it.\n\nUndercut offers two cadences: hourly repricing on Free and Starter plans, and 15-minute repricing on Pro and Scale plans. There is no sub-15-minute or real-time tier."
+      },
+      {
+        "h2": "How Frequency Affects eBay Best Match Ranking",
+        "body": "eBay ranks search results using Best Match, a proprietary algorithm that weighs factors including price competitiveness, listing quality, and sales velocity. Price competitiveness is the most directly actionable lever a seller controls in real time — a listing priced above comparable live competitors is deprioritized relative to lower-priced rivals.\n\nSales velocity — how quickly a listing sells — is itself a Best Match input, which creates a compounding effect: a more competitive price generates more sales, which boosts velocity, which improves ranking further. Repricing frequency determines how quickly you regain price leadership after a competitor moves, and therefore how many buyer impressions you lose in the gap.\n\nConsider a concrete example. Suppose you sell a used graphics card priced at $189.00. A competitor drops to $184.00 at 10:05 a.m. With daily repricing, you remain at $189.00 until roughly 10:05 a.m. the next day — 1,440 minutes of exposure at a disadvantaged price. With hourly repricing, you're corrected by 11:05 a.m. — a 60-minute lag. With 15-minute repricing, you're corrected by 10:20 a.m. — a 15-minute lag. At an average of, say, 20 page views per hour for that listing, the daily repricer costs you roughly 480 impressions at a non-competitive price; the hourly repricer costs 20; the 15-minute repricer costs 5."
+      },
+      {
+        "h2": "Daily vs. Hourly vs. 15-Minute Cycles: A Practical Comparison",
+        "body": "Daily repricing is common among sellers who update prices manually or use basic spreadsheet workflows. It is essentially incompatible with categories where prices move intraday — electronics, trading cards, and sneakers in particular. A seller in one of these categories who reprices once a day is, in effect, setting a price and hoping the market doesn't move.\n\nHourly repricing is a meaningful improvement and is sufficient for slower-moving categories — collectibles, vintage items, home goods — where competitor prices may shift only a few times per day. Undercut's Free and Starter plans both reprice hourly, making automated hourly repricing accessible at no cost for up to 25 listings.\n\nFifteen-minute repricing is the fastest cadence Undercut offers and is available equally on both Pro ($79/mo, up to 1,000 listings) and Scale ($199/mo, up to 10,000 listings). For high-competition categories, the difference between hourly and 15-minute cycles is material. In the graphics card example above, switching from hourly to 15-minute repricing reduces your worst-case exposure window from 60 minutes to 15 minutes — a 75% reduction in maximum lag time.\n\nNote: Scale's advantages over Pro are listing capacity (10,000 vs. 1,000) and priority support — not repricing speed. Both tiers reprice at the same 15-minute cadence."
+      },
+      {
+        "h2": "Floor Protection Across Every Frequency",
+        "body": "Faster repricing raises an obvious concern: if the software is checking and updating prices more often, could it race prices down to zero? Undercut prevents this with a hard floor set per listing. Every repricing cycle — whether hourly or every 15 minutes — is clamped to that floor. The software will never set a price below it, regardless of where competitors move.\n\nHere is a worked example of floor protection in action. You list a vintage camera lens at a starting price of $95.00. You set a hard floor of $72.00 (your cost plus a minimum acceptable margin after eBay's ~13.25% final value fee — at $72.00, the fee is roughly $9.54, leaving about $62.46 before other costs). A competitor drops their price to $68.00. Undercut detects this and, rather than matching or beating $68.00, holds your listing at the floor of $72.00. You remain competitive against all sellers priced above $72.00; you simply do not chase the one who is selling below your minimum.\n\nYou can also set an optional per-listing ceiling. If you source the same lens opportunistically and want to test a higher price when competition thins, the ceiling caps the upward reprice so you do not accidentally list at an absurd price during an off-peak period.\n\nOn Pro and Scale, the optional Claude AI aggressiveness tuning adds a further layer: it adjusts how fast and how far each listing moves toward its already-set floor within a given cycle. It never overrides the hard floor — the floor remains absolute."
+      },
+      {
+        "h2": "Choosing the Right Frequency for Your Catalog",
+        "body": "The right repricing frequency depends on how often your competitors actually move their prices, not on the fastest option available. Buying a 15-minute plan when you sell hand-thrown pottery that sees one price change per week is paying for precision you do not need. Conversely, running hourly repricing for electronics is leaving real impressions on the table.\n\nA practical framework: start by observing how often the lowest-priced comparable listing changes in your category over a 48-hour window. You can do this manually by checking eBay search results for your item at a few intervals each day. If prices shift multiple times per day, 15-minute repricing (Pro or Scale) is justified. If they shift once or twice a day at most, hourly repricing (Free or Starter) is likely sufficient.\n\nFor sellers managing up to 25 listings in a stable-price category, Undercut's Free plan provides automated hourly repricing with hard-floor protection at no cost — a strong baseline before committing to a paid tier. The 14-day no-card trial at Starter level (100 listings, hourly repricing) gives sellers a low-risk way to measure repricing impact before deciding whether 15-minute cycles are worth the upgrade."
+      }
+    ],
+    "faq": [
+      {
+        "q": "What is the fastest repricing frequency Undercut offers?",
+        "a": "The fastest cadence is every 15 minutes, available on both Pro ($79/mo) and Scale ($199/mo) plans. Undercut does not offer 5-minute, 10-minute, or real-time repricing. Free and Starter plans reprice hourly."
+      },
+      {
+        "q": "Does Scale reprice faster than Pro?",
+        "a": "No. Both Pro and Scale reprice every 15 minutes — the cadence is identical. Scale's advantages over Pro are a higher listing capacity (10,000 vs. 1,000 listings) and priority support, not repricing speed."
+      },
+      {
+        "q": "Can a faster repricing cycle cause my price to drop below my cost?",
+        "a": "No. Every plan includes a per-listing hard floor, and every repricing cycle — regardless of frequency — is clamped to that floor. If competitors drop below your floor, Undercut holds your price at the floor and does not follow them down."
+      },
+      {
+        "q": "Is hourly repricing fast enough for electronics or trading cards?",
+        "a": "For highly competitive, fast-moving categories like electronics or trading cards, hourly repricing can leave you overpriced for up to 60 minutes after a competitor moves. Fifteen-minute repricing on Pro or Scale reduces that worst-case lag to 15 minutes, which meaningfully reduces lost impressions in active categories."
+      },
+      {
+        "q": "How do I know which repricing frequency I need before paying?",
+        "a": "New accounts get a 14-day free trial at Starter level (100 listings, hourly repricing) with no credit card required. Use that window to observe how often competitor prices move in your category; if you regularly see prices shift multiple times per day, upgrading to Pro for 15-minute cycles is likely worth it."
+      }
+    ],
+    "cta": {
+      "heading": "See How Fast Your Listings Can Respond",
+      "sub": "Start your 14-day free trial — no credit card required. Undercut keeps you competitive on every repricing cycle, always above your floor."
+    },
+    "internalLinks": [
+      {
+        "href": "/glossary/what-is-repricing",
+        "label": "What Is Repricing?"
+      },
+      {
+        "href": "/guides/ebay-best-match-algorithm",
+        "label": "How eBay Best Match Works"
+      },
+      {
+        "href": "/guides/fastest-ebay-repricer",
+        "label": "Fastest eBay Repricer Guide"
+      },
+      {
+        "href": "/guides/manual-vs-automated-repricing",
+        "label": "Manual vs. Automated Repricing"
+      },
+      {
+        "href": "/glossary/race-to-the-bottom",
+        "label": "Race to the Bottom — Glossary"
+      },
+      {
+        "href": "/pricing",
+        "label": "Undercut Pricing Plans"
+      }
+    ],
+    "lastUpdated": "2026-07-16",
+    "leadForm": true
   }
 ]
