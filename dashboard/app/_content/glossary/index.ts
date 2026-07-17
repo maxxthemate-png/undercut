@@ -73,6 +73,10 @@ export const glossary: PageContent[] = [
     },
     "internalLinks": [
       {
+        "href": "/ebay-repricing-software",
+        "label": "See Undercut's eBay Repricing Software →"
+      },
+      {
         "href": "/glossary/what-is-a-price-floor",
         "label": "What Is a Price Floor?"
       },
@@ -176,6 +180,10 @@ export const glossary: PageContent[] = [
     },
     "internalLinks": [
       {
+        "href": "/compare",
+        "label": "See How Undercut's Floor-First Repricer Compares →"
+      },
+      {
         "href": "/guides/avoid-selling-below-cost",
         "label": "How to Avoid Selling Below Cost on eBay"
       },
@@ -273,6 +281,10 @@ export const glossary: PageContent[] = [
       "sub": "Start free with 25 listings on the Free plan, or try any paid plan for 14 days. No credit card required."
     },
     "internalLinks": [
+      {
+        "href": "/ebay-repricing-software",
+        "label": "See Undercut's Repricing Software in Action →"
+      },
       {
         "href": "/glossary/what-is-a-price-floor",
         "label": "What Is a Price Floor?"
@@ -378,6 +390,10 @@ export const glossary: PageContent[] = [
       "sub": "Start free with 25 listings. No credit card needed. Set your hard floor on day one and let Undercut handle the rest."
     },
     "internalLinks": [
+      {
+        "href": "/ebay-repricing-software",
+        "label": "See How Undercut Helps You Win Best Match →"
+      },
       {
         "href": "/guides/win-the-buy-box",
         "label": "How to Win the eBay Buy Box"
@@ -487,6 +503,10 @@ export const glossary: PageContent[] = [
     ],
     "internalLinks": [
       {
+        "href": "/pricing",
+        "label": "See Undercut Plans & Pricing →"
+      },
+      {
         "href": "/guides/ebay-seller-fees-explained",
         "label": "eBay Seller Fees Explained"
       },
@@ -572,6 +592,10 @@ export const glossary: PageContent[] = [
       }
     ],
     "internalLinks": [
+      {
+        "href": "/compare",
+        "label": "See Undercut's Floor-First Repricer →"
+      },
       {
         "href": "/glossary/what-is-a-price-floor",
         "label": "What Is a Price Floor?"
@@ -677,6 +701,10 @@ export const glossary: PageContent[] = [
     ],
     "internalLinks": [
       {
+        "href": "/ebay-repricing-software",
+        "label": "See Undercut's eBay Repricing Software →"
+      },
+      {
         "href": "/guides/ebay-pricing-strategy",
         "label": "eBay Pricing Strategy Guide"
       },
@@ -769,6 +797,10 @@ export const glossary: PageContent[] = [
     ],
     "internalLinks": [
       {
+        "href": "/compare",
+        "label": "Compare Undercut to Other eBay Repricers →"
+      },
+      {
         "href": "/glossary/what-is-a-price-floor",
         "label": "What Is a Price Floor?"
       },
@@ -846,6 +878,10 @@ export const glossary: PageContent[] = [
       "sub": "Start your 14-day free trial — no credit card required. Undercut keeps you competitive on every repricing cycle, always above your floor."
     },
     "internalLinks": [
+      {
+        "href": "/ebay-repricing-software",
+        "label": "See Undercut's eBay Repricing Software →"
+      },
       {
         "href": "/glossary/what-is-repricing",
         "label": "What Is Repricing?"
