@@ -63,6 +63,7 @@ export default function Compare() {
           <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded bg-cut-strong text-white font-medium px-5 py-2.5 transition hover:opacity-90">Start free — 14-day trial, no card</Link>
         </div>
         <p className="mt-4 text-sm text-muted">Coming from inkFrog? <Link href="/inkfrog-alternative" className="text-cut hover:underline">See the dedicated inkFrog migration guide →</Link></p>
+        <p className="mt-2 text-sm text-muted">Switching from StreetPricer? <Link href="/streetpricer-alternative" className="text-cut hover:underline">See the StreetPricer alternative guide →</Link> · Switching from RepricerExpress? <Link href="/repricerexpress-alternative" className="text-cut hover:underline">See the RepricerExpress alternative guide →</Link></p>
       </section>
 
       {/* Comparison table */}

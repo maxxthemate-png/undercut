@@ -15,6 +15,14 @@ export default function Footer() {
         <Link href="/signup" className="hover:text-ink transition">Start free</Link>
       </div>
       <div className="flex items-center justify-center gap-4 mb-2 flex-wrap text-xs">
+        <Link href="/guides" className="hover:text-ink transition">All guides</Link>
+        <Link href="/glossary" className="hover:text-ink transition">Glossary</Link>
+        <Link href="/repricers" className="hover:text-ink transition">Repricers directory</Link>
+        <Link href="/ebay-best-offer-calculator" className="hover:text-ink transition">Best offer calculator</Link>
+        <Link href="/ebay-sell-through-rate-calculator" className="hover:text-ink transition">Sell-through rate calculator</Link>
+        <Link href="/changelog" className="hover:text-ink transition">Changelog</Link>
+      </div>
+      <div className="flex items-center justify-center gap-4 mb-2 flex-wrap text-xs">
         <Link href="/about" className="hover:text-ink transition">About</Link>
         <Link href="/contact" className="hover:text-ink transition">Contact</Link>
         <Link href="/privacy" className="hover:text-ink transition">Privacy</Link>
