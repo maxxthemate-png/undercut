@@ -107,8 +107,9 @@ export default function InkFrogAlternative() {
             </div>
           ))}
         </div>
-        <div className="text-center mt-10">
-          <Link href="/compare" className="text-cut font-medium hover:opacity-90 transition">See the full repricer comparison →</Link>
+        <div className="text-center mt-10 space-y-2">
+          <p><Link href="/inkfrog-migration" className="text-cut font-medium hover:opacity-90 transition">Full inkFrog migration checklist (what to export, what breaks) →</Link></p>
+          <p><Link href="/compare" className="text-cut font-medium hover:opacity-90 transition">See the full repricer comparison →</Link></p>
         </div>
       </section>
 

@@ -38,6 +38,10 @@ class User(Base):
     last_weekly_digest_at = Column(DateTime)           # weekly digest cadence stamp
     winback_emailed_at = Column(DateTime)              # one-shot win-back email stamp
 
+    referral_code = Column(String(16), unique=True, index=True)          # share code (lazily generated)
+    referred_by_user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
+    referral_credited_at = Column(DateTime)            # one-shot: this user's conversion already granted credit
+
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 

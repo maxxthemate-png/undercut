@@ -13,6 +13,7 @@ export default function Signup() {
   const [busy, setBusy] = useState(false)
   // If they arrived from the instant demo, greet them with what they just checked.
   const [demo, setDemo] = useState<{ q: string; win?: string; floor?: string } | null>(null)
+  const [ref, setRef] = useState<string | null>(null)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -21,12 +22,14 @@ export default function Signup() {
     if (sp.get('from') === 'demo' && q) {
       setDemo({ q, win: sp.get('win') || undefined, floor: sp.get('floor') || undefined })
     }
+    const r = (sp.get('ref') || '').trim()
+    if (r) setRef(r)
   }, [])
 
   async function submit(e: React.FormEvent) {
     e.preventDefault(); setErr(''); setNotice(''); setBusy(true)
     try {
-      const res = await api('/api/auth/signup', { method: 'POST', body: JSON.stringify({ email }) })
+      const res = await api('/api/auth/signup', { method: 'POST', body: JSON.stringify(ref ? { email, ref } : { email }) })
       const d = await res.json().catch(() => ({}))
       if (res.ok && d.token) {
         tok.set(d.token)
@@ -62,6 +65,11 @@ export default function Signup() {
               Create your account to do this across your <b>whole store</b>, automatically — floor-protected, no card.
             </p>
           </div>
+        )}
+        {ref && (
+          <p className="text-sm text-ink bg-cut-tint border border-cut rounded p-3">
+            You were invited by another seller — when you upgrade to a paid plan, <b>you both get a free month</b>.
+          </p>
         )}
         <div>
           <h1 className="text-xl font-bold text-ink">Start your Founding trial</h1>

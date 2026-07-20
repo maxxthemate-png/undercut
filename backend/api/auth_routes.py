@@ -31,6 +31,7 @@ class Creds(BaseModel):
 
 class EmailIn(BaseModel):
     email: str
+    ref: str | None = None  # optional referral code (?ref=CODE passed through /signup)
 
 
 class TokenIn(BaseModel):
@@ -69,6 +70,8 @@ def signup(body: EmailIn, request: Request, db: Session = Depends(get_db)):
     # session pwv-binding valid. Access is via magic link from here on.
     u = User(email=email, password_hash=auth.hash_pw(secrets.token_urlsafe(32)))
     billing.start_trial(u)          # new sellers get a no-card 14-day Founding trial (Starter-level)
+    from ..services import referrals
+    referrals.attribute_signup(u, body.ref, db)   # silent no-op on bad/self codes
     try:
         db.add(u); db.commit()
     except IntegrityError:

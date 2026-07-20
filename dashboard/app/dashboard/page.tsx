@@ -287,7 +287,38 @@ export default function Dashboard() {
             ))}
           </div>
         )}
+
+        <ReferralCard />
       </main>
+    </div>
+  )
+}
+
+function ReferralCard() {
+  const [data, setData] = useState<any>(null)
+  const [copied, setCopied] = useState(false)
+  useEffect(() => {
+    api('/api/billing/referral').then((r) => (r.ok ? r.json() : null)).then(setData).catch(() => {})
+  }, [])
+  if (!data) return null
+  async function copy() {
+    try { await navigator.clipboard.writeText(data.link); setCopied(true); setTimeout(() => setCopied(false), 2000) } catch {}
+  }
+  return (
+    <div className="bg-surface border border-line rounded-lg p-5">
+      <p className="text-sm font-semibold text-ink">Give a month, get a month</p>
+      <p className="text-sm text-muted mt-1">
+        Know another eBay seller? When someone you refer upgrades to a paid plan, you <b>both</b> get a ${data.credit_per_conversion} credit (one Starter month, applied automatically to your next invoice).
+      </p>
+      <div className="flex items-center gap-2 mt-3 flex-wrap">
+        <code className="text-sm bg-wash border border-line rounded px-3 py-2 select-all break-all">{data.link}</code>
+        <button onClick={copy} className="px-3 py-2 text-sm rounded bg-cut-strong text-white hover:opacity-90 whitespace-nowrap">{copied ? 'Copied ✓' : 'Copy link'}</button>
+      </div>
+      {(data.signups > 0 || data.converted > 0) && (
+        <p className="text-xs text-muted mt-2">
+          {data.signups} signup{data.signups === 1 ? '' : 's'} from your link · {data.converted} upgraded · ${data.credit_earned} earned
+        </p>
+      )}
     </div>
   )
 }

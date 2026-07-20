@@ -118,6 +118,19 @@ def trial_expired_email():
     )
 
 
+def referral_credit_email():
+    app = _app()
+    return (
+        "Someone you referred just upgraded — you earned a free month 🎉",
+        _wrap(
+            "<p>Good news: a seller you referred to Undercut just moved to a paid plan.</p>"
+            "<p>A <b>$29 credit</b> (one Starter month) was just added to your account — it applies "
+            "automatically to your next invoice. They got a free month too.</p>"
+            f'<p>Keep sharing your link for more free months: <a href="{app}/dashboard">grab it from your dashboard →</a></p>'
+        ),
+    )
+
+
 def magic_login_email(link: str):
     return (
         "Your Undercut sign-in link",

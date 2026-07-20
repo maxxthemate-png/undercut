@@ -14,7 +14,7 @@ from sqlalchemy.orm import Session
 from ..models.database import get_db
 from ..models.repricer_models import User
 from ..services.auth import current_user
-from ..services import billing
+from ..services import billing, referrals
 from ..utils.settings import settings
 from ..utils.logging import get_logger
 
@@ -37,6 +37,16 @@ def _uuid(v):
 class CheckoutIn(BaseModel):
     plan: str
     interval: str = "month"   # "month" (default) | "year"
+
+
+@router.get("/referral")
+def referral(user: User = Depends(current_user), db: Session = Depends(get_db)):
+    """The user's referral link + live stats for the dashboard card."""
+    code = referrals.ensure_code(user, db)
+    return {"code": code,
+            "link": f"{_app_url()}/signup?ref={code}",
+            "credit_per_conversion": referrals.CREDIT_CENTS // 100,
+            **referrals.stats(user, db)}
 
 
 @public_router.get("/plans")
@@ -159,4 +169,9 @@ async def webhook(request: Request, db: Session = Depends(get_db)):
             user.stripe_subscription_id = sub_id
         db.commit()
         logger.info("plan synced via webhook", user=str(user.id), plan=plan, event_type=etype)
+        if plan in billing.PLANS:
+            try:  # referral give-a-month/get-a-month — idempotent, never 500s the webhook
+                referrals.grant_conversion_credit(user, db)
+            except Exception as e:
+                logger.error("referral credit hook failed", user=str(user.id), error=str(e))
     return {"received": True}
