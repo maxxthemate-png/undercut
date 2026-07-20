@@ -9,7 +9,7 @@ name: Auto content
 
 on:
   schedule:
-    - cron: "0 8 * * 4" # weekly, Thursdays 08:00 UTC (offset from the Monday IndexNow refresh)
+    - cron: "0 8 * * 1,4" # 2x/week, Mon+Thu 08:00 UTC (offset from the Monday IndexNow refresh)
   workflow_dispatch:
     inputs:
       count:
