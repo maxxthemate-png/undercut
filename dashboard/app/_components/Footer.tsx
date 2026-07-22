@@ -7,7 +7,7 @@ export default function Footer() {
         <Link href="/" className="hover:text-ink transition">Home</Link>
         <Link href="/pricing" className="hover:text-ink transition">Pricing</Link>
         <Link href="/compare" className="hover:text-ink transition">Compare</Link>
-        <Link href="/guides/ebay-price-floor" className="hover:text-ink transition">Guides</Link>
+        <Link href="/guides" className="hover:text-ink transition">Guides</Link>
         <Link href="/ebay-fee-calculator" className="hover:text-ink transition">Fee calculator</Link>
         <Link href="/ebay-price-checker" className="hover:text-ink transition">Price checker</Link>
         <Link href="/ebay-price-tracker" className="hover:text-ink transition">Price tracker</Link>
