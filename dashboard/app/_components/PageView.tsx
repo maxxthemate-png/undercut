@@ -43,7 +43,7 @@ export default function PageView({ page }: { page: PageContent }) {
         <section className="bg-wash border-t border-line">
           <div className="max-w-2xl mx-auto px-6 py-14 text-center">
             <h2 className="text-2xl font-bold">Not ready to connect your store yet?</h2>
-            <p className="text-muted mt-2 mb-6">Drop your email — we&apos;ll send early access and founding pricing.</p>
+            <p className="text-muted mt-2 mb-6">Get the eBay repricing starter guide — how to set floors that protect margin — by email.</p>
             <LeadForm source={page.slug} />
           </div>
         </section>

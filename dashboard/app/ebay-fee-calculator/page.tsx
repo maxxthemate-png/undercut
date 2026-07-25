@@ -79,7 +79,7 @@ export default function Page() {
         <div className="flex justify-center mb-8">
           <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded bg-cut-strong text-white font-medium px-5 py-2.5 transition hover:opacity-90">Start free — no card</Link>
         </div>
-        <p className="text-sm text-muted mb-3">Not ready? Get early access + founding pricing:</p>
+        <p className="text-sm text-muted mb-3">Want the break-even floor sheet for your own inventory? We&apos;ll email it:</p>
         <LeadForm source="fee-calculator" />
       </section>
 

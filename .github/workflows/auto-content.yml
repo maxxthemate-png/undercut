@@ -9,7 +9,11 @@ name: Auto content
 
 on:
   schedule:
-    - cron: "0 8 * * 1,4" # 2x/week, Mon+Thu 08:00 UTC (offset from the Monday IndexNow refresh)
+    # Weekly, Thursdays 08:00 UTC. Deliberately NOT more often: the shared
+    # ANTHROPIC_API_KEY hit its usage cap when this ran 2x/week, and indexation
+    # (domain age + backlinks), not page count, is the actual SEO bottleneck —
+    # a 3-week-old domain with 151 sitemap URLs is indexing none of them.
+    - cron: "0 8 * * 4"
   workflow_dispatch:
     inputs:
       count:

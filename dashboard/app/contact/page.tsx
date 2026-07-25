@@ -43,7 +43,7 @@ export default function Page() {
       </section>
 
       <section className="max-w-2xl mx-auto px-6 py-12 text-center border-t border-line">
-        <p className="text-sm text-muted mb-3">Not a customer yet? Get early access + founding pricing:</p>
+        <p className="text-sm text-muted mb-3">Not a customer yet? Get the eBay repricing starter guide by email:</p>
         <LeadForm source="contact" />
       </section>
       <Footer />

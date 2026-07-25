@@ -11,7 +11,7 @@ import uuid as _uuid
 from datetime import datetime, timedelta
 from collections import defaultdict
 
-from sqlalchemy import select
+from sqlalchemy import func, select
 
 from ..models.database import SessionLocal
 from ..models.repricer_models import Store, RepricerListing, PriceChange, CompetitorSnapshot, User
@@ -50,7 +50,7 @@ def _record_failure(db, listing: RepricerListing, error: str) -> None:
 
 
 async def reprice_listing(client: EbayStoreClient, db, listing: RepricerListing,
-                          store_ai_enabled: bool) -> dict:
+                          store_ai_enabled: bool, plan_ai_allowed: bool = True) -> dict:
     """Reprice one listing. Returns a result dict."""
     if not listing.floor_price:
         return {"item": listing.ebay_item_id, "changed": False, "error": "no floor set"}
@@ -67,7 +67,7 @@ async def reprice_listing(client: EbayStoreClient, db, listing: RepricerListing,
     listing.last_competitor_low = low
 
     ai_target, source = None, "rule"
-    if listing.ai_enabled and store_ai_enabled:
+    if listing.ai_enabled and store_ai_enabled and plan_ai_allowed:
         rec = await recommend_price(
             title=listing.title or "", current_price=listing.current_price or 0,
             competitor_low=low, competitor_count=comp.get("count", 0),
@@ -139,9 +139,59 @@ async def reprice_all(store_ids: list | None = None) -> dict:
         return await _reprice_all_inner(store_ids, is_scheduled)
 
 
+_RESYNC_AFTER_H = 6
+
+
+async def resync_stale_stores(db, limit: int = 25) -> dict:
+    """Re-import listings for connected stores that have none, or whose last
+    import attempt is stale/failed.
+
+    Import used to happen EXACTLY once — in the OAuth callback, or on a manual
+    button click. So a store whose only attempt failed (eBay hiccup, expired
+    token, the pre-2026-06-22 auth bug) stayed at zero listings permanently and
+    nothing ever retried. That is how three connected sellers sat dead for a
+    month. This makes import self-healing.
+    """
+    from ..api.repricer_routes import _sync_store_listings   # local: avoids a cycle
+    cutoff = datetime.utcnow() - timedelta(hours=_RESYNC_AFTER_H)
+    stores = db.scalars(
+        select(Store).where(Store.is_active.is_(True),
+                            Store.oauth_access_token.isnot(None))).all()
+    out = {"checked": 0, "resynced": 0, "failed": 0}
+    for store in stores:
+        if out["resynced"] + out["failed"] >= limit:
+            break
+        listing_count = db.scalar(select(func.count()).select_from(RepricerListing)
+                                  .where(RepricerListing.store_id == store.id)) or 0
+        stale = store.last_import_at is None or store.last_import_at < cutoff
+        # Only chase stores that have nothing to reprice; a healthy store is
+        # refreshed by its own listings loop, not here.
+        if listing_count > 0 or not stale:
+            continue
+        out["checked"] += 1
+        user = db.get(User, store.user_id) if store.user_id else None
+        remaining = (getattr(user, "listing_limit", None) or billing.FREE_LIMIT) if user else billing.FREE_LIMIT
+        try:
+            res = await _sync_store_listings(db, store, remaining)
+            out["resynced"] += 1
+            logger.info("store auto-resynced", store=str(store.id), imported=res.get("imported"))
+        except Exception as e:
+            out["failed"] += 1
+            logger.warning("store auto-resync failed", store=str(store.id), error=str(e))
+    return out
+
+
 async def _reprice_all_inner(store_ids: list | None, is_scheduled: bool) -> dict:
     db = SessionLocal()
     try:
+        if is_scheduled and not store_ids:
+            try:
+                resync = await resync_stale_stores(db)
+                if resync["resynced"]:
+                    logger.info("auto-resync imported listings", **resync)
+            except Exception as e:
+                logger.warning("auto-resync pass failed", error=str(e))
+
         q = select(RepricerListing).where(RepricerListing.repricing_enabled.is_(True))
         if store_ids:
             q = q.where(RepricerListing.store_id.in_(store_ids))
@@ -162,6 +212,10 @@ async def _reprice_all_inner(store_ids: list | None, is_scheduled: bool) -> dict
             if not store:
                 continue
 
+            # AI tuning is a paid (Pro+) feature; default closed so a missing user
+            # record can't hand out the paid optimizer for free.
+            plan_ai = False
+
             # --- plan/trial enforcement (per owning user) ---
             user = user_cache.get(store.user_id)
             if user is None and store.user_id is not None:
@@ -171,6 +225,7 @@ async def _reprice_all_inner(store_ids: list | None, is_scheduled: bool) -> dict
                 if billing.normalize_access(user):  # persist expired trial -> free
                     db.commit()
                 plan, limit = billing.effective_access(user)
+                plan_ai = billing.plan_has_ai(plan)
 
                 if settings.REPRICER_TIER_FREQUENCY and is_scheduled:
                     if billing.freq_should_skip(plan, store.last_reprice_run_at, now):
@@ -213,7 +268,8 @@ async def _reprice_all_inner(store_ids: list | None, is_scheduled: bool) -> dict
             ai_enabled = store.ai_enabled if store else True
             for l in group:
                 try:
-                    results.append(await reprice_listing(client, db, l, ai_enabled))
+                    results.append(await reprice_listing(client, db, l, ai_enabled,
+                                                        plan_ai_allowed=plan_ai))
                 except Exception as e:
                     logger.error("reprice failed", item=l.ebay_item_id, error=str(e))
                     _record_failure(db, l, str(e))

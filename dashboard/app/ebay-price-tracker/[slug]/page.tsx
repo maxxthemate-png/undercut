@@ -146,7 +146,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <h2 className="text-2xl font-bold">Sell {product.category} on eBay?</h2>
         <p className="text-muted mt-2 mb-5">Undercut watches this number for every listing you have and reprices you to win — floor-protected. Free for 25 listings, no card.</p>
         <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded bg-cut-strong text-white font-medium px-5 py-2.5 transition hover:opacity-90">Start free — no card</Link>
-        <p className="text-sm text-muted mt-8 mb-3">Or get early access + founding pricing by email:</p>
+        <p className="text-sm text-muted mt-8 mb-3">Or get the price-floor cheat sheet by email:</p>
         <LeadForm source={`tracker-${product.slug}`} />
       </section>
 

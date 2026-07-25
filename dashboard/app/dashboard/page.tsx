@@ -36,11 +36,31 @@ export default function Dashboard() {
   const [manualToken, setManualToken] = useState('')
   const [billingInterval, setBillingInterval] = useState<'month' | 'year'>('month')
   const [justImported, setJustImported] = useState(0)
+  const [importMsg, setImportMsg] = useState<{ kind: 'ok' | 'error'; text: string } | null>(null)
   const prevCount = useRef<number | null>(null)
 
   useEffect(() => {
     if (!tok.get()) { router.push('/login'); return }
     fetchAll(); const t = setInterval(fetchAll, 30000); return () => clearInterval(t)
+  }, [])
+
+  // The OAuth callback encodes its outcome in the URL (connected / imported=N /
+  // import_error / connect_error). Nothing read these, so a seller whose import
+  // failed was returned to an ordinary-looking empty dashboard.
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const sp = new URLSearchParams(window.location.search)
+    if (sp.get('connect_error')) {
+      setImportMsg({ kind: 'error', text: 'eBay did not finish connecting your store. Please try again.' })
+    } else if (sp.get('import_error')) {
+      setImportMsg({ kind: 'error', text: 'Your store connected, but we could not read your listings. Hit retry below — if it keeps failing that is on our side, so email us and we will sort it out.' })
+    } else if (sp.get('connected')) {
+      const n = parseInt(sp.get('imported') || '0', 10)
+      setImportMsg(n > 0
+        ? { kind: 'ok', text: `Store connected and ${n} listing${n === 1 ? '' : 's'} imported. Set a floor on each to start repricing.` }
+        : { kind: 'error', text: 'Store connected, but eBay returned no active listings. Hit retry below.' })
+    }
+    if (sp.toString()) window.history.replaceState({}, '', '/dashboard')
   }, [])
 
   async function fetchAll() {
@@ -66,26 +86,73 @@ export default function Dashboard() {
     }
   }
 
+  // Import is THE activation step, and it can fail for reasons the seller can act
+  // on (reconnect) or that are on us (eBay's Trading API 503s for hours at a
+  // time). Silently swallowing the response made a failed import and a
+  // successful one render the identical empty table — the #1 reason connected
+  // stores never produced listings.
   async function importListings() {
     if (!stores.length) return
-    setBusy('import')
-    await api(`/api/repricer/stores/${stores[0].id}/import`, { method: 'POST' })
-    setBusy('')
-    fetchAll()
+    setBusy('import'); setImportMsg(null)
+    try {
+      const res = await api(`/api/repricer/stores/${stores[0].id}/import`, { method: 'POST' })
+      const d = await res.json().catch(() => ({} as any))
+      if (!res.ok) {
+        setImportMsg({ kind: 'error', text: d.detail || 'We could not read your eBay listings just now.' })
+      } else if ((d.imported ?? 0) === 0) {
+        setImportMsg({ kind: 'error', text: 'Your store is connected, but eBay returned no active listings. If you have active fixed-price listings, this is on our side — hit retry, or email us and we will fix it.' })
+      } else {
+        setImportMsg({ kind: 'ok', text: `Imported ${d.imported} listing${d.imported === 1 ? '' : 's'}. Set a floor on each one to start repricing.` })
+      }
+    } catch {
+      setImportMsg({ kind: 'error', text: 'Could not reach the server — please retry.' })
+    } finally {
+      setBusy(''); fetchAll()
+    }
+  }
+
+  // One click to clear the biggest activation wall: a seller with 200 imported
+  // listings otherwise had to type 200 floors and tick 200 boxes before a single
+  // reprice could run.
+  async function bulkFloors() {
+    setBusy('bulk'); setImportMsg(null)
+    try {
+      const res = await api('/api/repricer/listings/bulk-rule', {
+        method: 'POST',
+        body: JSON.stringify({ floor_pct_below_current: 10, repricing_enabled: true, only_missing_floor: true }),
+      })
+      const d = await res.json().catch(() => ({} as any))
+      if (!res.ok) setImportMsg({ kind: 'error', text: d.detail || 'Could not set floors.' })
+      else setImportMsg({ kind: 'ok', text: `Set ${d.floors_set} floor${d.floors_set === 1 ? '' : 's'} and turned on repricing for ${d.toggled}. Adjust any individual floor in the table below.` })
+    } catch {
+      setImportMsg({ kind: 'error', text: 'Could not reach the server — please retry.' })
+    } finally { setBusy(''); fetchAll() }
   }
 
   async function connectEbay() {
     setBusy('connect')
-    const d = await (await api('/api/repricer/oauth/login')).json()
-    setBusy('')
-    if (d.configured && d.url) window.location.href = d.url
-    else alert('eBay OAuth not configured yet — paste a token below for now.')
+    try {
+      const d = await (await api('/api/repricer/oauth/login')).json()
+      if (d.configured && d.url) { window.location.href = d.url; return }
+      setImportMsg({ kind: 'error', text: 'eBay connect is not configured yet — paste a token below for now.' })
+    } catch {
+      setImportMsg({ kind: 'error', text: 'Could not start the eBay connection — please retry.' })
+    } finally { setBusy('') }
   }
   async function connectManual() {
-    if (!manualToken) return; setBusy('manual')
-    const { id } = await (await api('/api/repricer/stores', { method: 'POST', body: JSON.stringify({ name: 'eBay Store', user_token: manualToken }) })).json()
-    if (id) await api(`/api/repricer/stores/${id}/import`, { method: 'POST' })
-    setManualToken(''); setBusy(''); fetchAll()
+    if (!manualToken) return
+    setBusy('manual'); setImportMsg(null)
+    try {
+      const { id } = await (await api('/api/repricer/stores', { method: 'POST', body: JSON.stringify({ name: 'eBay Store', user_token: manualToken }) })).json()
+      if (!id) { setImportMsg({ kind: 'error', text: 'That token was not accepted by eBay.' }); return }
+      const res = await api(`/api/repricer/stores/${id}/import`, { method: 'POST' })
+      const d = await res.json().catch(() => ({} as any))
+      if (!res.ok) setImportMsg({ kind: 'error', text: d.detail || 'Connected, but the listing import failed.' })
+      else if ((d.imported ?? 0) === 0) setImportMsg({ kind: 'error', text: 'Connected, but eBay returned no active listings — hit retry below.' })
+      setManualToken('')
+    } catch {
+      setImportMsg({ kind: 'error', text: 'Could not reach the server — please retry.' })
+    } finally { setBusy(''); fetchAll() }
   }
   async function saveRule(id: string, patch: any) {
     try {
@@ -150,6 +217,26 @@ export default function Dashboard() {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8 space-y-6">
+        {importMsg && (
+          <div className={`${importMsg.kind === 'error' ? 'bg-cut-tint border-cut' : 'bg-guard-tint border-guard'} border rounded-lg p-4`}>
+            <div className="flex items-start justify-between gap-3 flex-wrap">
+              <p className={`text-sm ${importMsg.kind === 'error' ? 'text-cut' : 'text-guard'}`}>
+                {importMsg.kind === 'error' ? '⚠️ ' : '✅ '}{importMsg.text}
+              </p>
+              <div className="flex items-center gap-2 whitespace-nowrap">
+                {importMsg.kind === 'error' && stores.length > 0 && (
+                  <button onClick={importListings} disabled={busy === 'import'} className="px-3 py-1.5 text-sm rounded bg-cut-strong text-white hover:opacity-90 disabled:opacity-50">
+                    {busy === 'import' ? 'Retrying…' : 'Retry import'}
+                  </button>
+                )}
+                {importMsg.kind === 'error' && (
+                  <a href="mailto:hello@undercutpricer.com?subject=Import%20trouble" className="px-3 py-1.5 text-sm rounded border border-line hover:bg-wash">Email us</a>
+                )}
+                <button onClick={() => setImportMsg(null)} className="text-muted hover:text-ink text-sm px-1" aria-label="Dismiss">✕</button>
+              </div>
+            </div>
+          </div>
+        )}
         {value && value.margin_protected > 0 && (
           <div className="bg-floor text-white rounded-lg p-5">
             <p className="text-xs text-white/80 uppercase tracking-wide">Last {value.days} days</p>
@@ -252,6 +339,21 @@ export default function Dashboard() {
             </div>
           </div>
         ) : (
+          <>
+          {listings.length > 0 && listings.some((l) => l.floor_price == null) && (
+            <div className="bg-guard-tint border border-guard rounded-lg p-4">
+              <div className="flex items-start justify-between gap-3 flex-wrap">
+                <p className="text-sm text-guard">
+                  <b>{listings.filter((l) => l.floor_price == null).length} listing{listings.filter((l) => l.floor_price == null).length === 1 ? '' : 's'} have no floor, so they never reprice.</b>{' '}
+                  Set them all at once — 10% below current price is a safe starting point you can fine-tune after.
+                </p>
+                <button onClick={bulkFloors} disabled={busy === 'bulk'}
+                  className="px-3 py-1.5 text-sm rounded bg-cut-strong text-white hover:opacity-90 disabled:opacity-50 whitespace-nowrap">
+                  {busy === 'bulk' ? 'Setting…' : 'Set floors 10% below & turn on'}
+                </button>
+              </div>
+            </div>
+          )}
           <div id="listings" className="bg-surface border border-line rounded-lg overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-wash border-b border-line text-xs text-muted uppercase">
@@ -275,6 +377,7 @@ export default function Dashboard() {
               </tbody>
             </table>
           </div>
+          </>
         )}
 
         {changes.length > 0 && (

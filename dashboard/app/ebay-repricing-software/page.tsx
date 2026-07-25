@@ -67,7 +67,7 @@ export default function EbayRepricingSoftware() {
       <section className="bg-wash border-t border-line">
         <div className="max-w-2xl mx-auto px-6 py-14 text-center">
           <h2 className="text-2xl font-bold">Start free — no card</h2>
-          <p className="text-muted mt-2 mb-6">14-day Starter trial. Or grab your spot for early access + founding pricing.</p>
+          <p className="text-muted mt-2 mb-6">14-day Starter trial, no card. Or get the eBay repricing starter guide by email.</p>
           <div className="mb-6"><TrustBadges /></div>
           <div className="flex justify-center mb-6"><Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded bg-cut-strong text-white font-medium px-5 py-2.5 transition hover:opacity-90">Start free</Link></div>
           <LeadForm source="ebay-repricing-software" />

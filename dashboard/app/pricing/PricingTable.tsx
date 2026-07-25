@@ -3,11 +3,15 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { PLANS } from '../_content/shared'
 
+// Free and Starter were previously listed with the IDENTICAL three bullets, so
+// $29/mo visibly bought nothing but 75 more listings. These reflect what the code
+// actually enforces: listing capacity, scheduled reprice interval (billing.py
+// PLAN_REPRICE_INTERVAL_MIN) and the AI optimizer (billing.AI_PLANS = pro/scale).
 const FEATURES: Record<string, string[]> = {
-  free: ['Rule-based undercut', 'Hourly repricing', 'Hard price floor'],
-  starter: ['Rule-based undercut', 'Hourly repricing', 'Hard price floor'],
-  pro: ['AI price optimizer', '15-min repricing', 'Hard price floor'],
-  scale: ['AI price optimizer', '15-min repricing', 'Priority support'],
+  free: ['25 listings', 'Rule-based undercut', 'Hourly repricing', 'Hard price floor'],
+  starter: ['100 listings', 'Rule-based undercut', 'Hourly repricing', 'Hard price floor', 'Email support'],
+  pro: ['1,000 listings', 'AI price optimizer', '15-min repricing', 'Hard price floor', 'Email support'],
+  scale: ['10,000 listings', 'AI price optimizer', 'Every-cycle repricing', 'Hard price floor', 'Priority support'],
 }
 
 export default function PricingTable() {

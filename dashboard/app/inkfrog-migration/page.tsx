@@ -10,19 +10,19 @@ import TrustBadges from '../_components/TrustBadges'
 import { pageMeta } from '../_content/shared'
 
 export const metadata = pageMeta(
-  'inkFrog Shutdown: Migration Checklist for eBay Sellers — Undercut',
-  'inkFrog is shutting down. A practical migration checklist: what to export before you lose access, what breaks first, and how to rebuild listing management and repricing.',
+  'inkFrog Shut Down: Migration Checklist for eBay Sellers — Undercut',
+  'inkFrog shut down in June 2026. A practical migration checklist: what you kept, what broke, and how to rebuild listing management and repricing.',
   '/inkfrog-migration'
 )
 
 const STEPS: { title: string; body: string }[] = [
   {
-    title: '1. Export everything while you still have access',
-    body: 'Before your account closes, save a copy of anything that lives only inside inkFrog: your listing templates and descriptions, any saved product/inventory data, and notes on which listings used which template. Once a shutting-down service goes dark, support requests for old data mostly go unanswered — treat the export as a now-or-never step even if the final date feels far away.',
+    title: '1. Recover what you can — and check what you already exported',
+    body: 'inkFrog closed in June 2026, so if you did not export your listing templates and descriptions beforehand, assume they are gone — support requests to a shut-down service go unanswered. Check any old downloads folder or email receipts for a backup you may have taken. Going forward, keep your own copy of templates outside whatever tool you pick; this is the lesson the shutdown teaches.',
   },
   {
     title: '2. Confirm your listings live on eBay, not in the tool',
-    body: 'Your active eBay listings belong to eBay, not inkFrog — they will not disappear when inkFrog does. What you lose is the management layer on top: template-based editing, bulk workflows, and any automation you had configured. Log into eBay Seller Hub and verify your active listings, then note which ones depended on inkFrog automation so you know what stops updating.',
+    body: 'Your active eBay listings belong to eBay, not inkFrog — they did not disappear when inkFrog closed. What you lost is the management layer on top: template-based editing, bulk workflows, and any automation you had configured. Log into eBay Seller Hub and verify your active listings, then note which ones depended on inkFrog automation so you know what stopped updating.',
   },
   {
     title: '3. Rebuild listing management first (the free option is fine)',
@@ -44,8 +44,8 @@ const STEPS: { title: string; body: string }[] = [
 
 const FAQ_ITEMS = [
   {
-    q: 'Will my eBay listings disappear when inkFrog shuts down?',
-    a: 'No. Active listings live on eBay itself and survive the shutdown. What stops working is inkFrog’s management layer — templates, bulk edits, and any automation running through it. Anything stored only inside inkFrog (templates, saved descriptions) is what you need to export before access ends.',
+    q: 'Did my eBay listings disappear when inkFrog shut down?',
+    a: 'No. Active listings live on eBay itself and survived the shutdown. What stopped working is inkFrog’s management layer — templates, bulk edits, and any automation running through it. Anything stored only inside inkFrog (templates, saved descriptions) is what was lost unless you exported it first.',
   },
   {
     q: 'Do I need to replace inkFrog with one tool or several?',
@@ -81,10 +81,10 @@ export default function InkFrogMigration() {
 
       <section className="max-w-3xl mx-auto px-6 pt-20 pb-10">
         <p className="text-sm font-semibold text-cut">inkFrog shutdown · migration checklist</p>
-        <h1 className="mt-3 text-4xl md:text-5xl font-extrabold tracking-tight">inkFrog is shutting down. Here’s exactly what to do.</h1>
+        <h1 className="mt-3 text-4xl md:text-5xl font-extrabold tracking-tight">inkFrog shut down. Here’s exactly what to do now.</h1>
         <p className="mt-5 text-lg text-muted">
-          A practical, no-panic checklist for eBay sellers losing inkFrog: what to save before access ends,
-          what actually breaks, and how to rebuild each piece — including the parts Undercut doesn’t do.
+          A practical checklist for eBay sellers who lost inkFrog when it closed in June 2026: what you
+          still have, what actually broke, and how to rebuild each piece — including the parts Undercut doesn’t do.
         </p>
       </section>
 

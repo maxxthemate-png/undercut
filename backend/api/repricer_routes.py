@@ -78,9 +78,16 @@ async def _sync_store_listings(db: Session, store: Store, remaining: int) -> dic
         # broken Trading-API auth). Alert LOUDLY instead of silently importing zero
         # and looking like the seller simply has no inventory.
         logger.error("ebay import failed", store_id=str(store.id), error=str(e))
+        # Persist the failure so it is visible in /admin and retryable by the cron
+        # (previously the reason vanished with the HTTP response).
+        store.last_import_at = datetime.utcnow()
+        store.last_import_error = str(e)[:500]
+        store.last_import_count = 0
+        db.commit()
         try:
             send_email_alert(
-                subject="[Undercut] eBay import FAILED for a connected seller",
+                # notifications.send_email_alert already prefixes "[Undercut] "
+                subject="eBay import FAILED for a connected seller",
                 body=(f"Store {store.id} ({store.name}) — get_active_listings raised:\n\n{e}\n\n"
                       f"A seller connected but their listings could NOT be read. Check the eBay "
                       f"Trading API auth (X-EBAY-API-IAF-TOKEN) + keyset immediately — this is the "
@@ -106,7 +113,19 @@ async def _sync_store_listings(db: Session, store: Store, remaining: int) -> dic
                                    current_price=it["price"], quantity=it["quantity"])); created += 1; remaining -= 1
         else:
             skipped += 1
+    store.last_import_at = datetime.utcnow()
+    store.last_import_count = created
+    store.last_import_error = None if items else "eBay returned zero active listings"
     db.commit()
+    if not items:   # Ack=Success with an empty list is still a failed activation
+        try:
+            send_email_alert(
+                subject="eBay import returned ZERO listings",
+                body=(f"Store {store.id} ({store.name}) imported successfully but eBay returned no "
+                      f"active listings. Either the seller genuinely has none, or the query is wrong. "
+                      f"Check before assuming it's the seller."))
+        except Exception:
+            pass
     return {"imported": created, "updated": updated, "skipped_over_plan_limit": skipped, "total": len(items)}
 
 
@@ -203,6 +222,45 @@ def set_rule(listing_id: str, body: RuleIn, user: User = Depends(current_user), 
     return _listing_dict(l)
 
 
+class BulkRuleIn(BaseModel):
+    floor_pct_below_current: float | None = None   # e.g. 10 -> floor = 90% of current price
+    repricing_enabled: bool | None = None
+    only_missing_floor: bool = True               # don't stomp floors the seller already tuned
+
+
+@router.post("/listings/bulk-rule")
+def bulk_rule(body: BulkRuleIn, user: User = Depends(current_user), db: Session = Depends(get_db)):
+    """Set floors / enable repricing across every listing in one call.
+
+    Without this, activation required one floor entry + one toggle PER LISTING —
+    a 200-listing seller faced 400 manual interactions before anything repriced,
+    which is a large part of why zero reprices have ever run.
+    """
+    pct = body.floor_pct_below_current
+    if pct is not None and not (0 < pct < 90):
+        raise HTTPException(status_code=400, detail="floor_pct_below_current must be between 0 and 90")
+    rows = db.scalars(
+        select(RepricerListing).join(Store, RepricerListing.store_id == Store.id)
+        .where(Store.user_id == user.id)).all()
+    floors_set = enabled = 0
+    for l in rows:
+        if pct is not None and (l.current_price or 0) > 0:
+            if not (body.only_missing_floor and l.floor_price is not None):
+                floor = round(float(l.current_price) * (1 - pct / 100.0), 2)
+                if floor >= 0.01 and (l.ceiling_price is None or floor <= l.ceiling_price):
+                    l.floor_price = floor
+                    floors_set += 1
+        if body.repricing_enabled is not None:
+            # Never enable a listing with no floor — the floor IS the safety rail.
+            if body.repricing_enabled and l.floor_price is None:
+                continue
+            if l.repricing_enabled != body.repricing_enabled:
+                l.repricing_enabled = body.repricing_enabled
+                enabled += 1
+    db.commit()
+    return {"listings": len(rows), "floors_set": floors_set, "toggled": enabled}
+
+
 # "Reprice now" cooldown: each manual run fans out to eBay Browse + (on AI
 # listings) one Claude call per listing — without a cooldown any user can loop
 # it and burn API cost/quota (in-process; single instance).
@@ -296,7 +354,9 @@ async def oauth_callback(code: str, state: str | None = None, db: Session = Depe
     s.oauth_refresh_token = encrypt_token(tok.get("refresh_token"))
     s.token_expires_at = datetime.utcnow() + timedelta(seconds=int(tok.get("expires_in", 7200)))
     db.commit(); db.refresh(s)
-    remaining = max(0, user.listing_limit - _listing_count(db, user))
+    # listing_limit is nullable with no server_default: a NULL row used to 500 the
+    # OAuth callback AFTER the store row was committed, stranding a connected store.
+    remaining = max(0, (user.listing_limit or billing.FREE_LIMIT) - _listing_count(db, user))
     try:
         imp = await _sync_store_listings(db, s, remaining)
         logger.info("oauth connect + import", store=str(s.id), **{k: v for k, v in imp.items() if k != "total"})

@@ -34,6 +34,44 @@ def welcome_email():
     )
 
 
+def lead_guide_email():
+    """Sent IMMEDIATELY on lead capture — the tool pages promise "we'll email it",
+    so this has to actually contain the guide, not a pitch with a link."""
+    app = _app()
+    return (
+        "Your eBay price-floor guide (the 4-line formula)",
+        _wrap(
+            "<p>Here it is — the whole thing, no course, no upsell.</p>"
+            "<p><b>The floor formula.</b> For any listing, the lowest price you can accept is:</p>"
+            '<pre style="background:#f6f7f9;padding:12px 14px;border-radius:6px;font-size:13px;'
+            'white-space:pre-wrap;line-height:1.5">item cost\n'
+            "+ eBay final value fee (~13.25% of total incl. shipping, most categories)\n"
+            "+ payment/fixed fee ($0.30 per order)\n"
+            "+ your shipping cost (if free shipping)\n"
+            "+ the smallest profit you'll accept\n"
+            "= YOUR FLOOR</pre>"
+            "<p><b>Worked example.</b> A $22 item, $6 to ship free, $5 minimum profit: "
+            "22 + 6 + 5 = $33 of hard cost and target. Divide by (1 − 0.1325) to cover the fee "
+            "on the whole sale, then add $0.30 → floor ≈ <b>$38.35</b>. Below that you are paying "
+            "to make the sale.</p>"
+            "<p><b>Three mistakes that cost sellers real money:</b></p>"
+            "<p>1. Flooring at item cost only. The fee is charged on the total including shipping, "
+            "so a cost-only floor loses money on every free-shipping sale.<br>"
+            "2. One floor across all conditions. Used and refurb inventory has different cost bases; "
+            "a single formula quietly sells your good stock too cheap.<br>"
+            "3. Automating without a floor at all. Any repricer without a hard floor will follow a "
+            "competitor's clearance sale straight down.</p>"
+            "<p><b>The one rule to keep:</b> the floor is a hard stop, not a suggestion. If a "
+            "competitor goes below your floor, the correct move is to lose that sale — not to match it.</p>"
+            f'<p>Run your own numbers here: <a href="{app}/ebay-fee-calculator">free fee + floor calculator</a>. '
+            f'If you want this enforced automatically across your whole store, that is what '
+            f'<a href="{app}/signup">Undercut</a> does (14 days free, no card).</p>'
+            "<p>Reply and tell me what you sell — I read every reply and I'll tell you straight "
+            "whether automated repricing is even worth it for your inventory.</p>"
+        ),
+    )
+
+
 def lead_drip_day1():
     app = _app()
     return (
@@ -91,6 +129,79 @@ def demo_followup(note: str | None = None):
             "No more racing to the bottom while you sleep.</p>"
             f'<p>Put your store on autopilot — 14-day trial, no card: <a href="{app}/signup">{app}/signup</a></p>'
             "<p>Reply and tell me what you sell — I’ll tell you straight whether it’s a fit.</p>"
+        ),
+    )
+
+
+def activation_no_store_email():
+    app = _app()
+    return (
+        "Your Undercut trial is running — but your store isn't connected",
+        _wrap(
+            "<p>Quick nudge: your trial clock is ticking but Undercut can't see your listings yet, "
+            "so it isn't doing anything for you.</p>"
+            f'<p>Connecting takes about 30 seconds: <a href="{app}/dashboard">connect your eBay store →</a></p>'
+            "<p>Worth knowing before you click: connecting only <i>imports</i> your listings. "
+            "Nothing reprices until you set a floor and switch it on, one listing at a time. "
+            "There is no way for it to touch a price you haven't approved a floor for.</p>"
+        ),
+    )
+
+
+def activation_import_failed_email():
+    """The highest-value email in the system: this seller connected successfully and
+    got zero listings, which is our bug, not theirs. Own it and offer a real fix."""
+    app = _app()
+    return (
+        "Your listings didn't import — that's on us",
+        _wrap(
+            "<p>I can see your eBay store connected fine, but no listings came through. "
+            "That's a problem on our end, not something you did wrong.</p>"
+            "<p>eBay's listing API has been throwing intermittent errors, and retrying usually "
+            f'clears it: <a href="{app}/dashboard">hit "Retry import" on your dashboard →</a></p>'
+            "<p>If it fails again, just reply to this email and tell me your eBay seller name. "
+            "I'll dig into the actual error and get your listings in myself — and I'll extend your "
+            "trial so you don't lose days to our bug.</p>"
+            "<p>Sorry for the wasted trip.</p>"
+        ),
+    )
+
+
+def activation_no_floors_email(count: int):
+    app = _app()
+    n = f"{count} listing{'s' if count != 1 else ''}"
+    return (
+        f"Your {n} imported — one step left before repricing starts",
+        _wrap(
+            f"<p>Good news: {n} imported successfully. One thing stands between that and "
+            "automatic repricing — a floor.</p>"
+            "<p><b>Nothing reprices without a floor.</b> That's deliberate: the floor is the hard "
+            "stop that keeps automation from ever selling below your minimum. No floor, no action.</p>"
+            "<p>The number to use: item cost + eBay fees (~13.25% + $0.30) + shipping + the smallest "
+            "profit you'll take. Start with your best sellers — you don't have to do all of them.</p>"
+            f'<p><a href="{app}/dashboard">Set your floors →</a> · '
+            f'<a href="{app}/ebay-fee-calculator">calculate them first →</a></p>'
+        ),
+    )
+
+
+def trial_ending_no_value_email(days_left: int):
+    """Trial expiring having delivered ZERO reprices. Asking for money here reads as
+    tone-deaf; the honest move is to own it and offer more time."""
+    app = _app()
+    when = "tomorrow" if (days_left or 0) <= 1 else f"in {days_left} days"
+    return (
+        f"Your trial ends {when} and Undercut never got to run",
+        _wrap(
+            f"<p>Straight talk: your trial ends {when}, and looking at your account, Undercut never "
+            "actually repriced anything for you. So I'm not going to ask you to pay for it.</p>"
+            "<p>Usually this means the listing import didn't complete, or floors were never set "
+            "(nothing reprices without a floor — that's the safety design).</p>"
+            f'<p>If you want to give it a real shot: <a href="{app}/dashboard">open your dashboard →</a> '
+            "and reply to this email. Tell me where it got stuck and I'll fix it on my end and extend "
+            "your trial by another 14 days, no charge.</p>"
+            "<p>And if it's just not for you, no hard feelings — you'll drop to the free plan "
+            "automatically and nothing gets charged.</p>"
         ),
     )
 

@@ -44,6 +44,13 @@ def capture_lead(body: LeadIn, request: Request, db: Session = Depends(get_db)):
     else:
         db.add(Lead(email=email, source=src, note=note))
         db.commit()
+        try:  # deliver the promised guide IMMEDIATELY — the forms say "we'll email it"
+            from ..utils.email_templates import lead_guide_email
+            from ..utils.notifications import send_customer_email
+            subject, html = lead_guide_email()
+            send_customer_email(email, subject, html)
+        except Exception:
+            pass
         try:  # best-effort operator alert (speed-to-lead) — never blocks capture
             send_email_alert(subject=f"New Undercut lead: {email}",
                              body=f"New waitlist lead\n\nEmail: {email}\nSource: {src}"

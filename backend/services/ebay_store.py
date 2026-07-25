@@ -93,18 +93,31 @@ class EbayStoreClient:
         return ""
 
     async def _trading(self, call: str, body: str, retries: int = 3) -> str:
-        """POST to Trading API; retry transient non-XML edge errors."""
+        """POST to Trading API; retry transient non-XML edge errors.
+
+        Returning "" on failure is what hid a month of broken imports: callers
+        could not distinguish "eBay said no" from "seller has no listings", and
+        eBay's actual reply (status + body) was never recorded anywhere. Now the
+        real response is logged and a failure raises with eBay's own words.
+        """
+        if not all([self.app_id, self.cert_id, self.dev_id]):
+            raise EbayApiError("eBay keyset incomplete (APP/CERT/DEV id missing) — Trading API cannot be called")
+        last = ""
         for attempt in range(retries):
             try:
                 async with httpx.AsyncClient(timeout=30) as c:
                     r = await c.post(_TRADING[self._env], content=body, headers=self._headers(call))
                 if r.text.lstrip().startswith("<?xml"):
                     return r.text
+                last = f"HTTP {r.status_code} ({r.headers.get('content-type')}): {r.text[:300]}"
+                logger.error("trading non-XML reply", call=call, status=r.status_code,
+                             content_type=r.headers.get("content-type"), body_head=r.text[:300])
             except Exception as e:
-                logger.warning("trading call error", call=call, error=str(e))
-            await asyncio.sleep(1.5 * (attempt + 1))
-        logger.error("trading call failed", call=call)
-        return ""
+                last = f"{type(e).__name__}: {e}"
+                logger.warning("trading call error", call=call, error=last)
+            if attempt < retries - 1:      # don't sleep after the final attempt
+                await asyncio.sleep(1.5 * (attempt + 1))
+        raise EbayApiError(f"eBay Trading API did not return XML for {call} — {last}")
 
     async def get_active_listings(self, limit: int = 200, max_pages: int = 50) -> list[dict]:
         """All active listings, paginated — page 1 only would silently drop
@@ -179,11 +192,22 @@ class EbayStoreClient:
         Read the error codes: a missing/invalid-token error means the keyset is
         recognized (Trading access OK, just no user token); an app/credential error
         means the keyset itself is not authorized for Trading."""
+        # GeteBayOfficialTime is RETIRED at eBay's edge: it returns an Akamai 503
+        # HTML page ("Zero size object") for every caller, regardless of
+        # credentials — bisected header-by-header against live prod. Probing with
+        # it made this endpoint permanently report reached_ebay:false and hid a
+        # month of real import failures. GeteBayDetails is alive: it answers with
+        # proper XML and ErrorCode 930 ("no token") when the keyset is valid.
         body = ('<?xml version="1.0" encoding="utf-8"?>'
-                '<GeteBayOfficialTimeRequest xmlns="urn:ebay:apis:eBLBaseComponents">'
+                '<GeteBayDetailsRequest xmlns="urn:ebay:apis:eBLBaseComponents">'
+                '<DetailName>SiteDetails</DetailName>'
                 f'{self._requester_credentials()}'
-                '</GeteBayOfficialTimeRequest>')
-        txt = await self._trading("GeteBayOfficialTime", body)
+                '</GeteBayDetailsRequest>')
+        try:
+            txt = await self._trading("GeteBayDetails", body)
+        except EbayApiError as e:
+            txt = ""
+            self._selftest_error = str(e)
         out = {
             "env": self._env,
             "endpoint": _TRADING[self._env],
@@ -195,6 +219,8 @@ class EbayStoreClient:
         }
         if not txt:
             out["verdict"] = "NO XML RESPONSE — endpoint unreachable or credentials rejected before a parseable reply."
+            if getattr(self, "_selftest_error", None):
+                out["error"] = self._selftest_error   # eBay's actual reply, not a guess
             return out
         try:
             root = ET.fromstring(txt)
@@ -207,6 +233,13 @@ class EbayStoreClient:
                  "msg": (e.find("e:LongMessage", NS).text if e.find("e:LongMessage", NS) is not None else None)}
                 for e in root.findall(".//e:Errors", NS)
             ]
+            # 930/931 = "no/invalid user token" → the keyset itself IS authorized
+            # for Trading. That is the green light this endpoint exists to give.
+            codes = {e.get("code") for e in out["errors"]}
+            if out.get("ack") == "Success" or codes & {"930", "931"}:
+                out["verdict"] = "OK — keyset reaches the Trading API (a token error here is expected; no seller token is used)."
+            else:
+                out["verdict"] = "PROBLEM — Trading API replied but rejected this keyset. See errors."
         except Exception as ex:
             out["parse_error"] = str(ex)
         return out

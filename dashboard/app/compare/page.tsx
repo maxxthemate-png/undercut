@@ -15,11 +15,12 @@ type Row = { label: string; undercut: string; street: string; rex: string; infor
 
 const ROWS: Row[] = [
   { label: 'Price to start', undercut: '14-day trial free (no card) — then Free (25) or $29/mo', street: 'Paid plans', rex: 'Higher-tier, multi-channel', informed: 'Enterprise / custom' },
-  { label: 'Per-item hard floor', undercut: 'Core feature — set in seconds', street: 'Supported', rex: 'Supported', informed: 'Supported' },
+  { label: 'Per-item hard floor', undercut: 'Core feature — set in seconds, or all at once in bulk', street: 'Supported (required)', rex: 'Supported', informed: 'Supported' },
   { label: 'Setup', undercut: '1-click eBay connect, live in minutes', street: 'Moderate', rex: 'Multi-channel config', informed: 'Onboarding / sales call' },
   { label: 'AI aggressiveness tuning', undercut: 'Yes (Pro & Scale) — won’t race to the bottom', street: 'Rule-based', rex: 'Rule-based', informed: 'Advanced' },
   { label: 'Repricing speed', undercut: 'Every 15 min (Pro & Scale)', street: 'Scheduled', rex: 'Scheduled', informed: 'Fast' },
-  { label: 'Built for', undercut: 'eBay sellers who want floor-safe undercutting, simply', street: 'eBay power sellers', rex: 'Multi-marketplace sellers', informed: 'Large / Amazon-led sellers' },
+  { label: 'Built for', undercut: 'eBay sellers who want floor-safe undercutting, simply', street: 'eBay power sellers', rex: 'Multi-marketplace sellers', informed: 'Amazon / Walmart sellers — no longer supports eBay' },
+  { label: 'Supports eBay', undercut: 'eBay-only — it is the whole product', street: 'Yes', rex: 'Yes (Amazon-led)', informed: 'No — Amazon + Walmart only as of 2026' },
 ]
 
 const FAQ: [string, string][] = [
@@ -146,7 +147,7 @@ export default function Compare() {
       <section className="bg-wash border-t border-line">
         <div className="max-w-2xl mx-auto px-6 py-14 text-center">
           <h2 className="text-2xl font-bold">Want in but not ready today?</h2>
-          <p className="text-muted mt-2 mb-6">Leave your email and we'll send early access + founding pricing.</p>
+          <p className="text-muted mt-2 mb-6">Not ready to switch? Get the repricer evaluation checklist by email.</p>
           <LeadForm source="compare" />
         </div>
       </section>

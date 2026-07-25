@@ -79,6 +79,18 @@ def normalize_access(user) -> bool:
 PLAN_REPRICE_INTERVAL_MIN = {"scale": 0, "pro": 12, "starter": 55, "free": 55, TRIAL_PLAN: 55}
 
 
+# Plans that include the Claude AI aggressiveness optimizer. This is SOLD as a
+# Pro-and-above feature (pricing page, PricingTable, llms.txt) but was never
+# enforced in the engine, so Free/Starter/trial silently got it too — the paid
+# tier's headline differentiator given away, and an advertising claim the code
+# contradicted. Trial grants Starter-level access, so it does NOT include AI.
+AI_PLANS = ("pro", "scale")
+
+
+def plan_has_ai(plan: str) -> bool:
+    return plan in AI_PLANS
+
+
 def freq_should_skip(plan: str, last_run_at, now) -> bool:
     """Pure decision: should a SCHEDULED reprice run skip this store on plan grounds?
 

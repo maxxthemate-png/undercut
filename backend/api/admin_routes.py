@@ -46,6 +46,38 @@ async def ebay_selftest(x_admin_key: str | None = Header(default=None)):
     return await EbayStoreClient(use_operator_token=True).trading_selftest()
 
 
+@router.get("/stores")
+def list_all_stores(x_admin_key: str | None = Header(default=None), db: Session = Depends(get_db)):
+    """Every connected store with its import state. A bare COUNT(*) could not
+    answer the question that actually matters — has a REAL seller ever connected,
+    and did their listings import? — so a month of dead stores looked like traffic."""
+    _require_admin(x_admin_key)
+    from ..utils.crypto import decrypt_token
+    rows = db.execute(select(Store, User.email).join(User, Store.user_id == User.id)).all()
+    out = []
+    for s, email in rows:
+        local, _, domain = (email or "").partition("@")
+        out.append({
+            "id": str(s.id),
+            "name": s.name,
+            "owner": f"{local[:2]}***@{domain}",
+            "is_test_account": domain in ("undercut.test", "example.com"),
+            "connected_at": s.connected_at.isoformat() if s.connected_at else None,
+            "has_token": bool(s.oauth_access_token),
+            "token_decrypts": bool(decrypt_token(s.oauth_access_token)) if s.oauth_access_token else False,
+            "token_expires_at": s.token_expires_at.isoformat() if s.token_expires_at else None,
+            "listings": db.scalar(select(func.count()).select_from(RepricerListing)
+                                  .where(RepricerListing.store_id == s.id)) or 0,
+            "last_import_at": s.last_import_at.isoformat() if s.last_import_at else None,
+            "last_import_count": s.last_import_count,
+            "last_import_error": s.last_import_error,
+            "last_reprice_run_at": s.last_reprice_run_at.isoformat() if s.last_reprice_run_at else None,
+        })
+    real = [s for s in out if not s["is_test_account"]]
+    return {"stores": out, "total": len(out), "real_sellers": len(real),
+            "real_sellers_with_listings": len([s for s in real if s["listings"] > 0])}
+
+
 @router.get("/metrics")
 def metrics(x_admin_key: str | None = Header(default=None), db: Session = Depends(get_db)):
     _require_admin(x_admin_key)

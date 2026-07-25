@@ -69,6 +69,9 @@ class Store(Base):
     default_undercut_type = Column(String(10), default="amount")  # amount | percent
 
     last_reprice_run_at = Column(DateTime)             # last scheduled run that processed this store
+    last_import_at = Column(DateTime)                  # last listing-import ATTEMPT (success or failure)
+    last_import_count = Column(Integer)                # listings imported on that attempt
+    last_import_error = Column(String(500))            # eBay's own words when it failed; NULL on success
     connected_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
