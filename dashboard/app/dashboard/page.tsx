@@ -142,6 +142,7 @@ export default function Dashboard() {
           <div className="flex items-center gap-3 text-sm">
             {me && <span className={`text-xs px-2 py-1 rounded-full ${limitNudge === 'over' ? 'bg-cut-tint text-cut' : limitNudge === 'near' ? 'bg-guard-tint text-guard' : 'bg-wash text-muted'}`} title={limitNudge === 'over' ? `${overflow} listings over your plan limit` : limitNudge === 'near' ? 'Approaching your listing limit' : ''}>{me.plan} · {listings.length}/{me.listing_limit}</span>}
             <button onClick={runReprice} disabled={busy === 'run'} className="px-3 py-1.5 rounded bg-cut-strong text-white font-medium hover:opacity-90 disabled:opacity-50">{busy === 'run' ? 'Repricing…' : '↺ Reprice now'}</button>
+            {me && <button onClick={() => document.getElementById('referral-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' })} className="px-3 py-1.5 rounded border border-line text-ink hover:bg-wash whitespace-nowrap">🎁 Refer &amp; earn</button>}
             {me?.stripe_customer_id && <button onClick={manageBilling} disabled={busy === 'portal'} className="px-3 py-1.5 rounded border border-line text-ink hover:bg-wash disabled:opacity-50">{busy === 'portal' ? '…' : 'Billing'}</button>}
             <button onClick={logout} className="text-muted hover:text-ink transition">Log out</button>
           </div>
@@ -305,8 +306,8 @@ function ReferralCard() {
     try { await navigator.clipboard.writeText(data.link); setCopied(true); setTimeout(() => setCopied(false), 2000) } catch {}
   }
   return (
-    <div className="bg-surface border border-line rounded-lg p-5">
-      <p className="text-sm font-semibold text-ink">Give a month, get a month</p>
+    <div id="referral-card" className="bg-surface border border-line rounded-lg p-5">
+      <p className="text-sm font-semibold text-ink">🎁 Give a month, get a month</p>
       <p className="text-sm text-muted mt-1">
         Know another eBay seller? When someone you refer upgrades to a paid plan, you <b>both</b> get a ${data.credit_per_conversion} credit (one Starter month, applied automatically to your next invoice).
       </p>

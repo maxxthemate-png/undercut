@@ -29,6 +29,7 @@ def welcome_email():
             "<p>One step to turn it on: connect your eBay store (1 click) so we can import your listings.</p>"
             f'<p><a href="{app}/dashboard">Connect your store →</a></p>'
             "<p>Your 14-day Starter trial is live (100 listings, no card). Reply if you’d like help setting floors.</p>"
+            f'<p>P.S. — know another eBay seller? <a href="{app}/dashboard#referral-card">Refer them</a> and you both get a free month when they upgrade.</p>'
         ),
     )
 
