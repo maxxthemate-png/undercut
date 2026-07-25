@@ -45,13 +45,13 @@ def lead_guide_email():
             "<p><b>The floor formula.</b> For any listing, the lowest price you can accept is:</p>"
             '<pre style="background:#f6f7f9;padding:12px 14px;border-radius:6px;font-size:13px;'
             'white-space:pre-wrap;line-height:1.5">item cost\n'
-            "+ eBay final value fee (~13.25% of total incl. shipping, most categories)\n"
+            "+ eBay final value fee (~13.6% of total incl. shipping, most categories)\n"
             "+ payment/fixed fee ($0.30 per order)\n"
             "+ your shipping cost (if free shipping)\n"
             "+ the smallest profit you'll accept\n"
             "= YOUR FLOOR</pre>"
             "<p><b>Worked example.</b> A $22 item, $6 to ship free, $5 minimum profit: "
-            "22 + 6 + 5 = $33 of hard cost and target. Divide by (1 − 0.1325) to cover the fee "
+            "22 + 6 + 5 = $33 of hard cost and target. Divide by (1 − 0.136) to cover the fee "
             "on the whole sale, then add $0.30 → floor ≈ <b>$38.35</b>. Below that you are paying "
             "to make the sale.</p>"
             "<p><b>Three mistakes that cost sellers real money:</b></p>"
@@ -177,7 +177,7 @@ def activation_no_floors_email(count: int):
             "automatic repricing — a floor.</p>"
             "<p><b>Nothing reprices without a floor.</b> That's deliberate: the floor is the hard "
             "stop that keeps automation from ever selling below your minimum. No floor, no action.</p>"
-            "<p>The number to use: item cost + eBay fees (~13.25% + $0.30) + shipping + the smallest "
+            "<p>The number to use: item cost + eBay fees (~13.6% + $0.30) + shipping + the smallest "
             "profit you'll take. Start with your best sellers — you don't have to do all of them.</p>"
             f'<p><a href="{app}/dashboard">Set your floors →</a> · '
             f'<a href="{app}/ebay-fee-calculator">calculate them first →</a></p>'
