@@ -122,7 +122,7 @@ export const glossary: PageContent[] = [
       },
       {
         "h2": "Worked Example: Calculating a Floor for a $8 Item",
-        "body": "Suppose you source a used kitchen gadget for $8.00. You ship it via USPS Ground Advantage for $4.00. Your eBay fee rate in the Home & Garden category is 13.6%. You want a minimum 15% net margin.\n\nStep 1 — Add hard costs: $8.00 + $4.00 = $12.00\nStep 2 — Gross up for eBay fees: $12.00 / (1 − 0.136) = $13.83\nStep 3 — Gross up for margin: $13.83 / (1 − 0.15) = $16.27\n\nYour floor is $16.27. Round up to $16.29 or $16.99 for psychological pricing — but never below $16.27. If a competitor lists at $14.99, Undercut holds your listing at $16.27 and you simply do not chase that sale. That is the point: some sales are not worth taking.",
+        "body": "Suppose you source a used kitchen gadget for $8.00. You ship it via USPS Ground Advantage for $4.00. Your eBay fee rate in the Home & Garden category is 13.6%. You want a minimum 15% net margin.\n\nStep 1 — Add hard costs: $8.00 + $4.00 = $12.00\nStep 2 — Gross up for eBay fees: $12.00 / (1 − 0.136) = $13.89\nStep 3 — Gross up for margin: $13.89 / (1 − 0.15) = $16.34\n\nYour floor is $16.34. Round up to $16.35 or $16.99 for psychological pricing — but never below $16.34. If a competitor lists at $14.99, Undercut holds your listing at $16.34 and you simply do not chase that sale. That is the point: some sales are not worth taking.",
         "bullets": []
       },
       {

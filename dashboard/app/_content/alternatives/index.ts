@@ -978,7 +978,7 @@ export const alternatives: PageContent[] = [
         "bullets": [
           "15 unsold listings × $52.50 repriced price = $787.50 gross recovered per week",
           "Net per sale after ~13.6% eBay FVF: $52.50 × 0.864 = $45.36",
-          "15 sales × $45.54 = $683.10 net weekly proceeds recovered",
+          "15 sales × $45.36 = $680.40 net weekly proceeds recovered",
           "Starter plan cost: $29/month ≈ $6.70/week",
           "Hard floor of $48.00 ensures every recovered sale is above your minimum"
         ]
