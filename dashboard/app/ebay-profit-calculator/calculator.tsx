@@ -7,7 +7,7 @@ const money = (v: number) => (isFinite(v) ? `$${v.toFixed(2)}` : '—')
 export default function Calculator() {
   const [cost, setCost] = useState('12')
   const [ship, setShip] = useState('4')
-  const [fee, setFee] = useState('13.25')
+  const [fee, setFee] = useState('13.6')
   const [comp, setComp] = useState('24.99')
 
   const c = num(cost), s = num(ship), f = num(fee) / 100, k = num(comp)

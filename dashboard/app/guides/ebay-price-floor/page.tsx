@@ -55,15 +55,15 @@ export default function PriceFloorGuide() {
         <H2>A worked example</H2>
         <p className="text-muted">
           Say an item costs you <strong><span className="tabular">$8</span></strong>, ships for <strong><span className="tabular">$4</span></strong>, eBay&apos;s final-value fee is about{' '}
-          <strong>13.25% + <span className="tabular">$0.30</span></strong> (it varies by category — check yours), and you want a <strong>15%</strong> minimum margin:
+          <strong>13.6% + <span className="tabular">$0.30</span></strong> (it varies by category — check yours), and you want a <strong>15%</strong> minimum margin:
         </p>
         <ul className="list-disc pl-6 mt-3 space-y-1 text-muted">
           <li>Fixed costs = <span className="tabular">$8</span> + <span className="tabular">$4</span> + <span className="tabular">$0.30</span> = <strong><span className="tabular">$12.30</span></strong></li>
-          <li>Divide by (1 − 0.1325 − 0.15) = 0.7175</li>
-          <li>Floor ≈ <strong><span className="tabular">$17.14</span></strong> — never list or reprice below this</li>
+          <li>Divide by (1 − 0.136 − 0.15) = 0.714</li>
+          <li>Floor ≈ <strong><span className="tabular">$17.23</span></strong> — never list or reprice below this</li>
         </ul>
         <p className="text-muted mt-3">
-          Now you can undercut competitors all day in the band <em>above</em> <span className="tabular">$17.14</span> and know every sale clears your margin.
+          Now you can undercut competitors all day in the band <em>above</em> <span className="tabular">$17.23</span> and know every sale clears your margin.
         </p>
 
         <H2>Floor vs. ceiling</H2>

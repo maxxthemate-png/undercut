@@ -9,7 +9,7 @@ const money = (v: number) => (isFinite(v) ? `$${v.toFixed(2)}` : '—')
 const CATEGORIES: [string, number][] = [
   ['Most categories', 13.6],
   ['Books, Movies & Music', 15.3],
-  ['Consumer Electronics', 13.25],
+  ['Consumer Electronics', 13.6],
   ['Clothing, Shoes & Accessories', 13.6],
   ['Trading Cards', 13.6],
   ['Jewelry', 15.0],

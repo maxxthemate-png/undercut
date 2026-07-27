@@ -377,9 +377,9 @@ export const repricers: PageContent[] = [
       },
       {
         "h2": "Raw vs. Graded Pricing and Why Your Floor Is Everything",
-        "body": "A raw near-mint Mew ex might comp at $18. The same card in a PSA 10 slab might comp at $65. If your repricer doesn't know the difference — or worse, doesn't respect the floor you paid for that slab — you're one competitor price-drop away from selling a $40 graded card for $17. With Undercut, you enter a hard floor for every listing: your cost, plus eBay's 13.25% TCG fee (eBay's special category rate for trading cards), plus a minimum margin. The repricer will race to the bottom on your behalf, but it physically cannot cross that line. Floor-first design is the whole point.",
+        "body": "A raw near-mint Mew ex might comp at $18. The same card in a PSA 10 slab might comp at $65. If your repricer doesn't know the difference — or worse, doesn't respect the floor you paid for that slab — you're one competitor price-drop away from selling a $40 graded card for $17. With Undercut, you enter a hard floor for every listing: your cost, plus eBay's 13.6% TCG fee (the standard eBay final value fee rate, also applied to trading cards), plus a minimum margin. The repricer will race to the bottom on your behalf, but it physically cannot cross that line. Floor-first design is the whole point.",
         "bullets": [
-          "Set floor = cost + eBay fee (13.25% for trading cards) + your minimum margin",
+          "Set floor = cost + eBay fee (13.6% for trading cards) + your minimum margin",
           "Raw and graded copies get separate listings with separate floors",
           "Hourly repricing catches the fast moves; Pro plan drops to 15-minute cycles",
           "If every competitor is below your floor, you simply hold price rather than sell at a loss"
@@ -396,10 +396,10 @@ export const repricers: PageContent[] = [
         ]
       },
       {
-        "h2": "eBay's 13.25% TCG Fee and Building It Into Your Floor",
-        "body": "eBay's trading cards category carries a 13.25% final value fee (applied to item price, shipping, and tax) for most card sales, compared to the 13.6% rate in many other categories. That half-point difference sounds minor, but on a $200 graded card it's a dollar, and across a month of volume it adds up. More importantly, your floor calculation has to use the right fee or you'll systematically under-floor your listings. The free eBay fee calculator at /ebay-fee-calculator lets you plug in your card's sale price and see the exact fee before you set your floor. Set floor wrong once and you can lose money on every sale while thinking you're profitable. It's worth spending five minutes getting this right per card tier.",
+        "h2": "eBay's 13.6% TCG Fee and Building It Into Your Floor",
+        "body": "eBay's trading cards category carries a 13.6% final value fee (applied to item price, shipping, and tax) for most card sales — the same standard rate charged in most other categories (trading cards used to get a discounted 13.25% rate, but that gap closed when eBay raised standard fees in February 2025). Periodic promotions still occasionally discount fees on high-value cards, so it's worth checking for an active promo before you assume the standard rate applies. More importantly, your floor calculation has to use the right fee or you'll systematically under-floor your listings. The free eBay fee calculator at /ebay-fee-calculator lets you plug in your card's sale price and see the exact fee before you set your floor. Set floor wrong once and you can lose money on every sale while thinking you're profitable. It's worth spending five minutes getting this right per card tier.",
         "bullets": [
-          "TCG final value fee: 13.25% on item + shipping + tax",
+          "TCG final value fee: 13.6% on item + shipping + tax",
           "Plus $0.30 per-order fee for most transactions (standard) or $0.40 in some cases",
           "Use /ebay-fee-calculator to confirm before setting floors on high-value slabs",
           "Annual plan saves 2 months vs. monthly — meaningful if you're running Pro or Scale year-round"
@@ -407,7 +407,7 @@ export const repricers: PageContent[] = [
       },
       {
         "h2": "Using the eBay Price Checker for Comp Lookups",
-        "body": "Before you can set a floor, you need to know what the card is actually selling for — not what it's listed at, but what it last sold for. The free price checker at /ebay-price-checker pulls recent sold comps so you can see the actual market, not just aspirational listings. For trading cards specifically, it helps you separate the raw comps from the graded comps that pollute search results. Once you have a realistic sold price, you can subtract the 13.25% fee, your shipping cost, and your minimum margin to land on a defensible floor. Doing that math manually is slow; Undercut's profit calculator at /ebay-profit-calculator automates the subtraction so you get a floor number in seconds."
+        "body": "Before you can set a floor, you need to know what the card is actually selling for — not what it's listed at, but what it last sold for. The free price checker at /ebay-price-checker pulls recent sold comps so you can see the actual market, not just aspirational listings. For trading cards specifically, it helps you separate the raw comps from the graded comps that pollute search results. Once you have a realistic sold price, you can subtract the 13.6% fee, your shipping cost, and your minimum margin to land on a defensible floor. Doing that math manually is slow; Undercut's profit calculator at /ebay-profit-calculator automates the subtraction so you get a floor number in seconds."
       }
     ],
     "faq": [
@@ -425,7 +425,7 @@ export const repricers: PageContent[] = [
       },
       {
         "q": "Does Undercut work for sports cards and MTG, or only Pokemon?",
-        "a": "Any trading card listed on eBay in the trading cards category works. Pokemon, MTG, One Piece TCG, sports cards (NBA, NFL, MLB), wrestling cards — the repricer doesn't care about the game, it cares about the eBay listing. The 13.25% TCG fee applies across the trading cards category, so your floor calculation method is the same regardless of which game you're selling."
+        "a": "Any trading card listed on eBay in the trading cards category works. Pokemon, MTG, One Piece TCG, sports cards (NBA, NFL, MLB), wrestling cards — the repricer doesn't care about the game, it cares about the eBay listing. The 13.6% TCG fee applies across the trading cards category, so your floor calculation method is the same regardless of which game you're selling."
       },
       {
         "q": "How does Undercut compare to manually repricing with eBay's bulk edit tool?",

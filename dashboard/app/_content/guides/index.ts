@@ -20,7 +20,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "How to Calculate a Hard Floor for an Electronics Listing",
-        "body": "Your floor is the lowest price at which selling the item is still worth it. For electronics, that calculation needs to account for cost of goods, shipping (often heavier than other categories), eBay fees, and your minimum acceptable margin. Here is a worked example for a refurbished tablet:\n\nCost of goods: $62.00\nShipping (box + padding + label): $9.50\neBay final value fee: 13.25% of sale price\nMinimum margin target: 15%\n\nFloor = (Cost + Shipping) / (1 - FVF% - Margin%) = (62 + 9.50) / (1 - 0.1325 - 0.15) = 71.50 / 0.7175 = $99.65\n\nRound up to $99.99 and that is your floor. Undercut will reprice that listing down to $99.99 to beat any competitor, but it will never go to $98, $95, or $89 chasing a race to the bottom. You win the sale or you do not — but you never sell at a loss.",
+        "body": "Your floor is the lowest price at which selling the item is still worth it. For electronics, that calculation needs to account for cost of goods, shipping (often heavier than other categories), eBay fees, and your minimum acceptable margin. Here is a worked example for a refurbished tablet:\n\nCost of goods: $62.00\nShipping (box + padding + label): $9.50\neBay final value fee: 13.6% of sale price\nMinimum margin target: 15%\n\nFloor = (Cost + Shipping) / (1 - FVF% - Margin%) = (62 + 9.50) / (1 - 0.136 - 0.15) = 71.50 / 0.714 = $99.65\n\nRound up to $99.99 and that is your floor. Undercut will reprice that listing down to $99.99 to beat any competitor, but it will never go to $98, $95, or $89 chasing a race to the bottom. You win the sale or you do not — but you never sell at a loss.",
         "bullets": [
           "Always include actual outbound shipping cost, not a rough guess — electronics packaging adds up",
           "Use eBay's current final value fee for your category, not a blended average",
@@ -121,12 +121,12 @@ export const guides: PageContent[] = [
           "Size fragmentation: one item becomes 4-10 listings, each with a distinct price floor and competitor set",
           "Seasonal compression: demand peaks are short; late-season listings need aggressive cuts timed to sell before the window closes",
           "Condition variation: new-with-tags, new-without-tags, and pre-owned all price differently even within the same SKU",
-          "Fee creep: eBay's 13.25% final value fee (on most clothing) erodes margin fast when floors are not set correctly"
+          "Fee creep: eBay's 13.6% final value fee (on most clothing) erodes margin fast when floors are not set correctly"
         ]
       },
       {
         "h2": "Setting a Hard Floor for Every Clothing Listing",
-        "body": "The most important habit any clothing reseller can build before automating is calculating and recording a floor for every item. Without a floor, an automated repricer will follow competitors all the way to a loss. The floor formula is straightforward: cost of goods + shipping cost + eBay fees + your minimum acceptable margin.\n\nWorked example — a vintage denim jacket:\n- Cost (sourced): $18.00\n- Shipping (poly mailer + label): $6.00\n- eBay final value fee at 13.25%: applied to sale price\n- Minimum margin target: 20%\n\nTo find the floor price, solve for P where P × (1 − 0.1325) − $6.00 − $18.00 ≥ 0.20 × cost:\nP × 0.8675 ≥ $18.00 + $6.00 + ($18.00 × 0.20)\nP × 0.8675 ≥ $27.60\nP ≥ $31.81\n\nSet the floor at $31.81. Undercut will reprice aggressively below every competitor but will stop at that number — automatically, for every SKU you configure.",
+        "body": "The most important habit any clothing reseller can build before automating is calculating and recording a floor for every item. Without a floor, an automated repricer will follow competitors all the way to a loss. The floor formula is straightforward: cost of goods + shipping cost + eBay fees + your minimum acceptable margin.\n\nWorked example — a vintage denim jacket:\n- Cost (sourced): $18.00\n- Shipping (poly mailer + label): $6.00\n- eBay final value fee at 13.6%: applied to sale price\n- Minimum margin target: 20%\n\nTo find the floor price, solve for P where P × (1 − 0.136) − $6.00 − $18.00 ≥ 0.20 × cost:\nP × 0.864 ≥ $18.00 + $6.00 + ($18.00 × 0.20)\nP × 0.864 ≥ $27.60\nP ≥ $31.81\n\nSet the floor at $31.81. Undercut will reprice aggressively below every competitor but will stop at that number — automatically, for every SKU you configure.",
         "bullets": [
           "Use your actual landed cost, not the purchase price alone — account for sourcing mileage, storage, and supplies",
           "Update floors after each resupply run if costs change",
@@ -222,13 +222,13 @@ export const guides: PageContent[] = [
         "body": "Most repricing guides are written with electronics or collectibles in mind — categories where a $5 swing is trivial. Books are different. The average used book on eBay sells for $6–$14, which means every dollar of unaccounted cost is a significant percentage of revenue. Three costs destroy book margins that sellers routinely underestimate:",
         "bullets": [
           "Media Mail is cheap but not free — USPS Media Mail starts at $3.65 for a single book under 1 lb, and a heavier hardcover can reach $5.50 or more.",
-          "eBay's final value fee on books runs 13.25% of the total amount (item + shipping), not just the item price — so your shipping charge is also being fee'd.",
+          "eBay's final value fee on books runs 13.6% of the total amount (item + shipping), not just the item price — so your shipping charge is also being fee'd.",
           "Packaging supplies — a poly mailer or bubble mailer adds $0.15–$0.50 per order, which sounds trivial until you're shipping 200 books a month."
         ]
       },
       {
         "h2": "The Book Floor Formula: A Worked Example",
-        "body": "Before you set up any repricer, calculate the minimum price you can accept for each book. Here is the formula and a concrete example using a common used paperback:\n\nFloor = (Cost + Shipping + Supplies) / (1 - eBay fee rate - desired margin rate)\n\nExample: You sourced a paperback for $2.00. Media Mail shipping is $3.65. Poly mailer costs $0.20. You want a 15% net margin. eBay final value fee is 13.25%.\n\nTotal hard costs = $2.00 + $3.65 + $0.20 = $5.85\nFloor = $5.85 / (1 - 0.1325 - 0.15) = $5.85 / 0.7175 = $8.15\n\nSo your floor is $8.15. If a competitor lists the same ISBN at $6.99, your repricer must not follow — it should hold at $8.15 and let that sale go. Chasing $6.99 means you net approximately -$0.58 after fees and shipping. A floor stops this automatically.",
+        "body": "Before you set up any repricer, calculate the minimum price you can accept for each book. Here is the formula and a concrete example using a common used paperback:\n\nFloor = (Cost + Shipping + Supplies) / (1 - eBay fee rate - desired margin rate)\n\nExample: You sourced a paperback for $2.00. Media Mail shipping is $3.65. Poly mailer costs $0.20. You want a 15% net margin. eBay final value fee is 13.6%.\n\nTotal hard costs = $2.00 + $3.65 + $0.20 = $5.85\nFloor = $5.85 / (1 - 0.136 - 0.15) = $5.85 / 0.714 = $8.15\n\nSo your floor is $8.15. If a competitor lists the same ISBN at $6.99, your repricer must not follow — it should hold at $8.15 and let that sale go. Chasing $6.99 means you net approximately -$0.58 after fees and shipping. A floor stops this automatically.",
         "bullets": []
       },
       {
@@ -260,7 +260,7 @@ export const guides: PageContent[] = [
     "faq": [
       {
         "q": "Does Media Mail shipping count toward eBay's final value fee on book sales?",
-        "a": "Yes. eBay calculates its final value fee on the total amount the buyer pays, which includes the shipping charge you collect. At 13.25%, this means a $3.65 Media Mail charge adds roughly $0.48 in fees on top of the item fee. Your floor must account for this or you will underestimate your true cost per sale."
+        "a": "Yes. eBay calculates its final value fee on the total amount the buyer pays, which includes the shipping charge you collect. At 13.6%, this means a $3.65 Media Mail charge adds roughly $0.50 in fees on top of the item fee. Your floor must account for this or you will underestimate your true cost per sale."
       },
       {
         "q": "What if a competitor lists the same ISBN at a price below my floor — will Undercut match them?",
@@ -330,7 +330,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Setting a Hard Floor: A Worked Example for Sports Cards",
-        "body": "Before you configure any repricer, calculate the minimum price below which a sale is a loss. For collectibles, factor in item cost, shipping (often higher due to rigid mailers, toploaders, or boxes), eBay fees, and your minimum acceptable margin. Here is a concrete floor calculation for a raw rookie card:\n\n- Item cost (what you paid): $8.00\n- Shipping supplies + postage: $4.00\n- eBay final value fee (13.25% of sale price, approximate for this category): applied to sale price\n- Minimum margin target: 15%\n\nSolving for the floor price where (price × 0.8675) − $12 ≥ 15% × price:\n\nFloor ≈ $12 ÷ (0.8675 − 0.15) = $12 ÷ 0.7175 ≈ $16.72, rounded up to $17.00 for safety.\n\nThat $17.00 is your hard floor. Undercut will never reprice below it, regardless of what a competitor lists. You set it once per listing; the repricer handles the rest.",
+        "body": "Before you configure any repricer, calculate the minimum price below which a sale is a loss. For collectibles, factor in item cost, shipping (often higher due to rigid mailers, toploaders, or boxes), eBay fees, and your minimum acceptable margin. Here is a concrete floor calculation for a raw rookie card:\n\n- Item cost (what you paid): $8.00\n- Shipping supplies + postage: $4.00\n- eBay final value fee (13.6% of sale price, approximate for this category): applied to sale price\n- Minimum margin target: 15%\n\nSolving for the floor price where (price × 0.864) − $12 ≥ 15% × price:\n\nFloor ≈ $12 ÷ (0.864 − 0.15) = $12 ÷ 0.714 ≈ $16.72, rounded up to $17.00 for safety.\n\nThat $17.00 is your hard floor. Undercut will never reprice below it, regardless of what a competitor lists. You set it once per listing; the repricer handles the rest.",
         "bullets": [
           "Always include shipping materials in your cost basis — poly mailers are cheap, rigid card savers are not.",
           "If you offer free shipping, the full postage cost must be embedded in your floor calculation.",
@@ -437,7 +437,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Building a Per-Item Cost Floor: A Worked Example",
-        "body": "A cost floor is the minimum price at which you break even after all costs, plus your required margin. Here is how to calculate one for a piece of Depression-era green glassware you sourced at an estate sale.\n\nAssume:\n- Item cost: $8.00\n- Shipping materials + postage: $4.00\n- eBay final value fee (approximate blended rate): 13.25% of sale price\n- Minimum acceptable margin: 15% of sale price\n\nLet S equal the floor sale price. Your proceeds after fees and shipping must cover cost plus margin:\n\nS − (0.1325 × S) − $4.00 − $8.00 = 0.15 × S\n\nS × (1 − 0.1325 − 0.15) = $12.00\n\nS × 0.7175 = $12.00\n\nS ≈ $16.72\n\nRound up for safety: set your hard floor at $17.00. Undercut will never drop your listing below that price, regardless of where a competitor prices their version of a vaguely similar piece. Enter this number directly on the per-listing floor field in Undercut — it takes 15 seconds and protects every future reprice on that item automatically."
+        "body": "A cost floor is the minimum price at which you break even after all costs, plus your required margin. Here is how to calculate one for a piece of Depression-era green glassware you sourced at an estate sale.\n\nAssume:\n- Item cost: $8.00\n- Shipping materials + postage: $4.00\n- eBay final value fee (approximate blended rate): 13.6% of sale price\n- Minimum acceptable margin: 15% of sale price\n\nLet S equal the floor sale price. Your proceeds after fees and shipping must cover cost plus margin:\n\nS − (0.136 × S) − $4.00 − $8.00 = 0.15 × S\n\nS × (1 − 0.136 − 0.15) = $12.00\n\nS × 0.714 = $12.00\n\nS ≈ $16.72\n\nRound up for safety: set your hard floor at $17.00. Undercut will never drop your listing below that price, regardless of where a competitor prices their version of a vaguely similar piece. Enter this number directly on the per-listing floor field in Undercut — it takes 15 seconds and protects every future reprice on that item automatically."
       },
       {
         "h2": "Categorizing Your Inventory to Set Floors at Scale",
@@ -469,7 +469,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "What eBay fee rate should I use when calculating a floor for a vintage item?",
-        "a": "Use approximately 13.25% as a blended final value fee rate for most categories, but check eBay's current fee schedule for your specific category. Certain categories like coins or fine jewelry carry different rates. Always add your payment processing fee (now included in eBay's final value fee for most sellers) and any promoted listings spend you allocate to that item."
+        "a": "Use approximately 13.6% as a blended final value fee rate for most categories, but check eBay's current fee schedule for your specific category. Certain categories like coins or fine jewelry carry different rates. Always add your payment processing fee (now included in eBay's final value fee for most sellers) and any promoted listings spend you allocate to that item."
       },
       {
         "q": "Should I set the same floor for a piece in excellent condition versus one with minor damage?",
@@ -535,7 +535,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "The Floor Formula Every High-Volume Seller Should Run First",
-        "body": "Before you configure a single repricing rule, calculate the hard floor for each item. The formula is: Floor = (Item Cost + Shipping Cost) / (1 − eBay Fee Rate − Minimum Margin Rate). For a practical example: cost $8.00, shipping $4.00, eBay fees 13.25% (a typical combined rate for most categories including FVF and PayPal/managed payments), minimum acceptable margin 15%. Floor = ($8 + $4) / (1 − 0.1325 − 0.15) = $12 / 0.7175 = $16.73. Round up to $16.74 to avoid rounding-down losses at scale. In Undercut, you set this as the hard floor on that listing. The repricer will never go below it — not even if a competitor lists at $10.00. At 1,000 listings, running this formula once per SKU (easily done in a spreadsheet export) takes less time than recovering from a week of below-cost sales.",
+        "body": "Before you configure a single repricing rule, calculate the hard floor for each item. The formula is: Floor = (Item Cost + Shipping Cost) / (1 − eBay Fee Rate − Minimum Margin Rate). For a practical example: cost $8.00, shipping $4.00, eBay fees 13.6% (a typical combined rate for most categories including FVF and PayPal/managed payments), minimum acceptable margin 15%. Floor = ($8 + $4) / (1 − 0.136 − 0.15) = $12 / 0.714 = $16.73. Round up to $16.74 to avoid rounding-down losses at scale. In Undercut, you set this as the hard floor on that listing. The repricer will never go below it — not even if a competitor lists at $10.00. At 1,000 listings, running this formula once per SKU (easily done in a spreadsheet export) takes less time than recovering from a week of below-cost sales.",
         "bullets": [
           "Always include actual outbound shipping cost, not an estimate",
           "Use your blended eBay fee rate — it varies by category",
@@ -647,7 +647,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Building a Seasonal Floor: A Worked Example",
-        "body": "Take a Halloween costume accessory: landed cost $8, average shipping $4, eBay fees approximately 13.25% of sale price, target minimum margin 15%. Working backward: floor = (cost + shipping) / (1 - fees% - margin%) = ($8 + $4) / (1 - 0.1325 - 0.15) = $12 / 0.7175 ≈ $16.72, rounded to $17.00 as your year-round hard floor. Now apply seasonal logic. In September and October, buyer demand is at its highest and competing listings thin out as stock sells through. You can responsibly raise that floor to $21–$23 — not as a guess, but because completed eBay sales data from the prior year shows average selling prices 25–35% above February lows for the same item. In November, oversupply hits post-Halloween clearance. Rather than dropping to $10 to 'move units,' hold $17. The unit either sells at margin or sits until next September. Dumping inventory at $10 books a confirmed loss; holding books an unrealized wait.",
+        "body": "Take a Halloween costume accessory: landed cost $8, average shipping $4, eBay fees approximately 13.6% of sale price, target minimum margin 15%. Working backward: floor = (cost + shipping) / (1 - fees% - margin%) = ($8 + $4) / (1 - 0.136 - 0.15) = $12 / 0.714 ≈ $16.72, rounded to $17.00 as your year-round hard floor. Now apply seasonal logic. In September and October, buyer demand is at its highest and competing listings thin out as stock sells through. You can responsibly raise that floor to $21–$23 — not as a guess, but because completed eBay sales data from the prior year shows average selling prices 25–35% above February lows for the same item. In November, oversupply hits post-Halloween clearance. Rather than dropping to $10 to 'move units,' hold $17. The unit either sells at margin or sits until next September. Dumping inventory at $10 books a confirmed loss; holding books an unrealized wait.",
         "bullets": []
       },
       {
@@ -759,7 +759,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "How to Calculate a Hard Floor for Any Listing",
-        "body": "Your floor is the lowest price at which selling the item still makes financial sense. The standard formula accounts for four inputs: landed cost, shipping cost, eBay fee percentage, and your minimum acceptable margin. Here is a worked example for a mid-range kitchen gadget sold in the Home & Garden category:\n\nCost of goods: $8.00\nOutbound shipping: $4.00\neBay final value fee (13.25% of sale price including shipping): variable\nMinimum margin: 15%\n\nTo solve for floor price F where profit margin is at least 15%:\nF = (cost + shipping) / (1 − fee% − margin%)\nF = ($8.00 + $4.00) / (1 − 0.1325 − 0.15)\nF = $12.00 / 0.7175\nF ≈ $16.73\n\nRound up to $17.00 or $17.14 to add a small buffer. That number goes into Undercut as the hard floor for that listing. The repricer will beat any competitor above $17.14 — and refuse to move below it under any circumstance.",
+        "body": "Your floor is the lowest price at which selling the item still makes financial sense. The standard formula accounts for four inputs: landed cost, shipping cost, eBay fee percentage, and your minimum acceptable margin. Here is a worked example for a mid-range kitchen gadget sold in the Home & Garden category:\n\nCost of goods: $8.00\nOutbound shipping: $4.00\neBay final value fee (13.6% of sale price including shipping): variable\nMinimum margin: 15%\n\nTo solve for floor price F where profit margin is at least 15%:\nF = (cost + shipping) / (1 − fee% − margin%)\nF = ($8.00 + $4.00) / (1 − 0.136 − 0.15)\nF = $12.00 / 0.714\nF ≈ $16.81\n\nRound up to $17.00 or $17.14 to add a small buffer. That number goes into Undercut as the hard floor for that listing. The repricer will beat any competitor above $17.14 — and refuse to move below it under any circumstance.",
         "bullets": [
           "Always include eBay's final value fee in the floor calculation — it applies to the full amount including shipping.",
           "Factor in PayPal or managed payments processing if applicable.",
@@ -796,7 +796,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "How do I know if my floor is set correctly?",
-        "a": "Run the floor formula: (cost + shipping) / (1 − eBay fee% − minimum margin%). For most categories, eBay's final value fee is 13.25% on the total including shipping. Add your minimum acceptable margin — 15% is a common baseline. If you are consistently losing the buy box to a competitor who is pricing below your floor, that competitor is likely selling at a loss or has lower costs than you; following them down is not a viable strategy."
+        "a": "Run the floor formula: (cost + shipping) / (1 − eBay fee% − minimum margin%). For most categories, eBay's final value fee is 13.6% on the total including shipping. Add your minimum acceptable margin — 15% is a common baseline. If you are consistently losing the buy box to a competitor who is pricing below your floor, that competitor is likely selling at a loss or has lower costs than you; following them down is not a viable strategy."
       },
       {
         "q": "Is automated repricing against eBay's rules?",
@@ -862,22 +862,22 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "The Floor Formula: Cost + Fees + Minimum Margin",
-        "body": "The correct floor is not your cost. It is the minimum price at which the transaction leaves you with acceptable profit after every deduction. Use this formula: Floor = (Landed Cost + Fulfillment Cost) / (1 - eBay Fee Rate - Target Margin Rate). Breaking that down: Landed Cost is what you paid per unit including inbound shipping and any prep. Fulfillment Cost is the outbound postage or FBA-equivalent fee. eBay Fee Rate is your final value fee percentage for that category — typically 13.25% for most categories, lower for some like heavy equipment. Target Margin Rate is the minimum net margin you will accept, expressed as a decimal.\n\nWorked example — a phone case: You source it for $8.00. Outbound shipping via USPS First Class costs $4.00. eBay final value fee for cell phone accessories is 13.25%. You want at least a 15% net margin.\n\nFloor = ($8.00 + $4.00) / (1 - 0.1325 - 0.15) = $12.00 / 0.7175 = $16.72\n\nYou would set your hard floor at $16.72. At that price, after eBay takes $2.22 and shipping costs $4.00, you net $2.50 — exactly 15% of $16.72. Any automated repricer that hits this floor stops. It does not go lower, no matter what a competitor lists at.",
+        "body": "The correct floor is not your cost. It is the minimum price at which the transaction leaves you with acceptable profit after every deduction. Use this formula: Floor = (Landed Cost + Fulfillment Cost) / (1 - eBay Fee Rate - Target Margin Rate). Breaking that down: Landed Cost is what you paid per unit including inbound shipping and any prep. Fulfillment Cost is the outbound postage or FBA-equivalent fee. eBay Fee Rate is your final value fee percentage for that category — typically 13.6% for most categories, lower for some like heavy equipment. Target Margin Rate is the minimum net margin you will accept, expressed as a decimal.\n\nWorked example — a phone case: You source it for $8.00. Outbound shipping via USPS First Class costs $4.00. eBay final value fee for cell phone accessories is 13.6%. You want at least a 15% net margin.\n\nFloor = ($8.00 + $4.00) / (1 - 0.136 - 0.15) = $12.00 / 0.714 = $16.72\n\nYou would set your hard floor at $16.72. At that price, after eBay takes $2.22 and shipping costs $4.00, you net $2.50 — exactly 15% of $16.72. Any automated repricer that hits this floor stops. It does not go lower, no matter what a competitor lists at.",
         "bullets": [
           "Landed cost: $8.00",
           "Outbound fulfillment: $4.00",
-          "eBay final value fee (13.25%): $2.22",
+          "eBay final value fee (13.6%): $2.22",
           "Net at floor price of $16.72: $2.50 (15% margin)",
           "Hard floor entered in repricer: $16.72"
         ]
       },
       {
         "h2": "Category-Specific Fee Rates That Change Your Floor",
-        "body": "eBay's fee structure is not flat. Using the wrong rate when calculating your floor means the number you enter is wrong before any sale happens. Check your specific category in eBay's fee schedule and use that rate, not a generic 13.25%. A few reference points as of mid-2025: Books, DVDs, and Music run 14.95% up to $7,500. Clothing, Shoes, and Accessories run 15% on most items under $2,000. Collectibles sit at 13.25%. Heavy machinery and industrial equipment can be as low as 2-3%. If you sell across multiple categories, you need a separate floor calculation for each one — a single blended rate will leave some SKUs underprotected.",
+        "body": "eBay's fee structure is not flat. Using the wrong rate when calculating your floor means the number you enter is wrong before any sale happens. Check your specific category in eBay's fee schedule and use that rate, not a generic 13.6%. A few reference points as of mid-2025: Books, DVDs, and Music run 14.95% up to $7,500. Clothing, Shoes, and Accessories run 15% on most items under $2,000. Collectibles sit at 13.6%. Heavy machinery and industrial equipment can be as low as 2-3%. If you sell across multiple categories, you need a separate floor calculation for each one — a single blended rate will leave some SKUs underprotected.",
         "bullets": [
           "Books, DVDs, Music: 14.95% (use ~15% in your formula)",
           "Clothing and Accessories: 15%",
-          "Most general merchandise: 13.25%",
+          "Most general merchandise: 13.6%",
           "Heavy equipment and industrial: 2-9% depending on subcategory",
           "Always verify against eBay's current fee page before setting floors"
         ]
@@ -979,7 +979,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "The Floor Calculation: Why Automation Is Now Risk-Free",
-        "body": "The only credible objection to automated repricing is the race-to-zero risk — the fear that the software will keep cutting price until you sell at a loss. A hard floor per listing makes this structurally impossible. Here is a worked example for a used textbook sold via standard shipping:\n\nItem cost: $8.00\nShipping cost: $4.00\neBay final value fee (13.25% of $20 sale): $2.65\nPayPal/managed payments processing (~2.9% + $0.30): $0.88\nMinimum target margin: 15% of sale price\n\nFloor = (cost + shipping + fees) / (1 - margin %) = ($8 + $4 + ~$3.53) / (1 - 0.15) ≈ $18.27\n\nSet your floor at $18.27. Undercut will chase every competitor down to that number and stop. It will never sell below it. If all competitors drop below your floor, Undercut holds at your floor rather than matching — you simply do not win that sale, which is exactly the right outcome. You keep margin integrity without lifting a finger.",
+        "body": "The only credible objection to automated repricing is the race-to-zero risk — the fear that the software will keep cutting price until you sell at a loss. A hard floor per listing makes this structurally impossible. Here is a worked example for a used textbook sold via standard shipping:\n\nItem cost: $8.00\nShipping cost: $4.00\neBay final value fee (13.6% of $20 sale): $2.72\nPayPal/managed payments processing (~2.9% + $0.30): $0.88\nMinimum target margin: 15% of sale price\n\nFloor = (cost + shipping + fees) / (1 - margin %) = ($8 + $4 + ~$3.60) / (1 - 0.15) ≈ $18.36\n\nSet your floor at $18.36. Undercut will chase every competitor down to that number and stop. It will never sell below it. If all competitors drop below your floor, Undercut holds at your floor rather than matching — you simply do not win that sale, which is exactly the right outcome. You keep margin integrity without lifting a finger.",
         "bullets": [
           "Set the floor once per listing — Undercut enforces it on every reprice cycle",
           "Update a listing's floor in the dashboard if your supplier costs change",
@@ -1073,7 +1073,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Setting a Hard Floor: The Math That Protects Your Margin",
-        "body": "A floor is the minimum price at which selling the item is still worth your time. Building it from first principles prevents the instinct to 'just drop it a bit more' from compounding into a loss. Here is a worked example for a used textbook:\n\nCost of goods: $8.00\nShipping supplies + postage: $4.00\neBay final value fee (13.25% of total): applied to $17.14 sale = $2.27\nPayPal/payments processing (already included in eBay fee structure post-2023)\nMinimum acceptable margin: 15% of sale price\n\nSolving: Floor = (COGS + shipping) / (1 − fee rate − margin rate) = $12.00 / (1 − 0.1325 − 0.15) = $12.00 / 0.7175 ≈ $16.73\n\nRound up to $17.00 and that is your floor. Undercut enters automatically above that number; it stops the moment reaching the next lower price would breach it. No guesswork, no midnight panic.",
+        "body": "A floor is the minimum price at which selling the item is still worth your time. Building it from first principles prevents the instinct to 'just drop it a bit more' from compounding into a loss. Here is a worked example for a used textbook:\n\nCost of goods: $8.00\nShipping supplies + postage: $4.00\neBay final value fee (13.6% of total): applied to $16.81 sale = $2.29\nPayPal/payments processing (already included in eBay fee structure post-2023)\nMinimum acceptable margin: 15% of sale price\n\nSolving: Floor = (COGS + shipping) / (1 − fee rate − margin rate) = $12.00 / (1 − 0.136 − 0.15) = $12.00 / 0.714 ≈ $16.81\n\nRound up to $17.00 and that is your floor. Undercut enters automatically above that number; it stops the moment reaching the next lower price would breach it. No guesswork, no midnight panic.",
         "bullets": []
       },
       {
@@ -1174,7 +1174,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "How to Calculate a Hard Price Floor That Reflects Real Costs",
-        "body": "A floor is only protective if it accounts for every cost layer. Most sellers undercount because they forget that eBay fees apply to the total buyer payment including shipping. Here is a worked example for a common resale item:\n\nCost of goods: $8.00\nShipping cost: $4.00\neBay final value fee (13.25% of item + shipping): $1.59\nPayPal/managed payments processing: included in eBay fee for most sellers\nTarget minimum net margin: 15% of sale price\n\nFloor calculation: (Cost + Shipping + Fixed fees) / (1 - Fee% - Margin%) = ($8 + $4) / (1 - 0.1325 - 0.15) = $12 / 0.7175 = approximately $16.73. Round up to $17.00 for a clean floor.\n\nAt $17.00, after fees and shipping, you net just above your 15% minimum. Every cent above $17.00 is incremental margin. Every repricing event Undercut makes will stay at or above this number — it is enforced at the rule level, not just as a soft guideline.",
+        "body": "A floor is only protective if it accounts for every cost layer. Most sellers undercount because they forget that eBay fees apply to the total buyer payment including shipping. Here is a worked example for a common resale item:\n\nCost of goods: $8.00\nShipping cost: $4.00\neBay final value fee (13.6% of item + shipping): $1.59\nPayPal/managed payments processing: included in eBay fee for most sellers\nTarget minimum net margin: 15% of sale price\n\nFloor calculation: (Cost + Shipping + Fixed fees) / (1 - Fee% - Margin%) = ($8 + $4) / (1 - 0.136 - 0.15) = $12 / 0.714 = approximately $16.73. Round up to $17.00 for a clean floor.\n\nAt $17.00, after fees and shipping, you net just above your 15% minimum. Every cent above $17.00 is incremental margin. Every repricing event Undercut makes will stay at or above this number — it is enforced at the rule level, not just as a soft guideline.",
         "bullets": [
           "Include category-specific fee rates — some categories carry 15% final value fees",
           "Factor storage or FBA-equivalent costs if you use a 3PL",
@@ -1207,7 +1207,7 @@ export const guides: PageContent[] = [
         "body": "Most repricing margin problems come from one of four errors. First, setting no floor at all — the tool has nothing to anchor to and follows competitors indefinitely. Second, setting a floor based on sale price alone without subtracting fees and shipping, which makes the floor an illusion. Third, setting a single global floor for an entire account when individual SKUs have different cost structures. Fourth, forgetting to update floors when costs change — a floor set six months ago may now be below actual cost if supplier prices or postage rates have risen. Undercut lets you update a listing's Floor Price in the dashboard the moment a cost changes, so a supplier increase is reflected on the affected SKUs before the next reprice cycle runs.",
         "bullets": [
           "No floor: the single most common cause of margin loss from repricing",
-          "Fee-blind floor: a $10 floor with 13.25% fees means you net under $8.68 before shipping",
+          "Fee-blind floor: a $10 floor with 13.6% fees means you net under $8.64 before shipping",
           "Stale floor: supplier price increases require floor updates — calendar a quarterly review",
           "Global floor: one number across all SKUs will be wrong for most of them"
         ]
@@ -1224,7 +1224,7 @@ export const guides: PageContent[] = [
       },
       {
         "q": "How do I calculate a floor that actually protects margin after eBay fees?",
-        "a": "The safest formula is: Floor = (Cost of goods + Shipping cost) divided by (1 minus eBay fee percentage minus your target margin percentage). For a $12 all-in cost with a 13.25% eBay fee and a 15% margin target, that works out to approximately $16.73. Round up and set that as your floor. Recalculate whenever your costs change."
+        "a": "The safest formula is: Floor = (Cost of goods + Shipping cost) divided by (1 minus eBay fee percentage minus your target margin percentage). For a $12 all-in cost with a 13.6% eBay fee and a 15% margin target, that works out to approximately $16.81. Round up and set that as your floor. Recalculate whenever your costs change."
       },
       {
         "q": "Does having a floor mean I'll win fewer sales because I'm not always the cheapest?",
@@ -1285,7 +1285,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "The Floor Calculation That Makes Speed Safe",
-        "body": "Speed is only an advantage if every reprice is still profitable. Before you turn on any repricer, calculate the absolute minimum price you can accept per listing — your hard floor. The formula: Floor = Cost + Shipping + (Sale Price × eBay Fee %) + Minimum Acceptable Margin.\n\nWorked example for a used kitchen appliance:\n- Item cost: $8.00\n- Estimated shipping: $4.00\n- eBay final value fee: 13.25% of sale price (applied to the floor price of ~$17.14 ≈ $2.27)\n- Minimum margin: 15% of cost ($1.20)\n- Floor: $8.00 + $4.00 + $2.27 + $1.20 ≈ $15.47, rounded up to $15.50 for safety\n\nEnter $15.50 as the hard floor in Undercut. No matter how fast the repricer fires, it will never push that listing below $15.50. Competitors can race each other to zero — you stop at profit.",
+        "body": "Speed is only an advantage if every reprice is still profitable. Before you turn on any repricer, calculate the absolute minimum price you can accept per listing — your hard floor. The formula: Floor = Cost + Shipping + (Sale Price × eBay Fee %) + Minimum Acceptable Margin.\n\nWorked example for a used kitchen appliance:\n- Item cost: $8.00\n- Estimated shipping: $4.00\n- eBay final value fee: 13.6% of sale price (applied to the floor price of ~$16.81 ≈ $2.29)\n- Minimum margin: 15% of cost ($1.20)\n- Floor: $8.00 + $4.00 + $2.29 + $1.20 ≈ $15.49, rounded up to $15.50 for safety\n\nEnter $15.50 as the hard floor in Undercut. No matter how fast the repricer fires, it will never push that listing below $15.50. Competitors can race each other to zero — you stop at profit.",
         "bullets": [
           "Set floors per SKU, not per account — every item has a different cost basis",
           "Revisit floors when your supplier raises costs or eBay fee categories change",
@@ -1402,10 +1402,10 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Setting a Hard Floor: A Worked Example",
-        "body": "The floor is the number below which no algorithm — however aggressive — can reprice your listing. Here is how to calculate one for a typical electronics accessory. Suppose your landed cost is $8.00, you charge $4.00 shipping (or absorb it in free shipping), eBay's final value fee is 13.25% of total sale price, and your minimum acceptable net margin is 15% of sale price. Working backwards: if sale price = X, then X minus 0.1325X minus $8 minus $4 must equal at least 0.15X. Solving: 0.7175X = $12, so X = $16.73. Round up to $17.00 and that is your floor. Enter $17.00 in Undercut and the repricer will never go below it regardless of what competitors do. On Pro and Scale plans, repricing checks happen every 15 minutes, so your floor is enforced on every cycle.",
+        "body": "The floor is the number below which no algorithm — however aggressive — can reprice your listing. Here is how to calculate one for a typical electronics accessory. Suppose your landed cost is $8.00, you charge $4.00 shipping (or absorb it in free shipping), eBay's final value fee is 13.6% of total sale price, and your minimum acceptable net margin is 15% of sale price. Working backwards: if sale price = X, then X minus 0.136X minus $8 minus $4 must equal at least 0.15X. Solving: 0.714X = $12, so X = $16.81. Round up to $17.00 and that is your floor. Enter $17.00 in Undercut and the repricer will never go below it regardless of what competitors do. On Pro and Scale plans, repricing checks happen every 15 minutes, so your floor is enforced on every cycle.",
         "bullets": [
           "Floor formula: (cost + shipping) / (1 - fee% - target margin%) = minimum price",
-          "Example result: $8 cost + $4 ship + 13.25% fees + 15% margin = $17.00 floor",
+          "Example result: $8 cost + $4 ship + 13.6% fees + 15% margin = $17.00 floor",
           "Set the floor on each listing individually, calculated from that item's own cost",
           "Floors survive plan changes — they are stored at the listing level, not the algorithm level"
         ]
@@ -1503,7 +1503,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Worked Example: Setting Your Floor Before You Reprice a Single Listing",
-        "body": "The cheapest repricer is useless if it sells your inventory below cost. Before activating any repricing tool, you need a hard floor per SKU. Here's a real calculation for a common scenario — a used electronics accessory.\n\nItem cost: $8.00. Shipping (you pay): $4.00. eBay final value fee: 13.25% of sale price. Minimum acceptable margin: 15%.\n\nFloor calculation: You need to recover $12.00 in hard costs, plus 13.25% in fees, plus 15% margin on top. Working backward: Floor = (Cost + Shipping) ÷ (1 − Fee% − Margin%) = $12.00 ÷ (1 − 0.1325 − 0.15) = $12.00 ÷ 0.7175 ≈ $16.73.\n\nRound up for safety: set your floor at $17.00. Undercut will never reprice below that number, no matter how aggressively competitors drop. That's the protection the free plan gives you on day one — before you've spent a cent on a subscription."
+        "body": "The cheapest repricer is useless if it sells your inventory below cost. Before activating any repricing tool, you need a hard floor per SKU. Here's a real calculation for a common scenario — a used electronics accessory.\n\nItem cost: $8.00. Shipping (you pay): $4.00. eBay final value fee: 13.6% of sale price. Minimum acceptable margin: 15%.\n\nFloor calculation: You need to recover $12.00 in hard costs, plus 13.6% in fees, plus 15% margin on top. Working backward: Floor = (Cost + Shipping) ÷ (1 − Fee% − Margin%) = $12.00 ÷ (1 − 0.136 − 0.15) = $12.00 ÷ 0.714 ≈ $16.81.\n\nRound up for safety: set your floor at $17.00. Undercut will never reprice below that number, no matter how aggressively competitors drop. That's the protection the free plan gives you on day one — before you've spent a cent on a subscription."
       },
       {
         "h2": "What You Should Pay For — and What You Shouldn't",
@@ -1598,11 +1598,11 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Step 1 — Calculate Your Floor Before You Do Anything Else",
-        "body": "Your floor is the lowest price at which a sale still puts money in your pocket after every cost is paid. Here is a worked example using a common household electronics item.\n\nSuppose you sourced a used Bluetooth speaker for $8.00 and your shipping supplies and label cost $4.00. eBay's final value fee runs roughly 13.25% of the total sale price. You want at least a 15% net margin on your cost to make the time worthwhile.\n\nFloor calculation:\n• Total hard cost: $8.00 (item) + $4.00 (shipping) = $12.00\n• Add 15% margin target: $12.00 × 1.15 = $13.80\n• Gross up for eBay fees (divide by 0.8675): $13.80 ÷ 0.8675 ≈ $15.91\n• Round up to a clean number for comfort: set floor at $16.00\n\nThat $16.00 is your hard floor. Enter it in Undercut per listing. The repricer will never propose a price below it, even if a competitor lists at $12.00.",
+        "body": "Your floor is the lowest price at which a sale still puts money in your pocket after every cost is paid. Here is a worked example using a common household electronics item.\n\nSuppose you sourced a used Bluetooth speaker for $8.00 and your shipping supplies and label cost $4.00. eBay's final value fee runs roughly 13.6% of the total sale price. You want at least a 15% net margin on your cost to make the time worthwhile.\n\nFloor calculation:\n• Total hard cost: $8.00 (item) + $4.00 (shipping) = $12.00\n• Add 15% margin target: $12.00 × 1.15 = $13.80\n• Gross up for eBay fees (divide by 0.864): $13.80 ÷ 0.864 ≈ $15.97\n• Round up to a clean number for comfort: set floor at $16.00\n\nThat $16.00 is your hard floor. Enter it in Undercut per listing. The repricer will never propose a price below it, even if a competitor lists at $12.00.",
         "bullets": [
           "Item cost + all shipping costs = your base.",
           "Apply your minimum margin multiplier.",
-          "Gross up for eBay fees (13.25% is a safe estimate for most categories).",
+          "Gross up for eBay fees (13.6% is a safe estimate for most categories).",
           "Round up, not down — fees vary slightly, so give yourself a cushion."
         ]
       },
@@ -1712,9 +1712,9 @@ export const guides: PageContent[] = [
         "h2": "Final Value Fee Rates by Category in 2026",
         "body": "FVF rates are category-specific and change periodically. These are the 2026 standard rates for sellers without an eBay Store. Store subscribers pay lower rates in exchange for the monthly subscription fee — factor that subscription cost into your per-item overhead instead.",
         "bullets": [
-          "Most categories (electronics, clothing, home): 13.25% on the total amount up to $7,500, then 2.35% on the portion above.",
+          "Most categories (electronics, clothing, home): 13.6% on the total amount up to $7,500, then 2.35% on the portion above.",
           "Books, DVDs, Music, Video Games: 14.95% up to $7,500.",
-          "Collectibles and Trading Cards (non-graded): 13.25% with potential category surcharges during high-demand periods.",
+          "Collectibles and Trading Cards (non-graded): 13.6% with potential category surcharges during high-demand periods.",
           "Watches priced $1,000–$7,500: 6.5%.",
           "Real estate, heavy industrial, select vehicle parts: flat fees apply instead of percentages.",
           "Below-standard sellers: eBay adds a 6% FVF surcharge. Maintaining above-standard status is a direct cost-control measure."
@@ -1722,7 +1722,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "How to Build Your Fee Math into a Real Price Floor",
-        "body": "Here is a concrete worked example using a general merchandise item. You source a product for $8.00 and ship it for $4.00 (you charge the buyer actual shipping on top of the item price, so shipping is covered — but eBay charges FVF on the shipping amount too, which sellers routinely miss).\n\nAssume: cost $8.00, shipping $4.00 (buyer pays), FVF 13.25%, payment processing 2.9% + $0.30, no promoted listing, minimum acceptable margin 15% on cost.\n\nFee calculation on a $14 item price (+ $4 shipping = $18 total charged to buyer):\n- FVF: 13.25% × $18.00 = $2.385\n- Payment processing: 2.9% × $18.00 + $0.30 = $0.822\n- Total fees: $3.207\n- Total cost: $8.00 (COGS) + $3.207 (fees) = $11.207\n- 15% margin on cost means target net ≥ $9.20 after fees, so item price must be at least: $8.00 × 1.15 + $3.207 ≈ $12.41 item price\n\nRounding conservatively, your hard floor for this SKU is $12.50. At $12.50 item price + $4.00 shipping, Undercut will never reprice you below that number regardless of what competitors do. Enter $12.50 as your floor per listing — and sleep soundly.\n\nNote: if you run Promoted Listings at 5%, add 5% × $18 = $0.90 to fees, pushing your floor to approximately $13.40.",
+        "body": "Here is a concrete worked example using a general merchandise item. You source a product for $8.00 and ship it for $4.00 (you charge the buyer actual shipping on top of the item price, so shipping is covered — but eBay charges FVF on the shipping amount too, which sellers routinely miss).\n\nAssume: cost $8.00, shipping $4.00 (buyer pays), FVF 13.6%, payment processing 2.9% + $0.30, no promoted listing, minimum acceptable margin 15% on cost.\n\nFee calculation on a $14 item price (+ $4 shipping = $18 total charged to buyer):\n- FVF: 13.6% × $18.00 = $2.448\n- Payment processing: 2.9% × $18.00 + $0.30 = $0.822\n- Total fees: $3.27\n- Total cost: $8.00 (COGS) + $3.27 (fees) = $11.27\n- 15% margin on cost means target net ≥ $9.20 after fees, so item price must be at least: $8.00 × 1.15 + $3.27 ≈ $12.47 item price\n\nRounding conservatively, your hard floor for this SKU is $12.50. At $12.50 item price + $4.00 shipping, Undercut will never reprice you below that number regardless of what competitors do. Enter $12.50 as your floor per listing — and sleep soundly.\n\nNote: if you run Promoted Listings at 5%, add 5% × $18 = $0.90 to fees, pushing your floor to approximately $13.40.",
         "bullets": []
       },
       {
@@ -1739,7 +1739,7 @@ export const guides: PageContent[] = [
         "h2": "Common Fee Mistakes That Quietly Destroy Margin",
         "body": "Even experienced sellers make these errors when setting price floors manually.",
         "bullets": [
-          "Forgetting FVF applies to shipping: eBay charges final value fees on the full amount the buyer pays, including any shipping charge. A $4.99 shipping charge at 13.25% FVF costs you an extra $0.66 per sale.",
+          "Forgetting FVF applies to shipping: eBay charges final value fees on the full amount the buyer pays, including any shipping charge. A $4.99 shipping charge at 13.6% FVF costs you an extra $0.68 per sale.",
           "Using list price instead of expected sale price to model fees: FVF is charged on actual sale price. If you discount or accept best offers, model fees on the expected transaction value.",
           "Ignoring the $0.30 flat component of payment processing: On low-price items (under ~$10), the flat $0.30 is proportionally enormous. A $3.00 sale has $0.38 in payment processing fees alone — 12.7% of revenue.",
           "Not accounting for returns: eBay refunds FVF on returned transactions, but you may still absorb payment processing fees and return shipping. Model a realistic return rate into your margin buffer.",
@@ -1750,7 +1750,7 @@ export const guides: PageContent[] = [
     "faq": [
       {
         "q": "Does eBay charge a final value fee on the shipping amount I charge buyers?",
-        "a": "Yes. eBay's final value fee is calculated on the total amount the buyer pays, which includes the item price plus any shipping and handling charge. This catches many sellers off guard — a $5.99 shipping charge at 13.25% FVF adds $0.79 to your fee bill on every sale. Your price floor must account for this or it will be understated."
+        "a": "Yes. eBay's final value fee is calculated on the total amount the buyer pays, which includes the item price plus any shipping and handling charge. This catches many sellers off guard — a $5.99 shipping charge at 13.6% FVF adds $0.81 to your fee bill on every sale. Your price floor must account for this or it will be understated."
       },
       {
         "q": "How do I calculate my price floor if I use Promoted Listings?",
@@ -1826,13 +1826,13 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "How to Calculate Your Price Floor Before You Touch Any Tool",
-        "body": "A price floor is the lowest price you will ever accept for a specific item. You must calculate it per SKU before you reprice — manually or automatically. The formula is straightforward: Floor = (Cost + Shipping Out) / (1 − eBay Fee Rate) / (1 − Minimum Margin). Here is a concrete example for a used electronics accessory. Cost of goods: $8.00. Outbound shipping: $4.00. eBay final value fee: 13.25% (electronics category as of 2025). Minimum acceptable margin: 15%. Step one: total cash in = $8.00 + $4.00 = $12.00. Step two: divide by (1 − 0.1325) = $12.00 / 0.8675 = $13.83 to cover fees. Step three: divide by (1 − 0.15) = $13.83 / 0.85 = $16.27, which rounds up to a floor of $16.27. Set your floor at $16.27. No repricer — automated or manual — should ever move that listing below that number. If competitors are pricing below $16.27, you simply do not match them. You hold or you pull the listing.",
+        "body": "A price floor is the lowest price you will ever accept for a specific item. You must calculate it per SKU before you reprice — manually or automatically. The formula is straightforward: Floor = (Cost + Shipping Out) / (1 − eBay Fee Rate) / (1 − Minimum Margin). Here is a concrete example for a used electronics accessory. Cost of goods: $8.00. Outbound shipping: $4.00. eBay final value fee: 13.6% (electronics category as of 2025). Minimum acceptable margin: 15%. Step one: total cash in = $8.00 + $4.00 = $12.00. Step two: divide by (1 − 0.136) = $12.00 / 0.864 = $13.89 to cover fees. Step three: divide by (1 − 0.15) = $13.89 / 0.85 = $16.34, which rounds up to a floor of $16.34. Set your floor at $16.34. No repricer — automated or manual — should ever move that listing below that number. If competitors are pricing below $16.34, you simply do not match them. You hold or you pull the listing.",
         "bullets": [
           "Cost of goods: $8.00",
           "Outbound shipping: $4.00",
-          "eBay fee rate (electronics): 13.25%",
+          "eBay fee rate (electronics): 13.6%",
           "Minimum margin target: 15%",
-          "Calculated floor: $16.27 — never go below this"
+          "Calculated floor: $16.34 — never go below this"
         ]
       },
       {
@@ -1924,7 +1924,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "How to Calculate a Defensible Floor for Any Listing",
-        "body": "A floor that is too low destroys margin; one that is too high costs you sales. The correct floor covers every cost you will actually incur. Work through this example for a small electronics accessory: item cost $8.00, shipping supplies and postage $4.00, eBay final value fee 13.25% of the total sale price, and a minimum acceptable margin of 15%. Because the fee and margin are both percentages of the sale price, solve for it: floor = (cost + shipping) / (1 − fee% − margin%) = $12.00 / (1 − 0.1325 − 0.15) = $12.00 / 0.7175 ≈ $16.73. Round up to $16.80 and that is the floor you enter in Undercut. The platform will never reprice below that number, so every sale at or above it is profitable by construction.",
+        "body": "A floor that is too low destroys margin; one that is too high costs you sales. The correct floor covers every cost you will actually incur. Work through this example for a small electronics accessory: item cost $8.00, shipping supplies and postage $4.00, eBay final value fee 13.6% of the total sale price, and a minimum acceptable margin of 15%. Because the fee and margin are both percentages of the sale price, solve for it: floor = (cost + shipping) / (1 − fee% − margin%) = $12.00 / (1 − 0.136 − 0.15) = $12.00 / 0.714 ≈ $16.73. Round up to $16.80 and that is the floor you enter in Undercut. The platform will never reprice below that number, so every sale at or above it is profitable by construction.",
         "bullets": [
           "Include all variable costs: item cost, postage, packaging, and the eBay fee tier for that category.",
           "Add your minimum margin as a percentage so profit scales with price.",
@@ -1954,7 +1954,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Common Mistakes That Erode Margin When Repricing at Scale",
-        "body": "The most frequent error is setting a floor based on purchase price alone and forgetting the eBay fee. A seller who paid $20 for an item and sets a $22 floor believes they are making $2 per sale. After a 13.25% final value fee on $22, they net $22 − $2.915 = $19.09 — a loss of $0.91 on every transaction. The second mistake is a single global floor across all categories, which ignores that eBay charges different fee rates by category. The third is never updating floors after supplier price changes. Undercut does not know your new landed cost — that update must come from you by editing the listing's Floor Price in the dashboard. Build a calendar reminder to audit floors quarterly, or whenever a major supplier invoice arrives.",
+        "body": "The most frequent error is setting a floor based on purchase price alone and forgetting the eBay fee. A seller who paid $20 for an item and sets a $22 floor believes they are making $2 per sale. After a 13.6% final value fee on $22, they net $22 − $2.99 = $19.01 — a loss of $0.99 on every transaction. The second mistake is a single global floor across all categories, which ignores that eBay charges different fee rates by category. The third is never updating floors after supplier price changes. Undercut does not know your new landed cost — that update must come from you by editing the listing's Floor Price in the dashboard. Build a calendar reminder to audit floors quarterly, or whenever a major supplier invoice arrives.",
         "bullets": [
           "Always calculate floors on the net-after-fees sale price, not the gross price.",
           "Use category-specific floors when you sell across categories with different fee structures.",
@@ -2030,7 +2030,7 @@ export const guides: PageContent[] = [
     "sections": [
       {
         "h2": "Best Practice #1: Set a Hard Floor Before You Touch Any Repricing Rule",
-        "body": "A floor is not a preference — it is a constraint the software cannot cross under any circumstance. Calculate yours item by item before you configure a single repricing rule. The formula is: Cost + Shipping Cost + eBay Fees + Minimum Acceptable Margin = Floor.\n\nWorked example: You source a phone case for $8.00, ship it for $4.00, and eBay charges ~13.25% of the sale price (final value fee + payment processing on a $20 item ≈ $2.65). You want at least 15% net margin on cost. That means: $8 + $4 + $2.65 + $1.20 (15% of $8) = $15.85 floor, rounded up to $16.00 for safety.\n\nUntil that number is locked in as a hard floor in your repricer, do not enable any automation. Every other best practice builds on this one.",
+        "body": "A floor is not a preference — it is a constraint the software cannot cross under any circumstance. Calculate yours item by item before you configure a single repricing rule. The formula is: Cost + Shipping Cost + eBay Fees + Minimum Acceptable Margin = Floor.\n\nWorked example: You source a phone case for $8.00, ship it for $4.00, and eBay charges ~13.6% of the sale price (final value fee + payment processing on a $20 item ≈ $2.72). You want at least 15% net margin on cost. That means: $8 + $4 + $2.72 + $1.20 (15% of $8) = $15.92 floor, rounded up to $16.00 for safety.\n\nUntil that number is locked in as a hard floor in your repricer, do not enable any automation. Every other best practice builds on this one.",
         "bullets": [
           "Use landed cost (cost + inbound shipping + prep fees), not just invoice price",
           "Recalculate floors when your supplier raises prices — automation does not do this for you",
@@ -2669,7 +2669,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Calculating a Hard Floor for a Sneaker Listing",
-        "body": "Your floor is the lowest price at which selling the pair is still worth it after every cost. For sneakers, that means cost of goods, shipping (double-boxing and a heavier label than most categories), eBay's final value fee, and your minimum acceptable margin. Here is a worked example for a popular Jordan retail pickup:\n\nCost of goods: $120.00\nShipping (box-in-box + label): $12.00\neBay final value fee: 13.25%\nMinimum margin target: 12%\n\nFloor = (Cost + Shipping) / (1 - FVF% - Margin%) = (120 + 12) / (1 - 0.1325 - 0.12) = 132 / 0.7475 = $176.59\n\nRound up to $176.99 and that is your hard floor. Undercut will reprice that listing down to beat the lowest competitor, but it will never cross $176.99 chasing a sale. You win the pair at a profit or you let it sit — you never sell at a loss.",
+        "body": "Your floor is the lowest price at which selling the pair is still worth it after every cost. For sneakers, that means cost of goods, shipping (double-boxing and a heavier label than most categories), eBay's final value fee, and your minimum acceptable margin. Here is a worked example for a popular Jordan retail pickup:\n\nCost of goods: $120.00\nShipping (box-in-box + label): $12.00\neBay final value fee: 13.6%\nMinimum margin target: 12%\n\nFloor = (Cost + Shipping) / (1 - FVF% - Margin%) = (120 + 12) / (1 - 0.136 - 0.12) = 132 / 0.744 = $177.42\n\nRound up to $177.99 and that is your hard floor. Undercut will reprice that listing down to beat the lowest competitor, but it will never cross $177.99 chasing a sale. You win the pair at a profit or you let it sit — you never sell at a loss.",
         "bullets": [
           "Always use real double-boxed shipping cost — sneaker packaging is heavier than it looks",
           "Use eBay's current final value fee for the sneakers category, not a blended guess",
@@ -2773,7 +2773,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Building a Hard Floor That Includes Freight and Core Exposure",
-        "body": "Your floor is the lowest price at which the sale still clears every cost. For parts, that means cost of goods, realistic outbound freight, eBay's final value fee, and your minimum margin — and if there is a core charge, your floor logic should assume the worst case where the core is never returned. Worked example for a remanufactured alternator:\n\nCost of goods: $45.00\nFreight (heavy, padded box): $14.00\neBay final value fee: 13.25%\nMinimum margin target: 15%\n\nFloor = (Cost + Freight) / (1 - FVF% - Margin%) = (45 + 14) / (1 - 0.1325 - 0.15) = 59 / 0.7175 = $82.23\n\nRound up to $82.99 and that is your hard floor. Undercut will reprice down to beat a comparable competitor but never cross $82.99. If a mislisted cheaper part appears, your floor keeps you from following it into a loss.",
+        "body": "Your floor is the lowest price at which the sale still clears every cost. For parts, that means cost of goods, realistic outbound freight, eBay's final value fee, and your minimum margin — and if there is a core charge, your floor logic should assume the worst case where the core is never returned. Worked example for a remanufactured alternator:\n\nCost of goods: $45.00\nFreight (heavy, padded box): $14.00\neBay final value fee: 13.6%\nMinimum margin target: 15%\n\nFloor = (Cost + Freight) / (1 - FVF% - Margin%) = (45 + 14) / (1 - 0.136 - 0.15) = 59 / 0.714 = $82.63\n\nRound up to $82.99 and that is your hard floor. Undercut will reprice down to beat a comparable competitor but never cross $82.99. If a mislisted cheaper part appears, your floor keeps you from following it into a loss.",
         "bullets": [
           "Use real, current freight cost per part — not a flat category average",
           "If a core charge applies, floor as if the core is never recovered",
@@ -2867,7 +2867,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Floor a Card by Its Real Cost Basis — Including Grading",
-        "body": "For raw cards, your floor is cost plus shipping, fees, and margin. For graded cards, the floor must also absorb grading cost and the time and risk you took to submit. Worked example for a card you bought raw and graded:\n\nCard cost (raw): $20.00\nGrading cost (per card, all-in): $19.00\nShipping (carded, tracked): $5.00\neBay final value fee: 13.25%\nMinimum margin target: 15%\n\nFloor = (Card + Grading + Shipping) / (1 - FVF% - Margin%) = (20 + 19 + 5) / (1 - 0.1325 - 0.15) = 44 / 0.7175 = $61.32\n\nRound up to $61.99 and that is your floor for the graded copy. Your raw copies of the same card get a separate, lower floor without the grading line. Undercut reprices each down to beat its comparable competitors but never below its own floor.",
+        "body": "For raw cards, your floor is cost plus shipping, fees, and margin. For graded cards, the floor must also absorb grading cost and the time and risk you took to submit. Worked example for a card you bought raw and graded:\n\nCard cost (raw): $20.00\nGrading cost (per card, all-in): $19.00\nShipping (carded, tracked): $5.00\neBay final value fee: 13.6%\nMinimum margin target: 15%\n\nFloor = (Card + Grading + Shipping) / (1 - FVF% - Margin%) = (20 + 19 + 5) / (1 - 0.136 - 0.15) = 44 / 0.714 = $61.62\n\nRound up to $61.99 and that is your floor for the graded copy. Your raw copies of the same card get a separate, lower floor without the grading line. Undercut reprices each down to beat its comparable competitors but never below its own floor.",
         "bullets": [
           "Graded and raw copies of the same card get separate floors",
           "Roll grading cost (and submission risk) into the graded floor",
@@ -3261,7 +3261,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Building a Condition-Specific Floor",
-        "body": "Each used unit gets its own floor from its own cost basis. Worked example for the same model in two conditions:\n\nLike-new unit — acquisition $40, refurb/cleaning $6, shipping $8, eBay FVF 13.25%, target margin 18%:\nFloor = (40 + 6 + 8) / (1 - 0.1325 - 0.18) = 54 / 0.6875 = $78.55 → $78.99\n\nAcceptable unit — acquisition $18, minimal prep $2, shipping $8, same FVF, but a thinner 10% margin to move it:\nFloor = (18 + 2 + 8) / (1 - 0.1325 - 0.10) = 28 / 0.7675 = $36.48 → $36.99\n\nSame model, two floors that differ by more than 2x — because the cost basis and the margin you'll accept are genuinely different. Undercut holds each listing to its own floor while beating its own comparable competitors.",
+        "body": "Each used unit gets its own floor from its own cost basis. Worked example for the same model in two conditions:\n\nLike-new unit — acquisition $40, refurb/cleaning $6, shipping $8, eBay FVF 13.6%, target margin 18%:\nFloor = (40 + 6 + 8) / (1 - 0.136 - 0.18) = 54 / 0.684 = $78.95 → $78.99\n\nAcceptable unit — acquisition $18, minimal prep $2, shipping $8, same FVF, but a thinner 10% margin to move it:\nFloor = (18 + 2 + 8) / (1 - 0.136 - 0.10) = 28 / 0.764 = $36.65 → $36.99\n\nSame model, two floors that differ by more than 2x — because the cost basis and the margin you'll accept are genuinely different. Undercut holds each listing to its own floor while beating its own comparable competitors.",
         "bullets": [
           "Floor each unit from its real acquisition + prep + shipping cost",
           "Accept a thinner margin on lower tiers you want to move",
@@ -3661,10 +3661,10 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Calculating Your True Breakeven Floor",
-        "body": "Before you can set a sensible floor, you need to know what it actually costs you to sell a unit. Many sellers anchor on their wholesale cost and forget the stack of fees sitting on top.\n\nHere is a worked example. Suppose you source a Bluetooth speaker for $45. The item sells for $89.99 on eBay. eBay's Final Value Fee on most Electronics listings is 13.25% of the total sale amount (item price + shipping), capped at $750 per item — so on $89.99 that is roughly $11.92. Add a $0.30 per-order transaction fee. If you use a promoted listing at 5%, that is another $4.50. Shipping and packaging costs $8.00. Payment processing (included in eBay's managed payments) is already captured in the FVF. Total costs: $45.00 + $11.92 + $0.30 + $4.50 + $8.00 = $69.72. Your breakeven price is $69.72 — sell below that and you lose money on every unit.\n\nMost sellers also want a minimum margin, say 15%. Apply that: $69.72 ÷ (1 − 0.15) = $82.02. That is your margin-protected floor. Round up to $82.99 to keep a clean price point, and that is the number you should never go below — regardless of what competitors do.",
+        "body": "Before you can set a sensible floor, you need to know what it actually costs you to sell a unit. Many sellers anchor on their wholesale cost and forget the stack of fees sitting on top.\n\nHere is a worked example. Suppose you source a Bluetooth speaker for $45. The item sells for $89.99 on eBay. eBay's Final Value Fee on most Electronics listings is 13.6% of the total sale amount (item price + shipping), capped at $750 per item — so on $89.99 that is roughly $12.24. Add a $0.30 per-order transaction fee. If you use a promoted listing at 5%, that is another $4.50. Shipping and packaging costs $8.00. Payment processing (included in eBay's managed payments) is already captured in the FVF. Total costs: $45.00 + $12.24 + $0.30 + $4.50 + $8.00 = $70.04. Your breakeven price is $70.04 — sell below that and you lose money on every unit.\n\nMost sellers also want a minimum margin, say 15%. Apply that: $70.04 ÷ (1 − 0.15) = $82.40. That is your margin-protected floor. Round up to $82.99 to keep a clean price point, and that is the number you should never go below — regardless of what competitors do.",
         "bullets": [
           "Start with landed COGS: wholesale cost + inbound shipping + customs.",
-          "Add eBay Final Value Fee (category-dependent, commonly 12–13.25%).",
+          "Add eBay Final Value Fee (category-dependent, commonly 12–13.6%).",
           "Add shipping, packaging, and any promoted-listing percentage.",
           "Divide by (1 − desired margin %) to get your margin-protected floor.",
           "Use the eBay Profit Calculator to run this for each SKU before setting floors."
@@ -3769,7 +3769,7 @@ export const guides: PageContent[] = [
     "sections": [
       {
         "h2": "Why Freight Cost Is the Defining Variable in Home & Garden Repricing",
-        "body": "A 50-lb bag of soil conditioner, a 72-inch folding workbench, or a push-reel mower all share one brutal truth: the carrier's dimensional weight pricing can exceed the product's landed cost. Before you touch a repricer, you need an accurate per-listing freight cost baked into your floor — not a rough average across your catalog.\n\nHere is a worked example. Suppose you stock a 40-lb garden hose reel. Your COGS is $28. Ground shipping runs $18 (dimensional weight pricing). eBay's final value fee at a $75 sell price is roughly 13.25%, or about $9.94. That leaves you with $75 − $28 − $18 − $9.94 = $19.06 gross profit — a 25% margin. If a competitor drops to $69 and you blindly match them, your margin collapses to roughly $13. But if you had set a hard floor of $72, Undercut would never go below that number, no matter what competitors do.\n\nUndercut lets you set a per-listing HARD FLOOR in dollars. For every home or garden SKU, calculate: COGS + actual shipping cost + eBay fees at floor price + your minimum acceptable margin. Enter that number as the floor. The repricer will then chase competitors down to that floor and stop — never a penny lower.",
+        "body": "A 50-lb bag of soil conditioner, a 72-inch folding workbench, or a push-reel mower all share one brutal truth: the carrier's dimensional weight pricing can exceed the product's landed cost. Before you touch a repricer, you need an accurate per-listing freight cost baked into your floor — not a rough average across your catalog.\n\nHere is a worked example. Suppose you stock a 40-lb garden hose reel. Your COGS is $28. Ground shipping runs $18 (dimensional weight pricing). eBay's final value fee at a $75 sell price is roughly 13.6%, or about $10.20. That leaves you with $75 − $28 − $18 − $10.20 = $18.80 gross profit — a 25% margin. If a competitor drops to $69 and you blindly match them, your margin collapses to roughly $13. But if you had set a hard floor of $72, Undercut would never go below that number, no matter what competitors do.\n\nUndercut lets you set a per-listing HARD FLOOR in dollars. For every home or garden SKU, calculate: COGS + actual shipping cost + eBay fees at floor price + your minimum acceptable margin. Enter that number as the floor. The repricer will then chase competitors down to that floor and stop — never a penny lower.",
         "bullets": [
           "Calculate freight per SKU, not per category average — a 5-lb trowel and a 40-lb hose reel ship very differently",
           "Use eBay's shipping calculator or your carrier's rate card to pin down dimensional weight costs before setting any floor",
@@ -3789,7 +3789,7 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Setting Up Undercut for a Home & Garden Catalog: Step-by-Step",
-        "body": "Getting Undercut configured correctly for bulky, shipping-heavy inventory takes about 30 minutes of upfront setup and pays dividends all season. Here is how to approach it.\n\nStep 1 — Build your floor spreadsheet before connecting eBay. For each SKU, note: (a) your COGS, (b) your actual outbound shipping cost in dollars, (c) eBay's estimated final value fee percentage for the category, and (d) your minimum acceptable net margin in dollars. Sum those four numbers to get your floor. Example: COGS $22 + shipping $14 + eBay fees at a $60 price point ≈ $7.95 (13.25%) + minimum margin $8 = floor of $51.95. Round up to $52 to give yourself a buffer.\n\nStep 2 — Connect your eBay store to Undercut via the OAuth flow. Undercut imports your active listings automatically. Free plan covers 25 listings; Starter ($29/mo) covers 100; Pro ($79/mo) covers 1,000; Scale ($199/mo) covers 10,000.\n\nStep 3 — Assign floors (and optional ceilings) to each listing. You can do this individually or use Undercut's bulk editing interface. For seasonal SKUs, set a ceiling that reflects the peak-season price you've researched.\n\nStep 4 — Choose your plan. Starter and Free plans reprice at standard intervals. Pro and Scale both reprice every 15 minutes; Scale's difference is capacity (10,000 listings) and priority support, not a faster cycle. For home and garden, 15-minute repricing is usually sufficient outside peak promotional events.\n\nStep 5 — Monitor your first week's results. Check that no listing is hitting its floor repeatedly — that signals your floor may be above market and worth investigating. If you're consistently at ceiling, demand is strong and you may have room to raise the ceiling.",
+        "body": "Getting Undercut configured correctly for bulky, shipping-heavy inventory takes about 30 minutes of upfront setup and pays dividends all season. Here is how to approach it.\n\nStep 1 — Build your floor spreadsheet before connecting eBay. For each SKU, note: (a) your COGS, (b) your actual outbound shipping cost in dollars, (c) eBay's estimated final value fee percentage for the category, and (d) your minimum acceptable net margin in dollars. Sum those four numbers to get your floor. Example: COGS $22 + shipping $14 + eBay fees at a $60 price point ≈ $8.16 (13.6%) + minimum margin $8 = floor of $52.16. Round up to $52.50 to give yourself a buffer.\n\nStep 2 — Connect your eBay store to Undercut via the OAuth flow. Undercut imports your active listings automatically. Free plan covers 25 listings; Starter ($29/mo) covers 100; Pro ($79/mo) covers 1,000; Scale ($199/mo) covers 10,000.\n\nStep 3 — Assign floors (and optional ceilings) to each listing. You can do this individually or use Undercut's bulk editing interface. For seasonal SKUs, set a ceiling that reflects the peak-season price you've researched.\n\nStep 4 — Choose your plan. Starter and Free plans reprice at standard intervals. Pro and Scale both reprice every 15 minutes; Scale's difference is capacity (10,000 listings) and priority support, not a faster cycle. For home and garden, 15-minute repricing is usually sufficient outside peak promotional events.\n\nStep 5 — Monitor your first week's results. Check that no listing is hitting its floor repeatedly — that signals your floor may be above market and worth investigating. If you're consistently at ceiling, demand is strong and you may have room to raise the ceiling.",
         "bullets": [
           "Always use per-listing shipping costs, not a blended average, to protect margin on your heaviest SKUs",
           "Bulk-assign ceilings by season: set spring/summer ceilings in February, fall/winter ceilings in August",
