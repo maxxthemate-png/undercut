@@ -400,13 +400,26 @@ export default function Dashboard() {
 
 function ReferralCard() {
   const [data, setData] = useState<any>(null)
+  const [failed, setFailed] = useState(false)
   const [copied, setCopied] = useState(false)
   useEffect(() => {
-    api('/api/billing/referral').then((r) => (r.ok ? r.json() : null)).then(setData).catch(() => {})
+    api('/api/billing/referral').then((r) => (r.ok ? r.json() : null)).then((d) => (d ? setData(d) : setFailed(true))).catch(() => setFailed(true))
   }, [])
-  if (!data) return null
   async function copy() {
     try { await navigator.clipboard.writeText(data.link); setCopied(true); setTimeout(() => setCopied(false), 2000) } catch {}
+  }
+  // Always render the #referral-card target so the header "Refer" button's
+  // scrollIntoView has something to scroll to, even while this is loading
+  // or if the referral API call fails.
+  if (!data) {
+    return (
+      <div id="referral-card" className="bg-surface border border-line rounded-lg p-5">
+        <p className="text-sm font-semibold text-ink">🎁 Give a month, get a month</p>
+        <p className="text-sm text-muted mt-1">
+          {failed ? "Couldn't load your referral link right now — refresh to try again." : 'Loading your referral link…'}
+        </p>
+      </div>
+    )
   }
   return (
     <div id="referral-card" className="bg-surface border border-line rounded-lg p-5">
