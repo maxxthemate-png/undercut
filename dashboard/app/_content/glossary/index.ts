@@ -909,5 +909,91 @@ export const glossary: PageContent[] = [
     ],
     "lastUpdated": "2026-07-16",
     "leadForm": true
+  },
+  {
+    "slug": "competitor-low",
+    "collection": "glossary",
+    "template": "glossary",
+    "title": "Competitor Low Price: What It Is & How Repricers Use It — Undercut",
+    "metaDescription": "Learn how the competitor low price signal works, how it's sourced from live eBay listings, and how Undercut uses it with a hard floor. Try free for 14 days.",
+    "h1": "Competitor Low Price: The Signal That Drives Every Repricing Decision",
+    "eyebrow": "Glossary",
+    "intro": "The competitor low price is the single lowest asking price among live, comparable eBay listings for the same item at any given moment. It is not a historical average or a stored trend — it is a real-time snapshot of the cheapest active offer a buyer can click right now. For automated repricing, this signal answers one question: what is the minimum price I must beat to become the most attractive listing? Understanding how that signal is sourced, filtered, and used against a hard floor is the foundation of any sound eBay pricing strategy.",
+    "sections": [
+      {
+        "h2": "What the Competitor Low Price Signal Actually Is",
+        "body": "The competitor low price is defined as the lowest current Buy It Now price among live eBay listings that are sufficiently comparable to your own — same item, same condition, same or similar shipping terms. It is a point-in-time value, not a rolling average, and it can change every few minutes as competitors add listings, sell out, or reprice their own inventory.\n\nThe \"comparable\" qualifier matters enormously. A graded trading card in PSA 9 condition is not comparable to an ungraded copy; a new-in-box electronics unit is not comparable to an open-box return. A repricer that ignores comparability can pull in an irrelevant low price and push your listing to an unprofitable level for no competitive reason. Undercut filters for comparable listings before identifying the low, so the signal reflects real competitive pressure rather than noise.\n\nBecause eBay has no formal Buy Box equivalent — it uses Best Match to rank listings in search results — the competitor low price does not guarantee a single winner. Instead, matching or beating the lowest price improves your Best Match visibility alongside other factors such as seller feedback and sales history."
+      },
+      {
+        "h2": "How Undercut Sources the Competitor Low in Real Time",
+        "body": "Undercut checks live eBay search results for each of your listings on every repricing cycle. On the Free and Starter plans that cycle runs hourly; on Pro and Scale it runs every 15 minutes. Each check identifies the current lowest comparable asking price — the competitor low — and that figure becomes the input to the undercut calculation.\n\nBecause the check is live, the competitor low reflects the actual marketplace state at the moment of repricing, not a cached snapshot from hours ago. If a competitor sells out, their listing disappears from the feed and the next-lowest price becomes the new competitor low. If a new seller lists at a lower price, Undercut detects it on the next cycle and can respond accordingly.\n\nUndercut does not store historical competitor price charts inside the tool. The signal is consumed, the repricing decision is made, and the cycle repeats. Sellers who want to study price trends over time would track that data themselves outside of Undercut."
+      },
+      {
+        "h2": "How the Competitor Low Drives the Undercut Calculation",
+        "body": "Once Undercut has identified the competitor low, it applies your configured undercut amount — either a fixed number of cents or a percentage — and proposes a new price. That proposed price is then clamped against your per-listing hard floor before any update is sent to eBay.\n\nWorked example: suppose the competitor low is $42.00, your undercut amount is $0.50 (fixed), and your hard floor for this listing is $38.00.\n\nStep 1 — proposed price: $42.00 − $0.50 = $41.50.\nStep 2 — floor check: $41.50 > $38.00, so the floor is not triggered.\nStep 3 — eBay update: your listing reprices to $41.50.\n\nNow suppose the competitor low falls to $38.20:\nStep 1 — proposed price: $38.20 − $0.50 = $37.70.\nStep 2 — floor check: $37.70 < $38.00, so the floor is triggered.\nStep 3 — eBay update: your listing holds at $38.00 — not $37.70.\n\nYour listing no longer beats the competitor low in this scenario, but it never sells below your minimum acceptable price. If you have also set an optional ceiling — say $55.00 — and the competitor low rises above $55.50, Undercut will hold your price at $55.00 rather than repricing upward past that cap. The floor is always enforced; the ceiling is optional per listing."
+      },
+      {
+        "h2": "AI Aggressiveness Tuning and the Competitor Low",
+        "body": "On Pro and Scale plans, sellers can optionally enable per-listing Claude AI aggressiveness tuning. This feature adjusts how fast and how far a listing moves toward its already-set hard floor in response to the competitor low signal. It does not change what the competitor low is, and it never overrides the hard floor.\n\nIn practical terms, a listing set to high aggressiveness will close the gap to the competitor low quickly — useful when you want maximum Best Match visibility on a fast-moving item. A listing set to low aggressiveness will move more cautiously, preserving margin on slower or higher-value items where being the absolute cheapest is less critical.\n\nImportantly, the AI tuning operates entirely within the boundaries you set. If your hard floor is $38.00, no aggressiveness setting can cause Undercut to price below $38.00. The floor is absolute. On Free and Starter plans, repricing is rule-based only — the undercut amount you configure is applied directly every cycle with no AI adjustment layer."
+      },
+      {
+        "h2": "Why the Competitor Low Matters for eBay Best Match",
+        "body": "eBay's Best Match algorithm ranks listings using multiple signals, and price competitiveness is among them. A listing priced well above the competitor low may rank lower in search results, reducing visibility and click-through even if the item is otherwise high quality. Staying close to — or just below — the competitor low keeps your listing in contention without requiring you to be the absolute cheapest at all times.\n\nThe relationship between the competitor low and Best Match also explains why repricing frequency matters. On Free and Starter plans, the hourly cycle means your listing could sit above the competitor low for up to 59 minutes after a competitor drops their price. On Pro and Scale plans, the 15-minute cycle reduces that exposure window to at most 14 minutes.\n\nConsider a category with high listing turnover, such as trading cards or electronics. A competitor lists at $39.00 at 9:01 AM, undercutting your $41.00 price. On an hourly cycle, you might not respond until 10:00 AM — 59 minutes of reduced visibility. On a 15-minute cycle, your response comes by 9:15 AM at the latest. Over a full selling day, that difference in response time can meaningfully affect how many buyers see your listing first."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Is the competitor low price based on sold listings or active listings?",
+        "a": "It is based on active, live Buy It Now listings — items a buyer can purchase right now. Sold listing prices are historical data and are not used by Undercut to determine the competitor low signal. The goal is to beat the current cheapest option a buyer can actually click, not a past transaction."
+      },
+      {
+        "q": "What happens if there are no comparable competitor listings?",
+        "a": "If Undercut finds no comparable live listings, there is no competitor low to beat, and the repricing rule does not fire for that cycle. Your listing holds at its current price. This protects you from being repriced to your floor unnecessarily when you are the only seller of that item."
+      },
+      {
+        "q": "Can the competitor low ever push my price below my hard floor?",
+        "a": "No. The hard floor is an absolute constraint on every plan. If the proposed undercut price — competitor low minus your undercut amount — falls below your floor, Undercut holds your listing at the floor price instead. The floor cannot be overridden by any repricing rule or AI tuning setting."
+      },
+      {
+        "q": "How is the undercut amount applied to the competitor low?",
+        "a": "You configure the undercut amount as either a fixed number of cents or a percentage of the competitor low price. For example, a 1% undercut on a $50.00 competitor low produces a proposed price of $49.50, while a fixed $0.25 undercut produces $49.75. The resulting price is then checked against your floor before Undercut updates your eBay listing."
+      },
+      {
+        "q": "Does the AI aggressiveness tuning on Pro and Scale change what counts as the competitor low?",
+        "a": "No. AI aggressiveness tuning only affects how quickly and how far your listing moves toward its hard floor in response to the competitor low. It does not alter how the competitor low is identified or sourced. The competitor low signal itself is the same on all plans — it is simply the lowest comparable live asking price on eBay at the time of the repricing cycle."
+      }
+    ],
+    "cta": {
+      "heading": "See Competitor Low Tracking in Action",
+      "sub": "Start a 14-day free trial — no credit card required. Set your floors, configure your undercut amount, and let Undercut respond to the competitor low on every cycle."
+    },
+    "internalLinks": [
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/glossary/undercutting",
+        "label": "Undercutting Explained"
+      },
+      {
+        "href": "/glossary/repricing-frequency",
+        "label": "Repricing Frequency"
+      },
+      {
+        "href": "/guides/ebay-competitor-price-tracking",
+        "label": "eBay Competitor Price Tracking Guide"
+      },
+      {
+        "href": "/guides/how-much-to-undercut-competitors-ebay",
+        "label": "How Much to Undercut Competitors on eBay"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      }
+    ],
+    "lastUpdated": "2026-07-30",
+    "leadForm": true
   }
 ]
