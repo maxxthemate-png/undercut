@@ -873,9 +873,9 @@ export const guides: PageContent[] = [
       },
       {
         "h2": "Category-Specific Fee Rates That Change Your Floor",
-        "body": "eBay's fee structure is not flat. Using the wrong rate when calculating your floor means the number you enter is wrong before any sale happens. Check your specific category in eBay's fee schedule and use that rate, not a generic 13.6%. A few reference points as of mid-2025: Books, DVDs, and Music run 14.95% up to $7,500. Clothing, Shoes, and Accessories run 15% on most items under $2,000. Collectibles sit at 13.6%. Heavy machinery and industrial equipment can be as low as 2-3%. If you sell across multiple categories, you need a separate floor calculation for each one — a single blended rate will leave some SKUs underprotected.",
+        "body": "eBay's fee structure is not flat. Using the wrong rate when calculating your floor means the number you enter is wrong before any sale happens. Check your specific category in eBay's fee schedule and use that rate, not a generic 13.6%. A few reference points as of mid-2025: Books, DVDs, and Music run 15.3% up to $7,500. Clothing, Shoes, and Accessories run 15% on most items under $2,000. Collectibles sit at 13.6%. Heavy machinery and industrial equipment can be as low as 2-3%. If you sell across multiple categories, you need a separate floor calculation for each one — a single blended rate will leave some SKUs underprotected.",
         "bullets": [
-          "Books, DVDs, Music: 14.95% (use ~15% in your formula)",
+          "Books, DVDs, Music: 15.3%",
           "Clothing and Accessories: 15%",
           "Most general merchandise: 13.6%",
           "Heavy equipment and industrial: 2-9% depending on subcategory",
@@ -1713,7 +1713,7 @@ export const guides: PageContent[] = [
         "body": "FVF rates are category-specific and change periodically. These are the 2026 standard rates for sellers without an eBay Store. Store subscribers pay lower rates in exchange for the monthly subscription fee — factor that subscription cost into your per-item overhead instead.",
         "bullets": [
           "Most categories (electronics, clothing, home): 13.6% on the total amount up to $7,500, then 2.35% on the portion above.",
-          "Books, DVDs, Music, Video Games: 14.95% up to $7,500.",
+          "Books, DVDs, Music, Video Games: 15.3% up to $7,500.",
           "Collectibles and Trading Cards (non-graded): 13.6% with potential category surcharges during high-demand periods.",
           "Watches priced $1,000–$7,500: 6.5%.",
           "Real estate, heavy industrial, select vehicle parts: flat fees apply instead of percentages.",
