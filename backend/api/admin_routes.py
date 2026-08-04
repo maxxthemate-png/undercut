@@ -78,6 +78,33 @@ def list_all_stores(x_admin_key: str | None = Header(default=None), db: Session 
             "real_sellers_with_listings": len([s for s in real if s["listings"] > 0])}
 
 
+@router.get("/paid-users")
+def list_paid_users(x_admin_key: str | None = Header(default=None), db: Session = Depends(get_db)):
+    """Every user on a paid plan, with enough to tell a real subscriber from the
+    founder's own test checkout — masked email, domain, and whether they have a
+    connected store (a real customer almost always connects eBay; the founder's
+    test accounts are the known internal domains)."""
+    _require_admin(x_admin_key)
+    users = db.scalars(select(User).where(User.plan.in_(list(PLAN_PRICE.keys())))).all()
+    out = []
+    for u in users:
+        local, _, domain = (u.email or "").partition("@")
+        has_store = db.scalar(select(func.count()).select_from(Store)
+                              .where(Store.user_id == u.id)) or 0
+        out.append({
+            "email": f"{local[:2]}***@{domain}",
+            "domain": domain,
+            "plan": u.plan,
+            "stripe_customer_id": u.stripe_customer_id,
+            "stripe_subscription_id": u.stripe_subscription_id,
+            "has_stripe_ids": bool(u.stripe_customer_id and u.stripe_subscription_id),
+            "connected_stores": has_store,
+            "created_at": u.created_at.isoformat() if u.created_at else None,
+            "payment_status": u.payment_status,
+        })
+    return {"paid_users": out}
+
+
 @router.get("/metrics")
 def metrics(x_admin_key: str | None = Header(default=None), db: Session = Depends(get_db)):
     _require_admin(x_admin_key)
