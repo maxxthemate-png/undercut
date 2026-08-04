@@ -117,15 +117,24 @@ def cancel_subscription(subscription_id: str, x_admin_key: str | None = Header(d
     user = db.scalar(select(User).where(User.stripe_subscription_id == subscription_id))
     if not user:
         raise HTTPException(status_code=404, detail="No user has this subscription_id on file.")
+    stripe_status = None
+    note = None
     try:
         sub = stripe.Subscription.cancel(subscription_id)
-    except Exception as e:
-        raise HTTPException(status_code=502, detail=f"Stripe rejected the cancellation: {e}")
+        stripe_status = sub.get("status")
+    except stripe.error.InvalidRequestError as e:
+        msg = str(e)
+        if "similar object exists in test mode" in msg:
+            # This ID was created with a test key and was never a real live-mode
+            # charge — nothing to cancel, just stale test data on the user row.
+            note = "no live-mode subscription existed — this was test-mode data, no real charge was ever made"
+        else:
+            raise HTTPException(status_code=502, detail=f"Stripe rejected the cancellation: {e}")
     user.plan = "free"
     user.listing_limit = billing.FREE_LIMIT
     user.stripe_subscription_id = None
     db.commit()
-    return {"cancelled": True, "stripe_status": sub.get("status"),
+    return {"cancelled": True, "stripe_status": stripe_status, "note": note,
             "user_email_domain": (user.email or "").partition("@")[2],
             "user_plan_now": user.plan}
 
