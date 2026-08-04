@@ -105,6 +105,31 @@ def list_paid_users(x_admin_key: str | None = Header(default=None), db: Session 
     return {"paid_users": out}
 
 
+@router.post("/cancel-subscription")
+def cancel_subscription(subscription_id: str, x_admin_key: str | None = Header(default=None),
+                        db: Session = Depends(get_db)):
+    """Cancel one specific Stripe subscription by ID (owner-invoked, e.g. to stop
+    billing the founder's own test checkout). Deliberately requires the exact
+    subscription_id rather than a user id — this is a narrow, one-off tool, not a
+    generic cancel-any-subscription endpoint."""
+    _require_admin(x_admin_key)
+    import stripe
+    user = db.scalar(select(User).where(User.stripe_subscription_id == subscription_id))
+    if not user:
+        raise HTTPException(status_code=404, detail="No user has this subscription_id on file.")
+    try:
+        sub = stripe.Subscription.cancel(subscription_id)
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"Stripe rejected the cancellation: {e}")
+    user.plan = "free"
+    user.listing_limit = billing.FREE_LIMIT
+    user.stripe_subscription_id = None
+    db.commit()
+    return {"cancelled": True, "stripe_status": sub.get("status"),
+            "user_email_domain": (user.email or "").partition("@")[2],
+            "user_plan_now": user.plan}
+
+
 @router.get("/metrics")
 def metrics(x_admin_key: str | None = Header(default=None), db: Session = Depends(get_db)):
     _require_admin(x_admin_key)
