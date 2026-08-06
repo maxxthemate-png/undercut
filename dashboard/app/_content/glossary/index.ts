@@ -995,5 +995,91 @@ export const glossary: PageContent[] = [
     ],
     "lastUpdated": "2026-07-30",
     "leadForm": true
+  },
+  {
+    "slug": "ceiling-price",
+    "collection": "glossary",
+    "template": "glossary",
+    "title": "Ceiling Price in eBay Repricing: What It Is & When to Set One — Undercut",
+    "metaDescription": "Learn what a ceiling price is, when to set one, and how it protects your margins when competitors sell out. Start a 14-day free trial, no card needed.",
+    "h1": "Ceiling Price: The Guard Rail That Stops Your Repricer from Overpricing",
+    "eyebrow": "Glossary",
+    "intro": "A ceiling price is the maximum price your repricer is allowed to set on a listing. Without one, an automated repricer could push your price up indefinitely whenever competitors disappear or go out of stock — leaving you priced far above what buyers expect. In Undercut, the ceiling is optional and set per listing. When active, it works alongside the hard floor to keep every price inside a corridor you define: never below your minimum, never above your maximum.",
+    "sections": [
+      {
+        "h2": "What Is a Ceiling Price?",
+        "body": "A ceiling price (also called a price cap or maximum price) is an upper bound you place on a repricing rule. It tells the repricer: no matter what competitors do, never set this listing higher than this number.\n\nIn a standard undercut workflow, the repricer watches the lowest comparable live competitor and sets your price just below it. That works perfectly when competitors are active. But when every competitor sells out or removes their listing, there is no low price to beat — and a repricer without a ceiling could drift upward without limit. A ceiling price closes that gap.\n\nUndercut treats the ceiling as optional and per-listing, so you can apply it selectively — for example, on fast-moving commodities where you know the market ceiling, while leaving rare or one-off items uncapped."
+      },
+      {
+        "h2": "Ceiling Price vs. Hard Floor: Two Sides of the Same Corridor",
+        "body": "The hard floor and the ceiling price work as a pair. The floor is the minimum you will ever accept — it protects you from selling below cost. The ceiling is the maximum you are willing to charge — it protects buyers from sticker shock and protects you from looking out of touch with the market.\n\nHere is a concrete example. Suppose you sell a USB-C hub. You set a hard floor of $18.00 (covering your cost, eBay's ~13.25% final value fee, and a target margin) and a ceiling of $34.99 (the price you know buyers stop converting). A competitor lists at $22.00 — Undercut sets your price to $21.95. The competitor sells out and no rivals remain. Without a ceiling, repricing pressure disappears and the price could climb unchecked. With the ceiling set, Undercut stops at $34.99, keeping you competitive when the market restocks.\n\nThe hard floor is non-negotiable on every Undercut plan. The ceiling is optional — you decide per listing whether to add it."
+      },
+      {
+        "h2": "When Should You Set a Ceiling Price?",
+        "body": "Not every listing needs a ceiling, but several scenarios make one essential.\n\nCommodity and multi-seller categories — cables, phone cases, stationery — have well-established price anchors. Buyers comparison-shop heavily. A ceiling set at or just below the category's typical asking price keeps you credible even when competitor stock temporarily vanishes.\n\nSeasonally volatile items are a second clear case. Suppose you sell a holiday decoration that normally trades at $15–$20 but could theoretically reprice to $60 in early November when supply tightens. Setting a ceiling at $22.00 means you capture the seasonal uplift without the reputational risk of price-gouging optics or the practical risk of a sudden flood of returns when buyers feel overcharged.\n\nBrand-restricted or MAP-adjacent items are a third scenario. If a supplier informally expects you not to exceed a certain retail price, a ceiling enforces that ceiling automatically without manual intervention.\n\nConversely, vintage, antique, or one-of-a-kind listings often have no reliable market ceiling. For those, many sellers leave the ceiling blank and let the floor do all the protective work."
+      },
+      {
+        "h2": "How the Ceiling Interacts with Undercut's AI Aggressiveness Tuning",
+        "body": "On the Pro and Scale plans, you can optionally enable per-listing AI aggressiveness tuning powered by Claude. This feature adjusts how quickly and how far a listing moves toward its already-set floor. It does not change the floor, and it does not override the ceiling.\n\nThink of the corridor — floor to ceiling — as fixed. The AI tuning only influences where inside that corridor the price sits and how fast it moves toward the floor end. If a listing is priced at $28.00, the floor is $18.00, and the ceiling is $34.99, the AI might recommend moving to $25.50 rather than all the way to $18.05. The ceiling of $34.99 remains untouched; the AI never pushes the price above it.\n\nThis means the ceiling you set is always honored, regardless of plan or AI setting. Free and Starter plans use rule-based repricing only — no AI — but the ceiling still works exactly the same way: the repricer will not exceed it."
+      },
+      {
+        "h2": "Setting a Useful Ceiling: A Worked Example",
+        "body": "Here is a step-by-step example to make the math concrete.\n\nYou buy a mechanical keyboard for $38.00 landed cost. eBay's final value fee is approximately 13.25%, so on a $55.00 sale you pay roughly $7.29 in fees, leaving $47.71 gross — a margin of $9.71 on cost, or about 25.6%. That is your target margin tier.\n\nYou research the category and find the highest price at which similar keyboards consistently sell (rather than sit) is $62.00. You set your hard floor at $50.00 (the price at which your margin drops to the absolute minimum you will accept: $50.00 minus $6.63 fees equals $43.37 gross, or $5.37 over cost — roughly 14.1%) and your ceiling at $62.00.\n\nUndercut now reprices freely between $50.00 and $62.00. When a competitor lists at $58.00, your price moves to $57.95. When that competitor sells out and no others remain, your price rises — but stops at $62.00. You capture the higher-demand moment without exceeding what the market will bear.\n\nTo adjust the corridor you simply edit the floor or ceiling on that individual listing inside Undercut. No bulk import tool exists; each listing's values are set manually per listing."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Is the ceiling price required on every listing in Undercut?",
+        "a": "No. The ceiling is fully optional and set per listing. The hard floor is the only mandatory price boundary. Many sellers leave the ceiling blank on unique or rare items where there is no reliable market maximum, and only set it on commodity or multi-seller listings where price anchors are well established."
+      },
+      {
+        "q": "What happens if I set a ceiling lower than my floor?",
+        "a": "The floor always wins. Undercut's hard floor is an absolute minimum that cannot be overridden by any other setting, including the ceiling. If you accidentally enter a ceiling below the floor, the repricer will hold at the floor rather than sell below it. It is best practice to review both values together when configuring a listing."
+      },
+      {
+        "q": "Which Undercut plans support the ceiling price feature?",
+        "a": "The optional ceiling price is available on all Undercut plans — Free, Starter, Pro, and Scale. It is a core part of the per-listing configuration alongside the hard floor. The difference between plans is repricing frequency, listing capacity, and whether AI aggressiveness tuning is available (Pro and Scale only)."
+      },
+      {
+        "q": "Can the AI aggressiveness tuning push my price above the ceiling?",
+        "a": "No. The ceiling is a hard boundary that the AI cannot override. The AI aggressiveness tuning on Pro and Scale only controls how quickly and how far a listing moves toward the floor within the already-set floor-to-ceiling corridor. The ceiling itself is never adjusted by the AI."
+      },
+      {
+        "q": "How is a ceiling price different from eBay's Markdown Manager?",
+        "a": "They solve different problems. eBay's Markdown Manager creates time-limited promotional discounts displayed to buyers as a sale price. A ceiling price in Undercut is a silent upper bound on your automated repricing — buyers never see it, and it is not a promotion. The ceiling simply prevents your repricer from setting a price higher than a number you choose, particularly useful when competitor stock disappears."
+      }
+    ],
+    "cta": {
+      "heading": "Set Your Floor. Set Your Ceiling. Let Undercut Handle the Rest.",
+      "sub": "Start a 14-day free trial — no credit card required. Configure your price corridor on every listing and reprice automatically on eBay."
+    },
+    "internalLinks": [
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/glossary/race-to-the-bottom",
+        "label": "Race to the Bottom: What It Is and How to Avoid It"
+      },
+      {
+        "href": "/glossary/competitor-low",
+        "label": "Competitor Low Price — Glossary"
+      },
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/pricing",
+        "label": "Undercut Plans & Pricing"
+      }
+    ],
+    "lastUpdated": "2026-08-06",
+    "leadForm": true
   }
 ]
