@@ -217,6 +217,21 @@ export default function Dashboard() {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8 space-y-6">
+        {stores.some((s: any) => s.needs_reconnect) && (
+          <div className="bg-cut-tint border border-cut rounded-lg p-4">
+            <div className="flex items-start justify-between gap-3 flex-wrap">
+              <p className="text-sm text-cut">
+                ⚠️ <b>eBay has disconnected your store.</b> This happens when the connection expires or is
+                revoked on eBay&apos;s side — repricing is paused until you reconnect. Nothing else was lost:
+                your floors and settings are all still here.
+              </p>
+              <button onClick={connectEbay} disabled={busy === 'connect'}
+                className="px-3 py-1.5 text-sm rounded bg-cut-strong text-white hover:opacity-90 disabled:opacity-50 whitespace-nowrap">
+                {busy === 'connect' ? 'Opening…' : 'Reconnect eBay'}
+              </button>
+            </div>
+          </div>
+        )}
         {importMsg && (
           <div className={`${importMsg.kind === 'error' ? 'bg-cut-tint border-cut' : 'bg-guard-tint border-guard'} border rounded-lg p-4`}>
             <div className="flex items-start justify-between gap-3 flex-wrap">

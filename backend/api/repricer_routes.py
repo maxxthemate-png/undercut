@@ -83,18 +83,24 @@ async def _sync_store_listings(db: Session, store: Store, remaining: int) -> dic
         store.last_import_at = datetime.utcnow()
         store.last_import_error = str(e)[:500]
         store.last_import_count = 0
+        # Alert ONCE per distinct error. The 6-hourly auto-resync was emailing the
+        # operator the identical failure for every store on every cycle, forever.
+        repeat = (store.last_alerted_error or "") == str(e)[:500]
+        store.last_alerted_error = str(e)[:500]
         db.commit()
-        try:
-            send_email_alert(
-                # notifications.send_email_alert already prefixes "[Undercut] "
-                subject="eBay import FAILED for a connected seller",
-                body=(f"Store {store.id} ({store.name}) — get_active_listings raised:\n\n{e}\n\n"
-                      f"A seller connected but their listings could NOT be read. Check the eBay "
-                      f"Trading API auth (X-EBAY-API-IAF-TOKEN) + keyset immediately — this is the "
-                      f"first-cold-seller failure signal."),
-            )
-        except Exception:
-            logger.warning("import-failure alert send failed", store_id=str(store.id))
+        if not repeat:
+            try:
+                send_email_alert(
+                    # notifications.send_email_alert already prefixes "[Undercut] "
+                    subject="eBay import FAILED for a connected seller",
+                    body=(f"Store {store.id} ({store.name}) — get_active_listings raised:\n\n{e}\n\n"
+                          f"A seller connected but their listings could NOT be read. Check the eBay "
+                          f"Trading API auth (X-EBAY-API-IAF-TOKEN) + keyset immediately — this is the "
+                          f"first-cold-seller failure signal.\n\n"
+                          f"(You will not be re-alerted for this store until the error changes.)"),
+                )
+            except Exception:
+                logger.warning("import-failure alert send failed", store_id=str(store.id))
         raise HTTPException(status_code=502, detail=(
             "We couldn't read your eBay listings just now — we've been alerted and are on it. "
             "Please try importing again in a few minutes."))
@@ -149,6 +155,8 @@ def list_stores(user: User = Depends(current_user), db: Session = Depends(get_db
     rows = db.scalars(select(Store).where(Store.user_id == user.id)).all()
     return {"stores": [{"id": str(s.id), "name": s.name, "ebay_user_id": s.ebay_user_id,
                         "ai_enabled": s.ai_enabled,
+                        "needs_reconnect": bool(s.needs_reconnect),
+                        "last_import_error": s.last_import_error,
                         "connected_at": s.connected_at.isoformat() if s.connected_at else None}
                        for s in rows]}
 

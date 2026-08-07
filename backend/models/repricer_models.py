@@ -72,6 +72,8 @@ class Store(Base):
     last_import_at = Column(DateTime)                  # last listing-import ATTEMPT (success or failure)
     last_import_count = Column(Integer)                # listings imported on that attempt
     last_import_error = Column(String(500))            # eBay's own words when it failed; NULL on success
+    needs_reconnect = Column(Boolean, default=False, nullable=False)  # eBay auth dead — only the seller can fix
+    last_alerted_error = Column(String(500))           # dedupe: don't re-alert the same failure every cycle
     connected_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

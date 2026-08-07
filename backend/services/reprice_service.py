@@ -110,15 +110,63 @@ async def reprice_listing(client: EbayStoreClient, db, listing: RepricerListing,
 
 
 async def _ensure_fresh_token(db, store) -> None:
-    """Refresh a store's eBay OAuth access token if it has expired."""
+    """Refresh a store's eBay OAuth access token if it has expired.
+
+    Three bugs this used to have, all of which produced an endless eBay error 931
+    ("Validation of the authentication token in API request failed") with no
+    explanation anywhere:
+      1. A NULL token_expires_at meant the token was never considered expired, so
+         a stale token was reused forever. Manual-token stores have no expiry.
+      2. A FAILED refresh (eBay returns {"error": "invalid_grant"}) was silently
+         ignored — no log, no alert, and the dead token was used anyway.
+      3. A store with no refresh token at all could never recover, yet was retried
+         every cycle forever.
+    Now: treat missing expiry as expired, surface refresh failures, and mark the
+    store needs_reconnect when only the seller can fix it.
+    """
+    if not store.oauth_access_token:
+        return
     exp = store.token_expires_at
-    if store.oauth_refresh_token and exp and exp <= datetime.utcnow():
-        tok = await ebay_oauth.refresh(decrypt_token(store.oauth_refresh_token))
-        if tok.get("access_token"):
-            store.oauth_access_token = encrypt_token(tok["access_token"])
-            store.token_expires_at = datetime.utcnow() + timedelta(seconds=int(tok.get("expires_in", 7200)))
-            db.commit()
-            logger.info("refreshed eBay token", store=str(store.id))
+    # No expiry recorded => we cannot know it's valid; treat as expired and refresh.
+    if exp is not None and exp > datetime.utcnow():
+        return
+    if not store.oauth_refresh_token:
+        # Nothing to refresh with (e.g. a manually pasted token). Only the seller
+        # can fix this by reconnecting — stop pretending a retry will help.
+        _mark_needs_reconnect(db, store, "no refresh token on file — seller must reconnect eBay")
+        return
+    tok = await ebay_oauth.refresh(decrypt_token(store.oauth_refresh_token))
+    if tok.get("access_token"):
+        store.oauth_access_token = encrypt_token(tok["access_token"])
+        store.token_expires_at = datetime.utcnow() + timedelta(seconds=int(tok.get("expires_in", 7200)))
+        store.needs_reconnect = False
+        db.commit()
+        logger.info("refreshed eBay token", store=str(store.id))
+        return
+    err = (tok.get("error_description") or tok.get("error") or "refresh returned no access_token")
+    logger.error("eBay token refresh FAILED", store=str(store.id), error=str(err))
+    # invalid_grant = the refresh token itself is revoked/expired: unrecoverable
+    # without the seller re-consenting.
+    if "invalid_grant" in str(tok.get("error", "")) or "invalid" in str(err).lower():
+        _mark_needs_reconnect(db, store, f"eBay refused the refresh token ({err}) — seller must reconnect")
+
+
+def _mark_needs_reconnect(db, store, reason: str) -> None:
+    """Flag a store as unrecoverable-without-the-seller, and alert ONCE per distinct
+    reason (these used to email the operator every single cycle, forever)."""
+    store.needs_reconnect = True
+    store.last_import_error = reason[:500]
+    already_alerted = (store.last_alerted_error or "") == reason[:500]
+    if not already_alerted:
+        store.last_alerted_error = reason[:500]
+        try:
+            _operator_alert("eBay store needs reconnect",
+                            f"Store {store.id} ({store.name}) can no longer authenticate with eBay.\n\n"
+                            f"{reason}\n\nThe seller must reconnect their eBay account. "
+                            f"No further alerts will be sent for this store until the reason changes.")
+        except Exception:
+            pass
+    db.commit()
 
 
 async def reprice_all(store_ids: list | None = None) -> dict:
@@ -156,7 +204,11 @@ async def resync_stale_stores(db, limit: int = 25) -> dict:
     cutoff = datetime.utcnow() - timedelta(hours=_RESYNC_AFTER_H)
     stores = db.scalars(
         select(Store).where(Store.is_active.is_(True),
-                            Store.oauth_access_token.isnot(None))).all()
+                            Store.oauth_access_token.isnot(None),
+                            # A store whose eBay auth is dead cannot be fixed by
+                            # retrying — skip it until the seller reconnects,
+                            # instead of failing (and alerting) every 6h forever.
+                            Store.needs_reconnect.is_(False))).all()
     out = {"checked": 0, "resynced": 0, "failed": 0}
     for store in stores:
         if out["resynced"] + out["failed"] >= limit:
@@ -172,12 +224,24 @@ async def resync_stale_stores(db, limit: int = 25) -> dict:
         user = db.get(User, store.user_id) if store.user_id else None
         remaining = (getattr(user, "listing_limit", None) or billing.FREE_LIMIT) if user else billing.FREE_LIMIT
         try:
+            # Refresh first: a store sitting on an expired token would otherwise
+            # fail import with a 931 that looks like an eBay outage.
+            await _ensure_fresh_token(db, store)
+            if store.needs_reconnect:
+                out["needs_reconnect"] = out.get("needs_reconnect", 0) + 1
+                continue
             res = await _sync_store_listings(db, store, remaining)
             out["resynced"] += 1
             logger.info("store auto-resynced", store=str(store.id), imported=res.get("imported"))
         except Exception as e:
             out["failed"] += 1
-            logger.warning("store auto-resync failed", store=str(store.id), error=str(e))
+            msg = str(e)
+            logger.warning("store auto-resync failed", store=str(store.id), error=msg)
+            # eBay 931 / auth failure => the token is dead, not a transient blip.
+            # Without this the same store re-fails and re-alerts every cycle.
+            if "authentication token" in msg.lower() or "931" in msg or "auth token" in msg.lower():
+                _mark_needs_reconnect(db, store,
+                                      "eBay rejected the stored auth token — seller must reconnect")
     return out
 
 
