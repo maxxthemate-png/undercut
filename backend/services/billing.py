@@ -118,19 +118,52 @@ def plan_budget_take(remaining: int, group_len: int) -> tuple[int, int]:
     return group_len, 0
 
 
+# --- Season Pass: one-time, non-recurring access ---------------------------------
+# Sold alongside the subscription rather than instead of it. Priced at ~5 months of
+# Starter because that is the point where a burst-seller stops comparing it to a
+# monthly bill and starts treating it as a season's cost.
+PASS_DAYS = 90
+PASS_PLAN = "starter"
+PASS_PRICE = 145            # ~5x the $29 monthly
+
+
+def pass_active(user) -> bool:
+    exp = getattr(user, "pass_expires_at", None)
+    return bool(exp and exp > datetime.utcnow())
+
+
+def grant_pass(user) -> None:
+    """Apply a purchased Season Pass. Extends an existing pass rather than
+    overwriting it, so buying two in a row doesn't silently discard the first."""
+    base = user.pass_expires_at if pass_active(user) else datetime.utcnow()
+    user.pass_expires_at = base + timedelta(days=PASS_DAYS)
+    user.pass_plan = PASS_PLAN
+
+
 def effective_access(user) -> tuple[str, int]:
     """(effective_plan, effective_listing_limit) for ENFORCEMENT — read-only.
+    - active Season Pass             -> the pass's plan (if better than current)
     - expired trial                  -> free limits
     - past_due beyond the grace days -> free limits (plan column untouched)
     - otherwise                      -> the user's stored plan/limit"""
     plan = getattr(user, "plan", None) or "free"
+    stored_limit = getattr(user, "listing_limit", None) or FREE_LIMIT
+
+    # A paid pass must never be downgraded by trial expiry or a dunning state on a
+    # separate subscription — it was paid for outright.
+    if pass_active(user):
+        p = getattr(user, "pass_plan", None) or PASS_PLAN
+        pass_limit = limit_for_plan(p)
+        if pass_limit >= stored_limit:
+            return p, pass_limit
+
     if plan == TRIAL_PLAN and not is_trialing(user):
         return "free", FREE_LIMIT
     if getattr(user, "payment_status", "ok") == "past_due":
         failed_at = getattr(user, "payment_failed_at", None)
         if failed_at and datetime.utcnow() - failed_at > timedelta(days=settings.DUNNING_GRACE_DAYS):
             return "free", FREE_LIMIT
-    return plan, (getattr(user, "listing_limit", None) or FREE_LIMIT)
+    return plan, stored_limit
 
 
 def access_summary(user) -> dict:
@@ -177,6 +210,35 @@ def create_checkout_session(user, plan: str, success_url: str, cancel_url: str, 
         line_items=[{"price": price, "quantity": 1}],
         success_url=success_url, cancel_url=cancel_url,
         metadata={"user_id": str(user.id), "plan": plan, "interval": interval},
+    )
+    return session.url, customer
+
+
+def create_pass_checkout(user, success_url: str, cancel_url: str):
+    """One-time (mode='payment') checkout for the Season Pass. Uses a configured
+    price id if present, else an inline price so this works without extra setup."""
+    customer = user.stripe_customer_id
+    if not customer:
+        customer = stripe.Customer.create(email=user.email,
+                                          metadata={"user_id": str(user.id)}).id
+    price_id = getattr(settings, "STRIPE_PRICE_SEASON_PASS", None)
+    line_item = ({"price": price_id, "quantity": 1} if price_id else {
+        "quantity": 1,
+        "price_data": {
+            "currency": "usd",
+            "unit_amount": PASS_PRICE * 100,
+            "product_data": {
+                "name": f"Undercut Season Pass — {PASS_DAYS} days",
+                "description": (f"{PASS_DAYS} days of Starter-level repricing "
+                                f"({limit_for_plan(PASS_PLAN)} listings). One-time payment, "
+                                f"no subscription, nothing to cancel."),
+            },
+        },
+    })
+    session = stripe.checkout.Session.create(
+        mode="payment", customer=customer, line_items=[line_item],
+        success_url=success_url, cancel_url=cancel_url,
+        metadata={"user_id": str(user.id), "kind": "season_pass"},
     )
     return session.url, customer
 

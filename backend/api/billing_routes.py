@@ -39,6 +39,22 @@ class CheckoutIn(BaseModel):
     interval: str = "month"   # "month" (default) | "year"
 
 
+@router.post("/checkout-pass")
+def checkout_pass(user: User = Depends(current_user), db: Session = Depends(get_db)):
+    """One-time Season Pass checkout (no subscription)."""
+    app = _app_url()
+    try:
+        url, customer = billing.create_pass_checkout(
+            user, success_url=f"{app}/dashboard?pass=1", cancel_url=f"{app}/pricing")
+    except Exception as e:
+        logger.error("season pass checkout failed", user=str(user.id), error=str(e))
+        raise HTTPException(status_code=502, detail="Could not start checkout — please try again.")
+    if customer and not user.stripe_customer_id:
+        user.stripe_customer_id = customer
+        db.commit()
+    return {"url": url}
+
+
 @router.get("/referral")
 def referral(user: User = Depends(current_user), db: Session = Depends(get_db)):
     """The user's referral link + live stats for the dashboard card."""
@@ -101,6 +117,22 @@ async def webhook(request: Request, db: Session = Depends(get_db)):
     if etype == "checkout.session.completed":
         meta = obj.get("metadata") or {}
         user = db.get(User, _uuid(meta.get("user_id"))) if meta.get("user_id") else None
+        # Season Pass is a one-time payment, not a subscription: grant it here and
+        # return, so the subscription-plan sync below never runs for it.
+        if meta.get("kind") == "season_pass":
+            if user and obj.get("payment_status") == "paid":
+                billing.grant_pass(user)
+                if obj.get("customer"):
+                    user.stripe_customer_id = obj["customer"]
+                db.commit()
+                logger.info("season pass granted", user=str(user.id),
+                            until=str(user.pass_expires_at))
+                try:
+                    referrals.grant_conversion_credit(user, db)
+                except Exception as e:
+                    logger.error("referral credit hook failed (pass)",
+                                 user=str(user.id), error=str(e))
+            return {"received": True}
         plan = meta.get("plan")
         customer, sub_id = obj.get("customer"), obj.get("subscription")
     elif etype in ("customer.subscription.created", "customer.subscription.updated"):

@@ -38,6 +38,8 @@ class User(Base):
     last_weekly_digest_at = Column(DateTime)           # weekly digest cadence stamp
     winback_emailed_at = Column(DateTime)              # one-shot win-back email stamp
 
+    pass_expires_at = Column(DateTime)                 # one-time Season Pass expiry (no subscription)
+    pass_plan = Column(String(20))                     # plan level the pass grants
     referral_code = Column(String(16), unique=True, index=True)          # share code (lazily generated)
     referred_by_user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     referral_credited_at = Column(DateTime)            # one-shot: this user's conversion already granted credit

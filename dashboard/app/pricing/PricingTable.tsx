@@ -65,6 +65,29 @@ export default function PricingTable() {
           )
         })}
       </div>
+
+      {/* One-time option. eBay selling is bursty and seasonal (Q4, back-to-school,
+          a liquidation run) — a seller with a six-week need will not take a
+          12-month subscription, and a subscription-only page loses them silently. */}
+      <div className="mt-8 rounded-lg border border-line bg-wash p-6 max-w-3xl mx-auto">
+        <div className="flex items-start justify-between gap-4 flex-wrap">
+          <div className="flex-1 min-w-[260px]">
+            <p className="font-semibold text-ink">Season Pass — one-time, no subscription</p>
+            <p className="text-sm text-muted mt-1">
+              Selling hard for one season? Get <b>90 days of Starter</b> (100 listings, hard floor on
+              every one) for a single payment. Nothing recurring, nothing to cancel.
+            </p>
+          </div>
+          <div className="text-right">
+            <p className="text-3xl font-extrabold text-ink"><span className="tabular">$145</span></p>
+            <p className="text-xs text-muted">one time · 90 days</p>
+            <Link href="/signup"
+              className="mt-3 inline-flex items-center justify-center rounded border border-line text-ink text-sm font-medium px-4 py-2.5 transition hover:border-muted">
+              Start free first
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

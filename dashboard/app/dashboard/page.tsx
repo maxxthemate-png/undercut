@@ -174,6 +174,18 @@ export default function Dashboard() {
     } catch { /* transient — the poll will refresh */ }
     setBusy(''); fetchAll()
   }
+  async function buyPass() {
+    setBusy('pass')
+    try {
+      const res = await api('/api/billing/checkout-pass', { method: 'POST' })
+      const d = await res.json().catch(() => ({} as any))
+      if (d.url) { window.location.href = d.url; return }
+      setImportMsg({ kind: 'error', text: d.detail || 'Could not start checkout.' })
+    } catch {
+      setImportMsg({ kind: 'error', text: 'Could not reach the server — please retry.' })
+    } finally { setBusy('') }
+  }
+
   async function upgrade(plan: string, interval: 'month' | 'year' = 'month') {
     const d = await (await api('/api/billing/checkout', { method: 'POST', body: JSON.stringify({ plan, interval }) })).json()
     if (d.url) window.location.href = d.url; else alert(d.detail || 'Billing not configured yet.')
@@ -287,6 +299,13 @@ export default function Dashboard() {
                   <button onClick={() => upgrade('scale', billingInterval)} className="px-3 py-1.5 text-sm rounded bg-surface border border-line whitespace-nowrap hover:border-muted transition">{planLabel('scale', billingInterval)}</button>
                 </div>
               </div>
+              <p className={`text-xs mt-2 ${urgent ? 'text-cut' : 'text-guard'}`}>
+                Selling for one season?{' '}
+                <button onClick={buyPass} disabled={busy === 'pass'} className="underline font-medium disabled:opacity-50">
+                  {busy === 'pass' ? 'Opening…' : 'Get a $145 Season Pass instead'}
+                </button>{' '}
+                — 90 days of Starter, one payment, nothing recurring.
+              </p>
               <p className={`text-xs mt-2 ${urgent ? 'text-cut' : 'text-guard'}`}>
                 When your trial ends you keep your account and move to Free (25 listings) — repricing pauses on the rest until you upgrade. No surprise charges.
               </p>
