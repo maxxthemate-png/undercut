@@ -139,6 +139,40 @@ def cancel_subscription(subscription_id: str, x_admin_key: str | None = Header(d
             "user_plan_now": user.plan}
 
 
+@router.get("/email-health")
+def email_health(send_test: bool = False, x_admin_key: str | None = Header(default=None)):
+    """Is the operator-alert channel actually alive in prod?
+
+    Every 'alert loudly' path added during hardening routes through
+    send_email_alert, which returns False silently when SendGrid env vars are
+    missing at the SERVICE level (the documented render.yaml env-group gotcha).
+    Zero alert emails have ever arrived, so this reports whether the config is
+    present and can optionally perform one real send to prove delivery.
+    Never returns secret VALUES — only whether each is set."""
+    _require_admin(x_admin_key)
+    out = {
+        "sendgrid_api_key_set": bool(settings.SENDGRID_API_KEY),
+        "operator_email_set": bool(settings.OPERATOR_EMAIL),
+        "from_email": settings.FROM_EMAIL,   # not a secret; needs to be the verified sender
+        "alerts_possible": bool(settings.SENDGRID_API_KEY and settings.OPERATOR_EMAIL),
+    }
+    if not out["alerts_possible"]:
+        out["verdict"] = ("BROKEN — send_email_alert() returns False and every operator alert is "
+                          "silently discarded. Set the missing vars at the Render SERVICE level.")
+        return out
+    out["verdict"] = "Config present. Pass ?send_test=true to prove an email actually delivers."
+    if send_test:
+        from ..utils.notifications import send_email_alert
+        ok = send_email_alert(
+            subject="Email health check",
+            body="If you are reading this, the operator alert channel works. "
+                 "Triggered manually from /api/admin/email-health.")
+        out["test_send_returned"] = ok
+        out["verdict"] = ("Test send accepted by SendGrid — check the operator inbox (and spam)."
+                          if ok else "Test send FAILED — see logs; SendGrid rejected it.")
+    return out
+
+
 @router.get("/metrics")
 def metrics(x_admin_key: str | None = Header(default=None), db: Session = Depends(get_db)):
     _require_admin(x_admin_key)
