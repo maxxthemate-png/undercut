@@ -35,13 +35,33 @@ export const TRUST_BADGES = [
   'Billing by Stripe — cancel anytime',
 ]
 
+// Default social share image — the same one the root layout falls back to
+// (app/opengraph-image.tsx). Next.js does NOT merge a page's own openGraph/twitter
+// object with the root layout's — it replaces it wholesale — so any page that
+// defines its own openGraph/twitter (as pageMeta() does, for a unique title/
+// description/url per page) must re-declare the image/type/siteName fields too,
+// or social shares silently lose the OG/Twitter image and show a broken card.
+const DEFAULT_OG_IMAGE = { url: '/opengraph-image', width: 1200, height: 630 }
+
 // Standard metadata for bespoke marketing pages: canonical + OG + twitter in one call.
 export function pageMeta(title: string, description: string, path: string) {
   return {
     title,
     description,
     alternates: { canonical: path },
-    openGraph: { title, description, url: path, siteName: BRAND, type: 'website' as const },
-    twitter: { card: 'summary_large_image' as const, title, description },
+    openGraph: {
+      title,
+      description,
+      url: path,
+      siteName: BRAND,
+      type: 'website' as const,
+      images: [{ ...DEFAULT_OG_IMAGE, alt: title }],
+    },
+    twitter: {
+      card: 'summary_large_image' as const,
+      title,
+      description,
+      images: [DEFAULT_OG_IMAGE.url],
+    },
   }
 }
