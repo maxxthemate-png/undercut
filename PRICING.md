@@ -6,6 +6,12 @@
 | Starter | $29 | $290/yr (save $58) | 100 | hourly | |
 | Pro | $79 | $790/yr (save $158) | 1,000 | 15-min | AI tuning |
 | Scale | $199 | $1,990/yr (save $398) | 10,000 | fastest | AI tuning, priority support |
+| Season Pass | $145 one-time | n/a | 100 | hourly | 90 days of Starter-level access, no subscription; buying again extends the window |
+
+**Season Pass constants are code, not copy.** `PASS_PRICE`, `PASS_DAYS` and `PASS_PLAN` live in
+`backend/services/billing.py`; the listing limit comes from `limit_for_plan(PASS_PLAN)`. Read them
+there rather than trusting the row above. `STRIPE_PRICE_SEASON_PASS` is optional and, when set,
+overrides the inline price object the checkout session builds from `PASS_PRICE`.
 
 - Every account starts with a **14-day Founding trial** (Starter features, no card) → auto-drops to Free.
 - Annual = 10× monthly. Refunds: 30-day window on annual; monthly cancel-anytime (see /refund-policy).

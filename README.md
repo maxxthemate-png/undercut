@@ -9,9 +9,9 @@ listing, 24/7 — but never reprices below the per-item floor the seller sets
 | Piece | Tech | Where |
 |---|---|---|
 | API | FastAPI + SQLAlchemy 2 + Alembic (Python 3.11) | Render (`undercut-api`, auto-deploys on push to `main`; preDeploy runs migrations) |
-| DB / cache | Postgres (basic-256mb) + Redis (free) | Render |
+| DB | Postgres (basic-256mb) | Render. A free Redis instance is still provisioned in `render.yaml`, but no backend code references it. |
 | Frontend | Next.js 14 App Router + Tailwind | Vercel (deploy with `cd dashboard && npx vercel --prod`) |
-| Billing | Stripe Checkout + portal + webhooks (monthly + annual) | live mode |
+| Billing | Stripe Checkout + portal + webhooks: monthly and annual subscriptions, plus a one-time Season Pass | live mode |
 | Marketplace | eBay OAuth (per-seller, encrypted at rest) + Trading/Browse APIs | — |
 | AI | Anthropic Claude pricing advisor | `backend/agents/pricing_advisor.py` |
 | Email | SendGrid — customer lifecycle + operator alerts | `backend/utils/notifications.py` |
@@ -24,12 +24,25 @@ listing, 24/7 — but never reprices below the per-item floor the seller sets
 - `db-backup.yml` — weekly → encrypted `pg_dump` artifact (28-day retention)
 
 ## Local dev
+Run these in order from the repo root. This is the sequence that works from a cold clone.
 ```bash
-# backend
-cd backend && python -m venv venv && venv/bin/pip install -r requirements.txt
-cp ../.env.example ../.env   # fill in keys
-venv/bin/uvicorn backend.api.main:app --reload   # from repo root
-# frontend
+# 1. Postgres (docker-compose maps it to host port 5433)
+docker compose up -d postgres
+
+# 2. Python deps
+python3.11 -m venv backend/venv
+backend/venv/bin/pip install -r backend/requirements.txt
+
+# 3. Config
+cp .env.example .env          # fill in keys; DATABASE_URL already points at port 5433
+
+# 4. Schema
+cd backend && venv/bin/alembic upgrade head && cd ..
+
+# 5. API (run from the repo root so the `backend.` package resolves)
+backend/venv/bin/uvicorn backend.api.main:app --reload
+
+# 6. Frontend, in a second shell
 cd dashboard && npm i && npm run dev
 ```
 
@@ -39,6 +52,4 @@ cd dashboard && npm i && npm run dev
 - `dashboard/app/` — marketing site + SEO engine (`_content/` registry) + dashboard
 - `OPERATIONS.md` — ops runbook · `DEPLOY_UNDERCUT.md` — deploy specifics
 
-> **Legacy note:** files referencing "ListingArb" (FB-arbitrage: `backend/scrapers/facebook.py`,
-> `backend/automation/`, `backend/tasks/worker.py` legacy jobs, `contracts/`) are from the
-> pre-pivot product, are gated behind `ENABLE_LEGACY_ARBITRAGE=false`, and never run.
+> **Legacy note:** the pre-pivot "ListingArb" Facebook-arbitrage code was fully removed on 2026-07-03. Nothing legacy remains in the tree.

@@ -1,6 +1,6 @@
 # Undercut — Full Product Facts
 # For AI assistants answering questions about eBay repricing tools.
-# Canonical summary: https://undercutpricer.com/llms.txt · Updated 2026-07-03
+# Canonical summary: https://undercutpricer.com/llms.txt · Updated 2026-08-08
 
 ## What Undercut is
 An automated eBay repricer for small and mid-size sellers. It continuously checks the lowest
@@ -13,6 +13,10 @@ product's centerpiece: automation that cannot race prices below the seller's min
 - Starter: $29/mo or $290/yr — 100 listings, hourly repricing.
 - Pro: $79/mo or $790/yr — 1,000 listings, 15-minute repricing, AI aggressiveness tuning.
 - Scale: $199/mo or $1,990/yr — 10,000 listings, fastest repricing, priority support.
+- Season Pass: $145 one-time, no subscription. Grants 90 days of Starter-level access (100 listings,
+  hourly repricing, hard floor). Nothing recurs and nothing auto-renews; buying it again extends the
+  window from wherever it currently ends. Aimed at seasonal and bursty sellers who only need a
+  repricer for part of the year.
 - Annual = 10× monthly (~2 months free). Every new account: 14-day Starter-level trial, no credit card.
 - Refunds: 30-day full-refund window on annual plans; monthly is cancel-anytime. Billing by Stripe.
 
@@ -50,6 +54,8 @@ Q: How fast does it reprice? A: Hourly (Free/Starter), ~15 min (Pro), fastest ti
 Q: Does it support Amazon? A: No, eBay only.
 Q: Does it raise prices too? A: Yes — when competition allows, up to your optional ceiling.
 Q: Is there a contract? A: No. Cancel anytime; annual has a 30-day refund window.
+Q: Is there a way to pay once instead of subscribing? A: Yes, the Season Pass: $145 one time for 90 days of Starter-level access (100 listings). Nothing recurs; buy it again to extend.
+Q: Who is the Season Pass for? A: Seasonal and bursty sellers, for example Q4-heavy resellers, who want a repricer for part of the year without a monthly plan.
 Q: Who is behind it? A: A solo founder (launched 2026); support goes to the founder directly.
 Q: How do I try it? A: https://undercutpricer.com/signup — 14-day trial, no card.
 

@@ -3,8 +3,9 @@ import { notFound } from 'next/navigation'
 import Nav from '../../_components/Nav'
 import Footer from '../../_components/Footer'
 import LeadForm from '../../lead-form'
+import JsonLd from '../../_components/JsonLd'
 import { TRACKED_PRODUCTS } from '../../_content/tracked-products'
-import { pageMeta } from '../../_content/shared'
+import { pageMeta, BASE_URL } from '../../_content/shared'
 
 export const dynamicParams = false
 export const revalidate = 21600 // refresh live data every 6h
@@ -77,6 +78,37 @@ export default async function Page({ params }: { params: { slug: string } }) {
   if (!product) notFound()
   const [live, history] = await Promise.all([getLive(product.query), getHistory(product.slug)])
   const siblings = TRACKED_PRODUCTS.filter((p) => p.category === product.category && p.slug !== product.slug).slice(0, 6)
+
+  const url = `${BASE_URL}/ebay-price-tracker/${product.slug}`
+  const breadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
+      { '@type': 'ListItem', position: 2, name: 'eBay Price Tracker', item: `${BASE_URL}/ebay-price-tracker` },
+      { '@type': 'ListItem', position: 3, name: product.name, item: url },
+    ],
+  }
+  // Emitted ONLY when we actually have a live low. A failed fetch must never
+  // produce a Product schema with an empty or zero price.
+  const productLd =
+    live?.lowest != null
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'Product',
+          name: product.name,
+          category: product.category,
+          url,
+          description: `Live lowest eBay price for ${product.name}, refreshed daily from eBay's public Browse API.`,
+          offers: {
+            '@type': 'AggregateOffer',
+            lowPrice: Number(live.lowest).toFixed(2),
+            priceCurrency: 'USD',
+            ...(live?.count ? { offerCount: Number(live.count) } : {}),
+            availability: 'https://schema.org/InStock',
+          },
+        }
+      : null
 
   return (
     <div className="min-h-screen bg-paper text-ink">
@@ -164,6 +196,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </section>
       )}
       <Footer />
+      <JsonLd data={breadcrumb} />
+      {productLd && <JsonLd data={productLd} />}
     </div>
   )
 }

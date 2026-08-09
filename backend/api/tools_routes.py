@@ -4,47 +4,33 @@ In-process cache + per-IP throttle (the api runs as a single web instance) so
 the free price checker can't burn the eBay Browse quota or get scripted.
 """
 import time
-from collections import deque
 
 from fastapi import APIRouter, HTTPException, Query, Request
 
 from ..services.ebay_store import EbayStoreClient
 from ..utils.logging import get_logger
+from ..utils.throttle import IPThrottle, client_ip
 
 logger = get_logger(__name__)
 
 public_router = APIRouter(prefix="/api/tools", tags=["tools"])
 
 _CACHE: dict[str, tuple[float, dict]] = {}   # query -> (fetched_at, payload)
-_HITS: dict[str, deque] = {}                 # ip -> recent request timestamps
 CACHE_TTL = 900          # 15 min — competitor lows don't move faster than we reprice
 RATE_LIMIT, RATE_WINDOW = 8, 60
 _CACHE_MAX = 500
 
-
-def _client_ip(request: Request) -> str:
-    # Rightmost XFF hop = appended by our proxy; leftmost is client-spoofable.
-    fwd = request.headers.get("x-forwarded-for")
-    return (fwd.split(",")[-1].strip() if fwd else None) or (
-        request.client.host if request.client else "unknown"
-    )
-
-
-def _throttled(ip: str) -> bool:
-    now = time.time()
-    dq = _HITS.setdefault(ip, deque())
-    while dq and now - dq[0] > RATE_WINDOW:
-        dq.popleft()
-    if len(dq) >= RATE_LIMIT:
-        return True
-    dq.append(now)
-    return False
+# Shared implementation: same sliding window, but it evicts idle IPs above
+# 10,000 entries. The local copy this replaced never evicted, so the public
+# tool endpoints (the ones SEO traffic and bot scanners hit) grew a per-IP
+# dict forever on a long-lived instance.
+_throttle = IPThrottle(RATE_LIMIT, RATE_WINDOW)
 
 
 @public_router.get("/price-history")
 def price_history(request: Request, slug: str = Query(min_length=2, max_length=80)):
     """Daily snapshots for a tracked product — powers the public price-tracker charts."""
-    if _throttled(_client_ip(request)):
+    if _throttle.over_limit(client_ip(request)):
         raise HTTPException(429, "Too many requests — try again in a minute.")
     from ..utils.tracked_products import TRACKED_PRODUCTS
     if slug not in TRACKED_PRODUCTS:
@@ -70,7 +56,7 @@ def price_history(request: Request, slug: str = Query(min_length=2, max_length=8
 @public_router.get("/price-check")
 async def price_check(request: Request, q: str = Query(min_length=3, max_length=80)):
     """Lowest live eBay price + cheapest listings for a product query."""
-    if _throttled(_client_ip(request)):
+    if _throttle.over_limit(client_ip(request)):
         raise HTTPException(429, "Too many checks — try again in a minute.")
 
     key = " ".join(q.lower().split())
@@ -94,7 +80,7 @@ async def price_check(request: Request, q: str = Query(min_length=3, max_length=
 async def listing_check(request: Request, url: str = Query(min_length=5, max_length=400)):
     """Exact-item demo: resolve ONE eBay listing (URL or id) and find the lowest
     comparable competitor in its own category. Accurate, unlike keyword matching."""
-    if _throttled(_client_ip(request)):
+    if _throttle.over_limit(client_ip(request)):
         raise HTTPException(429, "Too many checks — try again in a minute.")
 
     item_id = EbayStoreClient.parse_item_id(url)

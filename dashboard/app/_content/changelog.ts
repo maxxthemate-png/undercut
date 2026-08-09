@@ -6,6 +6,8 @@ export interface ChangelogEntry {
 }
 
 export const changelog: ChangelogEntry[] = [
+  { date: '2026-08-07', title: 'Season Pass: pay once, reprice for 90 days', blurb: 'A $145 one-time purchase that unlocks 90 days of Starter-level repricing (100 listings). No subscription, nothing auto-renews, and buying it again extends your window. Built for seasonal sellers who only need a repricer part of the year.' },
+  { date: '2026-06-11', title: 'eBay Price Tracker', blurb: 'Free live price trackers for 60 popular resale items: the lowest eBay price right now, daily price history, and the count of live listings you would be competing against.' },
   { date: '2026-06-10', title: 'Sell-through + Best Offer calculators', blurb: 'Two new free tools: check whether your inventory is actually moving, and compute the minimum Best Offer worth accepting (with auto-accept/decline thresholds).' },
   { date: '2026-06-10', title: 'Password reset + one-click unsubscribe', blurb: 'Account recovery from the login page, and every email now carries a working one-click unsubscribe link.' },
   { date: '2026-06-10', title: 'Fair-use plan enforcement', blurb: 'Repricing volume and frequency now match your plan exactly — and dunning grace periods mean a failed card never instantly cuts you off.' },

@@ -35,3 +35,8 @@ memory/
 Docs/
 GROWTH.md
 SELL.md
+
+# Local-only working artifacts (kept on disk, never published)
+_undercut-docs-from-brain/
+Undercut-Status-2026-07-05.pdf
+AUDIT-*.md

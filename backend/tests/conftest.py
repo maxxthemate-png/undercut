@@ -73,7 +73,7 @@ def _reset_tools_state():
 
     def _clear():
         tools_routes._CACHE.clear()
-        tools_routes._HITS.clear()
+        tools_routes._throttle._hits.clear()
         _auth_routes._signup_throttle._hits.clear()
         _auth_routes._login_throttle._hits.clear()
         _auth_routes._reset_throttle._hits.clear()

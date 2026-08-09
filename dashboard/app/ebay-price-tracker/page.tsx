@@ -2,14 +2,28 @@ import Link from 'next/link'
 import Nav from '../_components/Nav'
 import Footer from '../_components/Footer'
 import CtaBanner from '../_components/CtaBanner'
+import JsonLd from '../_components/JsonLd'
 import { TRACKED_PRODUCTS } from '../_content/tracked-products'
-import { pageMeta, DEFAULT_CTA } from '../_content/shared'
+import { pageMeta, DEFAULT_CTA, BASE_URL } from '../_content/shared'
 
 export const metadata = pageMeta(
-  'eBay Price Tracker — Live Lowest Prices on 60 Popular Resale Items',
+  `eBay Price Tracker: Live Lowest Prices on ${TRACKED_PRODUCTS.length} Popular Resale Items`,
   'Track the lowest live eBay price on consoles, sneakers, trading cards, LEGO, and more — updated daily with price history. Free, no signup required.',
   '/ebay-price-tracker'
 )
+
+const ITEM_LIST_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'eBay price trackers',
+  numberOfItems: TRACKED_PRODUCTS.length,
+  itemListElement: TRACKED_PRODUCTS.map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: p.name,
+    url: `${BASE_URL}/ebay-price-tracker/${p.slug}`,
+  })),
+}
 
 export default function Page() {
   const cats = Array.from(new Set(TRACKED_PRODUCTS.map((p) => p.category)))
@@ -46,6 +60,7 @@ export default function Page() {
       </section>
       <CtaBanner heading={DEFAULT_CTA.heading} sub={DEFAULT_CTA.sub} />
       <Footer />
+      <JsonLd data={ITEM_LIST_LD} />
     </div>
   )
 }

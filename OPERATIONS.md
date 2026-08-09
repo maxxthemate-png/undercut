@@ -3,6 +3,10 @@
 ## Live endpoints
 - App: https://undercutpricer.com · API: https://undercut-api.onrender.com (`/health`)
 - Founder metrics: `/admin` (needs `ADMIN_KEY`) · `GET /api/admin/metrics`, `/api/admin/gating-preview`
+- `GET /api/admin/email-health`: proves whether operator and lifecycle mail actually sends (`X-Admin-Key`)
+- `GET /api/admin/ebay-selftest`: checks the operator eBay keyset and token against the live API (`X-Admin-Key`)
+- `GET /api/admin/paid-users`: lists paying accounts and their Stripe linkage (`X-Admin-Key`)
+- `POST /api/admin/cancel-subscription`: cancels a live subscription; destructive, use deliberately (`X-Admin-Key`)
 
 ## Automated jobs (GitHub Actions; repo secrets in parentheses)
 | Workflow | Schedule | Does |
@@ -44,5 +48,7 @@ day-7 access reduced (plan column untouched) → `invoice.paid` restores instant
 ## Secrets inventory (names only)
 Render service: STRIPE_*, EBAY_*, ANTHROPIC_API_KEY, SENDGRID_API_KEY, FROM_EMAIL,
 OPERATOR_EMAIL, PUBLIC_APP_URL, PUBLIC_API_URL, SECRET_KEY, UNDERCUT_API_KEY, ADMIN_KEY,
-TOKEN_ENC_KEY, flags above. GitHub: API_URL, CRON_KEY, SENDGRID_API_KEY, ALERT_TO,
+TOKEN_ENC_KEY, flags above. **Optional:** STRIPE_PRICE_SEASON_PASS (overrides the inline
+Season Pass price built from `PASS_PRICE` in `backend/services/billing.py`; unset is fine).
+GitHub: API_URL, CRON_KEY, SENDGRID_API_KEY, ALERT_TO,
 ALERT_FROM, DATABASE_URL_EXTERNAL, BACKUP_PASSPHRASE.

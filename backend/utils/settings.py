@@ -46,6 +46,11 @@ class Settings(BaseSettings):
     STRIPE_PRICE_STARTER_ANNUAL: Optional[str] = None
     STRIPE_PRICE_PRO_ANNUAL: Optional[str] = None
     STRIPE_PRICE_SCALE_ANNUAL: Optional[str] = None
+    # Optional. billing.py reads this to override the inline one-time Season Pass
+    # price built from PASS_PRICE/PASS_DAYS/PASS_PLAN. It MUST be declared here:
+    # Config.extra="ignore" silently drops undeclared env vars, so without this
+    # field, setting STRIPE_PRICE_SEASON_PASS in Render would do nothing forever.
+    STRIPE_PRICE_SEASON_PASS: Optional[str] = None
     PUBLIC_APP_URL: Optional[str] = None
     PUBLIC_API_URL: Optional[str] = None   # backend base URL (unsubscribe links)
     REPRICER_ENFORCE_PLAN_LIMITS: bool = False   # gate reprice volume by plan (ON in prod)

@@ -13,6 +13,12 @@ export const metadata = {
   description:
     'Undercut automatically reprices your eBay listings to beat the lowest competitor — with a hard floor so you never sell below your minimum.',
   verification: { google: 'zD2b6hZVML47szgBwkOGmg4lKCngzVA4ZGW6p6XGKj8' },
+  // Homepage canonical + RSS autodiscovery. Every other page overrides
+  // `alternates` via pageMeta(), so inheriting this here is safe.
+  alternates: {
+    canonical: '/',
+    types: { 'application/rss+xml': [{ url: '/feed.xml', title: 'Undercut changelog' }] },
+  },
   openGraph: {
     siteName: 'Undercut',
     type: 'website',
@@ -43,7 +49,8 @@ const APP_LD = {
     lowPrice: '0',
     highPrice: '199',
     priceCurrency: 'USD',
-    offerCount: 4,
+    // Free, Starter, Pro, Scale, plus the one-time Season Pass (shipped 2026-08-07).
+    offerCount: 5,
   },
 }
 
