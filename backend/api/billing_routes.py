@@ -45,7 +45,7 @@ def checkout_pass(user: User = Depends(current_user), db: Session = Depends(get_
     app = _app_url()
     try:
         url, customer = billing.create_pass_checkout(
-            user, success_url=f"{app}/dashboard?pass=1", cancel_url=f"{app}/pricing")
+            user, success_url=f"{app}/dashboard?pass=1&session_id={{CHECKOUT_SESSION_ID}}", cancel_url=f"{app}/pricing")
     except Exception as e:
         logger.error("season pass checkout failed", user=str(user.id), error=str(e))
         raise HTTPException(status_code=502, detail="Could not start checkout — please try again.")

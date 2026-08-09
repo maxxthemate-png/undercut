@@ -66,11 +66,13 @@ export default function Dashboard() {
       setImportMsg(n > 0
         ? { kind: 'ok', text: `Store connected and ${n} listing${n === 1 ? '' : 's'} imported. Set a floor on each to start repricing.` }
         : { kind: 'error', text: 'Store connected, but eBay returned no active listings. Hit retry below.' })
-    } else if (sp.get('upgraded') === '1') {
+    } else if (sp.get('upgraded') === '1' || sp.get('pass') === '1') {
       // Checkout success redirect. Confirm the purchase, pull the new plan/limit
       // in immediately (don't make them wait for the 30s poll), and fire the Ads
       // purchase conversion exactly once per Checkout session.
-      setUpgradeMsg("You're upgraded. Your new plan is active.")
+      setUpgradeMsg(sp.get('pass') === '1'
+        ? "You're upgraded. Your Season Pass is active."
+        : "You're upgraded. Your new plan is active.")
       const sessionId = sp.get('session_id')
       if (sessionId && localStorage.getItem(UPGRADE_SESSION_KEY) !== sessionId) {
         track('purchase', { session_id: sessionId })
