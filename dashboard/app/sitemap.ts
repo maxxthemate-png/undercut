@@ -5,11 +5,20 @@ import { changelog } from './_content/changelog'
 
 const BASE = 'https://undercutpricer.com'
 
+// Without this the sitemap is prerendered once and every date below freezes at
+// the last deploy. Frontend deploys here are MANUAL (git auto-deploy is off, see
+// DEPLOY.md), so that could be weeks stale while the tracker entries claim
+// changeFrequency 'daily'. ISR re-renders it daily on the running deployment,
+// which is what makes the tracker lastModified below actually true.
+export const revalidate = 86400
+
 // Static marketing pages have no per-page date, so they inherit the newest
 // changelog entry: the closest honest proxy for "when the site last changed".
 const SITE_UPDATED = changelog[0]?.date || '2026-06-04'
 
 // Tracker pages genuinely change every day, the snapshot cron rewrites them.
+// Evaluated per render, so it is the last-revalidation date (at most 24h old
+// given the revalidate above), not a guarantee of "right now".
 const TODAY = () => new Date().toISOString().slice(0, 10)
 
 // Public, indexable routes. Keep in sync as new marketing pages ship.
