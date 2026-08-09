@@ -83,7 +83,7 @@ def checkout(body: CheckoutIn, user: User = Depends(current_user), db: Session =
     base = _app_url()
     try:
         url, customer = billing.create_checkout_session(
-            user, body.plan, f"{base}/?upgraded=1", f"{base}/billing",
+            user, body.plan, f"{base}/dashboard?upgraded=1&session_id={{CHECKOUT_SESSION_ID}}", f"{base}/dashboard",
             interval=("year" if body.interval == "year" else "month"))
     except Exception as e:
         logger.error("checkout session failed", user=str(user.id), error=str(e))
@@ -98,7 +98,7 @@ def checkout(body: CheckoutIn, user: User = Depends(current_user), db: Session =
 def portal(user: User = Depends(current_user)):
     if not user.stripe_customer_id:
         raise HTTPException(status_code=400, detail="no billing account yet")
-    return {"url": billing.create_portal_session(user.stripe_customer_id, f"{_app_url()}/billing")}
+    return {"url": billing.create_portal_session(user.stripe_customer_id, f"{_app_url()}/dashboard")}
 
 
 @public_router.post("/webhook")

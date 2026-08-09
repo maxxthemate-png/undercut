@@ -2,8 +2,14 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { api, tok } from '../lib/api'
+import { track, trackConversion } from '../lib/track'
 import Onboarding from './Onboarding'
 import { PLANS } from '../_content/shared'
+
+// Dedup key: the success redirect can re-render (StrictMode, back button, a
+// refresh before the URL is cleaned up) — without this a single purchase could
+// fire the Ads conversion event more than once.
+const UPGRADE_SESSION_KEY = 'undercut_last_upgrade_session'
 
 const planLabel = (key: string, interval: 'month' | 'year') => {
   const p = PLANS.find((x) => x.key === key)
@@ -37,6 +43,7 @@ export default function Dashboard() {
   const [billingInterval, setBillingInterval] = useState<'month' | 'year'>('month')
   const [justImported, setJustImported] = useState(0)
   const [importMsg, setImportMsg] = useState<{ kind: 'ok' | 'error'; text: string } | null>(null)
+  const [upgradeMsg, setUpgradeMsg] = useState<string | null>(null)
   const prevCount = useRef<number | null>(null)
 
   useEffect(() => {
@@ -59,6 +66,18 @@ export default function Dashboard() {
       setImportMsg(n > 0
         ? { kind: 'ok', text: `Store connected and ${n} listing${n === 1 ? '' : 's'} imported. Set a floor on each to start repricing.` }
         : { kind: 'error', text: 'Store connected, but eBay returned no active listings. Hit retry below.' })
+    } else if (sp.get('upgraded') === '1') {
+      // Checkout success redirect. Confirm the purchase, pull the new plan/limit
+      // in immediately (don't make them wait for the 30s poll), and fire the Ads
+      // purchase conversion exactly once per Checkout session.
+      setUpgradeMsg("You're upgraded. Your new plan is active.")
+      const sessionId = sp.get('session_id')
+      if (sessionId && localStorage.getItem(UPGRADE_SESSION_KEY) !== sessionId) {
+        track('purchase', { session_id: sessionId })
+        trackConversion(process.env.NEXT_PUBLIC_GADS_UPGRADE_LABEL, { transaction_id: sessionId })
+        localStorage.setItem(UPGRADE_SESSION_KEY, sessionId)
+      }
+      fetchAll()
     }
     if (sp.toString()) window.history.replaceState({}, '', '/dashboard')
   }, [])
@@ -229,6 +248,12 @@ export default function Dashboard() {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8 space-y-6">
+        {upgradeMsg && (
+          <div className="bg-floor-tint border border-floor rounded-lg p-4 flex items-center justify-between gap-3 flex-wrap">
+            <p className="text-sm text-floor">✅ {upgradeMsg}</p>
+            <button onClick={() => setUpgradeMsg(null)} className="text-xs text-floor hover:opacity-80 transition">dismiss</button>
+          </div>
+        )}
         {stores.some((s: any) => s.needs_reconnect) && (
           <div className="bg-cut-tint border border-cut rounded-lg p-4">
             <div className="flex items-start justify-between gap-3 flex-wrap">
@@ -276,7 +301,10 @@ export default function Dashboard() {
             </p>
           </div>
         )}
-        {me && me.is_trialing && (() => {
+        {/* An active Season Pass already bought paid-level access — a subscription
+            upsell nag ("lock in pricing now or lose access") is misleading once
+            that's true, so suppress this whole banner while a pass is active. */}
+        {me && me.is_trialing && !me.pass_active && (() => {
           const d = me.trial_days_left ?? 0
           const urgent = d <= 3
           const soon = d > 3 && d <= 7

@@ -172,7 +172,10 @@ def create_store(body: StoreIn, user: User = Depends(current_user), db: Session 
 @router.post("/stores/{store_id}/import")
 async def import_listings(store_id: str, user: User = Depends(current_user), db: Session = Depends(get_db)):
     s = _own_store(db, user, store_id)
-    remaining = max(0, (user.listing_limit or 0) - _listing_count(db, user))
+    # effective_access (not the raw stored column) so an active Season Pass grants
+    # its import cap here too, not just in the reprice cron.
+    _, limit = billing.effective_access(user)
+    remaining = max(0, limit - _listing_count(db, user))
     return await _sync_store_listings(db, s, remaining)
 
 
@@ -362,9 +365,12 @@ async def oauth_callback(code: str, state: str | None = None, db: Session = Depe
     s.oauth_refresh_token = encrypt_token(tok.get("refresh_token"))
     s.token_expires_at = datetime.utcnow() + timedelta(seconds=int(tok.get("expires_in", 7200)))
     db.commit(); db.refresh(s)
-    # listing_limit is nullable with no server_default: a NULL row used to 500 the
-    # OAuth callback AFTER the store row was committed, stranding a connected store.
-    remaining = max(0, (user.listing_limit or billing.FREE_LIMIT) - _listing_count(db, user))
+    # effective_access (not the raw stored column, which is nullable with no
+    # server_default — a NULL row used to 500 the OAuth callback AFTER the store
+    # row was committed, stranding a connected store) so an active Season Pass
+    # grants its import cap on first connect too, not just in the reprice cron.
+    _, limit = billing.effective_access(user)
+    remaining = max(0, limit - _listing_count(db, user))
     try:
         imp = await _sync_store_listings(db, s, remaining)
         logger.info("oauth connect + import", store=str(s.id), **{k: v for k, v in imp.items() if k != "total"})

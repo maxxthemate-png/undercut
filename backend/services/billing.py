@@ -167,14 +167,22 @@ def effective_access(user) -> tuple[str, int]:
 
 
 def access_summary(user) -> dict:
-    """Account access snapshot for the frontend (plan + trial countdown)."""
+    """Account access snapshot for the frontend (plan + trial countdown).
+
+    plan/listing_limit come from effective_access — NOT the raw stored columns —
+    so a Season Pass buyer (or a dunning/expired-trial user) sees the access they
+    actually have everywhere in the product, not just in the reprice cron. Also
+    surfaces pass_active so the frontend can suppress upgrade nags for someone who
+    already paid for a pass."""
     trialing = is_trialing(user)
+    plan, limit = effective_access(user)
     return {
-        "plan": user.plan,
-        "listing_limit": user.listing_limit,
+        "plan": plan,
+        "listing_limit": limit,
         "is_trialing": trialing,
         "trial_ends_at": user.trial_ends_at.isoformat() if getattr(user, "trial_ends_at", None) else None,
         "trial_days_left": trial_days_left(user) if trialing else 0,
+        "pass_active": pass_active(user),
     }
 
 

@@ -222,7 +222,9 @@ async def resync_stale_stores(db, limit: int = 25) -> dict:
             continue
         out["checked"] += 1
         user = db.get(User, store.user_id) if store.user_id else None
-        remaining = (getattr(user, "listing_limit", None) or billing.FREE_LIMIT) if user else billing.FREE_LIMIT
+        # effective_access (not the raw stored column) so an active Season Pass
+        # grants its import cap on auto-resync too, not just in the reprice cron.
+        remaining = billing.effective_access(user)[1] if user else billing.FREE_LIMIT
         try:
             # Refresh first: a store sitting on an expired token would otherwise
             # fail import with a 931 that looks like an eBay outage.
