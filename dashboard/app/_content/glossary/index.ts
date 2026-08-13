@@ -1081,5 +1081,122 @@ export const glossary: PageContent[] = [
     ],
     "lastUpdated": "2026-08-06",
     "leadForm": true
+  },
+  {
+    "slug": "ai-repricing",
+    "collection": "glossary",
+    "template": "glossary",
+    "title": "AI Repricing for eBay Sellers Explained — Undercut",
+    "metaDescription": "Learn how AI-assisted repricing differs from fixed undercut rules, why a hard floor still bounds every AI decision, and try Undercut free for 14 days—no card needed.",
+    "h1": "AI Repricing: What It Is, How It Works, and Why the Floor Always Wins",
+    "eyebrow": "Glossary",
+    "intro": "AI repricing goes one step beyond a simple fixed-undercut rule: instead of always dropping your price by the same amount the moment a cheaper competitor appears, an AI model can tune how aggressively each individual listing moves toward its minimum. The result is a more nuanced response to market pressure—one that tries to stay competitive without racing straight to your floor. Crucially, though, no AI decision is allowed to breach the hard floor you set per listing. The floor is a hard constraint, not a suggestion.",
+    "sections": [
+      {
+        "h2": "What a Fixed Undercut Rule Does (and Where It Falls Short)",
+        "body": "A rule-based repricer has one job: find the lowest comparable live competitor price and subtract a fixed amount—say $0.50 or 2%—then set your price there. That logic is fast, transparent, and effective in stable markets.\n\nThe limitation shows up in volatile or thin-margin categories. Suppose a competitor temporarily lists a used smartphone at $89 to clear old stock. Your rule fires, drops your price by $0.50 to $88.50, and you match a pricing anomaly that vanishes six hours later. A fixed rule cannot distinguish between a durable price shift and a short-lived outlier—it reacts the same way to both.\n\nUndercut's rule-based plans—Free and Starter ($29/mo)—use exactly this logic, and for many sellers it is precisely what they need. Hourly repricing with a configurable undercut amount (fixed cents or a percentage) handles the vast majority of eBay categories without overcomplicating the workflow.",
+        "bullets": [
+          "Free plan: up to 25 listings, hourly repricing, fixed undercut rule, hard floor",
+          "Starter ($29/mo): up to 100 listings, hourly repricing, fixed undercut rule, hard floor",
+          "Configurable undercut amount: choose a fixed-cent step (e.g. $0.50) or a percentage (e.g. 1%)",
+          "Hard floor per listing is always enforced—your price never drops below it, regardless of competitors"
+        ]
+      },
+      {
+        "h2": "What AI Aggressiveness Tuning Actually Does",
+        "body": "On Undercut's Pro ($79/mo) and Scale ($199/mo) plans, you can optionally enable Claude AI aggressiveness tuning on a per-listing basis. This does not change what the target price is—the target is still the lowest comparable competitor minus your configured undercut amount. What it changes is how fast and how far your listing moves toward that target (and therefore toward your floor) in a given repricing cycle.\n\nThink of it as a dial that sits between 'react immediately and fully' and 'move gradually.' A high-aggressiveness setting lets the listing sprint to the new competitive price in one step. A lower setting eases into the new price over successive 15-minute repricing cycles, reducing exposure to fleeting price dips.\n\nImportantly, the AI never overrides the hard floor. If the competitor's price minus your undercut amount would result in a price below your floor, Undercut stops at the floor. The AI only controls the journey; the floor controls the destination's lower bound. Every AI decision is therefore still fully bounded by the per-listing minimum you set manually.",
+        "bullets": [
+          "AI tuning is optional and configured per listing—you can leave other listings on the plain rule",
+          "It adjusts speed and magnitude of movement toward the floor, not the floor itself",
+          "The hard floor is never overridden by AI logic under any circumstance",
+          "Available on Pro ($79/mo) and Scale ($199/mo) only—Free and Starter are rule-based"
+        ]
+      },
+      {
+        "h2": "Why the Hard Floor Is the Most Important Number You Set",
+        "body": "Every repricing system—AI-assisted or rule-based—is only as safe as its floor. The floor is your per-listing minimum price: the number below which Undercut will never set your price, regardless of what competitors do.\n\nHere is a concrete example. Suppose you list a graphics card with a cost of $180, eBay's final value fee is approximately 13.6%, and you require at least $10 net profit after fees. Your minimum acceptable selling price works out to: $180 + $10 = $190 target net, but you also pay ~13.6% on the final sale price. To net $190 after a 13.6% fee, you need a selling price of roughly $190 ÷ (1 − 0.136) = $219.91. You would set your floor at $220.\n\nWith the floor at $220, a competitor listing at $195 cannot drag your price down there. Undercut will hold at $220 and wait for a competitor in the repricing range to appear. AI tuning on Pro and Scale can slow how quickly you approach $220 from above, but it cannot push you through $220. Rule-based logic on Free and Starter enforces the same floor with equal rigidity—the floor mechanism is identical across all plans.\n\nSetting the right floor requires knowing your landed cost, fees, and minimum margin. Use Undercut's eBay Profit Calculator to work out that number before entering a floor for any listing.",
+        "bullets": [
+          "Floor is set per listing—not globally—so different SKUs can have different minimums",
+          "Applies on every plan: Free, Starter, Pro, and Scale",
+          "The $220 example: cost $180 + $10 minimum profit, grossed up for ~13.6% FVF = $219.91, rounded to $220 floor",
+          "AI aggressiveness tuning (Pro and Scale) cannot push price below the floor under any conditions"
+        ]
+      },
+      {
+        "h2": "AI Repricing vs. Rule-Based Repricing: Which Do You Need?",
+        "body": "The honest answer is that most eBay sellers with steady inventory and predictable competitor behaviour do perfectly well on a rule-based plan. If you sell books, common electronics, or commodity goods where the competitive landscape shifts gradually, a $0.50 undercut firing every hour (Free or Starter) will keep you in position without any additional complexity.\n\nAI aggressiveness tuning earns its keep in listings where price volatility is high and where moving too fast to the floor costs meaningful margin. Consider a vintage lens listed at $350 with a floor of $280. A rule set to undercut by 2% would drop $7 per cycle whenever a cheaper competitor appears—reaching the floor in just five cycles if competition keeps intensifying. An aggressiveness setting tuned lower might drop $2–$3 per cycle instead, preserving an extra $20–$35 in margin if the competitor's low price turns out to be temporary and disappears before you hit the floor.\n\nPro ($79/mo) suits sellers with up to 1,000 listings who want 15-minute repricing cadence and optional AI tuning per listing. Scale ($199/mo) adds capacity for up to 10,000 listings and priority support—its repricing speed is identical to Pro at 15-minute intervals. If you are unsure, start with the free 14-day trial at Starter level (no card required) and upgrade when you need AI tuning or higher listing counts.",
+        "bullets": [
+          "Rule-based (Free, Starter): predictable, transparent, effective for stable categories",
+          "AI tuning (Pro and Scale): per-listing aggressiveness control for volatile or high-margin items",
+          "Pro: up to 1,000 listings, 15-minute repricing, AI tuning",
+          "Scale: up to 10,000 listings, 15-minute repricing, AI tuning, priority support",
+          "Scale is NOT faster than Pro—both reprice every 15 minutes"
+        ]
+      },
+      {
+        "h2": "How AI Repricing Interacts with eBay Best Match",
+        "body": "eBay does not operate a formal Buy Box like Amazon. Instead, search placement is governed by Best Match, eBay's ranking algorithm, which weighs factors including price competitiveness, seller feedback score, listing quality, and—as an eBay-side ranking signal—sales velocity.\n\nPrice competitiveness feeds directly into Best Match. A listing that is meaningfully cheaper than comparable items can appear higher in default search results, driving more views and potentially more sales. AI repricing on Pro and Scale keeps your price updated every 15 minutes, meaning your listing reflects the current competitive landscape more frequently than hourly repricing—which matters in fast-moving categories where a price lead can vanish quickly.\n\nThe ceiling feature (optional, per listing) is your counterpart to the floor: it caps how high Undercut can push a price if competitors raise theirs. Between the floor and the ceiling, Undercut—whether rule-based or AI-assisted—keeps you as the lowest comparable offer by your configured undercut margin, balanced against the constraint that you never sell at a loss.",
+        "bullets": [
+          "eBay Best Match rewards price competitiveness—staying the lowest comparable offer improves placement",
+          "15-minute repricing (Pro and Scale) reacts four times faster than hourly repricing to price changes",
+          "Optional ceiling per listing: caps upward price movement if competitor prices rise",
+          "No formal Buy Box on eBay—Best Match determines search position, not a single 'winner' slot"
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "q": "Does the AI decide my minimum price for me?",
+        "a": "No. You set the hard floor manually for each listing, and no AI logic can override it. The Claude AI aggressiveness tuning on Pro and Scale only controls how fast and how far your price moves toward that floor—it never sets or moves the floor itself."
+      },
+      {
+        "q": "Is AI repricing available on all Undercut plans?",
+        "a": "No. AI aggressiveness tuning is available on Pro ($79/mo) and Scale ($199/mo) only. Free and Starter ($29/mo) plans use rule-based repricing exclusively. All plans enforce the hard floor regardless of which repricing method is active."
+      },
+      {
+        "q": "How is a lower aggressiveness setting better than just setting a higher floor?",
+        "a": "The floor is a hard stop—once you hit it, your price stays there until competitors move. A lower aggressiveness setting slows your descent toward the floor, giving you extra margin if a competitor's low price disappears before you reach your minimum. The two controls serve different purposes and work best together."
+      },
+      {
+        "q": "Does AI repricing on Undercut track competitor price history or predict future prices?",
+        "a": "No. Undercut does not store or display competitor price-history trends, and the AI does not forecast future prices. The AI tuning only adjusts how aggressively your listing moves toward its already-set floor in response to the current lowest comparable competitor price."
+      },
+      {
+        "q": "Can I try AI repricing before paying for Pro?",
+        "a": "New signups receive a 14-day trial at Starter level—no credit card required. Starter is rule-based only, so to test AI aggressiveness tuning you would need to upgrade to Pro after the trial. The trial gives you a full look at the platform's core repricing mechanics and floor enforcement before you commit."
+      }
+    ],
+    "cta": {
+      "heading": "See the Floor Hold and the AI Work—Free for 14 Days",
+      "sub": "Start your no-card trial at Starter level. Upgrade to Pro or Scale when you're ready for 15-minute repricing and per-listing AI aggressiveness tuning."
+    },
+    "internalLinks": [
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      },
+      {
+        "href": "/glossary/race-to-the-bottom",
+        "label": "Race to the Bottom"
+      },
+      {
+        "href": "/glossary/repricing-frequency",
+        "label": "Repricing Frequency"
+      },
+      {
+        "href": "/guides/repricing-without-losing-margin",
+        "label": "Repricing Without Losing Margin"
+      },
+      {
+        "href": "/ebay-profit-calculator",
+        "label": "eBay Profit Calculator"
+      },
+      {
+        "href": "/guides/ebay-best-match-algorithm",
+        "label": "eBay Best Match Algorithm Guide"
+      }
+    ],
+    "lastUpdated": "2026-08-13",
+    "leadForm": true
   }
 ]
