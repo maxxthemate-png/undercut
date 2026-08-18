@@ -37,6 +37,8 @@ export default function Dashboard() {
   const [listings, setListings] = useState<Listing[]>([])
   const [changes, setChanges] = useState<any[]>([])
   const [value, setValue] = useState<any>(null)
+  const [lifetime, setLifetime] = useState<any>(null)
+  const [copiedStat, setCopiedStat] = useState(false)
   const [loading, setLoading] = useState(true)
   const [busy, setBusy] = useState('')
   const [manualToken, setManualToken] = useState('')
@@ -89,7 +91,13 @@ export default function Dashboard() {
       const meRes = await api('/api/auth/me')
       if (meRes.status === 401) { tok.clear(); router.push('/login'); return }
       setMe(await meRes.json())
-      const [s, l, c, v] = await Promise.all([api('/api/repricer/stores'), api('/api/repricer/listings'), api('/api/repricer/price-changes'), api('/api/repricer/value-summary')])
+      const [s, l, c, v, lv] = await Promise.all([
+        api('/api/repricer/stores'), api('/api/repricer/listings'), api('/api/repricer/price-changes'),
+        api('/api/repricer/value-summary'),
+        // 365 = the endpoint's max window; since Undercut launched 2026-06 that
+        // covers every seller's full history today, so this reads as "so far."
+        api('/api/repricer/value-summary?days=365'),
+      ])
       if (s.ok) setStores((await s.json()).stores || [])
       if (l.ok) {
         const ls = (await l.json()).listings || []
@@ -99,6 +107,7 @@ export default function Dashboard() {
       }
       if (c.ok) setChanges((await c.json()).changes || [])
       if (v.ok) setValue(await v.json())   // null/ignored until the endpoint is deployed
+      if (lv.ok) setLifetime(await lv.json())
     } catch {
       // Transient network failure (the 30s poll also lands here) — keep the
       // last good data instead of an eternal "Loading…" on first mount.
@@ -211,6 +220,15 @@ export default function Dashboard() {
     const d = await (await api('/api/billing/checkout', { method: 'POST', body: JSON.stringify({ plan, interval }) })).json()
     if (d.url) window.location.href = d.url; else alert(d.detail || 'Billing not configured yet.')
   }
+  // Screenshot-ready share text for the savings counter — no image generation
+  // needed, the card itself is the screenshot; this just covers sellers who'd
+  // rather paste the number somewhere than take a screenshot.
+  async function copyStat() {
+    if (!lifetime) return
+    const streakPart = lifetime.streak_days > 0 ? ` on a ${lifetime.streak_days}-day streak` : ''
+    const text = `Undercut has protected ${money(lifetime.margin_protected)} of my eBay margin${streakPart} — undercutpricer.com`
+    try { await navigator.clipboard.writeText(text); setCopiedStat(true); setTimeout(() => setCopiedStat(false), 2000) } catch {}
+  }
   async function manageBilling() {
     setBusy('portal')
     const d = await (await api('/api/billing/portal', { method: 'POST' })).json()
@@ -250,6 +268,30 @@ export default function Dashboard() {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8 space-y-6">
+        {lifetime && lifetime.margin_protected > 0 && (
+          <div className="relative overflow-hidden bg-floor text-white rounded-lg p-6 shadow">
+            <div className="flex items-start justify-between gap-4 flex-wrap">
+              <div>
+                <p className="text-xs font-semibold text-white/80 uppercase tracking-widest">🛡️ Margin protected so far</p>
+                <p className="text-5xl font-extrabold mt-2 tabular leading-none">{money(lifetime.margin_protected)}</p>
+                <p className="text-sm text-white/85 mt-2">
+                  {lifetime.reprices} reprice{lifetime.reprices === 1 ? '' : 's'} · won {lifetime.wins} sale{lifetime.wins === 1 ? '' : 's'} by undercutting
+                  {lifetime.floored > 0 ? <> · refused to go below your floor {lifetime.floored} time{lifetime.floored === 1 ? '' : 's'}</> : null}
+                </p>
+              </div>
+              <div className="flex flex-col items-end gap-2">
+                {lifetime.streak_days > 0 && (
+                  <span className="inline-flex items-center gap-1 bg-guard-tint text-guard text-sm font-bold px-3 py-1.5 rounded-full whitespace-nowrap">
+                    🔥 {lifetime.streak_days}-day streak
+                  </span>
+                )}
+                <button onClick={copyStat} className="px-3 py-1.5 text-sm rounded bg-white/15 hover:bg-white/25 transition whitespace-nowrap">
+                  {copiedStat ? 'Copied ✓' : '📋 Copy to share'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         {upgradeMsg && (
           <div className="bg-floor-tint border border-floor rounded-lg p-4 flex items-center justify-between gap-3 flex-wrap">
             <p className="text-sm text-floor">✅ {upgradeMsg}</p>

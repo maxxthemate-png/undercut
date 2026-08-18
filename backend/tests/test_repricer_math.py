@@ -4,7 +4,9 @@ compute_price is the whole product: undercut the lowest competitor, NEVER go
 below the floor, respect the ceiling, and actually take one-cent moves (the
 most common repricing action — float epsilon used to skip ~half of them).
 """
-from backend.services.repricer import PricingInputs, compute_price
+from datetime import date, timedelta
+
+from backend.services.repricer import PricingInputs, compute_price, compute_streak_days
 
 
 def test_floor_is_hard_clamp_and_flagged():
@@ -66,3 +68,40 @@ def test_ai_target_still_clamped_to_floor():
     d = compute_price(PricingInputs(current_price=30, competitor_low=28, floor=20, ai_target=5.0))
     assert d.new_price == 20.0
     assert d.floored is True
+
+
+# ---- compute_streak_days — the dashboard's "consecutive days protected" badge ----
+
+TODAY = date(2026, 8, 18)
+
+
+def test_streak_counts_consecutive_days_ending_today():
+    active = {TODAY, TODAY - timedelta(days=1), TODAY - timedelta(days=2)}
+    assert compute_streak_days(active, TODAY) == 3
+
+
+def test_streak_does_not_break_if_today_has_no_activity_yet():
+    # yesterday and the day before were active, today's cron hasn't run yet —
+    # the streak should still read 2, not reset to 0 mid-day.
+    active = {TODAY - timedelta(days=1), TODAY - timedelta(days=2)}
+    assert compute_streak_days(active, TODAY) == 2
+
+
+def test_streak_breaks_on_a_missed_day():
+    # active 3 days ago, then a gap, then active yesterday+today: the streak
+    # is 2, not 4 — the gap must actually break it.
+    active = {TODAY, TODAY - timedelta(days=1), TODAY - timedelta(days=3)}
+    assert compute_streak_days(active, TODAY) == 2
+
+
+def test_streak_zero_when_no_recent_activity():
+    active = {TODAY - timedelta(days=5)}
+    assert compute_streak_days(active, TODAY) == 0
+
+
+def test_streak_zero_when_never_active():
+    assert compute_streak_days(set(), TODAY) == 0
+
+
+def test_streak_single_active_day_is_one():
+    assert compute_streak_days({TODAY}, TODAY) == 1

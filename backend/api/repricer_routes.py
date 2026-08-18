@@ -62,6 +62,27 @@ def _listing_count(db: Session, user: User) -> int:
         .where(Store.user_id == user.id)) or 0
 
 
+def _streak_days_for_user(db: Session, user_id) -> int:
+    """DB-facing wrapper around repricer.compute_streak_days: fetch the distinct
+    calendar dates this user's repricer moved a price, then hand the pure date
+    math off to the tested helper."""
+    from ..services.repricer import compute_streak_days
+    rows = db.execute(
+        select(func.date(PriceChange.created_at)).distinct()
+        .select_from(PriceChange)
+        .join(RepricerListing, PriceChange.listing_id == RepricerListing.id)
+        .join(Store, RepricerListing.store_id == Store.id)
+        .where(Store.user_id == user_id)).all()
+    active_dates = set()
+    for (d,) in rows:
+        if d is None:
+            continue
+        # sqlite's func.date() returns a "YYYY-MM-DD" string; Postgres may hand
+        # back a native date — normalize both through str() before parsing.
+        active_dates.add(datetime.strptime(str(d)[:10], "%Y-%m-%d").date())
+    return compute_streak_days(active_dates, datetime.utcnow().date())
+
+
 async def _sync_store_listings(db: Session, store: Store, remaining: int) -> dict:
     """Import a store's eBay listings, creating up to `remaining` new ones (plan cap)."""
     token = decrypt_token(store.oauth_access_token) if store.oauth_access_token else None
@@ -326,9 +347,17 @@ def value_summary(days: int = 30, user: User = Depends(current_user), db: Sessio
         .join(Store, RepricerListing.store_id == Store.id)
         .where(Store.user_id == user.id, PriceChange.created_at >= since)).one()
     margin, total, wins, floored, listings = row
+
+    # Streak — consecutive days the repricer actually moved a price for this
+    # seller, i.e. actively protected margin. Reuses PriceChange.created_at
+    # (already indexed, no new column/table) across full history, independent
+    # of the `days` window above.
+    streak = _streak_days_for_user(db, user.id)
+
     return {"days": days, "margin_protected": round(float(margin or 0), 2),
             "reprices": int(total or 0), "wins": int(wins or 0),
-            "floored": int(floored or 0), "listings": int(listings or 0)}
+            "floored": int(floored or 0), "listings": int(listings or 0),
+            "streak_days": streak}
 
 
 @router.get("/oauth/login")

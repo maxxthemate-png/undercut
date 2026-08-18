@@ -6,6 +6,7 @@ below the seller's minimum) and optional ceiling. Rules guarantee safety; AI
 optimizes within them.
 """
 from dataclasses import dataclass
+from datetime import date, timedelta
 from typing import Optional
 
 
@@ -66,3 +67,20 @@ def compute_price(inp: PricingInputs) -> RepriceDecision:
         new_price=target, changed=changed, reason=reason,
         competitor_low=inp.competitor_low, floored=floored,
     )
+
+
+def compute_streak_days(active_dates: set[date], today: date) -> int:
+    """Consecutive days (ending today or yesterday) on which the repricer
+    actually changed a price for this seller — i.e. actively protected
+    margin. Pure function over the distinct PriceChange.created_at dates
+    already in the schema; no new tracking state.
+
+    A gap on `today` doesn't break the streak (the day isn't over yet) — the
+    streak only breaks once a full day passes with zero activity.
+    """
+    cursor = today if today in active_dates else today - timedelta(days=1)
+    streak = 0
+    while cursor in active_dates:
+        streak += 1
+        cursor -= timedelta(days=1)
+    return streak
