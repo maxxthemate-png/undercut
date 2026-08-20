@@ -3872,5 +3872,99 @@ export const guides: PageContent[] = [
     ],
     "lastUpdated": "2026-06-15",
     "leadForm": true
+  },
+  {
+    "slug": "ebay-auto-price-reduction-gone",
+    "collection": "guides",
+    "template": "guide",
+    "title": "eBay Auto Price Reduction Is Gone — What Sellers Should Do — Undercut",
+    "metaDescription": "eBay's Auto Price Reduction vanished from Seller Hub. Here's what it did, why it's gone, and how to keep sales moving. Try Undercut free for 14 days, no card.",
+    "h1": "eBay's Auto Price Reduction Is Gone From Seller Hub — Here's What To Do Next",
+    "eyebrow": "Guide",
+    "intro": "In October 2025 eBay quietly rolled out Auto Price Reduction — a timed markdown tool built into the Advanced listing flow. By February 2026 it had disappeared from Seller Hub entirely, leaving it accessible only inside the Quick Listing Tool. If you built a repricing routine around it, you're not imagining things: the feature is genuinely gone from the workflow most high-volume sellers use. This guide explains exactly what Auto Price Reduction did, why its removal matters, what eBay has done before with similar tools, and what your realistic options are today.",
+    "sections": [
+      {
+        "h2": "What eBay's Auto Price Reduction Actually Did (And Didn't Do)",
+        "body": "Auto Price Reduction was a scheduled markdown feature. You set a percentage or fixed-dollar reduction and a time trigger — for example, drop price by 10% if the item hasn't sold within 14 days — and eBay would apply that cut automatically. A minimum floor prevented the price from falling below a number you specified.\n\nThat floor protection was genuinely useful, and the time-based trigger removed one manual chore. But the feature was never competitor-aware. It had no visibility into what rival sellers were charging. If your closest competitor dropped their price the same week, Auto Price Reduction couldn't respond — it would only fire on its own internal clock regardless of what the market was doing.\n\nTo make the limitation concrete: suppose you listed a used graphics card at $280 with a 10% reduction trigger at day 14 and a $200 floor. On day 15 you'd reprice to $252. If a competitor had already dropped to $230 the day before, your $252 listing would still be sitting above theirs in Best Match results — and the tool had no mechanism to close that gap until your next scheduled trigger."
+      },
+      {
+        "h2": "eBay Has Killed Features Like This Before",
+        "body": "This isn't the first time eBay has launched a simplified pricing tool and then pulled it back. Easy Pricing — an earlier attempt at automated markdown built into Seller Hub — was removed after a relatively short run, with eBay pointing sellers back toward Markdown Manager and third-party repricing tools.\n\nThe pattern is consistent: eBay experiments with lightweight automation inside its own interface, finds the scope limited by what its listing infrastructure can support at scale, and eventually retires the feature. Auto Price Reduction's restriction to the Quick Listing Tool — which is designed for casual, low-volume sellers — suggests eBay has already effectively deprecated it for serious sellers even if it hasn't formally announced end-of-life.\n\nSellers who have been through the Easy Pricing removal will recognise the cycle. The practical takeaway is that relying on eBay's own markdown tools for your repricing strategy carries platform risk. When eBay changes its product priorities, your workflow changes with it, whether you're ready or not."
+      },
+      {
+        "h2": "What You Actually Need Instead — And Why It's a Different Job",
+        "body": "It's important to be honest here: competitor-aware repricing is a different job from timed markdown, and you shouldn't expect any single tool to do both identically.\n\nAuto Price Reduction answered the question 'how do I nudge stale listings down over time?' Competitor-aware repricing answers the question 'how do I stay priced just below the cheapest comparable live competitor right now?' Those are related goals — both are trying to move inventory — but the mechanisms and the results are distinct.\n\nUndercut focuses on the second job. It watches live competitor listings on eBay, identifies the lowest comparable price, and automatically adjusts your listing to beat it by a configurable amount — either a fixed number of cents or a percentage. Every listing gets a hard floor you set, so the price can never drop below your minimum no matter what competitors do. An optional ceiling keeps prices from moving too high if competitors disappear.\n\nHere's a worked example. You have a vintage camera listed at $150. You set a $95 hard floor, a $160 ceiling, and a 50-cent undercut amount. The lowest comparable competitor is currently at $143. Undercut sets your price to $142.50. A few hours later that competitor sells out and the next-lowest is at $158. Undercut moves your price up to $157.50 — still within your ceiling. Your eBay final value fee at the standard ~13.6% rate on a $142.50 sale is approximately $19.38, leaving $123.12 before your other costs. The floor means you never accidentally go below the number where the sale stops making sense for you."
+      },
+      {
+        "h3": null,
+        "h2": "Which Undercut Plan Fits Your Situation",
+        "body": "Undercut has four paid plans and a free tier, so the right starting point depends on how many listings you manage and how fast you want repricing to fire.\n\nThe Free plan covers 25 listings with hourly repricing and the full hard-floor protection — no credit card required and no time limit. It's a legitimate option if you're running a small shop and want to test whether competitor-aware repricing moves the needle before committing to anything.\n\nStarter at $29/month scales to 100 listings, also with hourly repricing. If you're coming off Auto Price Reduction and you had fewer than 100 active listings using it, Starter is the direct like-for-like replacement in terms of capacity, though the repricing logic is fundamentally different (competitor-driven rather than time-driven).\n\nPro at $79/month raises the cap to 1,000 listings and moves repricing to every 15 minutes — four times faster than the hourly cadence. It also adds the optional Claude AI aggressiveness tuning feature, which lets you dial, per listing, how quickly and how far a listing moves toward its floor. The AI never overrides the hard floor you've set; it only influences the pace of movement within the range you've already defined.\n\nScale at $199/month handles up to 10,000 listings at the same 15-minute repricing cadence as Pro, and adds priority support. Scale also includes the AI aggressiveness tuning available on Pro.\n\nAll new signups get a 14-day free trial at Starter level — no card required. If you prefer a one-time purchase, the Season Pass ($145, not a subscription) gives you 90 days of Starter-level access that you can extend by purchasing again.",
+        "bullets": [
+          "Free: 25 listings, hourly repricing, hard floor, no AI",
+          "Starter $29/mo: 100 listings, hourly repricing, hard floor, no AI",
+          "Pro $79/mo: 1,000 listings, 15-minute repricing, hard floor, AI aggressiveness tuning",
+          "Scale $199/mo: 10,000 listings, 15-minute repricing, hard floor, AI aggressiveness tuning, priority support",
+          "Season Pass $145 one-time: 90 days of Starter-level access, not a subscription"
+        ]
+      },
+      {
+        "h2": "How To Transition Your Listings Without Leaving a Gap",
+        "body": "If you were relying on Auto Price Reduction and it's no longer accessible in your listing workflow, the most important thing is to audit your active listings before you set anything up in a new tool. For each listing, identify three numbers: the price below which you'd rather not sell (your hard floor), the price above which you don't need to go (your optional ceiling), and how aggressively you want to undercut competitors.\n\nThose three inputs are exactly what Undercut needs per listing. There is no bulk import from a file — you set floors, ceilings, and undercut amounts on a per-listing basis inside the tool. For sellers with a manageable catalogue this takes an evening. For sellers with hundreds of listings it's a staged process, and starting with your fastest-moving or most price-sensitive items first is a reasonable approach.\n\nOnce a listing is configured, Undercut handles the ongoing work. You don't need to remember to revisit listings on a schedule or check whether a competitor has undercut you overnight. The repricing happens automatically within the bounds you've set, and the hard floor means a run of aggressive competitor pricing can't drag you into a loss-making sale. Combined with eBay's Best Match algorithm — which factors in sales velocity as a ranking signal — keeping your price competitive tends to support both conversion rate and search visibility at the same time."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Is eBay's Auto Price Reduction coming back to Seller Hub?",
+        "a": "eBay has not announced a return date or a replacement feature in Seller Hub as of this writing. The feature is currently only accessible in the Quick Listing Tool, which is aimed at low-volume casual sellers. Given eBay's history of retiring similar tools like Easy Pricing, it's reasonable to plan as if it won't return to the Advanced listing flow."
+      },
+      {
+        "q": "Does Undercut do the same thing as Auto Price Reduction?",
+        "a": "Not exactly — and it's worth being clear about that. Auto Price Reduction was a timed markdown: drop price after X days if unsold. Undercut is competitor-aware repricing: match or beat the lowest live comparable listing right now. Both aim to move inventory, but through different mechanisms. If you specifically need timed markdowns, eBay's Markdown Manager is still available and handles that use case."
+      },
+      {
+        "q": "Will the hard floor in Undercut prevent me from selling at a loss?",
+        "a": "The hard floor is a strict per-listing minimum — Undercut will never set a price below it, regardless of what competitors do. You're responsible for setting the floor at a number that covers your costs, including eBay's ~13.6% final value fee and any shipping you absorb. As long as your floor is above your all-in cost basis, the tool will not trigger a loss-making sale."
+      },
+      {
+        "q": "How fast does Undercut reprice compared to Auto Price Reduction's daily triggers?",
+        "a": "On the Free and Starter plans, Undercut reprices hourly. On Pro and Scale it reprices every 15 minutes. Auto Price Reduction fired on a multi-day schedule you set (e.g. after 14 days unsold), so the two tools operate on completely different timescales. Undercut's cadence is designed to keep you competitive with live market changes, not to manage listing age."
+      },
+      {
+        "q": "Can I try Undercut before paying anything?",
+        "a": "Yes. New accounts get a 14-day trial at Starter level — 100 listings, hourly repricing, and the full hard-floor protection — with no credit card required. There's also a permanent Free plan capped at 25 listings if you want to run an ongoing low-volume setup without a subscription."
+      }
+    ],
+    "cta": {
+      "heading": "Stop Waiting for eBay to Bring It Back",
+      "sub": "Try Undercut free for 14 days — no card required. Set your floors, configure your undercut amount, and let competitor-aware repricing do the work Auto Price Reduction never could."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/ebay-markdown-manager-guide",
+        "label": "eBay Markdown Manager Guide"
+      },
+      {
+        "href": "/guides/avoid-selling-below-cost",
+        "label": "How to Avoid Selling Below Cost on eBay"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "Setting a Price Floor on eBay"
+      },
+      {
+        "href": "/guides/how-to-reprice-ebay-listings",
+        "label": "How to Reprice eBay Listings"
+      },
+      {
+        "href": "/guides/ebay-best-match-algorithm",
+        "label": "How eBay's Best Match Algorithm Works"
+      },
+      {
+        "href": "/glossary/what-is-a-price-floor",
+        "label": "What Is a Price Floor?"
+      }
+    ],
+    "lastUpdated": "2026-08-20",
+    "leadForm": true
   }
 ]
