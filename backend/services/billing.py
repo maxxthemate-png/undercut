@@ -166,6 +166,24 @@ def effective_access(user) -> tuple[str, int]:
     return plan, stored_limit
 
 
+def payment_lapsed(user) -> bool:
+    """True when the user's access was downgraded to Free specifically because a
+    subscription payment failed and stayed unresolved past the grace period — the
+    same condition effective_access uses to force "free". Distinguishes this from
+    a user who is simply on the Free tier by choice, so the frontend can show a
+    dunning banner ("your card failed") instead of a generic upgrade nudge. A Season
+    Pass still overrides this (checked first, same as effective_access) since a paid
+    pass keeps working regardless of a separate lapsed subscription."""
+    if pass_active(user):
+        return False
+    if getattr(user, "payment_status", "ok") != "past_due":
+        return False
+    failed_at = getattr(user, "payment_failed_at", None)
+    if not failed_at:
+        return False
+    return datetime.utcnow() - failed_at > timedelta(days=settings.DUNNING_GRACE_DAYS)
+
+
 def access_summary(user) -> dict:
     """Account access snapshot for the frontend (plan + trial countdown).
 
@@ -173,7 +191,9 @@ def access_summary(user) -> dict:
     so a Season Pass buyer (or a dunning/expired-trial user) sees the access they
     actually have everywhere in the product, not just in the reprice cron. Also
     surfaces pass_active so the frontend can suppress upgrade nags for someone who
-    already paid for a pass."""
+    already paid for a pass, and payment_lapsed so the frontend can explain a
+    silent Free downgrade caused by a failed card rather than showing a generic
+    "you're on Free" nudge."""
     trialing = is_trialing(user)
     plan, limit = effective_access(user)
     return {
@@ -183,6 +203,7 @@ def access_summary(user) -> dict:
         "trial_ends_at": user.trial_ends_at.isoformat() if getattr(user, "trial_ends_at", None) else None,
         "trial_days_left": trial_days_left(user) if trialing else 0,
         "pass_active": pass_active(user),
+        "payment_lapsed": payment_lapsed(user),
     }
 
 

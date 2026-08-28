@@ -313,6 +313,26 @@ export default function Dashboard() {
             </div>
           </div>
         )}
+        {me && me.payment_lapsed && (
+          <div className="bg-cut-tint border border-cut rounded-lg p-4">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <p className="text-sm text-cut">
+                ⚠️ <b>Your last payment didn&apos;t go through, and we couldn&apos;t get a retry to work.</b> Your
+                account moved to Free (25 listings) — anything beyond that limit paused. This isn&apos;t a
+                choice you made: update your card and you&apos;ll be back on your plan. Nothing else was lost.
+              </p>
+              {me.stripe_customer_id ? (
+                <button onClick={manageBilling} disabled={busy === 'portal'}
+                  className="px-3 py-1.5 text-sm rounded bg-cut-strong text-white hover:opacity-90 disabled:opacity-50 whitespace-nowrap">
+                  {busy === 'portal' ? 'Opening…' : 'Update payment method'}
+                </button>
+              ) : (
+                <a href="mailto:hello@undercutpricer.com?subject=Payment%20issue"
+                  className="px-3 py-1.5 text-sm rounded border border-line hover:bg-wash whitespace-nowrap">Email us</a>
+              )}
+            </div>
+          </div>
+        )}
         {importMsg && (
           <div className={`${importMsg.kind === 'error' ? 'bg-cut-tint border-cut' : 'bg-guard-tint border-guard'} border rounded-lg p-4`}>
             <div className="flex items-start justify-between gap-3 flex-wrap">
@@ -403,7 +423,7 @@ export default function Dashboard() {
           </div>
         )}
 
-        {me && me.plan === 'free' && !limitNudge && (
+        {me && me.plan === 'free' && !limitNudge && !me.payment_lapsed && (
           <div className="bg-wash border border-line rounded-lg p-4 flex items-center justify-between gap-3 flex-wrap">
             <p className="text-sm text-ink">{value && value.margin_protected > 0 ? <>Undercut held <b><span className="tabular">{money(value.margin_protected)}</span></b> of margin for you on Free — </> : <>You're on <b>Free</b> (25 listings). </>}Upgrade for more listings + 15-min AI repricing — your floors and settings are all saved.</p>
             <div className="flex items-center gap-2">
