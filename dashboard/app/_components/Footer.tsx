@@ -20,6 +20,7 @@ export default function Footer() {
         <Link href="/repricers" className="hover:text-ink transition">Repricers directory</Link>
         <Link href="/ebay-best-offer-calculator" className="hover:text-ink transition">Best offer calculator</Link>
         <Link href="/ebay-sell-through-rate-calculator" className="hover:text-ink transition">Sell-through rate calculator</Link>
+        <Link href="/ebay-repricing-lag-calculator" className="hover:text-ink transition">Repricing lag calculator</Link>
         <Link href="/changelog" className="hover:text-ink transition">Changelog</Link>
       </div>
       <div className="flex items-center justify-center gap-4 mb-2 flex-wrap text-xs">
