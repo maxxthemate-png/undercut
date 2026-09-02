@@ -8,6 +8,7 @@ export default function Nav() {
         <div className="flex items-center gap-4 text-sm">
           <Link href="/pricing" className="text-muted hover:text-ink transition">Pricing</Link>
           <Link href="/compare" className="text-muted hover:text-ink transition">Compare</Link>
+          <Link href="/faq" className="text-muted hover:text-ink transition">FAQ</Link>
           <Link href="/login" className="text-muted hover:text-ink transition">Log in</Link>
           <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded bg-cut-strong text-white font-medium px-4 py-2 transition hover:opacity-90">Start free</Link>
         </div>

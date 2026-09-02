@@ -23,7 +23,7 @@ const TODAY = () => new Date().toISOString().slice(0, 10)
 
 // Public, indexable routes. Keep in sync as new marketing pages ship.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const STATIC = ['', '/pricing', '/compare', '/streetpricer-alternative', '/repricerexpress-alternative', '/inkfrog-alternative', '/inkfrog-migration', '/free-ebay-repricer', '/ebay-repricing-software', '/ebay-profit-calculator', '/ebay-fee-calculator', '/ebay-price-checker', '/ebay-sell-through-rate-calculator', '/ebay-best-offer-calculator', '/ebay-repricing-lag-calculator', '/guides', '/alternatives', '/glossary', '/repricers', '/changelog', '/guides/ebay-price-floor', '/about', '/contact', '/privacy', '/terms', '/refund-policy', '/signup', '/login']
+  const STATIC = ['', '/pricing', '/compare', '/faq', '/streetpricer-alternative', '/repricerexpress-alternative', '/inkfrog-alternative', '/inkfrog-migration', '/free-ebay-repricer', '/ebay-repricing-software', '/ebay-profit-calculator', '/ebay-fee-calculator', '/ebay-price-checker', '/ebay-sell-through-rate-calculator', '/ebay-best-offer-calculator', '/ebay-repricing-lag-calculator', '/guides', '/alternatives', '/glossary', '/repricers', '/changelog', '/guides/ebay-price-floor', '/about', '/contact', '/privacy', '/terms', '/refund-policy', '/signup', '/login']
   const LEGAL = ['/privacy', '/terms', '/refund-policy']
 
   // Per-page lastUpdated from the content registry, keyed by route.

@@ -9,6 +9,7 @@ Best for: eBay sellers/resellers with dozens to a few thousand competitive listi
 ## Key pages
 - [Homepage](https://undercutpricer.com/): product overview + signup
 - [Compare repricers](https://undercutpricer.com/compare): Undercut vs StreetPricer vs RepricerExpress vs Informed.co
+- [FAQ](https://undercutpricer.com/faq): is automated repricing allowed on eBay, will it get an account suspended, repricing speed, pricing, cancellation, and competitor comparisons (FAQPage schema markup)
 - [Free eBay fee calculator](https://undercutpricer.com/ebay-fee-calculator): 2026 final value fees, profit, break-even floor
 - [Free eBay price checker](https://undercutpricer.com/ebay-price-checker): lowest live eBay price for any product
 - [eBay price floor guide](https://undercutpricer.com/guides/ebay-price-floor): how to compute the floor a repricer should never cross

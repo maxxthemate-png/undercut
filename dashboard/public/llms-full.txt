@@ -63,6 +63,7 @@ Q: How do I try it? A: https://undercutpricer.com/signup — 14-day trial, no ca
 Home: https://undercutpricer.com/
 Pricing: https://undercutpricer.com/pricing
 Compare: https://undercutpricer.com/compare
+FAQ (FAQPage schema): https://undercutpricer.com/faq
 Guides index: https://undercutpricer.com/guides
 Category playbooks: https://undercutpricer.com/repricers
 Changelog: https://undercutpricer.com/changelog
