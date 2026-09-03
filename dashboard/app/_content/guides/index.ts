@@ -4075,5 +4075,91 @@ export const guides: PageContent[] = [
     ],
     "lastUpdated": "2026-08-27",
     "leadForm": true
+  },
+  {
+    "slug": "ebay-best-offer-listing-lock",
+    "collection": "guides",
+    "template": "guide",
+    "title": "Why a Live Best Offer Locks Your eBay Listing — Undercut",
+    "metaDescription": "A live Best Offer freezes your eBay listing for up to 96 hours. Learn how it blocks repricing—and try Undercut free for 14 days, no card needed.",
+    "h1": "Why an Active Best Offer Blocks Your Price Changes (And What the 96-Hour Window Means for Repricing)",
+    "eyebrow": "Guide",
+    "intro": "On 2026-03-24, eBay extended its Best Offer counteroffer window from 24 hours to 96 hours. That single change quadrupled the period during which a live offer locks a listing against any revision—including automated price changes. If you run a repricer, you may now see a listing skip four repricing cycles in a row without any error on your end. This guide explains the exact locking mechanic, what you will see in Undercut when a listing is locked, and the practical strategies sellers use to plan around the extended window.",
+    "sections": [
+      {
+        "h2": "How eBay's Listing Lock Works When a Best Offer Is Active",
+        "body": "When a buyer submits a Best Offer on your eBay listing, eBay places a revision lock on that listing for the duration of the negotiation window. No field—including the Buy It Now price—can be changed while the lock is active. This is an eBay platform constraint, not a repricer limitation.\n\nBefore 2026-03-24, the counteroffer window was 24 hours. A buyer could accept, decline, or let the offer expire within one day. If neither party acted, the lock lifted automatically after 24 hours and normal repricing resumed. Starting 2026-03-24, eBay extended that window to 96 hours—four full days. A buyer can now sit on a counteroffer for up to 96 hours before it expires, keeping your listing locked the entire time.\n\nThe lock applies even when you are the one who sent the counteroffer. The moment a live offer or counteroffer exists on the transaction, eBay will reject any revision attempt—from you, your repricer, or eBay's own Markdown Manager—until the offer is resolved (accepted, declined, or expired)."
+      },
+      {
+        "h2": "What Sellers and Undercut See During a Lock",
+        "body": "Undercut checks each listing's price on its normal schedule—every 60 minutes on Free and Starter plans, every 15 minutes on Pro and Scale plans. When Undercut identifies that a competitor has undercut your price and attempts to push a new price to a locked listing, eBay's API returns a revision-rejected response. Undercut records the skip for that cycle and moves on; it does not keep retrying, and no alert is sent to eBay's buyer.\n\nIn practice, a listing locked for the full 96-hour window will be skipped for up to 96 consecutive repricing attempts on Free or Starter (one per hour), or up to 384 consecutive 15-minute attempts on Pro or Scale. Throughout that window your price stays frozen at whatever it was when the offer arrived—even if a competitor drops well below you.\n\nThis is important context for interpreting your repricing activity log. A long gap in price updates for a specific listing is not necessarily a sign that Undercut is malfunctioning; it may simply mean a Best Offer negotiation is in progress. Once the offer resolves—accepted, declined, or expired—the lock lifts and Undercut reprices normally on its next scheduled cycle."
+      },
+      {
+        "h2": "A Worked Example: The Cost of a 96-Hour Lock",
+        "body": "Suppose you sell a used graphics card listed at $310. Your hard floor is $240. Undercut's target is to beat the lowest comparable competitor by $0.50.\n\nOn Monday at 9 a.m., a buyer submits a Best Offer of $270. You counter at $295. The listing is now locked. By Tuesday morning a competitor drops their price to $285—$25 below your frozen $310. Undercut identifies the gap and attempts a reprice, but eBay rejects the revision. The skip repeats every 15 minutes on Pro or Scale.\n\nThe buyer never responds. At 9 a.m. Friday—exactly 96 hours later—the offer expires and the lock lifts. On the next 15-minute cycle, Undercut reprices you to $284.50 (competitor's $285.00 minus your $0.50 undercut amount), well above your $240 floor. You were uncompetitive for four days on that listing, but your floor protected you from ever selling below cost had the buyer accepted at $270 during a period when $295 was your counter.\n\neBay's final value fee on a $284.50 sale is approximately $38.69 (at the standard 13.6% rate), leaving $245.81 before your cost of goods. Had you been able to reprice to $284.50 on Tuesday, you would have had three additional days of visibility at the competitive price—illustrating exactly why the 96-hour extension matters for high-velocity categories."
+      },
+      {
+        "h2": "How to Reduce Lock Exposure: Planning Strategies",
+        "body": "Because the lock is an eBay platform constraint, no repricer can bypass it. The strategies below are seller-side decisions you make per listing—Undercut does not automate them.\n\nFirst, consider your counteroffer cadence. If you send a counteroffer close to your asking price, the buyer has 96 hours to decide. If you decline outright or accept immediately, the lock resolves in seconds. For listings in fast-moving categories where being repriced quickly matters, a faster resolution (even accepting a slightly lower offer) may be worth more than holding out for a marginally better price over four days.\n\nSecond, set your Best Offer auto-accept and auto-decline thresholds tightly. eBay lets you configure an auto-accept minimum and an auto-decline maximum. If an offer triggers auto-accept or auto-decline, it resolves instantly—no lock window at all. Set your auto-accept floor close to (but not below) your Undercut hard floor, and set your auto-decline threshold to filter out lowball offers you would never take. This keeps the 96-hour window reserved only for genuinely borderline offers.\n\nThird, factor lock risk into your floor setting. Your Undercut hard floor is your absolute minimum per listing. Consider whether your floor already prices in the risk that the listing may be frozen for up to 96 hours if a competitor drops their price during a negotiation. On Pro and Scale plans, the optional Claude AI aggressiveness tuning adjusts how fast each listing moves toward its floor—but it does not override the floor itself, and it cannot act on a locked listing any more than rule-based repricing can."
+      },
+      {
+        "h2": "Frequently Missed Details About the 96-Hour Rule",
+        "body": "Several nuances trip up sellers who are new to the extended window.\n\nThe 96-hour clock is per offer, not per listing session. If a buyer submits a new offer after their first one expires, the clock resets to 96 hours. A listing that attracts repeated lowball offers from the same or different buyers can stay locked almost indefinitely in theory—each new offer restarts the window.\n\nWithdrawing your counteroffer unlocks the listing immediately. If you change your mind and want to let Undercut reprice, you can retract your outstanding counteroffer in eBay's Offer Manager. The lock lifts as soon as the counteroffer is withdrawn, and Undercut will act on the next scheduled cycle.\n\nThe lock does not affect Promoted Listings spend or impressions—your listing can still appear in search and receive clicks while locked; it just cannot be revised. This means a buyer could still purchase at the locked price via Buy It Now (assuming you have that option active alongside Best Offer), so your frozen price is live and real, not invisible.\n\nFinally, the 96-hour window is the maximum. Buyers can accept, decline, or sellers can withdraw at any point. Most negotiations resolve faster than 96 hours; the risk is the tail case where a buyer simply goes quiet."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Why does Undercut skip a listing without showing an error?",
+        "a": "When eBay rejects a price revision because a Best Offer is active, Undercut records the attempt as a skip rather than an error—because no error occurred on Undercut's side. The listing will be retried on the next normal repricing cycle (hourly on Free and Starter, every 15 minutes on Pro and Scale) until the lock lifts."
+      },
+      {
+        "q": "Does the 96-hour lock apply if I use eBay's auto-decline feature?",
+        "a": "No. If an incoming offer triggers your auto-decline threshold, eBay rejects it instantly and no lock is created. Only offers that enter an active negotiation state—where you or the buyer are waiting on a response—create the lock. Configuring tight auto-decline thresholds is the single most effective way to prevent unwanted locks."
+      },
+      {
+        "q": "Can I manually reprice a locked listing from inside eBay's seller hub?",
+        "a": "No. The revision lock blocks all price changes, whether made by a repricer, eBay's own Markdown Manager, or you directly in Seller Hub. The only ways to resolve the lock are: the offer is accepted, you or the buyer decline, you withdraw your counteroffer, or the 96-hour window expires."
+      },
+      {
+        "q": "Does Undercut's hard floor protect me if a buyer accepts a counteroffer I sent?",
+        "a": "Your Undercut hard floor governs automated repricing only—it does not govern what counteroffer price you manually type into eBay's offer interface. If you manually send a counteroffer below your floor, Undercut cannot intercept that. The floor ensures Undercut itself never pushes your listed price below your minimum; it is your responsibility to keep manual counteroffers above your cost."
+      },
+      {
+        "q": "Does the 96-hour lock affect all eBay listing formats?",
+        "a": "The Best Offer lock applies to fixed-price listings with Best Offer enabled—the format most commonly paired with a repricer. Auction-style listings have their own bidding mechanics and do not use the same Best Offer counteroffer window. If you run a mix of formats, only your fixed-price Best Offer listings are subject to the 96-hour lock."
+      }
+    ],
+    "cta": {
+      "heading": "Stop Guessing Why a Listing Stopped Repricing",
+      "sub": "Start your free 14-day trial—no credit card required—and see exactly which listings Undercut skipped and why."
+    },
+    "internalLinks": [
+      {
+        "href": "/guides/ebay-best-offer-strategy",
+        "label": "eBay Best Offer Strategy Guide"
+      },
+      {
+        "href": "/guides/ebay-price-floor",
+        "label": "How to Set a Price Floor on eBay"
+      },
+      {
+        "href": "/guides/ebay-repricing-best-practices",
+        "label": "eBay Repricing Best Practices"
+      },
+      {
+        "href": "/glossary/repricing-frequency",
+        "label": "What Is Repricing Frequency?"
+      },
+      {
+        "href": "/guides/when-to-lower-ebay-price",
+        "label": "When to Lower Your eBay Price"
+      },
+      {
+        "href": "/pricing",
+        "label": "Undercut Plans and Pricing"
+      }
+    ],
+    "lastUpdated": "2026-09-03",
+    "leadForm": true
   }
 ]
