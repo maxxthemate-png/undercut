@@ -2,12 +2,14 @@
 logged-in user (JWT). The eBay OAuth callback ties the connected store to the
 user who started the flow (via the `state` param). Plan listing-limit enforced.
 """
+import csv
+import io
 import time as _time
 import uuid
 from datetime import datetime, timedelta
 
 from fastapi import APIRouter, Depends, HTTPException, Header
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, StreamingResponse
 from pydantic import BaseModel
 from sqlalchemy import select, desc, func
 from sqlalchemy.orm import Session
@@ -213,6 +215,36 @@ def list_listings(store_id: str | None = None, user: User = Depends(current_user
             **billing.access_summary(user)}
 
 
+@router.get("/listings/export")
+def export_listings(format: str = "csv", store_id: str | None = None,
+                    user: User = Depends(current_user), db: Session = Depends(get_db)):
+    """Data portability: every listing + pricing rule as CSV, so a seller can
+    leave with their data any time — never lock a seller in by making their own
+    floors/rules only readable inside Undercut."""
+    if format != "csv":
+        raise HTTPException(status_code=400, detail="only format=csv is supported")
+    q = (select(RepricerListing).join(Store, RepricerListing.store_id == Store.id)
+         .where(Store.user_id == user.id))
+    if store_id:
+        q = q.where(RepricerListing.store_id == _uuid(store_id))
+    rows = db.scalars(q).all()
+
+    buf = io.StringIO()
+    w = csv.writer(buf)
+    w.writerow(["ebay_item_id", "sku", "title", "current_price", "floor_price",
+                "ceiling_price", "undercut_value", "undercut_type", "ai_enabled",
+                "repricing_enabled", "last_competitor_low", "last_repriced_at"])
+    for l in rows:
+        w.writerow([l.ebay_item_id, l.sku, l.title, l.current_price, l.floor_price,
+                    l.ceiling_price, l.undercut_value, l.undercut_type, l.ai_enabled,
+                    l.repricing_enabled, l.last_competitor_low,
+                    l.last_repriced_at.isoformat() if l.last_repriced_at else None])
+    buf.seek(0)
+    fname = f"undercut-listings-{datetime.utcnow().date().isoformat()}.csv"
+    return StreamingResponse(iter([buf.getvalue()]), media_type="text/csv",
+                             headers={"Content-Disposition": f'attachment; filename="{fname}"'})
+
+
 def _validate_rule(l: RepricerListing, body: RuleIn) -> str | None:
     """Validate the MERGED rule state (PATCH semantics: incoming value if set,
     else current DB value) so a partial update can't create a broken rule.
@@ -325,6 +357,34 @@ def price_changes(limit: int = 50, user: User = Depends(current_user), db: Sessi
                          "new_price": c.new_price, "competitor_low": c.competitor_low,
                          "source": c.source, "reason": c.reason,
                          "at": c.created_at.isoformat() if c.created_at else None} for c in rows]}
+
+
+@router.get("/price-changes/export")
+def export_price_changes(format: str = "csv", limit: int = 5000,
+                         user: User = Depends(current_user), db: Session = Depends(get_db)):
+    """Data portability: the full reprice history as CSV — same tenant-scoping
+    join as GET /price-changes, just without the row cap that endpoint uses for
+    the dashboard feed."""
+    if format != "csv":
+        raise HTTPException(status_code=400, detail="only format=csv is supported")
+    rows = db.scalars(
+        select(PriceChange).join(RepricerListing, PriceChange.listing_id == RepricerListing.id)
+        .join(Store, RepricerListing.store_id == Store.id)
+        .where(Store.user_id == user.id)
+        .order_by(desc(PriceChange.created_at)).limit(max(1, min(limit, 50000)))).all()
+
+    buf = io.StringIO()
+    w = csv.writer(buf)
+    w.writerow(["listing_id", "old_price", "new_price", "competitor_low", "source",
+                "reason", "margin_protected", "floored", "is_win", "created_at"])
+    for c in rows:
+        w.writerow([str(c.listing_id), c.old_price, c.new_price, c.competitor_low,
+                    c.source, c.reason, c.margin_protected, c.floored, c.is_win,
+                    c.created_at.isoformat() if c.created_at else None])
+    buf.seek(0)
+    fname = f"undercut-price-changes-{datetime.utcnow().date().isoformat()}.csv"
+    return StreamingResponse(iter([buf.getvalue()]), media_type="text/csv",
+                             headers={"Content-Disposition": f'attachment; filename="{fname}"'})
 
 
 @router.get("/value-summary")

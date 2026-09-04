@@ -237,6 +237,26 @@ export default function Dashboard() {
   }
   function logout() { tok.clear(); router.push('/login') }
 
+  // Data portability: sellers evaluating a repricer worry about lock-in — let
+  // them pull their own listings/rules and reprice history out any time, no
+  // support ticket needed.
+  async function exportCsv(kind: 'listings' | 'price-changes') {
+    setBusy(`export-${kind}`)
+    try {
+      const res = await api(`/api/repricer/${kind}/export?format=csv`)
+      if (!res.ok) { alert('Export failed — try again.'); return }
+      const blob = await res.blob()
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      const disposition = res.headers.get('Content-Disposition') || ''
+      const match = disposition.match(/filename="([^"]+)"/)
+      a.href = url
+      a.download = match ? match[1] : `undercut-${kind}.csv`
+      document.body.appendChild(a); a.click(); a.remove()
+      URL.revokeObjectURL(url)
+    } finally { setBusy('') }
+  }
+
   // Usage-based upgrade nudge: the highest-intent upsell moment is when a seller
   // is at/over their listing limit (overflow listings are silently not repriced).
   const limit: number = me?.listing_limit ?? 0
@@ -261,6 +281,7 @@ export default function Dashboard() {
             {me && <span className={`text-xs px-2 py-1 rounded-full ${limitNudge === 'over' ? 'bg-cut-tint text-cut' : limitNudge === 'near' ? 'bg-guard-tint text-guard' : 'bg-wash text-muted'}`} title={limitNudge === 'over' ? `${overflow} listings over your plan limit` : limitNudge === 'near' ? 'Approaching your listing limit' : ''}>{me.plan} · {listings.length}/{me.listing_limit}</span>}
             <button onClick={runReprice} disabled={busy === 'run'} className="px-3 py-1.5 rounded bg-cut-strong text-white font-medium hover:opacity-90 disabled:opacity-50">{busy === 'run' ? 'Repricing…' : '↺ Reprice now'}</button>
             {me && <button onClick={() => document.getElementById('referral-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' })} className="px-3 py-1.5 rounded border border-line text-ink hover:bg-wash whitespace-nowrap">🎁 Refer &amp; earn</button>}
+            {me && <button onClick={() => exportCsv('listings')} disabled={busy === 'export-listings'} title="Download all your listings and pricing rules as CSV — your data, portable any time" className="px-3 py-1.5 rounded border border-line text-ink hover:bg-wash disabled:opacity-50 whitespace-nowrap">{busy === 'export-listings' ? '…' : '⬇ Export CSV'}</button>}
             {me?.stripe_customer_id && <button onClick={manageBilling} disabled={busy === 'portal'} className="px-3 py-1.5 rounded border border-line text-ink hover:bg-wash disabled:opacity-50">{busy === 'portal' ? '…' : 'Billing'}</button>}
             <button onClick={logout} className="text-muted hover:text-ink transition">Log out</button>
           </div>
